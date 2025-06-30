@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>赵嘉宁 - 个人主页</title>
+    <title>赵嘉宁 - 天津大学信息管理与信息系统专业</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -18,9 +18,11 @@
             <ul class="nav-menu">
                 <li><a href="#home" class="nav-link">首页</a></li>
                 <li><a href="#about" class="nav-link">关于我</a></li>
-                <li><a href="#skills" class="nav-link">技能</a></li>
-                <li><a href="#projects" class="nav-link">项目</a></li>
-                <li><a href="#contact" class="nav-link">联系</a></li>
+                <li><a href="#education" class="nav-link">教育背景</a></li>
+                <li><a href="#research" class="nav-link">学术研究</a></li>
+                <li><a href="#projects" class="nav-link">项目经历</a></li>
+                <li><a href="#skills" class="nav-link">技能专长</a></li>
+                <li><a href="#contact" class="nav-link">联系我</a></li>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -39,14 +41,29 @@
                         <span class="greeting">你好，我是</span>
                         <span class="name">赵嘉宁</span>
                     </h1>
-                    <p class="hero-subtitle">全栈开发者 & 创意设计师</p>
+                    <p class="hero-subtitle">天津大学信息管理与信息系统专业 | 全栈开发者 | 数据科学研究者</p>
                     <p class="hero-description">
-                        热爱技术，专注于创造优雅的数字体验。
-                        欢迎来到我的个人空间，让我们一起探索无限可能。
+                        专注于数据科学、后端开发与学术研究，致力于通过技术创新解决实际问题。
+                        在数学建模、数据分析和软件开发领域拥有丰富经验。
                     </p>
                     <div class="hero-buttons">
                         <a href="#contact" class="btn btn-primary">联系我</a>
-                        <a href="#projects" class="btn btn-secondary">查看作品</a>
+                        <a href="#projects" class="btn btn-secondary">查看项目</a>
+                        <a href="mailto:zhaojianing@tju.edu.cn" class="btn btn-outline">发送邮件</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">88.3</div>
+                            <div class="stat-label">加权成绩</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">5+</div>
+                            <div class="stat-label">获奖经历</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">3+</div>
+                            <div class="stat-label">研究项目</div>
+                        </div>
                     </div>
                 </div>
                 <div class="hero-image">
@@ -58,7 +75,7 @@
                         </div>
                         <div class="profile-card">
                             <div class="profile-avatar">
-                                <i class="fas fa-user"></i>
+                                <i class="fas fa-graduation-cap"></i>
                             </div>
                         </div>
                     </div>
@@ -75,36 +92,321 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">关于我</h2>
-                <p class="section-subtitle">了解更多关于我的故事</p>
+                <p class="section-subtitle">了解更多关于我的背景与经历</p>
             </div>
             <div class="about-content">
                 <div class="about-text">
                     <p class="about-description">
-                        我是一名充满激情的开发者，致力于通过技术创造有意义的解决方案。
-                        拥有丰富的前端和后端开发经验，喜欢探索新技术并将其应用到实际项目中。
+                        我是天津大学信息管理与信息系统专业的本科生，对数据科学、后端开发和学术研究充满热情。
+                        在校期间保持优异成绩（加权成绩88.3/100），积极参与各类学术竞赛和科研项目，
+                        获得多项国际国内奖项，包括APMCM亚太地区数学建模大赛一等奖、Kaggle竞赛铜奖等。
                     </p>
-                    <div class="about-stats">
-                        <div class="stat-item">
-                            <div class="stat-number">3+</div>
-                            <div class="stat-label">年经验</div>
+                    <div class="contact-info-brief">
+                        <div class="contact-item-brief">
+                            <i class="fas fa-phone"></i>
+                            <span>(+86) 18910855655</span>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number">50+</div>
-                            <div class="stat-label">完成项目</div>
+                        <div class="contact-item-brief">
+                            <i class="fas fa-envelope"></i>
+                            <span>zhaojianing@tju.edu.cn</span>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number">100%</div>
-                            <div class="stat-label">客户满意度</div>
+                        <div class="contact-item-brief">
+                            <i class="fab fa-github"></i>
+                            <span>github.com/zjncs</span>
+                        </div>
+                        <div class="contact-item-brief">
+                            <i class="fas fa-blog"></i>
+                            <span>zhihu.com/masker</span>
                         </div>
                     </div>
                 </div>
-                <div class="about-image">
-                    <div class="about-card">
-                        <div class="card-content">
-                            <i class="fas fa-code"></i>
-                            <h3>代码艺术家</h3>
-                            <p>用代码创造美好体验</p>
+                <div class="about-highlights">
+                    <div class="highlight-card">
+                        <div class="highlight-icon">
+                            <i class="fas fa-trophy"></i>
                         </div>
+                        <h3>学术成就</h3>
+                        <p>多项国际国内竞赛获奖，SSCI 2区论文发表</p>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>技术实力</h3>
+                        <p>全栈开发经验，数据分析与建模专长</p>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h3>国际视野</h3>
+                        <p>参与国际化人才培养计划，英语六级487分</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="education">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">教育背景</h2>
+                <p class="section-subtitle">我的学习经历与成就</p>
+            </div>
+            <div class="education-content">
+                <div class="education-main">
+                    <div class="education-card">
+                        <div class="education-header">
+                            <div class="university-info">
+                                <h3>天津大学</h3>
+                                <p class="major">信息管理与信息系统 | 全日制本科生在读</p>
+                                <p class="duration">2023.8 - 2027.6（预计）</p>
+                            </div>
+                            <div class="university-logo">
+                                <i class="fas fa-university"></i>
+                            </div>
+                        </div>
+                        <div class="education-details">
+                            <div class="gpa-info">
+                                <span class="gpa-label">加权成绩：</span>
+                                <span class="gpa-score">88.3/100</span>
+                            </div>
+                            <div class="courses">
+                                <h4>主修课程</h4>
+                                <div class="course-tags">
+                                    <span class="course-tag">数据结构</span>
+                                    <span class="course-tag">信息系统开发</span>
+                                    <span class="course-tag">数据库</span>
+                                    <span class="course-tag">计算机网络</span>
+                                    <span class="course-tag">经济学</span>
+                                    <span class="course-tag">运筹学</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="awards-section">
+                    <h3>获奖经历</h3>
+                    <div class="awards-grid">
+                        <div class="award-item">
+                            <div class="award-icon">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                            <div class="award-content">
+                                <h4>2024年天津大学三好学生奖学金</h4>
+                                <p>学术表现优异奖励</p>
+                            </div>
+                        </div>
+                        <div class="award-item">
+                            <div class="award-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="award-content">
+                                <h4>第十四届APMCM亚太地区大学生数学建模大赛一等奖</h4>
+                                <p>Top 5% 成绩</p>
+                            </div>
+                        </div>
+                        <div class="award-item">
+                            <div class="award-icon">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div class="award-content">
+                                <h4>2024年Kaggle-NeurIPS Lux AI Season 3铜奖</h4>
+                                <p>最高排位Top 15</p>
+                            </div>
+                        </div>
+                        <div class="award-item">
+                            <div class="award-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="award-content">
+                                <h4>第十一届能源经济学术创意大赛一等奖</h4>
+                                <p>Top 5% 并推荐国赛</p>
+                            </div>
+                        </div>
+                        <div class="award-item">
+                            <div class="award-icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <div class="award-content">
+                                <h4>2025美国大学生数学建模竞赛H奖</h4>
+                                <p>运筹学D题</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Section -->
+    <section id="research" class="research">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">学术研究</h2>
+                <p class="section-subtitle">我的科研项目与学术成果</p>
+            </div>
+            <div class="research-grid">
+                <div class="research-card">
+                    <div class="research-header">
+                        <div class="research-type">科研经历</div>
+                        <div class="research-period">2023.10 - 2024.7</div>
+                    </div>
+                    <h3>车联网系统数据隐私保护与安全治理研究</h3>
+                    <p class="research-description">
+                        聚焦智能网联汽车产业，深入剖析该领域内的信息安全挑战及大型汽车企业间的战略互动行为
+                    </p>
+                    <div class="research-achievements">
+                        <div class="achievement-item">
+                            <i class="fas fa-database"></i>
+                            <span>整合处理6家主要汽车制造商5年超1万个数据点</span>
+                        </div>
+                        <div class="achievement-item">
+                            <i class="fas fa-calculator"></i>
+                            <span>独立运用Mathematica完成博弈模型建立</span>
+                        </div>
+                        <div class="achievement-item">
+                            <i class="fas fa-file-alt"></i>
+                            <span>SSCI 2区论文发表 (DOI:10.1002/mde.4290)</span>
+                        </div>
+                        <div class="achievement-item">
+                            <i class="fas fa-award"></i>
+                            <span>第十四届全国高校本科生经济年会三等奖</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="research-card">
+                    <div class="research-header">
+                        <div class="research-type">国家级大创</div>
+                        <div class="research-period">2024.4 - 2026.4（预计）</div>
+                    </div>
+                    <h3>数智化餐饮服务系统下消费者行为与运营管理策略研究</h3>
+                    <p class="research-description">
+                        结合排队经济学与数据科学，深入探究数智时代消费者行为规律及服务商最优运营策略
+                    </p>
+                    <div class="research-achievements">
+                        <div class="achievement-item">
+                            <i class="fas fa-chart-line"></i>
+                            <span>分析9073条餐饮交易记录及100家企业运营数据</span>
+                        </div>
+                        <div class="achievement-item">
+                            <i class="fas fa-users"></i>
+                            <span>提炼5个关键消费者行为模式与画像特征</span>
+                        </div>
+                        <div class="achievement-item">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>运用Python、SQL、Tableau进行数据可视化</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="research-card">
+                    <div class="research-header">
+                        <div class="research-type">大创经历</div>
+                        <div class="research-period">2024.4 - 2025.4</div>
+                    </div>
+                    <h3>环保型游戏视域下个人绿色消费行为的机制分析及指数编制</h3>
+                    <p class="research-description">
+                        采用问卷调查形式，通过李克特量表和指数编制，探讨环保型游戏如何驱动个人绿色消费行为
+                    </p>
+                    <div class="research-achievements">
+                        <div class="achievement-item">
+                            <i class="fas fa-poll"></i>
+                            <span>负责SPSS数据分析并构建概念模型</span>
+                        </div>
+                        <div class="achievement-item">
+                            <i class="fas fa-trophy"></i>
+                            <span>能源经济学术创意大赛二等奖</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">项目经历</h2>
+                <p class="section-subtitle">我的实习与开发项目</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card featured">
+                    <div class="project-header">
+                        <div class="project-type">实习项目</div>
+                        <div class="project-period">2024.7 - 2024.9</div>
+                    </div>
+                    <div class="project-company">
+                        <h3>北京东部世界机器人科技有限公司</h3>
+                        <p class="position">后端开发实习生（支付业务）</p>
+                    </div>
+                    <div class="project-description">
+                        <p>为中小商户提供聚合支付解决方案，搭建订单数据管理系统，支持订单、退款、对账等流程的统一管理。</p>
+                    </div>
+                    <div class="project-achievements">
+                        <div class="achievement-item">
+                            <i class="fas fa-code"></i>
+                            <span>使用Spring Boot构建RESTful API，实现核心支付接口</span>
+                        </div>
+                        <div class="achievement-item">
+                            <i class="fas fa-database"></i>
+                            <span>设计订单表与支付流水表数据结构，协助搭建测试数据库</span>
+                        </div>
+                        <div class="achievement-item">
+                            <i class="fas fa-chart-pie"></i>
+                            <span>利用Python和Excel进行支付数据统计分析与可视化</span>
+                        </div>
+                    </div>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Spring Boot</span>
+                        <span class="tech-tag">RabbitMQ</span>
+                        <span class="tech-tag">RESTful API</span>
+                        <span class="tech-tag">JWT</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">Python</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-type">自主开发</div>
+                        <div class="project-period">2025.3 - 至今</div>
+                    </div>
+                    <div class="project-title">
+                        <h3>天大点评 - 校园生活服务点评平台</h3>
+                        <p class="project-role">后端·产品主导</p>
+                    </div>
+                    <div class="project-description">
+                        <p>为提升校园服务透明度和互动性而开发的点评平台，涵盖学习资料、食堂餐品、教室设施、学校课程等多个方面。</p>
+                    </div>
+                    <div class="project-achievements">
+                        <div class="achievement-item">
+                            <i class="fas fa-sitemap"></i>
+                            <span>独立完成需求调研，绘制产品流程图与页面原型</span>
+                        </div>
+                        <div class="achievement-item">
+                            <i class="fas fa-server"></i>
+                            <span>设计数据库结构，实现核心模块开发</span>
+                        </div>
+                        <div class="achievement-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>使用JWT实现用户认证与权限控制</span>
+                        </div>
+                        <div class="achievement-item">
+                            <i class="fas fa-vial"></i>
+                            <span>美食模块已完成开发，正在校内测试</span>
+                        </div>
+                    </div>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Spring Boot</span>
+                        <span class="tech-tag">MyBatis</span>
+                        <span class="tech-tag">Redis</span>
+                        <span class="tech-tag">RabbitMQ</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">JWT</span>
                     </div>
                 </div>
             </div>
@@ -116,120 +418,161 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">技能专长</h2>
-                <p class="section-subtitle">我擅长的技术栈</p>
+                <p class="section-subtitle">我的技术栈与专业能力</p>
             </div>
             <div class="skills-grid">
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fab fa-js-square"></i>
+                <div class="skill-category">
+                    <div class="category-header">
+                        <i class="fas fa-code"></i>
+                        <h3>编程开发</h3>
                     </div>
-                    <h3>JavaScript</h3>
-                    <p>现代JavaScript开发，ES6+语法</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fab fa-react"></i>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <span class="skill-name">Python</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Java</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">SQL</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 88%"></div>
+                            </div>
+                        </div>
                     </div>
-                    <h3>React</h3>
-                    <p>构建交互式用户界面</p>
                 </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fab fa-node-js"></i>
-                    </div>
-                    <h3>Node.js</h3>
-                    <p>服务端JavaScript开发</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fab fa-python"></i>
-                    </div>
-                    <h3>Python</h3>
-                    <p>数据分析与后端开发</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>数据库</h3>
-                    <p>MySQL, MongoDB, PostgreSQL</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <i class="fab fa-aws"></i>
-                    </div>
-                    <h3>云服务</h3>
-                    <p>AWS, 阿里云部署与运维</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">精选项目</h2>
-                <p class="section-subtitle">我的一些代表作品</p>
-            </div>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=600" alt="电商平台">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
-                                <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                <div class="skill-category">
+                    <div class="category-header">
+                        <i class="fas fa-server"></i>
+                        <h3>后端技术</h3>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <span class="skill-name">Spring Boot</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
                             </div>
                         </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>电商平台</h3>
-                        <p>全栈电商解决方案，包含用户管理、商品展示、订单处理等完整功能。</p>
-                        <div class="project-tags">
-                            <span class="tag">React</span>
-                            <span class="tag">Node.js</span>
-                            <span class="tag">MongoDB</span>
+                        <div class="skill-item">
+                            <span class="skill-name">MyBatis</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Redis</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 75%"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="https://images.pexels.com/photos/590016/pexels-photo-590016.jpeg?auto=compress&cs=tinysrgb&w=600" alt="任务管理应用">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
-                                <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+
+                <div class="skill-category">
+                    <div class="category-header">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>数据分析</h3>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <span class="skill-name">Pandas & Matplotlib</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
                             </div>
                         </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>任务管理应用</h3>
-                        <p>高效的团队协作工具，支持项目管理、任务分配和进度跟踪。</p>
-                        <div class="project-tags">
-                            <span class="tag">Vue.js</span>
-                            <span class="tag">Express</span>
-                            <span class="tag">MySQL</span>
+                        <div class="skill-item">
+                            <span class="skill-name">SPSS</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Tableau</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=600" alt="数据可视化平台">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
-                                <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+
+                <div class="skill-category">
+                    <div class="category-header">
+                        <i class="fas fa-calculator"></i>
+                        <h3>数学建模</h3>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <span class="skill-name">Mathematica</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 88%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">运筹学模型</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">博弈论</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 82%"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="project-content">
-                        <h3>数据可视化平台</h3>
-                        <p>企业级数据分析平台，提供丰富的图表和实时数据监控功能。</p>
-                        <div class="project-tags">
-                            <span class="tag">D3.js</span>
-                            <span class="tag">Python</span>
-                            <span class="tag">PostgreSQL</span>
+                </div>
+
+                <div class="skill-category">
+                    <div class="category-header">
+                        <i class="fas fa-file-alt"></i>
+                        <h3>文档工具</h3>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <span class="skill-name">LaTeX</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Office套件</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">Markdown</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 88%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="category-header">
+                        <i class="fas fa-globe"></i>
+                        <h3>语言能力</h3>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <span class="skill-name">英语（六级487分）</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-name">学术英语</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -242,7 +585,7 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">联系我</h2>
-                <p class="section-subtitle">让我们开始一段精彩的合作</p>
+                <p class="section-subtitle">期待与您的交流合作</p>
             </div>
             <div class="contact-content">
                 <div class="contact-info">
@@ -252,7 +595,7 @@
                         </div>
                         <div class="contact-details">
                             <h3>邮箱</h3>
-                            <p>hello@zhaojianing.com</p>
+                            <p>zhaojianing@tju.edu.cn</p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -261,17 +604,30 @@
                         </div>
                         <div class="contact-details">
                             <h3>电话</h3>
-                            <p>+86 138 0000 0000</p>
+                            <p>(+86) 18910855655</p>
                         </div>
                     </div>
                     <div class="contact-item">
                         <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
+                            <i class="fab fa-github"></i>
                         </div>
                         <div class="contact-details">
-                            <h3>位置</h3>
-                            <p>中国，北京</p>
+                            <h3>GitHub</h3>
+                            <p>github.com/zjncs</p>
                         </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-blog"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>知乎</h3>
+                            <p>zhihu.com/masker</p>
+                        </div>
+                    </div>
+                    <div class="personal-summary">
+                        <h3>个人总结</h3>
+                        <p>乐观开朗、成绩优异、自驱能力强，具有良好的沟通能力和团队合作精神。担任快手校园大使、玻色量子校园大使、天津大学EDP学生班主任。参与国际化拔尖创新人才培养计划，在南加州大学商业分析课程和卡内基梅隆大学AI课程中取得A+成绩。</p>
                     </div>
                 </div>
                 <div class="contact-form">
@@ -281,6 +637,9 @@
                         </div>
                         <div class="form-group">
                             <input type="email" placeholder="您的邮箱" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="主题" required>
                         </div>
                         <div class="form-group">
                             <textarea placeholder="您的消息" rows="5" required></textarea>
@@ -297,13 +656,13 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-text">
-                    <p>&copy; 2024 赵嘉宁. 保留所有权利.</p>
+                    <p>&copy; 2024 赵嘉宁 - 天津大学信息管理与信息系统专业. 保留所有权利.</p>
                 </div>
                 <div class="social-links">
-                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-weibo"></i></a>
+                    <a href="https://github.com/zjncs" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://zhihu.com/masker" class="social-link" target="_blank"><i class="fab fa-zhihu"></i></a>
+                    <a href="mailto:zhaojianing@tju.edu.cn" class="social-link"><i class="fas fa-envelope"></i></a>
+                    <a href="tel:+8618910855655" class="social-link"><i class="fas fa-phone"></i></a>
                 </div>
             </div>
         </div>
