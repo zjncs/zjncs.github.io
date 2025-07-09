@@ -17,11 +17,10 @@ paginate: 6
 paginate_path: "/page:num/"
 
 # Plugins
-plugins:
-  - jekyll-feed
-  - jekyll-sitemap
-  - jekyll-seo-tag
-  - jekyll-paginate
+plugins_dir: _plugins
+
+# Plugin configuration will be handled by Gemfile
+# Run 'bundle install' to install plugins
 
 # Collections
 collections:

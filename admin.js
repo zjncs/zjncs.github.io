@@ -20,21 +20,6 @@ let blogData = {
 let currentEditingPost = null;
 let githubIntegration = null;
 
-// 简单的 Markdown 解析器
-function parseMarkdown(content) {
-    return content
-        .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-        .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-        .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-        .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
-        .replace(/\*(.*)\*/gim, '<em>$1</em>')
-        .replace(/```([\s\S]*?)```/gim, '<pre><code>$1</code></pre>')
-        .replace(/`([^`]*)`/gim, '<code>$1</code>')
-        .replace(/^\- (.*$)/gim, '<li>$1</li>')
-        .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
-        .replace(/\n/gim, '<br>');
-}
-
 // 初始化
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM加载完成，开始初始化');
@@ -394,7 +379,14 @@ function updateMarkdownPreview() {
     if (!preview) return;
     
     if (content.trim()) {
-        preview.innerHTML = parseMarkdown(content);
+        // 使用 marked 库进行 Markdown 解析
+        if (typeof marked !== 'undefined') {
+            preview.innerHTML = marked.parse(content);
+        } else {
+            // 降级处理：如果 marked 未加载，显示原始内容
+            preview.innerHTML = '<pre>' + content + '</pre>';
+            console.warn('Marked library not loaded, showing raw content');
+        }
     } else {
         preview.innerHTML = '<p>在左侧编辑器中输入内容，这里会显示预览效果...</p>';
     }
@@ -500,7 +492,13 @@ function parseMarkdownFile(content, filename) {
     // 设置标签
     clearTags();
     if (frontMatter.tags) {
-        const tags = frontMatter.tags.split(',').map(tag => tag.trim());
+        // 处理不同格式的标签
+        let tags = [];
+        if (Array.isArray(frontMatter.tags)) {
+            tags = frontMatter.tags;
+        } else if (typeof frontMatter.tags === 'string') {
+            tags = frontMatter.tags.split(',').map(tag => tag.trim());
+        }
         tags.forEach(tag => addTagToInput(tag));
     }
     
@@ -952,7 +950,7 @@ function previewPost() {
     }
 }
 
-// GitHub集成类（简化版）
+// GitHub集成类
 class GitHubIntegration {
     constructor() {
         this.token = localStorage.getItem('github_token');
@@ -1018,6 +1016,10 @@ class GitHubIntegration {
     async saveAboutPage(content) {
         // 简化的关于页面保存逻辑
         console.log('保存关于页面到GitHub');
+        if (typeof marked !== 'undefined') {
+            // 如果有 marked 库，可以进行预处理
+            const processedContent = marked.parse(content);
+        }
         return Promise.resolve();
     }
 

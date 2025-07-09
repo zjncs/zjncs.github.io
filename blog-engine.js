@@ -1,11 +1,15 @@
-import { marked } from 'marked';
-
 // 博客引擎 - 负责渲染博客内容
 class BlogEngine {
     constructor() {
         this.blogData = this.loadBlogData();
         this.currentPage = 1;
         this.postsPerPage = 5;
+        
+        // 确保 marked 库可用
+        this.marked = window.marked || null;
+        if (!this.marked) {
+            console.warn('Marked library not available, using fallback rendering');
+        }
     }
 
     // 加载博客数据
@@ -165,7 +169,7 @@ console.log('Hello, World!');
                 </header>
                 
                 <div class="post-content">
-                    ${marked(post.content)}
+                    ${this.renderMarkdown(post.content)}
                 </div>
                 
                 <footer class="post-footer">
@@ -304,7 +308,7 @@ console.log('Hello, World!');
                 </div>
                 
                 <div class="about-text">
-                    ${marked(this.blogData.settings.about || '这里是关于页面的内容...')}
+                    ${this.renderMarkdown(this.blogData.settings.about || '这里是关于页面的内容...')}
                 </div>
                 
                 <div class="blog-stats">
@@ -603,6 +607,35 @@ console.log('Hello, World!');
             notification.style.transform = 'translateX(400px)';
             setTimeout(() => notification.remove(), 300);
         }, 3000);
+    }
+    
+    // Markdown 渲染方法
+    renderMarkdown(content) {
+        if (this.marked) {
+            try {
+                return this.marked.parse(content);
+            } catch (error) {
+                console.error('Markdown parsing error:', error);
+                return this.fallbackMarkdownRender(content);
+            }
+        } else {
+            return this.fallbackMarkdownRender(content);
+        }
+    }
+    
+    // 降级 Markdown 渲染（简单处理）
+    fallbackMarkdownRender(content) {
+        return content
+            .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+            .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+            .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+            .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
+            .replace(/\*(.*?)\*/gim, '<em>$1</em>')
+            .replace(/```([\s\S]*?)```/gim, '<pre><code>$1</code></pre>')
+            .replace(/`([^`]*)`/gim, '<code>$1</code>')
+            .replace(/^\- (.*$)/gim, '<li>$1</li>')
+            .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
+            .replace(/\n/gim, '<br>');
     }
 
     // 初始化
