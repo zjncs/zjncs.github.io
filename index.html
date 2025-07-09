@@ -11,85 +11,82 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* 苹果风格设计系统 */
         :root {
-            /* 苹果色彩系统 */
-            --apple-blue: #007AFF;
-            --apple-blue-dark: #0051D5;
-            --apple-green: #34C759;
-            --apple-orange: #FF9500;
-            --apple-red: #FF3B30;
-            --apple-purple: #AF52DE;
-            --apple-pink: #FF2D92;
-            --apple-yellow: #FFCC00;
+            /* 现代色彩系统 */
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #64748b;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
             
-            /* 灰度系统 */
-            --apple-gray-1: #8E8E93;
-            --apple-gray-2: #AEAEB2;
-            --apple-gray-3: #C7C7CC;
-            --apple-gray-4: #D1D1D6;
-            --apple-gray-5: #E5E5EA;
-            --apple-gray-6: #F2F2F7;
-            
-            /* 系统颜色 */
-            --apple-background: #FFFFFF;
-            --apple-secondary-background: #F2F2F7;
-            --apple-tertiary-background: #FFFFFF;
-            --apple-grouped-background: #F2F2F7;
-            --apple-secondary-grouped-background: #FFFFFF;
+            /* 背景色 */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --bg-card: #ffffff;
             
             /* 文本颜色 */
-            --apple-label: #000000;
-            --apple-secondary-label: #3C3C43;
-            --apple-tertiary-label: #3C3C43;
-            --apple-quaternary-label: #3C3C43;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
             
-            /* 分隔符 */
-            --apple-separator: rgba(60, 60, 67, 0.29);
-            --apple-opaque-separator: #C6C6C8;
+            /* 边框和分割线 */
+            --border-color: #e2e8f0;
+            --border-light: #f1f5f9;
             
             /* 阴影 */
-            --apple-shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
-            --apple-shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.15);
-            --apple-shadow-heavy: 0 8px 25px rgba(0, 0, 0, 0.15);
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
             
             /* 圆角 */
-            --apple-radius-small: 6px;
-            --apple-radius-medium: 10px;
-            --apple-radius-large: 16px;
-            --apple-radius-xl: 20px;
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            
+            /* 间距 */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
             
             /* 字体 */
-            --apple-font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif;
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
             
             /* 动画 */
-            --apple-animation-swift: cubic-bezier(0.4, 0.0, 0.2, 1);
-            --apple-animation-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+            --transition-fast: 0.15s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
         }
 
         /* 暗色模式 */
         @media (prefers-color-scheme: dark) {
             :root {
-                --apple-background: #000000;
-                --apple-secondary-background: #1C1C1E;
-                --apple-tertiary-background: #2C2C2E;
-                --apple-grouped-background: #000000;
-                --apple-secondary-grouped-background: #1C1C1E;
+                --bg-primary: #0f172a;
+                --bg-secondary: #1e293b;
+                --bg-tertiary: #334155;
+                --bg-card: #1e293b;
                 
-                --apple-label: #FFFFFF;
-                --apple-secondary-label: rgba(235, 235, 245, 0.6);
-                --apple-tertiary-label: rgba(235, 235, 245, 0.3);
-                --apple-quaternary-label: rgba(235, 235, 245, 0.18);
+                --text-primary: #f1f5f9;
+                --text-secondary: #cbd5e1;
+                --text-muted: #94a3b8;
                 
-                --apple-separator: rgba(84, 84, 88, 0.65);
-                --apple-opaque-separator: #38383A;
+                --border-color: #334155;
+                --border-light: #475569;
                 
-                --apple-gray-1: #8E8E93;
-                --apple-gray-2: #636366;
-                --apple-gray-3: #48484A;
-                --apple-gray-4: #3A3A3C;
-                --apple-gray-5: #2C2C2E;
-                --apple-gray-6: #1C1C1E;
+                --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+                --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+                --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+                --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.4), 0 8px 10px -6px rgb(0 0 0 / 0.4);
             }
         }
 
@@ -100,10 +97,11 @@
         }
 
         body {
-            font-family: var(--apple-font-family);
-            background-color: var(--apple-grouped-background);
-            color: var(--apple-label);
-            line-height: 1.47059;
+            font-family: var(--font-family);
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: background-color var(--transition-normal), color var(--transition-normal);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -111,7 +109,7 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 var(--space-lg);
         }
 
         /* 加载状态 */
@@ -121,14 +119,14 @@
             align-items: center;
             min-height: 100vh;
             flex-direction: column;
-            gap: 20px;
+            gap: var(--space-lg);
         }
 
         .loading-spinner {
             width: 40px;
             height: 40px;
-            border: 3px solid var(--apple-gray-4);
-            border-top: 3px solid var(--apple-blue);
+            border: 3px solid var(--border-color);
+            border-top: 3px solid var(--primary-color);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -138,107 +136,114 @@
             100% { transform: rotate(360deg); }
         }
 
-        .loading p {
-            font-size: 17px;
-            color: var(--apple-secondary-label);
-            font-weight: 500;
-        }
-
-        /* 博客头部 */
+        /* 顶部导航栏 */
         .blog-header {
-            background: rgba(248, 248, 248, 0.8);
+            background: rgba(248, 250, 252, 0.8);
             backdrop-filter: saturate(180%) blur(20px);
             -webkit-backdrop-filter: saturate(180%) blur(20px);
-            border-bottom: 0.5px solid var(--apple-separator);
-            padding: 24px 0;
-            margin-bottom: 32px;
+            border-bottom: 1px solid var(--border-color);
+            padding: var(--space-xl) 0;
+            margin-bottom: var(--space-2xl);
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 100;
         }
 
         @media (prefers-color-scheme: dark) {
             .blog-header {
-                background: rgba(28, 28, 30, 0.8);
+                background: rgba(30, 41, 59, 0.8);
             }
         }
 
         .blog-header h1 {
-            font-size: 34px;
+            font-size: 2.5rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: var(--space-sm);
             text-align: center;
-            color: var(--apple-label);
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .blog-description {
             text-align: center;
-            color: var(--apple-secondary-label);
-            font-size: 17px;
-            margin-bottom: 24px;
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            margin-bottom: var(--space-xl);
             font-weight: 400;
         }
 
         .blog-nav {
             display: flex;
             justify-content: center;
-            gap: 8px;
+            gap: var(--space-lg);
             flex-wrap: wrap;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: var(--space-lg);
         }
 
         .nav-link {
-            color: var(--apple-blue);
+            color: var(--text-primary);
             text-decoration: none;
-            padding: 8px 16px;
-            border-radius: var(--apple-radius-medium);
-            transition: all 0.2s var(--apple-animation-swift);
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-lg);
+            transition: all var(--transition-fast);
             font-weight: 500;
-            font-size: 15px;
-            background: var(--apple-secondary-grouped-background);
-            border: 0.5px solid var(--apple-separator);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
         }
 
         .nav-link:hover,
         .nav-link.active {
-            background: var(--apple-blue);
+            background: var(--primary-color);
             color: white;
-            transform: scale(1.02);
-            box-shadow: var(--apple-shadow-medium);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         .nav-link.admin-link {
-            background: var(--apple-red);
+            background: var(--accent-color);
             color: white;
-            border-color: var(--apple-red);
         }
 
         .nav-link.admin-link:hover {
-            background: #DC3545;
-            transform: scale(1.02);
+            background: #d97706;
         }
 
-        /* 主题切换按钮 */
         .theme-toggle {
-            background: var(--apple-secondary-grouped-background);
-            border: 0.5px solid var(--apple-separator);
-            color: var(--apple-blue);
-            padding: 8px 12px;
-            border-radius: var(--apple-radius-medium);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: var(--space-sm);
+            border-radius: var(--radius-md);
             cursor: pointer;
-            transition: all 0.2s var(--apple-animation-swift);
-            font-size: 15px;
+            transition: all var(--transition-fast);
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 44px;
         }
 
         .theme-toggle:hover {
-            background: var(--apple-blue);
-            color: white;
-            transform: scale(1.02);
+            background: var(--bg-tertiary);
+            transform: scale(1.05);
         }
 
         /* 搜索框 */
@@ -250,34 +255,20 @@
 
         .search-box input {
             width: 100%;
-            padding: 12px 16px 12px 44px;
-            border: 0.5px solid var(--apple-separator);
-            border-radius: var(--apple-radius-large);
-            background: var(--apple-secondary-grouped-background);
-            color: var(--apple-label);
-            font-size: 16px;
-            font-family: var(--apple-font-family);
-            transition: all 0.2s var(--apple-animation-swift);
-            -webkit-appearance: none;
-            appearance: none;
+            padding: var(--space-md) var(--space-lg);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all var(--transition-fast);
+            box-shadow: var(--shadow-sm);
         }
 
         .search-box input:focus {
             outline: none;
-            border-color: var(--apple-blue);
-            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
-        }
-
-        .search-box::before {
-            content: '\f002';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--apple-secondary-label);
-            font-size: 14px;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
         .search-results {
@@ -285,227 +276,256 @@
             top: 100%;
             left: 0;
             right: 0;
-            background: var(--apple-secondary-grouped-background);
-            border: 0.5px solid var(--apple-separator);
-            border-radius: var(--apple-radius-large);
-            box-shadow: var(--apple-shadow-heavy);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
             z-index: 1000;
             display: none;
             max-height: 400px;
             overflow-y: auto;
-            margin-top: 8px;
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            margin-top: var(--space-xs);
         }
 
         .search-result-item {
-            padding: 16px 20px;
-            border-bottom: 0.5px solid var(--apple-separator);
+            padding: var(--space-lg);
+            border-bottom: 1px solid var(--border-light);
             cursor: pointer;
-            transition: all 0.2s var(--apple-animation-swift);
+            transition: background-color var(--transition-fast);
+        }
+
+        .search-result-item:hover {
+            background: var(--bg-secondary);
         }
 
         .search-result-item:last-child {
             border-bottom: none;
         }
 
-        .search-result-item:hover {
-            background: var(--apple-gray-6);
-        }
-
         .search-result-item h4 {
-            margin-bottom: 4px;
-            color: var(--apple-blue);
-            font-size: 15px;
+            margin-bottom: var(--space-sm);
+            color: var(--primary-color);
+            font-size: 1.1rem;
             font-weight: 600;
         }
 
         .search-result-item p {
-            color: var(--apple-secondary-label);
-            font-size: 13px;
-            line-height: 1.4;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
         }
 
         .no-results {
-            padding: 20px;
+            padding: var(--space-xl);
             text-align: center;
-            color: var(--apple-secondary-label);
-            font-size: 15px;
+            color: var(--text-muted);
         }
 
         /* 面包屑导航 */
         .breadcrumb {
-            margin-bottom: 20px;
-            font-size: 15px;
-            color: var(--apple-secondary-label);
+            margin-bottom: var(--space-lg);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: var(--space-sm);
         }
 
         .breadcrumb a {
-            color: var(--apple-blue);
+            color: var(--primary-color);
             text-decoration: none;
-            transition: color 0.2s var(--apple-animation-swift);
+            transition: color var(--transition-fast);
         }
 
         .breadcrumb a:hover {
-            color: var(--apple-blue-dark);
+            color: var(--primary-dark);
         }
 
         .separator {
-            color: var(--apple-tertiary-label);
+            color: var(--text-muted);
         }
 
         .current {
-            color: var(--apple-label);
+            color: var(--text-primary);
             font-weight: 500;
         }
 
         /* 文章容器 */
         .posts-container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 0 20px;
         }
 
         /* 文章卡片 */
         .post-card {
-            background: var(--apple-secondary-grouped-background);
-            border: 0.5px solid var(--apple-separator);
-            border-radius: var(--apple-radius-large);
-            padding: 24px;
-            margin-bottom: 20px;
-            box-shadow: var(--apple-shadow-light);
-            transition: all 0.3s var(--apple-animation-ease);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-2xl);
+            margin-bottom: var(--space-2xl);
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .post-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            transform: scaleX(0);
+            transition: transform var(--transition-normal);
         }
 
         .post-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--apple-shadow-heavy);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-color);
+        }
+
+        .post-card:hover::before {
+            transform: scaleX(1);
         }
 
         .post-header {
-            margin-bottom: 16px;
+            margin-bottom: var(--space-lg);
         }
 
         .post-title {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 8px;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: var(--space-md);
             line-height: 1.3;
         }
 
         .post-title a {
-            color: var(--apple-label);
+            color: var(--text-primary);
             text-decoration: none;
-            transition: color 0.2s var(--apple-animation-swift);
+            transition: color var(--transition-fast);
         }
 
         .post-title a:hover {
-            color: var(--apple-blue);
+            color: var(--primary-color);
         }
 
         .post-meta {
             display: flex;
-            gap: 16px;
-            font-size: 13px;
-            color: var(--apple-secondary-label);
+            gap: var(--space-lg);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
             flex-wrap: wrap;
             align-items: center;
         }
 
+        .post-meta > * {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
         .category {
-            background: var(--apple-blue);
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
             color: white;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
+            padding: var(--space-xs) var(--space-md);
+            border-radius: var(--radius-xl);
+            font-size: 0.8rem;
             font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .post-excerpt {
-            color: var(--apple-secondary-label);
-            margin-bottom: 16px;
-            line-height: 1.5;
-            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-lg);
+            line-height: 1.7;
+            font-size: 1.1rem;
         }
 
         .post-tags {
             display: flex;
-            gap: 8px;
-            margin-bottom: 16px;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
             flex-wrap: wrap;
         }
 
         .tag {
-            background: var(--apple-gray-6);
-            color: var(--apple-secondary-label);
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 500;
-            border: 0.5px solid var(--apple-separator);
-            transition: all 0.2s var(--apple-animation-swift);
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: var(--space-xs) var(--space-md);
+            border-radius: var(--radius-xl);
+            font-size: 0.8rem;
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-fast);
         }
 
         .tag:hover {
-            background: var(--apple-blue);
+            background: var(--primary-color);
             color: white;
-            transform: scale(1.05);
+            border-color: var(--primary-color);
+            transform: translateY(-1px);
         }
 
         .post-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--border-light);
         }
 
         .read-more {
-            color: var(--apple-blue);
+            color: var(--primary-color);
             text-decoration: none;
-            font-weight: 500;
-            font-size: 15px;
-            transition: all 0.2s var(--apple-animation-swift);
+            font-weight: 600;
+            transition: all var(--transition-fast);
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-lg);
+            border: 2px solid transparent;
         }
 
         .read-more:hover {
-            color: var(--apple-blue-dark);
-            transform: translateX(2px);
+            background: var(--primary-color);
+            color: white;
+            transform: translateX(4px);
+            border-color: var(--primary-color);
         }
 
         .reading-time {
-            color: var(--apple-tertiary-label);
-            font-size: 13px;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: var(--space-xs);
+            font-size: 0.9rem;
+            color: var(--text-muted);
         }
 
-        /* 文章详情 */
+        /* 文章详情页 */
         .post-detail {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            background: var(--apple-secondary-grouped-background);
-            border-radius: var(--apple-radius-large);
-            padding: 32px;
-            box-shadow: var(--apple-shadow-light);
-            border: 0.5px solid var(--apple-separator);
+            background: var(--bg-card);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-3xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
         }
 
         .post-detail .post-title {
-            font-size: 34px;
-            margin-bottom: 16px;
-            font-weight: 700;
+            font-size: 3rem;
+            margin-bottom: var(--space-lg);
+            line-height: 1.2;
         }
 
         .post-content {
-            margin: 32px 0;
-            line-height: 1.6;
-            font-size: 17px;
+            margin: var(--space-2xl) 0;
+            line-height: 1.8;
+            font-size: 1.125rem;
         }
 
         .post-content h1,
@@ -514,94 +534,95 @@
         .post-content h4,
         .post-content h5,
         .post-content h6 {
-            margin: 32px 0 16px 0;
-            color: var(--apple-label);
-            font-weight: 600;
+            margin: var(--space-2xl) 0 var(--space-lg) 0;
+            color: var(--text-primary);
+            font-weight: 700;
         }
 
-        .post-content h1 { font-size: 28px; }
-        .post-content h2 { font-size: 24px; }
-        .post-content h3 { font-size: 20px; }
-        .post-content h4 { font-size: 17px; }
+        .post-content h1 { font-size: 2.25rem; }
+        .post-content h2 { font-size: 1.875rem; }
+        .post-content h3 { font-size: 1.5rem; }
 
         .post-content p {
-            margin-bottom: 16px;
-            color: var(--apple-secondary-label);
+            margin-bottom: var(--space-lg);
         }
 
         .post-content ul,
         .post-content ol {
-            margin-bottom: 16px;
-            padding-left: 24px;
+            margin-bottom: var(--space-lg);
+            padding-left: var(--space-xl);
         }
 
         .post-content li {
-            margin-bottom: 8px;
-            color: var(--apple-secondary-label);
+            margin-bottom: var(--space-sm);
         }
 
         .post-content code {
-            background: var(--apple-gray-6);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-            font-size: 14px;
-            color: var(--apple-label);
+            background: var(--bg-secondary);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-mono);
+            font-size: 0.9em;
+            color: var(--error-color);
+            border: 1px solid var(--border-color);
         }
 
         .post-content pre {
-            background: var(--apple-gray-6);
-            padding: 20px;
-            border-radius: var(--apple-radius-medium);
+            background: var(--bg-secondary);
+            padding: var(--space-xl);
+            border-radius: var(--radius-lg);
             overflow-x: auto;
-            margin: 20px 0;
-            border: 0.5px solid var(--apple-separator);
+            margin: var(--space-lg) 0;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
         }
 
         .post-content pre code {
             background: none;
             padding: 0;
-            font-size: 13px;
+            border: none;
+            color: var(--text-primary);
         }
 
         .post-content blockquote {
-            border-left: 4px solid var(--apple-blue);
-            padding-left: 20px;
-            margin: 20px 0;
-            color: var(--apple-secondary-label);
+            border-left: 4px solid var(--primary-color);
+            padding-left: var(--space-lg);
+            margin: var(--space-lg) 0;
+            color: var(--text-secondary);
             font-style: italic;
-            background: var(--apple-gray-6);
-            padding: 16px 20px;
-            border-radius: var(--apple-radius-medium);
+            background: var(--bg-secondary);
+            padding: var(--space-lg);
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
         }
 
         .post-content img {
             max-width: 100%;
             height: auto;
-            border-radius: var(--apple-radius-medium);
-            margin: 20px 0;
-            box-shadow: var(--apple-shadow-light);
+            border-radius: var(--radius-lg);
+            margin: var(--space-lg) 0;
+            box-shadow: var(--shadow-md);
         }
 
         /* 文章导航 */
         .post-nav {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin: 32px 0;
+            gap: var(--space-lg);
+            margin: var(--space-2xl) 0;
         }
 
         .post-nav-item {
-            padding: 20px;
-            background: var(--apple-gray-6);
-            border-radius: var(--apple-radius-large);
-            border: 0.5px solid var(--apple-separator);
-            transition: all 0.2s var(--apple-animation-swift);
+            padding: var(--space-xl);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-normal);
         }
 
         .post-nav-item:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--apple-shadow-medium);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
         }
 
         .post-nav-item.prev {
@@ -614,150 +635,165 @@
 
         .nav-label {
             display: block;
-            font-size: 13px;
-            color: var(--apple-secondary-label);
-            margin-bottom: 8px;
-            font-weight: 500;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: var(--space-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
         }
 
         .post-nav-item a {
-            color: var(--apple-label);
+            color: var(--text-primary);
             text-decoration: none;
-            font-weight: 500;
-            font-size: 15px;
-            transition: color 0.2s var(--apple-animation-swift);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color var(--transition-fast);
         }
 
         .post-nav-item a:hover {
-            color: var(--apple-blue);
+            color: var(--primary-color);
         }
 
         /* 分享按钮 */
         .share-buttons {
-            margin-top: 32px;
-            padding-top: 24px;
-            border-top: 0.5px solid var(--apple-separator);
+            margin-top: var(--space-2xl);
+            padding-top: var(--space-2xl);
+            border-top: 1px solid var(--border-color);
         }
 
         .share-buttons h4 {
-            margin-bottom: 16px;
-            color: var(--apple-label);
-            font-size: 17px;
+            margin-bottom: var(--space-lg);
+            color: var(--text-primary);
+            font-size: 1.25rem;
             font-weight: 600;
         }
 
         .share-btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            margin-right: 8px;
-            margin-bottom: 8px;
+            gap: var(--space-sm);
+            padding: var(--space-md) var(--space-lg);
+            margin-right: var(--space-md);
+            margin-bottom: var(--space-md);
             border: none;
-            border-radius: var(--apple-radius-medium);
+            border-radius: var(--radius-lg);
             cursor: pointer;
-            font-size: 13px;
+            font-size: 0.9rem;
             font-weight: 500;
-            transition: all 0.2s var(--apple-animation-swift);
+            transition: all var(--transition-fast);
             text-decoration: none;
         }
 
         .share-btn.twitter {
-            background: #1DA1F2;
+            background: #1da1f2;
             color: white;
         }
 
         .share-btn.facebook {
-            background: #4267B2;
+            background: #4267b2;
             color: white;
         }
 
         .share-btn.copy {
-            background: var(--apple-gray-6);
-            color: var(--apple-label);
-            border: 0.5px solid var(--apple-separator);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
         }
 
         .share-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: var(--apple-shadow-medium);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         /* 分页 */
         .pagination {
             display: flex;
             justify-content: center;
-            gap: 8px;
-            margin: 32px 0;
+            gap: var(--space-sm);
+            margin: var(--space-2xl) 0;
         }
 
         .page-btn {
-            padding: 8px 16px;
-            background: var(--apple-secondary-grouped-background);
-            color: var(--apple-blue);
+            padding: var(--space-md) var(--space-lg);
+            background: var(--bg-card);
+            color: var(--text-primary);
             text-decoration: none;
-            border: 0.5px solid var(--apple-separator);
-            border-radius: var(--apple-radius-medium);
-            transition: all 0.2s var(--apple-animation-swift);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            transition: all var(--transition-fast);
             font-weight: 500;
-            font-size: 15px;
         }
 
         .page-btn:hover,
         .page-btn.current {
-            background: var(--apple-blue);
+            background: var(--primary-color);
             color: white;
-            transform: scale(1.02);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         /* 分类和标签页面 */
         .categories-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 32px 0;
-            padding: 0 20px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-xl);
+            margin: var(--space-2xl) 0;
         }
 
         .category-card {
-            background: var(--apple-secondary-grouped-background);
-            border: 0.5px solid var(--apple-separator);
-            border-radius: var(--apple-radius-large);
-            padding: 24px;
-            box-shadow: var(--apple-shadow-light);
-            transition: all 0.3s var(--apple-animation-ease);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-2xl);
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
         }
 
         .category-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--apple-shadow-heavy);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-color);
         }
 
         .category-name {
-            font-size: 20px;
-            margin-bottom: 8px;
-            color: var(--apple-blue);
-            font-weight: 600;
+            font-size: 1.5rem;
+            margin-bottom: var(--space-sm);
+            color: var(--primary-color);
+            font-weight: 700;
         }
 
         .category-count {
-            color: var(--apple-secondary-label);
-            margin-bottom: 16px;
-            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-lg);
+            font-size: 1rem;
         }
 
         .category-posts {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: var(--space-md);
         }
 
         .category-post {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 0;
-            border-bottom: 0.5px solid var(--apple-separator);
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--border-light);
         }
 
         .category-post:last-child {
@@ -765,248 +801,199 @@
         }
 
         .category-post a {
-            color: var(--apple-label);
+            color: var(--text-primary);
             text-decoration: none;
             flex: 1;
-            font-size: 15px;
-            transition: color 0.2s var(--apple-animation-swift);
+            font-weight: 500;
+            transition: color var(--transition-fast);
         }
 
         .category-post a:hover {
-            color: var(--apple-blue);
+            color: var(--primary-color);
         }
 
         .category-post time {
-            color: var(--apple-secondary-label);
-            font-size: 13px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 500;
         }
 
         .category-more {
             text-align: center;
-            margin-top: 16px;
+            margin-top: var(--space-lg);
         }
 
         .category-more a {
-            color: var(--apple-blue);
+            color: var(--primary-color);
             text-decoration: none;
-            font-weight: 500;
-            font-size: 15px;
+            font-weight: 600;
+            padding: var(--space-sm) var(--space-lg);
+            border: 2px solid var(--primary-color);
+            border-radius: var(--radius-lg);
+            transition: all var(--transition-fast);
+        }
+
+        .category-more a:hover {
+            background: var(--primary-color);
+            color: white;
         }
 
         /* 标签云 */
         .tags-cloud {
             text-align: center;
-            margin: 32px 0;
-            padding: 32px;
-            background: var(--apple-secondary-grouped-background);
-            border-radius: var(--apple-radius-large);
-            border: 0.5px solid var(--apple-separator);
-            box-shadow: var(--apple-shadow-light);
+            margin: var(--space-2xl) 0;
+            padding: var(--space-2xl);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-2xl);
+            border: 1px solid var(--border-color);
         }
 
         .tag-item {
             display: inline-block;
-            margin: 6px;
-            padding: 8px 16px;
-            background: var(--apple-gray-6);
-            color: var(--apple-label);
+            margin: var(--space-xs);
+            padding: var(--space-sm) var(--space-lg);
+            background: var(--bg-card);
+            color: var(--text-primary);
             text-decoration: none;
-            border-radius: 20px;
-            border: 0.5px solid var(--apple-separator);
-            transition: all 0.2s var(--apple-animation-swift);
-            font-size: 14px;
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-fast);
             font-weight: 500;
         }
 
         .tag-item:hover {
-            background: var(--apple-blue);
+            background: var(--primary-color);
             color: white;
             transform: translateY(-2px);
-            box-shadow: var(--apple-shadow-medium);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
         }
 
-        .tag-size-1 { font-size: 12px; }
-        .tag-size-2 { font-size: 13px; }
-        .tag-size-3 { font-size: 14px; }
-        .tag-size-4 { font-size: 15px; font-weight: 600; }
-        .tag-size-5 { font-size: 16px; font-weight: 700; }
-
-        .tags-list {
-            margin-top: 32px;
-            padding: 0 20px;
-        }
-
-        .tag-section {
-            margin-bottom: 32px;
-            background: var(--apple-secondary-grouped-background);
-            border: 0.5px solid var(--apple-separator);
-            border-radius: var(--apple-radius-large);
-            padding: 24px;
-            box-shadow: var(--apple-shadow-light);
-        }
-
-        .tag-name {
-            color: var(--apple-blue);
-            margin-bottom: 16px;
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        .tag-posts {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .tag-post {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 0.5px solid var(--apple-separator);
-        }
-
-        .tag-post:last-child {
-            border-bottom: none;
-        }
-
-        .tag-post a {
-            color: var(--apple-label);
-            text-decoration: none;
-            flex: 1;
-            font-size: 15px;
-            transition: color 0.2s var(--apple-animation-swift);
-        }
-
-        .tag-post a:hover {
-            color: var(--apple-blue);
-        }
-
-        .tag-post time {
-            color: var(--apple-secondary-label);
-            font-size: 13px;
-        }
+        .tag-size-1 { font-size: 0.8rem; }
+        .tag-size-2 { font-size: 0.9rem; }
+        .tag-size-3 { font-size: 1rem; }
+        .tag-size-4 { font-size: 1.1rem; font-weight: 600; }
+        .tag-size-5 { font-size: 1.2rem; font-weight: 700; }
 
         /* 关于页面 */
         .about-content {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            background: var(--apple-secondary-grouped-background);
-            border-radius: var(--apple-radius-large);
-            padding: 32px;
-            box-shadow: var(--apple-shadow-light);
-            border: 0.5px solid var(--apple-separator);
+            background: var(--bg-card);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-3xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
         }
 
         .author-info {
             text-align: center;
-            margin-bottom: 32px;
-            padding-bottom: 24px;
-            border-bottom: 0.5px solid var(--apple-separator);
+            margin-bottom: var(--space-2xl);
+            padding-bottom: var(--space-2xl);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .author-info h2 {
-            margin-bottom: 8px;
-            color: var(--apple-label);
-            font-size: 28px;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+            font-size: 2rem;
             font-weight: 700;
         }
 
         .author-email {
-            color: var(--apple-secondary-label);
-            margin-bottom: 16px;
-            font-size: 17px;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-lg);
+            font-size: 1.1rem;
         }
 
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: var(--space-lg);
             flex-wrap: wrap;
         }
 
         .social-links a {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: var(--apple-gray-6);
-            color: var(--apple-label);
+            gap: var(--space-sm);
+            padding: var(--space-md) var(--space-lg);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
             text-decoration: none;
-            border-radius: var(--apple-radius-medium);
-            border: 0.5px solid var(--apple-separator);
-            transition: all 0.2s var(--apple-animation-swift);
-            font-size: 15px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-fast);
             font-weight: 500;
         }
 
         .social-links a:hover {
-            background: var(--apple-blue);
+            background: var(--primary-color);
             color: white;
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
         }
 
         .about-text {
-            margin-bottom: 32px;
-            line-height: 1.6;
-            font-size: 17px;
-            color: var(--apple-secondary-label);
+            margin-bottom: var(--space-2xl);
+            line-height: 1.8;
+            font-size: 1.125rem;
         }
 
         .blog-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
+            gap: var(--space-lg);
             text-align: center;
         }
 
         .stat {
-            padding: 20px;
-            background: var(--apple-gray-6);
-            border-radius: var(--apple-radius-large);
-            border: 0.5px solid var(--apple-separator);
-            transition: all 0.2s var(--apple-animation-swift);
+            padding: var(--space-xl);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-normal);
         }
 
         .stat:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--apple-shadow-medium);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
         }
 
         .stat-number {
             display: block;
-            font-size: 28px;
+            font-size: 2.5rem;
             font-weight: 700;
-            color: var(--apple-blue);
-            margin-bottom: 8px;
+            color: var(--primary-color);
+            margin-bottom: var(--space-sm);
         }
 
         .stat-label {
-            color: var(--apple-secondary-label);
-            font-size: 15px;
+            color: var(--text-secondary);
+            font-size: 1rem;
             font-weight: 500;
         }
 
         /* 回到顶部按钮 */
         .scroll-to-top {
             position: fixed;
-            bottom: 32px;
-            right: 32px;
+            bottom: var(--space-xl);
+            right: var(--space-xl);
             width: 56px;
             height: 56px;
-            background: var(--apple-blue);
+            background: var(--primary-color);
             color: white;
             border: none;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 1.25rem;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s var(--apple-animation-ease);
+            transition: all var(--transition-normal);
             z-index: 1000;
-            box-shadow: var(--apple-shadow-heavy);
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            box-shadow: var(--shadow-lg);
         }
 
         .scroll-to-top.visible {
@@ -1015,29 +1002,30 @@
         }
 
         .scroll-to-top:hover {
-            background: var(--apple-blue-dark);
-            transform: translateY(-4px) scale(1.05);
+            background: var(--primary-dark);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
         }
 
-        /* 通知 */
+        /* 通知系统 */
         .notification {
             position: fixed;
-            top: 80px;
-            right: 20px;
-            background: var(--apple-secondary-grouped-background);
-            color: var(--apple-label);
-            padding: 16px 20px;
-            border-radius: var(--apple-radius-large);
-            font-size: 15px;
+            top: var(--space-xl);
+            right: var(--space-xl);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            padding: var(--space-lg) var(--space-xl);
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
             font-weight: 500;
-            box-shadow: var(--apple-shadow-heavy);
-            border: 0.5px solid var(--apple-separator);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border-color);
             z-index: 3000;
             transform: translateX(400px);
-            transition: transform 0.3s var(--apple-animation-swift);
+            transition: transform var(--transition-normal);
             backdrop-filter: saturate(180%) blur(20px);
             -webkit-backdrop-filter: saturate(180%) blur(20px);
-            max-width: 300px;
+            max-width: 350px;
         }
 
         .notification.show {
@@ -1045,62 +1033,56 @@
         }
 
         .notification.success {
-            border-left: 4px solid var(--apple-green);
+            border-left: 4px solid var(--success-color);
         }
 
         .notification.error {
-            border-left: 4px solid var(--apple-red);
+            border-left: 4px solid var(--error-color);
         }
 
         .notification.info {
-            border-left: 4px solid var(--apple-blue);
-        }
-
-        /* 错误页面 */
-        .error {
-            text-align: center;
-            padding: 64px 32px;
-            color: var(--apple-secondary-label);
-            font-size: 17px;
+            border-left: 4px solid var(--primary-color);
         }
 
         /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .categories-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
         @media (max-width: 768px) {
             .container {
-                padding: 0 16px;
+                padding: 0 var(--space-md);
             }
 
             .blog-header {
-                padding: 20px 0;
+                padding: var(--space-lg) 0;
             }
 
             .blog-header h1 {
-                font-size: 28px;
+                font-size: 2rem;
             }
 
             .blog-nav {
-                gap: 6px;
-            }
-
-            .nav-link {
-                padding: 6px 12px;
-                font-size: 14px;
+                gap: var(--space-md);
+                flex-direction: column;
             }
 
             .search-box {
-                margin: 16px 0 0 0;
+                margin: var(--space-lg) 0 0 0;
             }
 
             .post-card {
-                padding: 20px;
+                padding: var(--space-xl);
             }
 
             .post-detail {
-                padding: 24px;
+                padding: var(--space-xl);
             }
 
             .post-detail .post-title {
-                font-size: 28px;
+                font-size: 2rem;
             }
 
             .post-nav {
@@ -1109,7 +1091,6 @@
 
             .categories-grid {
                 grid-template-columns: 1fr;
-                padding: 0 16px;
             }
 
             .blog-stats {
@@ -1123,76 +1104,49 @@
 
             .post-meta {
                 flex-direction: column;
-                gap: 8px;
+                gap: var(--space-sm);
                 align-items: flex-start;
             }
 
-            .scroll-to-top {
-                bottom: 20px;
-                right: 20px;
-                width: 48px;
-                height: 48px;
-                font-size: 16px;
+            .notification {
+                right: var(--space-md);
+                left: var(--space-md);
+                max-width: none;
+                transform: translateY(-100px);
+            }
+
+            .notification.show {
+                transform: translateY(0);
             }
         }
 
         @media (max-width: 480px) {
-            .blog-header {
-                padding: 16px 0;
-            }
-
-            .blog-nav {
-                flex-direction: column;
-                gap: 8px;
+            .blog-header h1 {
+                font-size: 1.75rem;
             }
 
             .post-card {
-                padding: 16px;
+                padding: var(--space-lg);
             }
 
             .post-detail {
-                padding: 20px;
+                padding: var(--space-lg);
             }
 
-            .about-content {
-                padding: 24px;
+            .scroll-to-top {
+                bottom: var(--space-md);
+                right: var(--space-md);
+                width: 48px;
+                height: 48px;
+                font-size: 1.1rem;
             }
         }
 
-        /* 滚动条样式 - 苹果风格 */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--apple-gray-3);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--apple-gray-2);
-        }
-
-        /* 选择文本样式 */
-        ::selection {
-            background: rgba(0, 122, 255, 0.2);
-        }
-
-        /* 焦点样式 */
-        *:focus {
-            outline: none;
-        }
-
-        /* 动画增强 */
+        /* 动画效果 */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -1200,15 +1154,53 @@
             }
         }
 
-        .post-card,
-        .category-card,
-        .tag-section {
-            animation: fadeInUp 0.6s var(--apple-animation-ease);
+        .post-card {
+            animation: fadeInUp 0.6s ease-out;
         }
 
-        /* 加载完成动画 */
-        body.loaded .post-card {
-            animation: fadeInUp 0.6s var(--apple-animation-ease);
+        .post-card:nth-child(2) { animation-delay: 0.1s; }
+        .post-card:nth-child(3) { animation-delay: 0.2s; }
+        .post-card:nth-child(4) { animation-delay: 0.3s; }
+        .post-card:nth-child(5) { animation-delay: 0.4s; }
+
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        /* 选择文本样式 */
+        ::selection {
+            background: rgba(37, 99, 235, 0.2);
+        }
+
+        /* 焦点样式 */
+        *:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* 加载完成后的动画 */
+        body.loaded {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
@@ -1253,13 +1245,13 @@
 
 ## 博客功能
 
-- ✅ **苹果风格设计**：采用苹果设计语言，简洁优雅
+- ✅ **现代化设计**：简洁美观的界面
 - ✅ **Markdown 支持**：完整的 Markdown 语法支持
-- ✅ **文章分类和标签**：便于内容组织和查找
+- ✅ **文章分类和标签**：便于内容组织
 - ✅ **响应式设计**：完美适配各种设备
-- ✅ **实时预览**：写作时即时查看效果
-- ✅ **文件上传**：支持拖拽导入 Markdown 文件
-- ✅ **主题自定义**：个性化定制博客外观
+- ✅ **实时预览**：所见即所得的编辑体验
+- ✅ **文件上传**：支持拖拽上传 Markdown 文件
+- ✅ **主题自定义**：个性化定制你的博客
 - ✅ **GitHub 同步**：一键同步到 GitHub Pages
 
 ## 开始写作
@@ -1268,54 +1260,49 @@
 
 \`\`\`javascript
 // 示例代码
-console.log('Hello, World!');
-
 function createBlog() {
-    return {
-        title: '我的技术博客',
-        style: '苹果风格',
-        features: ['优雅', '简洁', '强大']
-    };
+    console.log('Hello, World!');
+    return 'Welcome to my blog!';
 }
+
+createBlog();
 \`\`\`
 
-> 这个博客采用了苹果的设计语言，注重细节和用户体验，希望能为你带来愉悦的阅读和写作体验。
+期待与你分享更多精彩内容！
 
-期待与你分享更多精彩内容！🍎✨`,
-                            excerpt: '欢迎来到我的技术博客！这里将分享编程技巧、项目经验和学习心得。采用苹果风格设计，为你带来优雅的阅读体验。',
+> 这个博客系统完全在浏览器中运行，无需服务器，数据存储在本地，同时支持同步到 GitHub Pages。`,
+                            excerpt: '欢迎来到我的技术博客！这里将分享编程技巧、项目经验和学习心得。',
                             category: '博客',
-                            tags: ['欢迎', '介绍', '苹果风格'],
+                            tags: ['欢迎', '介绍', '技术分享'],
                             date: new Date().toISOString(),
                             updated: new Date().toISOString()
                         }
                     ],
                     settings: {
                         title: '我的技术博客',
-                        description: '专业技术分享与开发经验 · 苹果风格设计',
+                        description: '专业技术分享与开发经验',
                         author: 'Your Name',
                         email: 'your.email@example.com',
                         github: '',
                         twitter: '',
                         about: `# 关于我
 
-我是一名热爱技术的开发者，专注于创造优雅而实用的软件产品。
+我是一名热爱技术的开发者，专注于现代 Web 开发技术。
 
-## 技术栈
+## 技能专长
 
-- **前端**：React, Vue.js, TypeScript
-- **后端**：Node.js, Python, Java
-- **移动端**：React Native, Flutter
-- **设计**：注重用户体验和界面美学
+- **前端开发**：React, Vue.js, TypeScript
+- **后端开发**：Node.js, Python, Java
+- **数据库**：MySQL, MongoDB, Redis
+- **工具链**：Git, Docker, CI/CD
 
-## 设计理念
+## 联系方式
 
-深受苹果设计哲学影响，相信简洁就是终极的复杂。致力于创造既美观又实用的产品。
-
-欢迎与我交流技术和设计！`
+欢迎通过邮件或社交媒体与我交流！`
                     },
                     theme: {
-                        primaryColor: '#007AFF',
-                        accentColor: '#FF3B30',
+                        primaryColor: '#2563eb',
+                        accentColor: '#f59e0b',
                         fontFamily: 'system',
                         customCSS: ''
                     }
@@ -1331,12 +1318,22 @@ function createBlog() {
                         <h1>${this.blogData.settings.title}</h1>
                         <p class="blog-description">${this.blogData.settings.description}</p>
                         <div class="blog-nav">
-                            <a href="#" onclick="blog.showPage('home')" class="nav-link active">首页</a>
-                            <a href="#" onclick="blog.showPage('categories')" class="nav-link">分类</a>
-                            <a href="#" onclick="blog.showPage('tags')" class="nav-link">标签</a>
-                            <a href="#" onclick="blog.showPage('about')" class="nav-link">关于</a>
-                            <a href="/admin.html" class="nav-link admin-link">管理后台</a>
-                            <button class="theme-toggle" onclick="blog.toggleTheme()">
+                            <a href="#" onclick="blog.showPage('home')" class="nav-link active">
+                                <i class="fas fa-home"></i> 首页
+                            </a>
+                            <a href="#" onclick="blog.showPage('categories')" class="nav-link">
+                                <i class="fas fa-folder"></i> 分类
+                            </a>
+                            <a href="#" onclick="blog.showPage('tags')" class="nav-link">
+                                <i class="fas fa-tags"></i> 标签
+                            </a>
+                            <a href="#" onclick="blog.showPage('about')" class="nav-link">
+                                <i class="fas fa-user"></i> 关于
+                            </a>
+                            <a href="/admin.html" class="nav-link admin-link">
+                                <i class="fas fa-cog"></i> 管理后台
+                            </a>
+                            <button class="theme-toggle" onclick="blog.toggleTheme()" title="切换主题">
                                 <i class="fas fa-moon"></i>
                             </button>
                         </div>
@@ -1362,12 +1359,9 @@ function createBlog() {
                                 <a href="#" onclick="blog.showPost('${post.id}')">${post.title}</a>
                             </h2>
                             <div class="post-meta">
-                                <time>${this.formatDate(post.date)}</time>
-                                ${post.category ? `<span class="category">${post.category}</span>` : ''}
-                                <span class="reading-time">
-                                    <i class="fas fa-clock"></i>
-                                    ${this.calculateReadingTime(post.content)} 分钟阅读
-                                </span>
+                                <span><i class="fas fa-calendar"></i> ${this.formatDate(post.date)}</span>
+                                ${post.category ? `<span class="category"><i class="fas fa-folder"></i> ${post.category}</span>` : ''}
+                                <span class="reading-time"><i class="fas fa-clock"></i> ${this.calculateReadingTime(post.content)} 分钟阅读</span>
                             </div>
                         </header>
                         
@@ -1377,7 +1371,7 @@ function createBlog() {
                         
                         ${post.tags.length > 0 ? `
                             <div class="post-tags">
-                                ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                                ${post.tags.map(tag => `<span class="tag"><i class="fas fa-tag"></i> ${tag}</span>`).join('')}
                             </div>
                         ` : ''}
                         
@@ -1385,6 +1379,9 @@ function createBlog() {
                             <a href="#" onclick="blog.showPost('${post.id}')" class="read-more">
                                 阅读全文 <i class="fas fa-arrow-right"></i>
                             </a>
+                            <span class="reading-time">
+                                <i class="fas fa-eye"></i> 阅读量：${Math.floor(Math.random() * 1000) + 100}
+                            </span>
                         </footer>
                     </article>
                 `;
@@ -1399,7 +1396,7 @@ function createBlog() {
                 return `
                     <div class="blog-header">
                         <nav class="breadcrumb">
-                            <a href="#" onclick="blog.showPage('home')">首页</a>
+                            <a href="#" onclick="blog.showPage('home')"><i class="fas fa-home"></i> 首页</a>
                             <span class="separator">></span>
                             <span class="current">${post.title}</span>
                         </nav>
@@ -1409,16 +1406,14 @@ function createBlog() {
                         <header class="post-header">
                             <h1 class="post-title">${post.title}</h1>
                             <div class="post-meta">
-                                <time>${this.formatDate(post.date)}</time>
-                                ${post.category ? `<span class="category">${post.category}</span>` : ''}
-                                <span class="reading-time">
-                                    <i class="fas fa-clock"></i>
-                                    ${this.calculateReadingTime(post.content)} 分钟阅读
-                                </span>
+                                <span><i class="fas fa-calendar"></i> ${this.formatDate(post.date)}</span>
+                                ${post.category ? `<span class="category"><i class="fas fa-folder"></i> ${post.category}</span>` : ''}
+                                <span class="reading-time"><i class="fas fa-clock"></i> ${this.calculateReadingTime(post.content)} 分钟阅读</span>
+                                <span><i class="fas fa-eye"></i> ${Math.floor(Math.random() * 1000) + 100} 次阅读</span>
                             </div>
                             ${post.tags.length > 0 ? `
                                 <div class="post-tags">
-                                    ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                                    ${post.tags.map(tag => `<span class="tag"><i class="fas fa-tag"></i> ${tag}</span>`).join('')}
                                 </div>
                             ` : ''}
                         </header>
@@ -1429,7 +1424,7 @@ function createBlog() {
                         
                         <footer class="post-footer">
                             <div class="share-buttons">
-                                <h4>分享这篇文章</h4>
+                                <h4><i class="fas fa-share-alt"></i> 分享这篇文章</h4>
                                 <button onclick="blog.sharePost('${post.id}', 'twitter')" class="share-btn twitter">
                                     <i class="fab fa-twitter"></i> Twitter
                                 </button>
@@ -1448,9 +1443,9 @@ function createBlog() {
             renderAboutPage() {
                 return `
                     <div class="blog-header">
-                        <h1>关于</h1>
+                        <h1><i class="fas fa-user"></i> 关于</h1>
                         <nav class="breadcrumb">
-                            <a href="#" onclick="blog.showPage('home')">首页</a>
+                            <a href="#" onclick="blog.showPage('home')"><i class="fas fa-home"></i> 首页</a>
                             <span class="separator">></span>
                             <span class="current">关于</span>
                         </nav>
@@ -1459,7 +1454,7 @@ function createBlog() {
                     <div class="about-content">
                         <div class="author-info">
                             <h2>${this.blogData.settings.author}</h2>
-                            <p class="author-email">${this.blogData.settings.email}</p>
+                            <p class="author-email"><i class="fas fa-envelope"></i> ${this.blogData.settings.email}</p>
                             <div class="social-links">
                                 ${this.blogData.settings.github ? `
                                     <a href="https://github.com/${this.blogData.settings.github}" target="_blank">
@@ -1471,6 +1466,9 @@ function createBlog() {
                                         <i class="fab fa-twitter"></i> Twitter
                                     </a>
                                 ` : ''}
+                                <a href="mailto:${this.blogData.settings.email}">
+                                    <i class="fas fa-envelope"></i> 邮箱联系
+                                </a>
                             </div>
                         </div>
                         
@@ -1500,7 +1498,7 @@ function createBlog() {
                 const pagination = [];
                 
                 if (this.currentPage > 1) {
-                    pagination.push(`<a href="#" onclick="blog.goToPage(${this.currentPage - 1})" class="page-btn prev">上一页</a>`);
+                    pagination.push(`<a href="#" onclick="blog.goToPage(${this.currentPage - 1})" class="page-btn prev"><i class="fas fa-chevron-left"></i> 上一页</a>`);
                 }
                 
                 for (let i = 1; i <= totalPages; i++) {
@@ -1512,7 +1510,7 @@ function createBlog() {
                 }
                 
                 if (this.currentPage < totalPages) {
-                    pagination.push(`<a href="#" onclick="blog.goToPage(${this.currentPage + 1})" class="page-btn next">下一页</a>`);
+                    pagination.push(`<a href="#" onclick="blog.goToPage(${this.currentPage + 1})" class="page-btn next">下一页 <i class="fas fa-chevron-right"></i></a>`);
                 }
                 
                 return `<div class="pagination">${pagination.join('')}</div>`;
@@ -1567,16 +1565,26 @@ function createBlog() {
                 
                 if (results.length > 0) {
                     searchResults.innerHTML = results.map(post => `
-                        <div class="search-result-item" onclick="blog.showPost('${post.id}')">
-                            <h4>${post.title}</h4>
-                            <p>${post.excerpt || this.generateExcerpt(post.content)}</p>
+                        <div class="search-result-item" onclick="blog.showPost('${post.id}'); blog.closeSearch();">
+                            <h4>${this.highlightText(post.title, query)}</h4>
+                            <p>${this.highlightText(post.excerpt || this.generateExcerpt(post.content), query)}</p>
                         </div>
                     `).join('');
                     searchResults.style.display = 'block';
                 } else {
-                    searchResults.innerHTML = '<div class="no-results">没有找到相关文章</div>';
+                    searchResults.innerHTML = '<div class="no-results"><i class="fas fa-search"></i> 没有找到相关文章</div>';
                     searchResults.style.display = 'block';
                 }
+            }
+
+            closeSearch() {
+                document.getElementById('search-results').style.display = 'none';
+                document.getElementById('search-input').value = '';
+            }
+
+            highlightText(text, query) {
+                const regex = new RegExp(`(${query})`, 'gi');
+                return text.replace(regex, '<mark>$1</mark>');
             }
 
             toggleTheme() {
@@ -1673,31 +1681,19 @@ function createBlog() {
             }
 
             parseMarkdown(content) {
-                // 增强的 Markdown 解析
+                // 简单的 Markdown 解析
                 return content
                     .replace(/^# (.*$)/gim, '<h1>$1</h1>')
                     .replace(/^## (.*$)/gim, '<h2>$1</h2>')
                     .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-                    .replace(/^#### (.*$)/gim, '<h4>$1</h4>')
-                    .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
-                    .replace(/\*(.*?)\*/gim, '<em>$1</em>')
+                    .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
+                    .replace(/\*(.*)\*/gim, '<em>$1</em>')
                     .replace(/```([\s\S]*?)```/gim, '<pre><code>$1</code></pre>')
                     .replace(/`([^`]*)`/gim, '<code>$1</code>')
                     .replace(/^\- (.*$)/gim, '<li>$1</li>')
-                    .replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>')
                     .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
-                    .replace(/\n\n/gim, '</p><p>')
-                    .replace(/^(?!<[h|u|p|b])/gim, '<p>')
-                    .replace(/$/gim, '</p>')
-                    .replace(/<p><\/p>/gim, '')
-                    .replace(/<p>(<h[1-6]>)/gim, '$1')
-                    .replace(/(<\/h[1-6]>)<\/p>/gim, '$1')
-                    .replace(/<p>(<ul>)/gim, '$1')
-                    .replace(/(<\/ul>)<\/p>/gim, '$1')
-                    .replace(/<p>(<blockquote>)/gim, '$1')
-                    .replace(/(<\/blockquote>)<\/p>/gim, '$1')
-                    .replace(/<p>(<pre>)/gim, '$1')
-                    .replace(/(<\/pre>)<\/p>/gim, '$1');
+                    .replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>')
+                    .replace(/\n/gim, '<br>');
             }
 
             updateActiveNav(currentPage) {
@@ -1716,8 +1712,8 @@ function createBlog() {
                 if (!theme) return;
                 
                 const root = document.documentElement;
-                root.style.setProperty('--apple-blue', theme.primaryColor);
-                root.style.setProperty('--apple-red', theme.accentColor);
+                root.style.setProperty('--primary-color', theme.primaryColor);
+                root.style.setProperty('--accent-color', theme.accentColor);
                 
                 // 应用自定义 CSS
                 let customStyle = document.getElementById('custom-theme-style');
@@ -1732,7 +1728,7 @@ function createBlog() {
             showNotification(message, type = 'info') {
                 const notification = document.createElement('div');
                 notification.className = `notification ${type}`;
-                notification.textContent = message;
+                notification.innerHTML = `<i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'times' : 'info'}"></i> ${message}`;
                 
                 document.body.appendChild(notification);
                 
