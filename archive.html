@@ -1,0 +1,149 @@
+---
+layout: default
+title: "文章归档"
+permalink: /archive/
+---
+
+<div class="archive-page">
+    <header class="page-header">
+        <h1 class="page-title">文章归档</h1>
+        <p class="page-subtitle">按时间顺序浏览所有文章</p>
+    </header>
+
+    <div class="archive-content">
+        <div class="archive-stats">
+            <div class="stat-item">
+                <span class="stat-number">{{ site.posts.size }}</span>
+                <span class="stat-label">篇文章</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">{{ site.posts | group_by_exp: "post", "post.date | date: '%Y'" | size }}</span>
+                <span class="stat-label">年</span>
+            </div>
+        </div>
+
+        <div class="archive-timeline">
+            {% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+            {% for year_group in posts_by_year %}
+            <div class="year-section">
+                <div class="year-header">
+                    <h2 class="year-title">{{ year_group.name }}</h2>
+                    <span class="year-count">{{ year_group.items.size }} 篇文章</span>
+                </div>
+                
+                <div class="year-posts">
+                    {% assign posts_by_month = year_group.items | group_by_exp: "post", "post.date | date: '%m'" %}
+                    {% for month_group in posts_by_month %}
+                    <div class="month-section">
+                        <h3 class="month-title">
+                            {{ month_group.items.first.date | date: "%m月" }}
+                            <span class="month-count">({{ month_group.items.size }})</span>
+                        </h3>
+                        
+                        <div class="month-posts">
+                            {% for post in month_group.items %}
+                            <article class="archive-post">
+                                <div class="post-date">
+                                    <time datetime="{{ post.date | date_to_xmlschema }}">
+                                        {{ post.date | date: "%d" }}
+                                    </time>
+                                </div>
+                                <div class="post-content">
+                                    <h4 class="post-title">
+                                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                                    </h4>
+                                    <div class="post-meta">
+                                        {% if post.categories %}
+                                        <span class="post-category">
+                                            <i class="fas fa-folder"></i>
+                                            {{ post.categories.first }}
+                                        </span>
+                                        {% endif %}
+                                        {% if post.tags %}
+                                        <div class="post-tags">
+                                            {% for tag in post.tags limit:2 %}
+                                            <span class="tag">{{ tag }}</span>
+                                            {% endfor %}
+                                        </div>
+                                        {% endif %}
+                                        <span class="reading-time">
+                                            <i class="fas fa-clock"></i>
+                                            约 {{ post.content | number_of_words | divided_by: 200 | ceil }} 分钟
+                                        </span>
+                                    </div>
+                                    <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 100 }}</p>
+                                </div>
+                            </article>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Archive Navigation -->
+    <nav class="archive-nav">
+        <h3>年份导航</h3>
+        <ul class="years-list">
+            {% for year_group in posts_by_year %}
+            <li>
+                <a href="#year-{{ year_group.name }}" class="year-nav-link">
+                    {{ year_group.name }}
+                    <span class="count">{{ year_group.items.size }}</span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </nav>
+</div>
+
+<script>
+// Add year anchors for navigation
+document.querySelectorAll('.year-section').forEach((section, index) => {
+    const yearTitle = section.querySelector('.year-title').textContent;
+    section.id = `year-${yearTitle}`;
+});
+
+// Smooth scroll for year navigation
+document.querySelectorAll('.year-nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Highlight active year in navigation
+const observerOptions = {
+    threshold: 0.3,
+    rootMargin: '-100px 0px -50% 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const id = entry.target.id;
+            document.querySelectorAll('.year-nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            const activeLink = document.querySelector(`a[href="#${id}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.year-section').forEach(section => {
+    observer.observe(section);
+});
+</script>
