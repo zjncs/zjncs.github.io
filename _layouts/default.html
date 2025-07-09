@@ -48,26 +48,12 @@
                 </div>
                 
                 <div class="nav-menu" id="nav-menu">
-                    <a href="{{ '/' | relative_url }}" class="nav-link {% if page.url == '/' %}active{% endif %}">
-                        <i class="fas fa-home"></i>
-                        <span>首页</span>
+                    {% for item in site.data.navigation.main %}
+                    <a href="{{ item.url | relative_url }}" class="nav-link {% if page.url == item.url or (item.url != '/' and page.url contains item.url) %}active{% endif %}">
+                        <i class="{{ item.icon }}"></i>
+                        <span>{{ item.name }}</span>
                     </a>
-                    <a href="{{ '/categories/' | relative_url }}" class="nav-link {% if page.url contains '/categories' %}active{% endif %}">
-                        <i class="fas fa-folder"></i>
-                        <span>分类</span>
-                    </a>
-                    <a href="{{ '/tags/' | relative_url }}" class="nav-link {% if page.url contains '/tags' %}active{% endif %}">
-                        <i class="fas fa-tags"></i>
-                        <span>标签</span>
-                    </a>
-                    <a href="{{ '/about/' | relative_url }}" class="nav-link {% if page.url contains '/about' %}active{% endif %}">
-                        <i class="fas fa-user"></i>
-                        <span>关于</span>
-                    </a>
-                    <a href="{{ '/archive/' | relative_url }}" class="nav-link {% if page.url contains '/archive' %}active{% endif %}">
-                        <i class="fas fa-archive"></i>
-                        <span>归档</span>
-                    </a>
+                    {% endfor %}
                 </div>
                 
                 <div class="nav-actions">
@@ -113,34 +99,32 @@
                     <h3>{{ site.title }}</h3>
                     <p>{{ site.description }}</p>
                     <div class="social-links">
-                        {% if site.github_username %}
-                        <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener" aria-label="GitHub">
-                            <i class="fab fa-github"></i>
+                        {% for social in site.data.navigation.social %}
+                        {% assign show_link = true %}
+                        {% if social.condition %}
+                            {% assign condition_parts = social.condition | split: '.' %}
+                            {% if condition_parts[0] == 'site' %}
+                                {% assign site_var = site[condition_parts[1]] %}
+                                {% unless site_var %}
+                                    {% assign show_link = false %}
+                                {% endunless %}
+                            {% endif %}
+                        {% endif %}
+                        {% if show_link %}
+                        <a href="{{ social.url }}" target="_blank" rel="noopener" aria-label="{{ social.name }}">
+                            <i class="{{ social.icon }}"></i>
                         </a>
                         {% endif %}
-                        {% if site.twitter_username %}
-                        <a href="https://twitter.com/{{ site.twitter_username }}" target="_blank" rel="noopener" aria-label="Twitter">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        {% endif %}
-                        {% if site.linkedin_username %}
-                        <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" rel="noopener" aria-label="LinkedIn">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        {% endif %}
-                        <a href="{{ '/feed.xml' | relative_url }}" target="_blank" rel="noopener" aria-label="RSS">
-                            <i class="fas fa-rss"></i>
-                        </a>
+                        {% endfor %}
                     </div>
                 </div>
                 
                 <div class="footer-section">
                     <h4>快速链接</h4>
                     <ul>
-                        <li><a href="{{ '/categories/' | relative_url }}">文章分类</a></li>
-                        <li><a href="{{ '/tags/' | relative_url }}">标签云</a></li>
-                        <li><a href="{{ '/archive/' | relative_url }}">文章归档</a></li>
-                        <li><a href="{{ '/about/' | relative_url }}">关于我</a></li>
+                        {% for item in site.data.navigation.footer %}
+                        <li><a href="{{ item.url | relative_url }}">{{ item.name }}</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
                 

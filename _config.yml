@@ -53,7 +53,57 @@ kramdown:
 
 # SEO settings
 google_analytics: "UA-XXXXXXXX-X"
-disqus_shortname: "your-disqus-shortname"
+disqus_shortname: "techshare-blog"
+
+# Social media settings for SEO and sharing
+social:
+  name: "Your Name"
+  links:
+    - "https://github.com/yourusername"
+    - "https://twitter.com/yourusername"
+    - "https://linkedin.com/in/yourusername"
+
+# Twitter settings for Twitter Cards
+twitter:
+  username: "yourusername"
+  card: "summary_large_image"
+
+# Facebook settings for Open Graph
+facebook:
+  app_id: "your-facebook-app-id"
+  publisher: "your-facebook-page-url"
+
+# Default image for social sharing
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      comments: true
+      image: "/assets/images/default-post-image.jpg"
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+      image: "/assets/images/default-site-image.jpg"
+
+# Comments configuration
+comments:
+  provider: "disqus"  # disqus, utterances, giscus
+  disqus:
+    shortname: "techshare-blog"
+  utterances:
+    repo: "yourusername/yourusername.github.io"
+    issue_term: "pathname"
+    theme: "github-light"
+  giscus:
+    repo: "yourusername/yourusername.github.io"
+    repo_id: "your-repo-id"
+    category: "General"
+    category_id: "your-category-id"
+    mapping: "pathname"
+    theme: "light"
 
 # Social sharing
 social_share: true
@@ -63,6 +113,20 @@ reading_time: true
 
 # Table of contents
 toc: true
+
+# Series/Collections configuration
+collections:
+  series:
+    output: true
+    permalink: /series/:name/
+
+# Series defaults
+defaults:
+  - scope:
+      path: ""
+      type: "series"
+    values:
+      layout: "series"
 
 # Exclude from processing
 exclude:

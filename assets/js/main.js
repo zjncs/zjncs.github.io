@@ -294,21 +294,24 @@ function generateTableOfContents() {
         return;
     }
 
-    let tocHTML = '<ul>';
+    let tocHTML = '<ul class="toc-list">';
     let currentLevel = 0;
 
     headings.forEach((heading, index) => {
         const level = parseInt(heading.tagName.charAt(1));
         const id = `heading-${index}`;
+        const text = heading.textContent;
         heading.id = id;
 
         if (level > currentLevel) {
-            tocHTML += '<ul>'.repeat(level - currentLevel);
+            tocHTML += '<ul class="toc-sublist">'.repeat(level - currentLevel);
         } else if (level < currentLevel) {
             tocHTML += '</ul>'.repeat(currentLevel - level);
         }
 
-        tocHTML += `<li><a href="#${id}" class="toc-link">${heading.textContent}</a></li>`;
+        tocHTML += `<li class="toc-item toc-level-${level}">
+            <a href="#${id}" class="toc-link" data-level="${level}">${text}</a>
+        </li>`;
         currentLevel = level;
     });
 
@@ -318,31 +321,178 @@ function generateTableOfContents() {
     // TOC toggle functionality
     if (tocToggle) {
         tocToggle.addEventListener('click', () => {
-            tocContent.style.display = tocContent.style.display === 'none' ? 'block' : 'none';
+            const isCollapsed = tocContent.classList.contains('collapsed');
+            tocContent.classList.toggle('collapsed', !isCollapsed);
             tocToggle.classList.toggle('collapsed');
         });
     }
 
-    // Highlight active section
+    // Enhanced active section highlighting with smooth scrolling
     const tocLinks = tocContent.querySelectorAll('.toc-link');
+    
+    // Add smooth scroll behavior to TOC links
+    tocLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                const headerHeight = document.querySelector('.site-header')?.offsetHeight || 70;
+                const targetPosition = targetElement.offsetTop - headerHeight - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+                
+                // Update active state immediately
+                tocLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            }
+        });
+    });
+    
+    // Intersection Observer for automatic highlighting
     const observerOptions = {
-        threshold: 0.3,
-        rootMargin: '-100px 0px -50% 0px'
+        threshold: [0, 0.25, 0.5, 0.75, 1],
+        rootMargin: '-80px 0px -60% 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
+        let mostVisibleEntry = null;
+        let maxRatio = 0;
+        
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                tocLinks.forEach(link => link.classList.remove('active'));
-                const activeLink = tocContent.querySelector(`a[href="#${entry.target.id}"]`);
-                if (activeLink) {
-                    activeLink.classList.add('active');
-                }
+            if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
+                mostVisibleEntry = entry;
+                maxRatio = entry.intersectionRatio;
             }
         });
+        
+        if (mostVisibleEntry) {
+            tocLinks.forEach(link => link.classList.remove('active'));
+            const activeLink = tocContent.querySelector(`a[href="#${mostVisibleEntry.target.id}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+                
+                // Scroll TOC to show active item
+                const tocContainer = tocContent.closest('.table-of-contents');
+                if (tocContainer && tocContainer.scrollHeight > tocContainer.clientHeight) {
+                    const linkTop = activeLink.offsetTop;
+                    const containerTop = tocContainer.scrollTop;
+                    const containerHeight = tocContainer.clientHeight;
+                    
+                    if (linkTop < containerTop || linkTop > containerTop + containerHeight - 40) {
+                        tocContainer.scrollTo({
+                            top: linkTop - containerHeight / 2,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            }
+        }
     }, observerOptions);
 
     headings.forEach(heading => observer.observe(heading));
+    
+    // Add progress indicator
+    const progressBar = document.createElement('div');
+    progressBar.className = 'toc-progress';
+    progressBar.innerHTML = '<div class="toc-progress-bar"></div>';
+    tocContent.parentNode.insertBefore(progressBar, tocContent);
+    
+    // Update progress on scroll
+    let ticking = false;
+    const updateProgress = () => {
+        const scrollTop = window.pageYOffset;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = (scrollTop / docHeight) * 100;
+        
+        const progressBarElement = progressBar.querySelector('.toc-progress-bar');
+        progressBarElement.style.width = `${Math.min(progress, 100)}%`;
+        
+        ticking = false;
+    };
+    
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(updateProgress);
+            ticking = true;
+        }
+    });
+}
+
+// Code Copy Functionality
+class CodeCopyManager {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.addCopyButtons();
+    }
+
+    addCopyButtons() {
+        const codeBlocks = document.querySelectorAll('pre code');
+        
+        codeBlocks.forEach((codeBlock, index) => {
+            const pre = codeBlock.parentElement;
+            
+            // Create copy button
+            const copyButton = document.createElement('button');
+            copyButton.className = 'code-copy-btn';
+            copyButton.innerHTML = '<i class="fas fa-copy"></i>';
+            copyButton.setAttribute('aria-label', '复制代码');
+            copyButton.setAttribute('title', '复制代码');
+            
+            // Add click event
+            copyButton.addEventListener('click', async () => {
+                const code = codeBlock.textContent;
+                
+                try {
+                    await navigator.clipboard.writeText(code);
+                    
+                    // Show success feedback
+                    copyButton.innerHTML = '<i class="fas fa-check"></i>';
+                    copyButton.classList.add('copied');
+                    
+                    setTimeout(() => {
+                        copyButton.innerHTML = '<i class="fas fa-copy"></i>';
+                        copyButton.classList.remove('copied');
+                    }, 2000);
+                    
+                } catch (err) {
+                    console.error('Failed to copy code:', err);
+                    
+                    // Fallback for older browsers
+                    const textArea = document.createElement('textarea');
+                    textArea.value = code;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    
+                    try {
+                        document.execCommand('copy');
+                        copyButton.innerHTML = '<i class="fas fa-check"></i>';
+                        copyButton.classList.add('copied');
+                        
+                        setTimeout(() => {
+                            copyButton.innerHTML = '<i class="fas fa-copy"></i>';
+                            copyButton.classList.remove('copied');
+                        }, 2000);
+                    } catch (fallbackErr) {
+                        console.error('Fallback copy failed:', fallbackErr);
+                    }
+                    
+                    document.body.removeChild(textArea);
+                }
+            });
+            
+            // Add button to pre element
+            pre.style.position = 'relative';
+            pre.appendChild(copyButton);
+        });
+    }
 }
 
 // Lazy Loading for Images
@@ -462,6 +612,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new NavigationManager();
     new SearchManager();
     new BackToTopManager();
+    new CodeCopyManager();
     new LazyLoadManager();
     new ScrollAnimationManager();
     new PerformanceManager();
