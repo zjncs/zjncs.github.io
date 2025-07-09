@@ -55,6 +55,39 @@ kramdown:
 google_analytics: "UA-XXXXXXXX-X"
 disqus_shortname: "your-disqus-shortname"
 
+# Social media settings for SEO and sharing
+social:
+  name: "Your Name"
+  links:
+    - "https://github.com/yourusername"
+    - "https://twitter.com/yourusername"
+    - "https://linkedin.com/in/yourusername"
+
+# Twitter settings for Twitter Cards
+twitter:
+  username: "yourusername"
+  card: "summary_large_image"
+
+# Facebook settings for Open Graph
+facebook:
+  app_id: "your-facebook-app-id"
+  publisher: "your-facebook-page-url"
+
+# Default image for social sharing
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      comments: true
+      image: "/assets/images/default-post-image.jpg"
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+      image: "/assets/images/default-site-image.jpg"
+
 # Social sharing
 social_share: true
 

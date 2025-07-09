@@ -2,6 +2,47 @@
 layout: default
 ---
 
+<!-- Schema.org structured data for articles -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": {{ page.title | jsonify }},
+  "description": {{ page.excerpt | default: site.description | strip_html | strip_newlines | truncate: 160 | jsonify }},
+  "image": {
+    "@type": "ImageObject",
+    "url": "{{ site.url }}{{ page.image | default: '/assets/images/default-post-image.jpg' }}",
+    "width": 1200,
+    "height": 630
+  },
+  "author": {
+    "@type": "Person",
+    "name": {{ site.author | jsonify }},
+    "url": "{{ site.url }}/about/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ site.title | jsonify }},
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ site.url }}/assets/images/logo.png",
+      "width": 200,
+      "height": 60
+    }
+  },
+  "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
+  "dateModified": {{ page.last_modified_at | default: page.date | date_to_xmlschema | jsonify }},
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ site.url }}{{ page.url }}"
+  },
+  "articleSection": {{ page.categories | first | default: "Blog" | jsonify }},
+  "keywords": {{ page.tags | join: ", " | jsonify }},
+  "wordCount": {{ page.content | number_of_words }},
+  "timeRequired": "PT{{ page.content | number_of_words | divided_by: 200 | ceil }}M"
+}
+</script>
+
 <article class="post-article">
     <header class="post-header">
         <div class="post-meta">

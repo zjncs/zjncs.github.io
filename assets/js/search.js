@@ -2,13 +2,13 @@
 class BlogSearch {
     constructor() {
         this.searchData = [];
-        this.searchIndex = null;
+        this.fuse = null;
         this.init();
     }
 
     async init() {
         await this.loadSearchData();
-        this.buildSearchIndex();
+        await this.initializeFuse();
     }
 
     async loadSearchData() {
@@ -22,18 +22,61 @@ class BlogSearch {
         }
     }
 
-    buildSearchIndex() {
-        // Simple search index for better performance
-        this.searchIndex = this.searchData.map(post => ({
-            ...post,
-            searchText: [
-                post.title,
-                post.content,
-                post.excerpt,
-                ...(post.tags || []),
-                ...(post.categories || [])
-            ].join(' ').toLowerCase()
-        }));
+    async initializeFuse() {
+        // Load Fuse.js library if not already loaded
+        if (typeof Fuse === 'undefined') {
+            try {
+                await this.loadFuseLibrary();
+            } catch (error) {
+                console.warn('Failed to load Fuse.js, falling back to simple search');
+                return;
+            }
+        }
+
+        // Configure Fuse.js options for intelligent search
+        const fuseOptions = {
+            keys: [
+                {
+                    name: 'title',
+                    weight: 0.4  // Higher weight for title matches
+                },
+                {
+                    name: 'excerpt',
+                    weight: 0.3
+                },
+                {
+                    name: 'content',
+                    weight: 0.2
+                },
+                {
+                    name: 'tags',
+                    weight: 0.05
+                },
+                {
+                    name: 'categories',
+                    weight: 0.05
+                }
+            ],
+            threshold: 0.4,  // Lower threshold = more strict matching
+            distance: 100,   // Maximum distance for fuzzy matching
+            minMatchCharLength: 2,
+            includeScore: true,
+            includeMatches: true,
+            ignoreLocation: true,
+            useExtendedSearch: true
+        };
+
+        this.fuse = new Fuse(this.searchData, fuseOptions);
+    }
+
+    async loadFuseLibrary() {
+        return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js';
+            script.onload = resolve;
+            script.onerror = reject;
+            document.head.appendChild(script);
+        });
     }
 
     search(query, limit = 10) {
@@ -41,13 +84,28 @@ class BlogSearch {
             return [];
         }
 
+        if (this.fuse) {
+            // Use Fuse.js for intelligent fuzzy search
+            const fuseResults = this.fuse.search(query, { limit });
+            return fuseResults.map(result => ({
+                ...result.item,
+                score: result.score,
+                matches: result.matches
+            }));
+        } else {
+            // Fallback to simple search
+            return this.simpleSearch(query, limit);
+        }
+    }
+
+    simpleSearch(query, limit) {
         const searchTerms = query.toLowerCase().split(' ').filter(term => term.length > 1);
         
-        const results = this.searchIndex
+        return this.searchData
             .map(post => {
                 let score = 0;
                 const titleLower = post.title.toLowerCase();
-                const contentLower = post.searchText;
+                const contentLower = (post.content + ' ' + post.excerpt).toLowerCase();
 
                 searchTerms.forEach(term => {
                     // Title matches get higher score
@@ -73,8 +131,6 @@ class BlogSearch {
             .filter(post => post.score > 0)
             .sort((a, b) => b.score - a.score)
             .slice(0, limit);
-
-        return results;
     }
 
     highlightText(text, query) {
@@ -85,7 +141,7 @@ class BlogSearch {
         
         searchTerms.forEach(term => {
             const regex = new RegExp(`(${this.escapeRegExp(term)})`, 'gi');
-            highlightedText = highlightedText.replace(regex, '<mark>$1</mark>');
+            highlightedText = highlightedText.replace(regex, '<mark class="search-highlight">$1</mark>');
         });
         
         return highlightedText;
@@ -146,6 +202,7 @@ class BlogSearch {
                 <p class="search-result-excerpt">
                     ${this.highlightText(this.truncateText(post.excerpt || post.content), query)}
                 </p>
+                ${post.score ? `<div class="search-score">相关度: ${Math.round((1 - post.score) * 100)}%</div>` : ''}
                 ${post.tags && post.tags.length > 0 ? `
                     <div class="search-result-tags">
                         ${post.tags.slice(0, 3).map(tag => `
