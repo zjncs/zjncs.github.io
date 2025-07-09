@@ -1,12 +1,11 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  root: '.',
-  build: {
-    outDir: 'dist',
-    assetsDir: 'assets'
-  },
   server: {
+    host: '0.0.0.0',
     port: 4000
+  },
+  build: {
+    outDir: '_site'
   }
 })

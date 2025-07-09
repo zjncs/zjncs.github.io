@@ -3,67 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>技术分享博客</title>
-    <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <title>我的技术博客</title>
+    <meta name="description" content="专业技术分享与开发经验">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
 </head>
 <body>
-    <header class="site-header">
-        <nav class="navbar">
-            <div class="nav-container">
-                <a href="/" class="nav-brand">技术分享博客</a>
-                <ul class="nav-menu">
-                    <li><a href="/">首页</a></li>
-                    <li><a href="/about.html">关于</a></li>
-                    <li><a href="/archive.html">归档</a></li>
-                    <li><a href="/categories.html">分类</a></li>
-                    <li><a href="/tags.html">标签</a></li>
-                </ul>
-                <div class="search-container">
-                    <input type="text" id="search-input" placeholder="搜索文章...">
-                    <div id="search-results"></div>
-                </div>
-                <button id="theme-toggle" class="theme-toggle">🌙</button>
-            </div>
-        </nav>
-    </header>
-
-    <main class="main-content">
-        <div class="container">
-            <section class="hero">
-                <h1>欢迎来到技术分享博客</h1>
-                <p>分享前端开发、编程技巧和技术见解</p>
-            </section>
-
-            <section class="featured-posts">
-                <h2>精选文章</h2>
-                <div id="featured-posts-container" class="posts-grid">
-                    <!-- Featured posts will be loaded here -->
-                </div>
-            </section>
-
-            <section class="recent-posts">
-                <h2>最新文章</h2>
-                <div id="recent-posts-container" class="posts-list">
-                    <!-- Recent posts will be loaded here -->
-                </div>
-            </section>
-        </div>
-    </main>
-
-    <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2024 技术分享博客. All rights reserved.</p>
-            <div class="social-links">
-                <a href="#" aria-label="GitHub">📧</a>
-                <a href="#" aria-label="Twitter">🐦</a>
-                <a href="#" aria-label="LinkedIn">💼</a>
+    <!-- 主容器 -->
+    <div id="app">
+        <!-- 内容区域 - 将由 JavaScript 动态填充 -->
+        <div id="content">
+            <!-- 加载指示器 -->
+            <div class="loading-container">
+                <div class="loading-spinner"></div>
+                <p>正在加载博客内容...</p>
             </div>
         </div>
-    </footer>
+    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-    <script type="module" src="/main.js"></script>
+    <!-- 回到顶部按钮 -->
+    <button class="back-to-top" id="back-to-top" aria-label="回到顶部">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script type="module" src="main.js"></script>
 </body>
 </html>
