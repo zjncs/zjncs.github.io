@@ -7,7 +7,7 @@ permalink: "/about/"
 <div class="about-page">
     <header class="page-header">
         <h1 class="page-title">关于我</h1>
-        <p class="page-subtitle">专注全栈开发 · 5年行业经验</p>
+        <p class="page-subtitle">了解更多关于我的技术背景和经验</p>
     </header>
 
     <div class="about-content">
@@ -20,21 +20,27 @@ permalink: "/about/"
                     </div>
                 </div>
                 <div class="profile-info">
-                    <h2>{{ site.author }}</h2>
+                    <h2>赵嘉宁</h2>
                     <p class="profile-title">全栈开发工程师</p>
                     <div class="profile-links">
-                        <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener" class="profile-link">
+                        {% if site.github_username %}
+                        <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">
                             <i class="fab fa-github"></i>
                             GitHub
                         </a>
-                        <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" rel="noopener" class="profile-link">
+                        {% endif %}
+                        {% if site.linkedin_username %}
+                        <a href="https://linkedin.com/in/{{ site.linkedin_username }}" target="_blank" rel="noopener">
                             <i class="fab fa-linkedin"></i>
                             LinkedIn
                         </a>
-                        <a href="mailto:{{ site.email }}" class="profile-link">
+                        {% endif %}
+                        {% if site.email %}
+                        <a href="mailto:{{ site.email }}">
                             <i class="fas fa-envelope"></i>
                             邮箱
                         </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -47,6 +53,7 @@ permalink: "/about/"
                 </p>
                 <p>
                     我擅长解决复杂问题，具有良好的团队协作能力和项目管理经验。通过这个博客，我希望能够分享我在开发过程中的经验、学习心得以及对技术趋势的思考。如果你对我的文章有任何问题或建议，欢迎通过邮件或社交媒体与我联系。
+                </p>
             </div>
 
             <div class="skills-section">
@@ -63,7 +70,6 @@ permalink: "/about/"
                             <span class="skill-tag">CSS3</span>
                             <span class="skill-tag">Sass/SCSS</span>
                             <span class="skill-tag">Webpack</span>
-                            <span class="skill-tag">Webpack</span>
                         </div>
                     </div>
                     <div class="skill-category">
@@ -76,7 +82,6 @@ permalink: "/about/"
                             <span class="skill-tag">Nest.js</span>
                             <span class="skill-tag">Spring</span>
                             <span class="skill-tag">RESTful API</span>
-                            <span class="skill-tag">RESTful API</span>
                         </div>
                     </div>
                     <div class="skill-category">
@@ -87,7 +92,6 @@ permalink: "/about/"
                             <span class="skill-tag">MongoDB</span>
                             <span class="skill-tag">Redis</span>
                             <span class="skill-tag">Elasticsearch</span>
-                            <span class="skill-tag">Elasticsearch</span>
                         </div>
                     </div>
                     <div class="skill-category">
@@ -97,11 +101,9 @@ permalink: "/about/"
                             <span class="skill-tag">Docker</span>
                             <span class="skill-tag">AWS</span>
                             <span class="skill-tag">Azure</span>
-                            <span class="skill-tag">Azure</span>
                             <span class="skill-tag">Linux</span>
                             <span class="skill-tag">Webpack</span>
                             <span class="skill-tag">Vite</span>
-                            <span class="skill-tag">CI/CD</span>
                             <span class="skill-tag">CI/CD</span>
                         </div>
                     </div>
@@ -122,7 +124,6 @@ permalink: "/about/"
                                 <li>带领5人前端团队完成多个重要项目的技术攻关，按时交付高质量代码</li>
                                 <li>推动前端工程化和自动化流程的建设，提高团队开发效率30%</li>
                                 <li>设计并实现组件库，提升团队协作效率和产品一致性</li>
-                                <li>设计并实现组件库，提升团队协作效率和产品一致性</li>
                             </ul>
                         </div>
                     </div>
@@ -136,21 +137,6 @@ permalink: "/about/"
                                 <li>参与多个Web应用的全栈开发，使用React和Node.js技术栈</li>
                                 <li>负责RESTful API设计和数据库优化，提升系统响应速度40%</li>
                                 <li>协助团队进行技术选型和架构决策，引入TypeScript提高代码质量</li>
-                                <li>实现微服务架构转型，提高系统可扩展性和可维护性</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <h4>前端开发工程师</h4>
-                            <p class="company">某创业公司</p>
-                            <p class="duration">2018年7月 - 2020年2月</p>
-                            <ul class="experience-list">
-                                <li>负责公司产品的前端开发和维护，使用Vue.js框架</li>
-                                <li>与UI/UX设计师紧密合作，实现响应式设计和交互效果</li>
-                                <li>优化前端性能，减少首屏加载时间50%</li>
-                                <li>参与代码评审，指导初级开发人员提高技术能力</li>
                                 <li>实现微服务架构转型，提高系统可扩展性和可维护性</li>
                             </ul>
                         </div>
@@ -202,15 +188,17 @@ permalink: "/about/"
                     {% if site.email %}
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
-                        <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+                        <a href="mailto:zhaojianing@tju.edu.cn">zhaojianing@tju.edu.cn</a>
                     </div>
                 <div class="profile-links about-links">
+                    {% if site.github_username %}
                     <div class="contact-item">
                         <i class="fab fa-github"></i>
                         <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">
                             {{ site.github_username }}
                         </a>
                     </div>
+                    {% endif %}
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
                         <span>中国，深圳</span>
@@ -233,74 +221,6 @@ permalink: "/about/"
     </div>
 </div>
 
-<style>
-.about-links a {
-    display: inline-flex;
-    align-items: center;
-    padding: 8px 16px;
-    margin-right: 8px;
-    margin-bottom: 8px;
-    background-color: var(--bg-secondary);
-    border-radius: var(--border-radius);
-    color: var(--text-color);
-    text-decoration: none;
-    transition: all 0.2s ease;
-}
-
-.about-links a:hover {
-    background-color: var(--primary-color);
-    color: white;
-    transform: translateY(-2px);
-}
-
-.profile-link {
-    display: inline-flex;
-    align-items: center;
-    padding: 8px 16px;
-    margin-right: 8px;
-    margin-bottom: 8px;
-    background-color: var(--bg-secondary);
-    border-radius: var(--border-radius);
-    color: var(--text-color);
-    text-decoration: none;
-    transition: all 0.2s ease;
-}
-
-.profile-link:hover {
-    background-color: var(--primary-color);
-    color: white;
-    transform: translateY(-2px);
-}
-
-.experience-list li {
-    margin-bottom: 8px;
-    position: relative;
-    padding-left: 20px;
-}
-
-.experience-list li:before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 8px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: var(--primary-color);
-}
-
-.about-stats .stat-item {
-    background-color: var(--bg-secondary);
-    padding: 12px;
-    border-radius: var(--border-radius);
-    transition: all 0.2s ease;
-}
-
-.about-stats .stat-item:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-color) 0px 5px 15px;
-}
-</style>
 <style>
 .about-links a {
     display: inline-flex;
