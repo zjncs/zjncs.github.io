@@ -1,351 +1,180 @@
-import { marked } from 'marked';
-import { format } from 'date-fns';
-import { zhCN } from 'date-fns/locale';
+import BlogEngine from './blog-engine.js';
 
-// Configure marked
-marked.setOptions({
-  highlight: function(code, lang) {
-    if (Prism.languages[lang]) {
-      return Prism.highlight(code, Prism.languages[lang], lang);
-    }
-    return code;
-  }
+// 创建博客引擎实例
+const blogEngine = new BlogEngine();
+
+// 全局暴露博客引擎，供 HTML 中的 onclick 事件使用
+window.blogEngine = blogEngine;
+
+// 初始化博客
+document.addEventListener('DOMContentLoaded', function() {
+    blogEngine.init();
+    
+    // 添加一些基础交互功能
+    setupSearchFunctionality();
+    setupThemeToggle();
+    setupScrollToTop();
 });
 
-// Blog posts data (in a real app, this would come from a CMS or API)
-const posts = [
-  {
-    id: 'welcome-to-my-blog',
-    title: '欢迎来到我的技术博客',
-    date: '2024-01-15',
-    categories: ['公告', '介绍'],
-    tags: ['博客', '技术', '分享'],
-    featured: true,
-    excerpt: '欢迎来到我的技术分享博客！在这里，我将分享前端开发、编程技巧和技术见解。',
-    content: `# 欢迎来到我的技术博客
-
-欢迎来到我的技术分享博客！我是一名热爱技术的开发者，专注于前端开发和现代Web技术。
-
-## 博客内容
-
-在这个博客中，你将看到：
-
-- **前端开发技巧**：React、Vue、JavaScript等
-- **编程最佳实践**：代码质量、性能优化等
-- **技术趋势分析**：新技术、新框架的深度解析
-- **项目经验分享**：实际项目中的问题和解决方案
-
-## 关于我
-
-我有多年的前端开发经验，参与过多个大型项目的开发。我相信技术分享能够帮助更多的开发者成长。
-
-感谢你的访问，希望这个博客能对你有所帮助！
-
-\`\`\`javascript
-console.log('欢迎来到我的博客！');
-\`\`\`
-`
-  },
-  {
-    id: 'javascript-best-practices',
-    title: 'JavaScript 最佳实践指南',
-    date: '2024-01-20',
-    categories: ['JavaScript', '最佳实践'],
-    tags: ['JavaScript', '代码质量', '性能'],
-    featured: true,
-    excerpt: '掌握JavaScript最佳实践，写出更优雅、更高效的代码。',
-    content: `# JavaScript 最佳实践指南
-
-JavaScript是一门灵活的语言，但这种灵活性也可能导致代码质量问题。本文将介绍一些JavaScript最佳实践。
-
-## 1. 使用严格模式
-
-\`\`\`javascript
-'use strict';
-
-function myFunction() {
-    // 严格模式下的代码
-}
-\`\`\`
-
-## 2. 避免全局变量
-
-\`\`\`javascript
-// 不好的做法
-var globalVar = 'I am global';
-
-// 好的做法
-(function() {
-    var localVar = 'I am local';
-})();
-\`\`\`
-
-## 3. 使用const和let
-
-\`\`\`javascript
-// 使用const声明常量
-const API_URL = 'https://api.example.com';
-
-// 使用let声明变量
-let counter = 0;
-\`\`\`
-
-## 4. 函数式编程
-
-\`\`\`javascript
-// 使用map、filter、reduce等函数式方法
-const numbers = [1, 2, 3, 4, 5];
-const doubled = numbers.map(n => n * 2);
-const evens = numbers.filter(n => n % 2 === 0);
-\`\`\`
-
-遵循这些最佳实践，你的JavaScript代码将更加健壮和可维护。
-`
-  },
-  {
-    id: 'react-hooks-guide',
-    title: 'React Hooks 完全指南',
-    date: '2024-01-25',
-    categories: ['React', '前端开发'],
-    tags: ['React', 'Hooks', '状态管理'],
-    featured: false,
-    excerpt: '深入理解React Hooks，掌握现代React开发的核心概念。',
-    content: `# React Hooks 完全指南
-
-React Hooks是React 16.8引入的新特性，它让我们可以在函数组件中使用状态和其他React特性。
-
-## useState Hook
-
-\`\`\`jsx
-import React, { useState } from 'react';
-
-function Counter() {
-    const [count, setCount] = useState(0);
+// 搜索功能
+function setupSearchFunctionality() {
+    // 创建搜索框
+    const searchBox = document.createElement('div');
+    searchBox.className = 'search-box';
+    searchBox.innerHTML = `
+        <input type="text" id="search-input" placeholder="搜索文章..." />
+        <div id="search-results" class="search-results"></div>
+    `;
     
-    return (
-        <div>
-            <p>You clicked {count} times</p>
-            <button onClick={() => setCount(count + 1)}>
-                Click me
-            </button>
-        </div>
-    );
-}
-\`\`\`
-
-## useEffect Hook
-
-\`\`\`jsx
-import React, { useState, useEffect } from 'react';
-
-function Example() {
-    const [count, setCount] = useState(0);
+    // 将搜索框添加到页面
+    const header = document.querySelector('.blog-header');
+    if (header) {
+        header.appendChild(searchBox);
+    }
     
-    useEffect(() => {
-        document.title = \`You clicked \${count} times\`;
+    // 搜索功能
+    const searchInput = document.getElementById('search-input');
+    const searchResults = document.getElementById('search-results');
+    
+    if (searchInput && searchResults) {
+        let searchTimeout;
+        
+        searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            const query = this.value.trim().toLowerCase();
+            
+            if (query.length < 2) {
+                searchResults.style.display = 'none';
+                return;
+            }
+            
+            searchTimeout = setTimeout(() => {
+                const results = blogEngine.blogData.posts.filter(post => 
+                    post.title.toLowerCase().includes(query) ||
+                    post.content.toLowerCase().includes(query) ||
+                    post.tags.some(tag => tag.toLowerCase().includes(query)) ||
+                    (post.category && post.category.toLowerCase().includes(query))
+                ).slice(0, 5);
+                
+                if (results.length > 0) {
+                    searchResults.innerHTML = results.map(post => `
+                        <div class="search-result-item" onclick="blogEngine.showPost('${post.id}')">
+                            <h4>${post.title}</h4>
+                            <p>${post.excerpt || blogEngine.generateExcerpt(post.content)}</p>
+                        </div>
+                    `).join('');
+                    searchResults.style.display = 'block';
+                } else {
+                    searchResults.innerHTML = '<div class="no-results">没有找到相关文章</div>';
+                    searchResults.style.display = 'block';
+                }
+            }, 300);
+        });
+        
+        // 点击外部关闭搜索结果
+        document.addEventListener('click', function(e) {
+            if (!searchBox.contains(e.target)) {
+                searchResults.style.display = 'none';
+            }
+        });
+    }
+}
+
+// 主题切换
+function setupThemeToggle() {
+    const themeToggle = document.createElement('button');
+    themeToggle.className = 'theme-toggle';
+    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    themeToggle.title = '切换主题';
+    
+    // 添加到导航栏
+    const nav = document.querySelector('.blog-nav');
+    if (nav) {
+        nav.appendChild(themeToggle);
+    }
+    
+    // 检查当前主题
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(themeToggle, currentTheme);
+    
+    // 主题切换事件
+    themeToggle.addEventListener('click', function() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(themeToggle, newTheme);
+    });
+}
+
+function updateThemeIcon(button, theme) {
+    const icon = button.querySelector('i');
+    icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+}
+
+// 回到顶部
+function setupScrollToTop() {
+    const scrollToTopBtn = document.createElement('button');
+    scrollToTopBtn.className = 'scroll-to-top';
+    scrollToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+    scrollToTopBtn.title = '回到顶部';
+    
+    document.body.appendChild(scrollToTopBtn);
+    
+    // 滚动显示/隐藏按钮
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+            scrollToTopBtn.classList.add('visible');
+        } else {
+            scrollToTopBtn.classList.remove('visible');
+        }
     });
     
-    return (
-        <div>
-            <p>You clicked {count} times</p>
-            <button onClick={() => setCount(count + 1)}>
-                Click me
-            </button>
-        </div>
-    );
+    // 点击回到顶部
+    scrollToTopBtn.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
 }
-\`\`\`
 
-## 自定义Hook
-
-\`\`\`jsx
-function useCounter(initialValue = 0) {
-    const [count, setCount] = useState(initialValue);
+// 添加一些实用的全局函数
+window.utils = {
+    // 格式化日期
+    formatDate: (date) => {
+        return new Date(date).toLocaleDateString('zh-CN', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    },
     
-    const increment = () => setCount(count + 1);
-    const decrement = () => setCount(count - 1);
-    const reset = () => setCount(initialValue);
+    // 复制到剪贴板
+    copyToClipboard: async (text) => {
+        try {
+            await navigator.clipboard.writeText(text);
+            blogEngine.showNotification('已复制到剪贴板', 'success');
+        } catch (err) {
+            console.error('复制失败:', err);
+            blogEngine.showNotification('复制失败', 'error');
+        }
+    },
     
-    return { count, increment, decrement, reset };
-}
-\`\`\`
+    // 防抖函数
+    debounce: (func, wait) => {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+};
 
-Hooks让React开发变得更加简洁和强大！
-`
-  },
-  {
-    id: 'css-grid-layout',
-    title: 'CSS Grid 布局完全指南',
-    date: '2024-01-30',
-    categories: ['CSS', '布局'],
-    tags: ['CSS', 'Grid', '响应式设计'],
-    featured: false,
-    excerpt: '学习CSS Grid布局，创建复杂而灵活的网页布局。',
-    content: `# CSS Grid 布局完全指南
-
-CSS Grid是一个强大的二维布局系统，可以帮助我们创建复杂的网页布局。
-
-## 基本概念
-
-\`\`\`css
-.container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 100px 200px;
-    gap: 20px;
-}
-\`\`\`
-
-## 网格项目定位
-
-\`\`\`css
-.item1 {
-    grid-column: 1 / 3;
-    grid-row: 1 / 2;
-}
-
-.item2 {
-    grid-column: 3 / 4;
-    grid-row: 1 / 3;
-}
-\`\`\`
-
-## 响应式网格
-
-\`\`\`css
-.container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-}
-\`\`\`
-
-## 网格区域
-
-\`\`\`css
-.container {
-    display: grid;
-    grid-template-areas:
-        "header header header"
-        "sidebar main main"
-        "footer footer footer";
-}
-
-.header { grid-area: header; }
-.sidebar { grid-area: sidebar; }
-.main { grid-area: main; }
-.footer { grid-area: footer; }
-\`\`\`
-
-CSS Grid让布局变得前所未有的简单和强大！
-`
-  }
-];
-
-// DOM elements
-const featuredPostsContainer = document.getElementById('featured-posts-container');
-const recentPostsContainer = document.getElementById('recent-posts-container');
-const searchInput = document.getElementById('search-input');
-const searchResults = document.getElementById('search-results');
-const themeToggle = document.getElementById('theme-toggle');
-
-// Theme management
-function initTheme() {
-  const savedTheme = localStorage.getItem('theme') || 'light';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-  themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
-}
-
-function toggleTheme() {
-  const currentTheme = document.documentElement.getAttribute('data-theme');
-  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-  
-  document.documentElement.setAttribute('data-theme', newTheme);
-  localStorage.setItem('theme', newTheme);
-  themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
-}
-
-// Post rendering
-function renderPostCard(post, isFeatured = false) {
-  const formattedDate = format(new Date(post.date), 'yyyy年MM月dd日', { locale: zhCN });
-  
-  return `
-    <article class="post-card ${isFeatured ? 'featured' : ''}">
-      <div class="post-meta">
-        <time datetime="${post.date}">${formattedDate}</time>
-        <div class="post-categories">
-          ${post.categories.map(cat => `<span class="category">${cat}</span>`).join('')}
-        </div>
-      </div>
-      <h3><a href="/post.html?id=${post.id}">${post.title}</a></h3>
-      <p class="post-excerpt">${post.excerpt}</p>
-      <div class="post-tags">
-        ${post.tags.map(tag => `<span class="tag">#${tag}</span>`).join('')}
-      </div>
-      <a href="/post.html?id=${post.id}" class="read-more">阅读更多 →</a>
-    </article>
-  `;
-}
-
-function renderPosts() {
-  // Render featured posts
-  const featuredPosts = posts.filter(post => post.featured);
-  featuredPostsContainer.innerHTML = featuredPosts.map(post => renderPostCard(post, true)).join('');
-  
-  // Render recent posts
-  const recentPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 6);
-  recentPostsContainer.innerHTML = recentPosts.map(post => renderPostCard(post)).join('');
-}
-
-// Search functionality
-function performSearch(query) {
-  if (!query.trim()) {
-    searchResults.style.display = 'none';
-    return;
-  }
-  
-  const results = posts.filter(post => 
-    post.title.toLowerCase().includes(query.toLowerCase()) ||
-    post.content.toLowerCase().includes(query.toLowerCase()) ||
-    post.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()))
-  );
-  
-  if (results.length > 0) {
-    searchResults.innerHTML = results.map(post => `
-      <div class="search-result">
-        <h4><a href="/post.html?id=${post.id}">${post.title}</a></h4>
-        <p>${post.excerpt}</p>
-      </div>
-    `).join('');
-    searchResults.style.display = 'block';
-  } else {
-    searchResults.innerHTML = '<div class="search-result">没有找到相关文章</div>';
-    searchResults.style.display = 'block';
-  }
-}
-
-// Event listeners
-themeToggle.addEventListener('click', toggleTheme);
-
-searchInput.addEventListener('input', (e) => {
-  performSearch(e.target.value);
-});
-
-searchInput.addEventListener('focus', () => {
-  if (searchInput.value.trim()) {
-    searchResults.style.display = 'block';
-  }
-});
-
-document.addEventListener('click', (e) => {
-  if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
-    searchResults.style.display = 'none';
-  }
-});
-
-// Initialize
-initTheme();
-renderPosts();
-
-// Export posts for other pages
-window.blogPosts = posts;
+console.log('博客系统已加载完成！');
