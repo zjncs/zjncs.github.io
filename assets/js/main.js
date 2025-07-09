@@ -423,6 +423,78 @@ function generateTableOfContents() {
     });
 }
 
+// Code Copy Functionality
+class CodeCopyManager {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.addCopyButtons();
+    }
+
+    addCopyButtons() {
+        const codeBlocks = document.querySelectorAll('pre code');
+        
+        codeBlocks.forEach((codeBlock, index) => {
+            const pre = codeBlock.parentElement;
+            
+            // Create copy button
+            const copyButton = document.createElement('button');
+            copyButton.className = 'code-copy-btn';
+            copyButton.innerHTML = '<i class="fas fa-copy"></i>';
+            copyButton.setAttribute('aria-label', '复制代码');
+            copyButton.setAttribute('title', '复制代码');
+            
+            // Add click event
+            copyButton.addEventListener('click', async () => {
+                const code = codeBlock.textContent;
+                
+                try {
+                    await navigator.clipboard.writeText(code);
+                    
+                    // Show success feedback
+                    copyButton.innerHTML = '<i class="fas fa-check"></i>';
+                    copyButton.classList.add('copied');
+                    
+                    setTimeout(() => {
+                        copyButton.innerHTML = '<i class="fas fa-copy"></i>';
+                        copyButton.classList.remove('copied');
+                    }, 2000);
+                    
+                } catch (err) {
+                    console.error('Failed to copy code:', err);
+                    
+                    // Fallback for older browsers
+                    const textArea = document.createElement('textarea');
+                    textArea.value = code;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    
+                    try {
+                        document.execCommand('copy');
+                        copyButton.innerHTML = '<i class="fas fa-check"></i>';
+                        copyButton.classList.add('copied');
+                        
+                        setTimeout(() => {
+                            copyButton.innerHTML = '<i class="fas fa-copy"></i>';
+                            copyButton.classList.remove('copied');
+                        }, 2000);
+                    } catch (fallbackErr) {
+                        console.error('Fallback copy failed:', fallbackErr);
+                    }
+                    
+                    document.body.removeChild(textArea);
+                }
+            });
+            
+            // Add button to pre element
+            pre.style.position = 'relative';
+            pre.appendChild(copyButton);
+        });
+    }
+}
+
 // Lazy Loading for Images
 class LazyLoadManager {
     constructor() {
@@ -540,6 +612,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new NavigationManager();
     new SearchManager();
     new BackToTopManager();
+    new CodeCopyManager();
     new LazyLoadManager();
     new ScrollAnimationManager();
     new PerformanceManager();
