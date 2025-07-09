@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客管理后台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .admin-header {
+            background: #2c3e50;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .admin-header h1 {
+            font-size: 1.5rem;
+        }
+
+        .admin-nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .admin-nav button {
+            background: #34495e;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .admin-nav button:hover,
+        .admin-nav button.active {
+            background: #3498db;
+        }
+
+        .admin-container {
+            display: flex;
+            min-height: calc(100vh - 80px);
+        }
+
+        .sidebar {
+            width: 250px;
+            background: white;
+            border-right: 1px solid #ddd;
+            padding: 1rem;
+        }
+
+        .sidebar h3 {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 0.5rem;
+            color: #333;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .sidebar a:hover {
+            background: #ecf0f1;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .content-section {
+            display: none;
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .form-group textarea {
+            min-height: 300px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+            margin-right: 0.5rem;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+        }
+
+        .btn-success {
+            background: #27ae60;
+        }
+
+        .btn-success:hover {
+            background: #229954;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .btn-secondary {
+            background: #95a5a6;
+        }
+
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+
+        .posts-list {
+            margin-top: 2rem;
+        }
+
+        .post-item {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .post-info h4 {
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .post-meta {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .post-actions button {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .preview-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .preview-panel {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 1rem;
+            background: #f8f9fa;
+        }
+
+        .preview-panel h4 {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .markdown-preview {
+            background: white;
+            padding: 1rem;
+            border-radius: 4px;
+            min-height: 300px;
+        }
+
+        .file-upload {
+            border: 2px dashed #ddd;
+            border-radius: 4px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .file-upload:hover {
+            border-color: #3498db;
+        }
+
+        .file-upload.dragover {
+            border-color: #3498db;
+            background: #f0f8ff;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 4px;
+            color: white;
+            font-weight: 500;
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: #27ae60;
+        }
+
+        .notification.error {
+            background: #e74c3c;
+        }
+
+        .notification.info {
+            background: #3498db;
+        }
+
+        .tag-input {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-height: 40px;
+        }
+
+        .tag {
+            background: #3498db;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .tag .remove {
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .tag-input input {
+            border: none;
+            outline: none;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        @media (max-width: 768px) {
+            .admin-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="admin-header">
+        <h1><i class="fas fa-cog"></i> 博客管理后台</h1>
+        <nav class="admin-nav">
+            <button onclick="showSection('posts')" class="active" id="posts-tab">
+                <i class="fas fa-file-alt"></i> 文章管理
+            </button>
+            <button onclick="showSection('new-post')" id="new-post-tab">
+                <i class="fas fa-plus"></i> 新建文章
+            </button>
+            <button onclick="showSection('settings')" id="settings-tab">
+                <i class="fas fa-cog"></i> 站点设置
+            </button>
+            <button onclick="showSection('theme')" id="theme-tab">
+                <i class="fas fa-palette"></i> 主题设置
+            </button>
+        </nav>
+    </header>
+
+    <div class="admin-container">
+        <aside class="sidebar">
+            <h3>快速操作</h3>
+            <ul>
+                <li><a href="#" onclick="showSection('posts')"><i class="fas fa-list"></i> 所有文章</a></li>
+                <li><a href="#" onclick="showSection('new-post')"><i class="fas fa-plus"></i> 写文章</a></li>
+                <li><a href="#" onclick="exportBlog()"><i class="fas fa-download"></i> 导出博客</a></li>
+                <li><a href="#" onclick="importBlog()"><i class="fas fa-upload"></i> 导入博客</a></li>
+                <li><a href="/" target="_blank"><i class="fas fa-eye"></i> 预览博客</a></li>
+            </ul>
+
+            <h3>统计信息</h3>
+            <ul>
+                <li>文章总数: <span id="total-posts">0</span></li>
+                <li>分类数量: <span id="total-categories">0</span></li>
+                <li>标签数量: <span id="total-tags">0</span></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <!-- 文章管理 -->
+            <section id="posts-section" class="content-section active">
+                <h2>文章管理</h2>
+                <div class="posts-list" id="posts-list">
+                    <!-- 文章列表将在这里动态生成 -->
+                </div>
+            </section>
+
+            <!-- 新建文章 -->
+            <section id="new-post-section" class="content-section">
+                <h2 id="post-form-title">新建文章</h2>
+                <form id="post-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="post-title">文章标题</label>
+                            <input type="text" id="post-title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="post-slug">URL别名</label>
+                            <input type="text" id="post-slug" placeholder="自动生成">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="post-category">分类</label>
+                            <input type="text" id="post-category" placeholder="输入分类名称">
+                        </div>
+                        <div class="form-group">
+                            <label for="post-date">发布日期</label>
+                            <input type="datetime-local" id="post-date">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>标签</label>
+                        <div class="tag-input" id="tag-input">
+                            <input type="text" placeholder="输入标签后按回车" onkeypress="addTag(event)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="post-excerpt">摘要</label>
+                        <textarea id="post-excerpt" rows="3" placeholder="文章摘要（可选）"></textarea>
+                    </div>
+
+                    <div class="preview-container">
+                        <div class="preview-panel">
+                            <h4>Markdown 编辑器</h4>
+                            <textarea id="post-content" placeholder="在这里写你的文章内容...支持 Markdown 语法"></textarea>
+                        </div>
+                        <div class="preview-panel">
+                            <h4>实时预览</h4>
+                            <div class="markdown-preview" id="markdown-preview">
+                                <p>在左侧编辑器中输入内容，这里会显示预览效果...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 2rem;">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i> 保存文章
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="clearForm()">
+                            <i class="fas fa-times"></i> 清空
+                        </button>
+                        <button type="button" class="btn" onclick="previewPost()">
+                            <i class="fas fa-eye"></i> 预览
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- 站点设置 -->
+            <section id="settings-section" class="content-section">
+                <h2>站点设置</h2>
+                <form id="settings-form">
+                    <div class="form-group">
+                        <label for="site-title">站点标题</label>
+                        <input type="text" id="site-title" value="我的技术博客">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="site-description">站点描述</label>
+                        <textarea id="site-description" rows="3">专业技术分享与开发经验</textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="site-author">作者姓名</label>
+                            <input type="text" id="site-author" value="Your Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="site-email">联系邮箱</label>
+                            <input type="email" id="site-email" value="your.email@example.com">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="github-username">GitHub 用户名</label>
+                            <input type="text" id="github-username" placeholder="yourusername">
+                        </div>
+                        <div class="form-group">
+                            <label for="twitter-username">Twitter 用户名</label>
+                            <input type="text" id="twitter-username" placeholder="yourusername">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="about-content">关于页面内容</label>
+                        <textarea id="about-content" rows="10" placeholder="在这里编写关于页面的内容..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> 保存设置
+                    </button>
+                </form>
+            </section>
+
+            <!-- 主题设置 -->
+            <section id="theme-section" class="content-section">
+                <h2>主题设置</h2>
+                <form id="theme-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="primary-color">主色调</label>
+                            <input type="color" id="primary-color" value="#3498db">
+                        </div>
+                        <div class="form-group">
+                            <label for="accent-color">强调色</label>
+                            <input type="color" id="accent-color" value="#e74c3c">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="font-family">字体选择</label>
+                        <select id="font-family">
+                            <option value="system">系统默认</option>
+                            <option value="serif">衬线字体</option>
+                            <option value="mono">等宽字体</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="custom-css">自定义 CSS</label>
+                        <textarea id="custom-css" rows="10" placeholder="在这里添加自定义 CSS 样式..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> 应用主题
+                    </button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <!-- 文件上传区域 -->
+    <div id="file-upload" class="file-upload" style="display: none;">
+        <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: #3498db; margin-bottom: 1rem;"></i>
+        <p>拖拽 Markdown 文件到这里，或点击选择文件</p>
+        <input type="file" id="file-input" accept=".md,.markdown" multiple style="display: none;">
+    </div>
+
+    <script type="module" src="/admin.js"></script>
+</body>
+</html>
