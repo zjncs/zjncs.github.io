@@ -1,0 +1,128 @@
+<!-- 评论系统组件 -->
+{% if page.comments != false and site.comments.provider %}
+
+<section class="comments-section" id="comments">
+    <div class="comments-header">
+        <h3>
+            <i class="fas fa-comments"></i>
+            评论区
+        </h3>
+        <p class="comments-subtitle">欢迎留下您的想法和建议</p>
+    </div>
+
+    <div class="comments-content">
+        {% case site.comments.provider %}
+        
+        {% when "disqus" %}
+        <!-- Disqus 评论系统 -->
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_config = function () {
+                this.page.url = "{{ site.url }}{{ page.url }}";
+                this.page.identifier = "{{ page.id | default: page.url }}";
+                this.page.title = "{{ page.title }}";
+            };
+            
+            (function() {
+                var d = document, s = d.createElement('script');
+                s.src = 'https://{{ site.comments.disqus.shortname | default: site.disqus_shortname }}.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>
+            请启用 JavaScript 来查看 
+            <a href="https://disqus.com/?ref_noscript">Disqus 评论</a>。
+        </noscript>
+        
+        {% when "utterances" %}
+        <!-- Utterances 评论系统 -->
+        <script src="https://utteranc.es/client.js"
+                repo="{{ site.comments.utterances.repo }}"
+                issue-term="{{ site.comments.utterances.issue_term | default: 'pathname' }}"
+                theme="{{ site.comments.utterances.theme | default: 'github-light' }}"
+                crossorigin="anonymous"
+                async>
+        </script>
+        
+        {% when "giscus" %}
+        <!-- Giscus 评论系统 -->
+        <script src="https://giscus.app/client.js"
+                data-repo="{{ site.comments.giscus.repo }}"
+                data-repo-id="{{ site.comments.giscus.repo_id }}"
+                data-category="{{ site.comments.giscus.category }}"
+                data-category-id="{{ site.comments.giscus.category_id }}"
+                data-mapping="{{ site.comments.giscus.mapping | default: 'pathname' }}"
+                data-strict="0"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="bottom"
+                data-theme="{{ site.comments.giscus.theme | default: 'light' }}"
+                data-lang="zh-CN"
+                crossorigin="anonymous"
+                async>
+        </script>
+        
+        {% else %}
+        <!-- 默认评论提示 -->
+        <div class="comments-placeholder">
+            <i class="fas fa-comment-slash"></i>
+            <p>评论系统未配置</p>
+            <small>请在 _config.yml 中配置评论系统</small>
+        </div>
+        
+        {% endcase %}
+    </div>
+</section>
+
+<!-- 评论系统主题切换支持 -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 监听主题变化
+    const themeObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+                updateCommentsTheme();
+            }
+        });
+    });
+    
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme']
+    });
+    
+    function updateCommentsTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+        
+        {% if site.comments.provider == "utterances" %}
+        // 更新 Utterances 主题
+        const utterancesFrame = document.querySelector('.utterances-frame');
+        if (utterancesFrame) {
+            const theme = currentTheme === 'dark' ? 'github-dark' : 'github-light';
+            utterancesFrame.contentWindow.postMessage({
+                type: 'set-theme',
+                theme: theme
+            }, 'https://utteranc.es');
+        }
+        {% endif %}
+        
+        {% if site.comments.provider == "giscus" %}
+        // 更新 Giscus 主题
+        const giscusFrame = document.querySelector('iframe[src*="giscus"]');
+        if (giscusFrame) {
+            const theme = currentTheme === 'dark' ? 'dark' : 'light';
+            giscusFrame.contentWindow.postMessage({
+                giscus: {
+                    setConfig: {
+                        theme: theme
+                    }
+                }
+            }, 'https://giscus.app');
+        }
+        {% endif %}
+    }
+});
+</script>
+
+{% endif %}
