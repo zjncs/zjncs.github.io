@@ -331,6 +331,73 @@
             min-width: 100px;
         }
 
+        .github-status {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-indicator.connected {
+            color: #27ae60;
+        }
+
+        .status-indicator.error {
+            color: #e74c3c;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .sync-log {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 1rem;
+        }
+
+        .log-content {
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .log-entry {
+            margin-bottom: 0.5rem;
+            padding: 0.25rem 0;
+        }
+
+        .log-entry.success {
+            color: #27ae60;
+        }
+
+        .log-entry.error {
+            color: #e74c3c;
+        }
+
+        .log-entry.info {
+            color: #3498db;
+        }
+
         @media (max-width: 768px) {
             .admin-container {
                 flex-direction: column;
@@ -348,6 +415,10 @@
 
             .preview-container {
                 grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
             }
         }
     </style>
@@ -368,6 +439,9 @@
             <button onclick="showSection('theme')" id="theme-tab">
                 <i class="fas fa-palette"></i> 主题设置
             </button>
+            <button onclick="showSection('github')" id="github-tab">
+                <i class="fab fa-github"></i> GitHub 同步
+            </button>
         </nav>
     </header>
 
@@ -380,6 +454,7 @@
                 <li><a href="#" onclick="exportBlog()"><i class="fas fa-download"></i> 导出博客</a></li>
                 <li><a href="#" onclick="importBlog()"><i class="fas fa-upload"></i> 导入博客</a></li>
                 <li><a href="/" target="_blank"><i class="fas fa-eye"></i> 预览博客</a></li>
+                <li><a href="#" onclick="syncToGitHub()"><i class="fab fa-github"></i> 同步到GitHub</a></li>
             </ul>
 
             <h3>统计信息</h3>
@@ -544,6 +619,69 @@
                         <i class="fas fa-save"></i> 应用主题
                     </button>
                 </form>
+            </section>
+
+            <!-- GitHub 同步 -->
+            <section id="github-section" class="content-section">
+                <h2>GitHub 同步设置</h2>
+                
+                <div class="github-status" id="github-status">
+                    <div class="status-indicator" id="status-indicator">
+                        <i class="fas fa-circle"></i>
+                        <span id="status-text">未配置</span>
+                    </div>
+                </div>
+
+                <form id="github-form">
+                    <div class="form-group">
+                        <label for="github-token">GitHub Personal Access Token</label>
+                        <input type="password" id="github-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+                        <small>需要 repo 权限。<a href="https://github.com/settings/tokens" target="_blank">创建 Token</a></small>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="github-owner">GitHub 用户名/组织名</label>
+                            <input type="text" id="github-owner" placeholder="yourusername">
+                        </div>
+                        <div class="form-group">
+                            <label for="github-repo">仓库名</label>
+                            <input type="text" id="github-repo" placeholder="yourusername.github.io">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i> 保存配置
+                        </button>
+                        <button type="button" class="btn" onclick="testGitHubConnection()">
+                            <i class="fas fa-plug"></i> 测试连接
+                        </button>
+                    </div>
+                </form>
+
+                <div class="github-actions" id="github-actions" style="display: none;">
+                    <h3>同步操作</h3>
+                    
+                    <div class="action-buttons">
+                        <button class="btn" onclick="initializeJekyllSite()">
+                            <i class="fas fa-rocket"></i> 初始化 Jekyll 站点
+                        </button>
+                        <button class="btn btn-success" onclick="syncAllPosts()">
+                            <i class="fas fa-sync"></i> 同步所有文章
+                        </button>
+                        <button class="btn" onclick="syncSettings()">
+                            <i class="fas fa-cog"></i> 同步站点设置
+                        </button>
+                    </div>
+
+                    <div class="sync-log" id="sync-log">
+                        <h4>同步日志</h4>
+                        <div class="log-content" id="log-content">
+                            <p>等待同步操作...</p>
+                        </div>
+                    </div>
+                </div>
             </section>
         </main>
     </div>
