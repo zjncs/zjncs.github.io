@@ -11,84 +11,114 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* 现代化设计系统 */
         :root {
-            /* 苹果风格色彩系统 */
-            --apple-blue: #007AFF;
-            --apple-blue-dark: #0051D5;
-            --apple-green: #34C759;
-            --apple-orange: #FF9500;
-            --apple-red: #FF3B30;
-            --apple-purple: #AF52DE;
-            --apple-pink: #FF2D92;
-            --apple-yellow: #FFCC00;
+            /* 主色调 */
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #3b82f6;
             
-            /* 灰度系统 */
-            --apple-gray-50: #FAFAFA;
-            --apple-gray-100: #F5F5F7;
-            --apple-gray-200: #E5E5EA;
-            --apple-gray-300: #D1D1D6;
-            --apple-gray-400: #C7C7CC;
-            --apple-gray-500: #AEAEB2;
-            --apple-gray-600: #8E8E93;
-            --apple-gray-700: #636366;
-            --apple-gray-800: #48484A;
-            --apple-gray-900: #1D1D1F;
+            /* 辅助色 */
+            --secondary-color: #64748b;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
             
-            /* 系统颜色 */
-            --bg-primary: #FFFFFF;
-            --bg-secondary: #F5F5F7;
-            --bg-tertiary: #FFFFFF;
-            --text-primary: #1D1D1F;
-            --text-secondary: #86868B;
-            --text-tertiary: #AEAEB2;
-            --border-color: rgba(0, 0, 0, 0.1);
-            --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
-            --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.1);
-            --shadow-heavy: 0 8px 25px rgba(0, 0, 0, 0.15);
+            /* 中性色 */
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            
+            /* 语义化颜色 */
+            --bg-color: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --text-color: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --border-color: #e2e8f0;
+            --shadow-color: rgba(0, 0, 0, 0.1);
             
             /* 字体 */
-            --font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter', system-ui, sans-serif;
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+            
+            /* 间距 */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            --spacing-3xl: 4rem;
+            
+            /* 圆角 */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            
+            /* 阴影 */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             
             /* 动画 */
-            --animation-swift: cubic-bezier(0.4, 0.0, 0.2, 1);
-            --animation-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+            --transition-fast: 0.15s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
         }
 
-        /* 暗色模式 */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-primary: #000000;
-                --bg-secondary: #1C1C1E;
-                --bg-tertiary: #2C2C2E;
-                --text-primary: #FFFFFF;
-                --text-secondary: rgba(235, 235, 245, 0.6);
-                --text-tertiary: rgba(235, 235, 245, 0.3);
-                --border-color: rgba(255, 255, 255, 0.1);
-                --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.3);
-                --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.3);
-                --shadow-heavy: 0 8px 25px rgba(0, 0, 0, 0.4);
-            }
+        /* 暗色主题 */
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-color: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --shadow-color: rgba(0, 0, 0, 0.3);
         }
 
+        /* 重置样式 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
         body {
             font-family: var(--font-family);
+            font-size: 1rem;
             line-height: 1.6;
-            color: var(--text-primary);
-            background-color: var(--bg-primary);
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: background-color var(--transition-normal), color var(--transition-normal);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
 
+        /* 容器 */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 var(--spacing-lg);
         }
 
         /* 加载状态 */
@@ -98,14 +128,14 @@
             align-items: center;
             min-height: 100vh;
             flex-direction: column;
-            gap: 1rem;
+            gap: var(--spacing-lg);
         }
 
         .loading-spinner {
             width: 40px;
             height: 40px;
-            border: 3px solid var(--apple-gray-300);
-            border-top: 3px solid var(--apple-blue);
+            border: 3px solid var(--border-color);
+            border-top: 3px solid var(--primary-color);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -115,228 +145,267 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* 博客头部 - 移除渐变，使用纯色 */
+        .loading-text {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* 博客头部 */
         .blog-header {
-            background: var(--bg-secondary);
-            padding: 40px 0;
-            margin-bottom: 40px;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            padding: var(--spacing-3xl) 0;
+            margin-bottom: var(--spacing-3xl);
             border-bottom: 1px solid var(--border-color);
             position: relative;
+            overflow: hidden;
+        }
+
+        .blog-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23e2e8f0" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.5;
+        }
+
+        .blog-header-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
         }
 
         .blog-header h1 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 700;
-            margin-bottom: 8px;
-            text-align: center;
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
+            margin-bottom: var(--spacing-md);
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s ease;
         }
 
         .blog-description {
-            text-align: center;
+            font-size: 1.25rem;
             color: var(--text-secondary);
-            font-size: 1.1rem;
-            margin-bottom: 32px;
-            font-weight: 400;
+            margin-bottom: var(--spacing-xl);
+            animation: fadeInUp 0.8s ease 0.2s both;
         }
 
         .blog-nav {
             display: flex;
             justify-content: center;
-            gap: 8px;
+            gap: var(--spacing-lg);
             flex-wrap: wrap;
             align-items: center;
-            margin-bottom: 24px;
+            margin-bottom: var(--spacing-xl);
+            animation: fadeInUp 0.8s ease 0.4s both;
         }
 
         .nav-link {
-            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            color: var(--text-color);
             text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            transition: all 0.2s var(--animation-swift);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            transition: all var(--transition-fast);
             font-weight: 500;
-            font-size: 15px;
-            background: var(--bg-primary);
-            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
         }
 
         .nav-link:hover,
         .nav-link.active {
-            background: var(--apple-blue);
+            background: var(--primary-color);
             color: white;
-            border-color: var(--apple-blue);
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-medium);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
 
         .nav-link.admin-link {
-            background: var(--apple-red);
+            background: var(--error-color);
             color: white;
-            border-color: var(--apple-red);
         }
 
         .nav-link.admin-link:hover {
-            background: #DC3545;
-            border-color: #DC3545;
+            background: #dc2626;
         }
 
         /* 搜索框 */
-        .search-box {
+        .search-container {
             position: relative;
             max-width: 400px;
             margin: 0 auto;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        .search-box {
+            position: relative;
         }
 
         .search-box input {
             width: 100%;
-            padding: 12px 16px 12px 44px;
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            font-size: 16px;
-            transition: all 0.2s var(--animation-swift);
-            outline: none;
+            padding: var(--spacing-md) var(--spacing-lg);
+            padding-left: 3rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: all var(--transition-fast);
+            box-shadow: var(--shadow-sm);
         }
 
         .search-box input:focus {
-            border-color: var(--apple-blue);
-            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
-        .search-box::before {
-            content: '\f002';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
+        .search-box i {
             position: absolute;
-            left: 16px;
+            left: var(--spacing-md);
             top: 50%;
             transform: translateY(-50%);
-            color: var(--text-tertiary);
-            font-size: 14px;
-            z-index: 1;
+            color: var(--text-muted);
         }
 
         .search-results {
             position: absolute;
-            top: calc(100% + 8px);
+            top: 100%;
             left: 0;
             right: 0;
-            background: var(--bg-primary);
+            background: var(--bg-color);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            box-shadow: var(--shadow-heavy);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
             z-index: 1000;
             display: none;
             max-height: 400px;
             overflow-y: auto;
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            margin-top: var(--spacing-xs);
         }
 
         .search-result-item {
-            padding: 16px;
+            padding: var(--spacing-lg);
             border-bottom: 1px solid var(--border-color);
             cursor: pointer;
-            transition: all 0.2s var(--animation-swift);
-        }
-
-        .search-result-item:last-child {
-            border-bottom: none;
+            transition: all var(--transition-fast);
         }
 
         .search-result-item:hover {
             background: var(--bg-secondary);
         }
 
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
         .search-result-item h4 {
-            margin-bottom: 4px;
-            color: var(--apple-blue);
-            font-size: 15px;
-            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+            color: var(--primary-color);
+            font-size: 1.1rem;
         }
 
         .search-result-item p {
             color: var(--text-secondary);
-            font-size: 13px;
+            font-size: 0.9rem;
             line-height: 1.4;
         }
 
         .no-results {
-            padding: 20px;
+            padding: var(--spacing-xl);
             text-align: center;
-            color: var(--text-secondary);
-            font-size: 14px;
+            color: var(--text-muted);
         }
 
         /* 主题切换按钮 */
         .theme-toggle {
-            background: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            padding: 8px;
-            border-radius: 20px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            color: var(--text-color);
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-lg);
             cursor: pointer;
-            transition: all 0.2s var(--animation-swift);
-            width: 36px;
-            height: 36px;
+            transition: all var(--transition-fast);
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 1.1rem;
         }
 
         .theme-toggle:hover {
-            background: var(--bg-secondary);
-            transform: translateY(-1px);
+            background: var(--primary-color);
+            color: white;
+            transform: scale(1.05);
         }
 
         /* 面包屑导航 */
         .breadcrumb {
-            margin-bottom: 16px;
-            font-size: 14px;
+            margin-bottom: var(--spacing-lg);
+            font-size: 0.9rem;
             color: var(--text-secondary);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: var(--spacing-xs);
         }
 
         .breadcrumb a {
-            color: var(--apple-blue);
+            color: var(--primary-color);
             text-decoration: none;
-            transition: color 0.2s;
+            transition: color var(--transition-fast);
         }
 
         .breadcrumb a:hover {
-            color: var(--apple-blue-dark);
+            color: var(--primary-dark);
         }
 
         .separator {
-            color: var(--text-tertiary);
+            color: var(--text-muted);
         }
 
         .current {
-            color: var(--text-primary);
+            color: var(--text-color);
             font-weight: 500;
         }
 
         /* 文章容器 */
         .posts-container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
         /* 文章卡片 */
         .post-card {
-            background: var(--bg-primary);
+            background: var(--bg-color);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: var(--shadow-light);
-            transition: all 0.3s var(--animation-ease);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-2xl);
+            margin-bottom: var(--spacing-2xl);
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
             position: relative;
             overflow: hidden;
         }
@@ -347,182 +416,152 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--apple-blue), var(--apple-purple));
-            opacity: 0;
-            transition: opacity 0.3s;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            transform: scaleX(0);
+            transition: transform var(--transition-normal);
         }
 
         .post-card:hover {
             transform: translateY(-4px);
-            box-shadow: var(--shadow-heavy);
-            border-color: var(--apple-blue);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-color);
         }
 
         .post-card:hover::before {
-            opacity: 1;
+            transform: scaleX(1);
         }
 
         .post-header {
-            margin-bottom: 16px;
+            margin-bottom: var(--spacing-lg);
         }
 
         .post-title {
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: var(--spacing-sm);
             line-height: 1.3;
         }
 
         .post-title a {
-            color: var(--text-primary);
+            color: var(--text-color);
             text-decoration: none;
-            transition: color 0.2s;
+            transition: color var(--transition-fast);
         }
 
         .post-title a:hover {
-            color: var(--apple-blue);
+            color: var(--primary-color);
         }
 
         .post-meta {
             display: flex;
-            gap: 16px;
-            font-size: 14px;
+            gap: var(--spacing-lg);
+            font-size: 0.9rem;
             color: var(--text-secondary);
             flex-wrap: wrap;
             align-items: center;
         }
 
-        .post-meta time {
+        .post-meta > * {
             display: flex;
             align-items: center;
-            gap: 4px;
-        }
-
-        .post-meta time::before {
-            content: '\f017';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 400;
-            font-size: 12px;
+            gap: var(--spacing-xs);
         }
 
         .category {
-            background: var(--apple-blue);
+            background: var(--primary-color);
             color: white;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-md);
+            font-size: 0.8rem;
             font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .category::before {
-            content: '\f07b';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 400;
-            font-size: 10px;
-        }
-
-        .reading-time {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .reading-time::before {
-            content: '\f2f2';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 400;
-            font-size: 12px;
         }
 
         .post-excerpt {
             color: var(--text-secondary);
-            margin-bottom: 16px;
-            line-height: 1.6;
-            font-size: 15px;
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.7;
+            font-size: 1.05rem;
         }
 
         .post-tags {
             display: flex;
-            gap: 8px;
-            margin-bottom: 16px;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
             flex-wrap: wrap;
         }
 
         .tag {
             background: var(--bg-secondary);
             color: var(--text-secondary);
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 500;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-md);
+            font-size: 0.8rem;
             border: 1px solid var(--border-color);
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .tag::before {
-            content: '\f02b';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 400;
-            font-size: 10px;
+            transition: all var(--transition-fast);
         }
 
         .tag:hover {
-            background: var(--apple-blue);
+            background: var(--primary-color);
             color: white;
-            border-color: var(--apple-blue);
+            border-color: var(--primary-color);
         }
 
         .post-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid var(--border-color);
         }
 
         .read-more {
-            color: var(--apple-blue);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-            transition: all 0.2s;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: var(--spacing-xs);
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
         }
 
         .read-more:hover {
-            color: var(--apple-blue-dark);
-            transform: translateX(2px);
+            background: var(--primary-color);
+            color: white;
+            transform: translateX(4px);
+        }
+
+        .reading-time {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-size: 0.9rem;
+            color: var(--text-muted);
         }
 
         /* 文章详情 */
         .post-detail {
             max-width: 800px;
             margin: 0 auto;
-            background: var(--bg-primary);
-            border-radius: 16px;
-            padding: 32px;
-            box-shadow: var(--shadow-light);
+            background: var(--bg-color);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-3xl);
+            box-shadow: var(--shadow-lg);
             border: 1px solid var(--border-color);
         }
 
         .post-detail .post-title {
             font-size: 2.5rem;
-            margin-bottom: 16px;
-            font-weight: 700;
-            letter-spacing: -0.02em;
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.2;
         }
 
         .post-content {
-            margin: 32px 0;
+            margin: var(--spacing-2xl) 0;
             line-height: 1.8;
-            font-size: 16px;
+            font-size: 1.1rem;
         }
 
         .post-content h1,
@@ -531,95 +570,91 @@
         .post-content h4,
         .post-content h5,
         .post-content h6 {
-            margin: 32px 0 16px 0;
-            color: var(--text-primary);
+            margin: var(--spacing-2xl) 0 var(--spacing-lg) 0;
+            color: var(--text-color);
             font-weight: 600;
-            letter-spacing: -0.01em;
         }
 
         .post-content h1 { font-size: 2rem; }
         .post-content h2 { font-size: 1.75rem; }
         .post-content h3 { font-size: 1.5rem; }
-        .post-content h4 { font-size: 1.25rem; }
 
         .post-content p {
-            margin-bottom: 16px;
+            margin-bottom: var(--spacing-lg);
         }
 
         .post-content ul,
         .post-content ol {
-            margin-bottom: 16px;
-            padding-left: 24px;
+            margin-bottom: var(--spacing-lg);
+            padding-left: var(--spacing-xl);
         }
 
         .post-content li {
-            margin-bottom: 8px;
+            margin-bottom: var(--spacing-sm);
         }
 
         .post-content code {
             background: var(--bg-secondary);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            padding: 0.2rem 0.4rem;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-mono);
             font-size: 0.9em;
-            color: var(--apple-red);
-            border: 1px solid var(--border-color);
+            color: var(--error-color);
         }
 
         .post-content pre {
             background: var(--bg-secondary);
-            padding: 20px;
-            border-radius: 12px;
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
             overflow-x: auto;
-            margin: 20px 0;
+            margin: var(--spacing-lg) 0;
             border: 1px solid var(--border-color);
         }
 
         .post-content pre code {
             background: none;
             padding: 0;
-            border: none;
-            color: var(--text-primary);
+            color: var(--text-color);
         }
 
         .post-content blockquote {
-            border-left: 4px solid var(--apple-blue);
-            padding-left: 20px;
-            margin: 20px 0;
+            border-left: 4px solid var(--primary-color);
+            padding-left: var(--spacing-lg);
+            margin: var(--spacing-lg) 0;
             color: var(--text-secondary);
             font-style: italic;
             background: var(--bg-secondary);
-            padding: 16px 20px;
-            border-radius: 0 8px 8px 0;
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
         }
 
         .post-content img {
             max-width: 100%;
             height: auto;
-            border-radius: 12px;
-            margin: 20px 0;
-            box-shadow: var(--shadow-medium);
+            border-radius: var(--radius-lg);
+            margin: var(--spacing-lg) 0;
+            box-shadow: var(--shadow-md);
         }
 
         /* 文章导航 */
         .post-nav {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin: 32px 0;
+            gap: var(--spacing-lg);
+            margin: var(--spacing-2xl) 0;
         }
 
         .post-nav-item {
-            padding: 16px;
+            padding: var(--spacing-lg);
             background: var(--bg-secondary);
-            border-radius: 12px;
+            border-radius: var(--radius-lg);
             border: 1px solid var(--border-color);
-            transition: all 0.2s;
+            transition: all var(--transition-fast);
         }
 
         .post-nav-item:hover {
             transform: translateY(-2px);
-            box-shadow: var(--shadow-medium);
+            box-shadow: var(--shadow-md);
         }
 
         .post-nav-item.prev {
@@ -632,399 +667,349 @@
 
         .nav-label {
             display: block;
-            font-size: 12px;
-            color: var(--text-tertiary);
-            margin-bottom: 4px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: var(--spacing-xs);
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            font-weight: 500;
         }
 
         .post-nav-item a {
-            color: var(--text-primary);
+            color: var(--text-color);
             text-decoration: none;
             font-weight: 500;
-            font-size: 14px;
+            transition: color var(--transition-fast);
         }
 
         .post-nav-item a:hover {
-            color: var(--apple-blue);
+            color: var(--primary-color);
         }
 
         /* 分享按钮 */
         .share-buttons {
-            margin-top: 32px;
-            padding-top: 24px;
+            margin-top: var(--spacing-2xl);
+            padding-top: var(--spacing-2xl);
             border-top: 1px solid var(--border-color);
         }
 
         .share-buttons h4 {
-            margin-bottom: 16px;
-            color: var(--text-primary);
-            font-size: 16px;
-            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            color: var(--text-color);
+        }
+
+        .share-btn-group {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
         }
 
         .share-btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            margin-right: 8px;
-            margin-bottom: 8px;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-sm) var(--spacing-lg);
             border: none;
-            border-radius: 20px;
+            border-radius: var(--radius-lg);
             cursor: pointer;
-            font-size: 14px;
+            font-size: 0.9rem;
             font-weight: 500;
-            transition: all 0.2s var(--animation-swift);
+            transition: all var(--transition-fast);
             text-decoration: none;
         }
 
         .share-btn.twitter {
-            background: #1DA1F2;
+            background: #1da1f2;
             color: white;
         }
 
         .share-btn.facebook {
-            background: #4267B2;
+            background: #4267b2;
             color: white;
         }
 
         .share-btn.copy {
             background: var(--bg-secondary);
-            color: var(--text-primary);
+            color: var(--text-color);
             border: 1px solid var(--border-color);
         }
 
         .share-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-medium);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         /* 分页 */
         .pagination {
             display: flex;
             justify-content: center;
-            gap: 8px;
-            margin: 40px 0;
+            gap: var(--spacing-sm);
+            margin: var(--spacing-2xl) 0;
         }
 
         .page-btn {
-            padding: 8px 16px;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            background: var(--bg-color);
+            color: var(--text-color);
             text-decoration: none;
             border: 1px solid var(--border-color);
-            border-radius: 20px;
-            transition: all 0.2s var(--animation-swift);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
             font-weight: 500;
-            font-size: 14px;
         }
 
         .page-btn:hover,
         .page-btn.current {
-            background: var(--apple-blue);
+            background: var(--primary-color);
             color: white;
-            border-color: var(--apple-blue);
+            border-color: var(--primary-color);
             transform: translateY(-1px);
         }
 
         /* 分类和标签页面 */
-        .categories-grid {
+        .categories-grid,
+        .tags-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-            margin: 32px 0;
+            gap: var(--spacing-xl);
+            margin: var(--spacing-2xl) 0;
         }
 
-        .category-card {
-            background: var(--bg-primary);
+        .category-card,
+        .tag-card {
+            background: var(--bg-color);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: var(--shadow-light);
-            transition: all 0.3s var(--animation-ease);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
         }
 
-        .category-card:hover {
+        .category-card:hover,
+        .tag-card:hover {
             transform: translateY(-4px);
-            box-shadow: var(--shadow-heavy);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
         }
 
-        .category-name {
-            font-size: 1.3rem;
-            margin-bottom: 8px;
-            color: var(--apple-blue);
+        .category-name,
+        .tag-name {
+            font-size: 1.5rem;
             font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--primary-color);
         }
 
-        .category-count {
+        .category-count,
+        .tag-count {
             color: var(--text-secondary);
-            margin-bottom: 16px;
-            font-size: 14px;
+            margin-bottom: var(--spacing-lg);
         }
 
-        .category-posts {
+        .category-posts,
+        .tag-posts {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: var(--spacing-sm);
         }
 
-        .category-post {
+        .category-post,
+        .tag-post {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 0;
+            padding: var(--spacing-sm) 0;
             border-bottom: 1px solid var(--border-color);
         }
 
-        .category-post:last-child {
+        .category-post:last-child,
+        .tag-post:last-child {
             border-bottom: none;
         }
 
-        .category-post a {
-            color: var(--text-primary);
+        .category-post a,
+        .tag-post a {
+            color: var(--text-color);
             text-decoration: none;
             flex: 1;
-            font-size: 14px;
-            transition: color 0.2s;
+            transition: color var(--transition-fast);
         }
 
-        .category-post a:hover {
-            color: var(--apple-blue);
+        .category-post a:hover,
+        .tag-post a:hover {
+            color: var(--primary-color);
         }
 
-        .category-post time {
-            color: var(--text-tertiary);
-            font-size: 12px;
-        }
-
-        .category-more {
-            text-align: center;
-            margin-top: 16px;
-        }
-
-        .category-more a {
-            color: var(--apple-blue);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
+        .category-post time,
+        .tag-post time {
+            color: var(--text-muted);
+            font-size: 0.8rem;
         }
 
         /* 标签云 */
         .tags-cloud {
             text-align: center;
-            margin: 32px 0;
-            padding: 32px;
+            margin: var(--spacing-2xl) 0;
+            padding: var(--spacing-2xl);
             background: var(--bg-secondary);
-            border-radius: 16px;
+            border-radius: var(--radius-xl);
             border: 1px solid var(--border-color);
         }
 
         .tag-item {
             display: inline-block;
-            margin: 4px;
-            padding: 8px 16px;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            margin: var(--spacing-xs);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            background: var(--bg-color);
+            color: var(--text-color);
             text-decoration: none;
-            border-radius: 20px;
+            border-radius: var(--radius-xl);
             border: 1px solid var(--border-color);
-            transition: all 0.2s var(--animation-swift);
-            font-size: 14px;
+            transition: all var(--transition-fast);
             font-weight: 500;
         }
 
         .tag-item:hover {
-            background: var(--apple-blue);
+            background: var(--primary-color);
             color: white;
-            border-color: var(--apple-blue);
+            border-color: var(--primary-color);
             transform: translateY(-2px);
-            box-shadow: var(--shadow-medium);
         }
 
-        .tag-size-1 { font-size: 12px; }
-        .tag-size-2 { font-size: 13px; }
-        .tag-size-3 { font-size: 14px; }
-        .tag-size-4 { font-size: 15px; font-weight: 600; }
-        .tag-size-5 { font-size: 16px; font-weight: 700; }
-
-        .tags-list {
-            margin-top: 32px;
-        }
-
-        .tag-section {
-            margin-bottom: 32px;
-            background: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: var(--shadow-light);
-        }
-
-        .tag-name {
-            color: var(--apple-blue);
-            margin-bottom: 16px;
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        .tag-posts {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .tag-post {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .tag-post:last-child {
-            border-bottom: none;
-        }
-
-        .tag-post a {
-            color: var(--text-primary);
-            text-decoration: none;
-            flex: 1;
-            font-size: 14px;
-            transition: color 0.2s;
-        }
-
-        .tag-post a:hover {
-            color: var(--apple-blue);
-        }
-
-        .tag-post time {
-            color: var(--text-tertiary);
-            font-size: 12px;
-        }
+        .tag-size-1 { font-size: 0.8rem; }
+        .tag-size-2 { font-size: 0.9rem; }
+        .tag-size-3 { font-size: 1rem; }
+        .tag-size-4 { font-size: 1.1rem; font-weight: 600; }
+        .tag-size-5 { font-size: 1.2rem; font-weight: 700; }
 
         /* 关于页面 */
         .about-content {
             max-width: 800px;
             margin: 0 auto;
-            background: var(--bg-primary);
-            border-radius: 16px;
-            padding: 32px;
-            box-shadow: var(--shadow-light);
+            background: var(--bg-color);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-3xl);
+            box-shadow: var(--shadow-lg);
             border: 1px solid var(--border-color);
         }
 
         .author-info {
             text-align: center;
-            margin-bottom: 32px;
-            padding-bottom: 24px;
+            margin-bottom: var(--spacing-2xl);
+            padding-bottom: var(--spacing-2xl);
             border-bottom: 1px solid var(--border-color);
         }
 
+        .author-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto var(--spacing-lg);
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--text-muted);
+            border: 4px solid var(--border-color);
+        }
+
         .author-info h2 {
-            margin-bottom: 8px;
-            color: var(--text-primary);
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-color);
             font-size: 2rem;
-            font-weight: 700;
         }
 
         .author-email {
             color: var(--text-secondary);
-            margin-bottom: 16px;
-            font-size: 16px;
+            margin-bottom: var(--spacing-lg);
         }
 
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: var(--spacing-lg);
             flex-wrap: wrap;
         }
 
         .social-links a {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-sm) var(--spacing-lg);
             background: var(--bg-secondary);
-            color: var(--text-primary);
+            color: var(--text-color);
             text-decoration: none;
-            border-radius: 20px;
+            border-radius: var(--radius-lg);
             border: 1px solid var(--border-color);
-            transition: all 0.2s var(--animation-swift);
-            font-size: 14px;
+            transition: all var(--transition-fast);
             font-weight: 500;
         }
 
         .social-links a:hover {
-            background: var(--apple-blue);
+            background: var(--primary-color);
             color: white;
-            border-color: var(--apple-blue);
-            transform: translateY(-1px);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
         }
 
         .about-text {
-            margin-bottom: 32px;
+            margin-bottom: var(--spacing-2xl);
             line-height: 1.8;
-            font-size: 16px;
+            font-size: 1.1rem;
         }
 
         .blog-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
+            gap: var(--spacing-lg);
             text-align: center;
         }
 
         .stat {
-            padding: 20px;
+            padding: var(--spacing-lg);
             background: var(--bg-secondary);
-            border-radius: 12px;
+            border-radius: var(--radius-lg);
             border: 1px solid var(--border-color);
-            transition: all 0.2s;
+            transition: all var(--transition-fast);
         }
 
         .stat:hover {
             transform: translateY(-2px);
-            box-shadow: var(--shadow-medium);
+            box-shadow: var(--shadow-md);
         }
 
         .stat-number {
             display: block;
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 700;
-            color: var(--apple-blue);
-            margin-bottom: 4px;
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-sm);
         }
 
         .stat-label {
             color: var(--text-secondary);
-            font-size: 14px;
+            font-size: 0.9rem;
             font-weight: 500;
         }
 
         /* 回到顶部按钮 */
         .scroll-to-top {
             position: fixed;
-            bottom: 32px;
-            right: 32px;
-            width: 48px;
-            height: 48px;
-            background: var(--apple-blue);
+            bottom: var(--spacing-xl);
+            right: var(--spacing-xl);
+            width: 56px;
+            height: 56px;
+            background: var(--primary-color);
             color: white;
             border: none;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 1.2rem;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s var(--animation-ease);
+            transition: all var(--transition-normal);
             z-index: 1000;
-            box-shadow: var(--shadow-heavy);
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            box-shadow: var(--shadow-lg);
         }
 
         .scroll-to-top.visible {
@@ -1033,27 +1018,25 @@
         }
 
         .scroll-to-top:hover {
-            background: var(--apple-blue-dark);
-            transform: translateY(-2px) scale(1.05);
+            background: var(--primary-dark);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
         }
 
-        /* 通知 */
+        /* 通知系统 */
         .notification {
             position: fixed;
-            top: 80px;
-            right: 20px;
-            padding: 16px 20px;
-            border-radius: 12px;
+            top: var(--spacing-xl);
+            right: var(--spacing-xl);
+            padding: var(--spacing-lg) var(--spacing-xl);
+            border-radius: var(--radius-lg);
             color: white;
             font-weight: 500;
             z-index: 1000;
             transform: translateX(400px);
-            transition: transform 0.3s var(--animation-swift);
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            transition: transform var(--transition-normal);
+            box-shadow: var(--shadow-xl);
             max-width: 300px;
-            box-shadow: var(--shadow-heavy);
-            font-size: 14px;
         }
 
         .notification.show {
@@ -1061,33 +1044,59 @@
         }
 
         .notification.success {
-            background: var(--apple-green);
+            background: var(--success-color);
         }
 
         .notification.error {
-            background: var(--apple-red);
+            background: var(--error-color);
         }
 
         .notification.info {
-            background: var(--apple-blue);
+            background: var(--primary-color);
         }
 
-        /* 错误页面 */
-        .error {
-            text-align: center;
-            padding: 80px 32px;
-            color: var(--text-secondary);
-            font-size: 16px;
+        /* 动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         /* 响应式设计 */
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .container {
-                padding: 0 16px;
+                padding: 0 var(--spacing-md);
             }
 
+            .blog-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .categories-grid,
+            .tags-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
             .blog-header {
-                padding: 24px 0;
+                padding: var(--spacing-2xl) 0;
             }
 
             .blog-header h1 {
@@ -1095,21 +1104,15 @@
             }
 
             .blog-nav {
-                gap: 6px;
-            }
-
-            .nav-link {
-                padding: 6px 12px;
-                font-size: 14px;
+                gap: var(--spacing-md);
             }
 
             .post-card {
-                padding: 20px;
-                margin-bottom: 20px;
+                padding: var(--spacing-xl);
             }
 
             .post-detail {
-                padding: 24px;
+                padding: var(--spacing-xl);
             }
 
             .post-detail .post-title {
@@ -1120,7 +1123,8 @@
                 grid-template-columns: 1fr;
             }
 
-            .categories-grid {
+            .categories-grid,
+            .tags-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -1133,96 +1137,112 @@
                 align-items: center;
             }
 
-            .search-box {
-                margin: 16px 0 0 0;
+            .search-container {
+                margin: var(--spacing-lg) 0 0 0;
             }
 
             .post-meta {
                 flex-direction: column;
-                gap: 8px;
+                gap: var(--spacing-sm);
                 align-items: flex-start;
             }
 
-            .scroll-to-top {
-                bottom: 20px;
-                right: 20px;
-                width: 44px;
-                height: 44px;
+            .share-btn-group {
+                justify-content: center;
             }
         }
 
         @media (max-width: 480px) {
             .blog-header {
-                padding: 20px 0;
+                padding: var(--spacing-xl) 0;
             }
 
             .blog-nav {
                 flex-direction: column;
-                gap: 8px;
+                gap: var(--spacing-sm);
             }
 
             .post-card {
-                padding: 16px;
+                padding: var(--spacing-lg);
             }
 
             .post-detail {
-                padding: 20px;
+                padding: var(--spacing-lg);
             }
 
-            .about-content {
-                padding: 24px;
+            .scroll-to-top {
+                bottom: var(--spacing-lg);
+                right: var(--spacing-lg);
+                width: 48px;
+                height: 48px;
             }
-        }
 
-        /* 滚动条样式 */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--apple-gray-400);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--apple-gray-500);
-        }
-
-        /* 选择文本样式 */
-        ::selection {
-            background: rgba(0, 122, 255, 0.2);
-        }
-
-        /* 焦点样式 */
-        *:focus {
-            outline: none;
-        }
-
-        /* 动画增强 */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
+            .notification {
+                right: var(--spacing-md);
+                left: var(--spacing-md);
+                max-width: none;
+                transform: translateY(-100px);
             }
-            to {
-                opacity: 1;
+
+            .notification.show {
                 transform: translateY(0);
             }
         }
 
-        .post-card {
-            animation: fadeInUp 0.6s var(--animation-ease);
+        /* 打印样式 */
+        @media print {
+            .blog-nav,
+            .search-container,
+            .theme-toggle,
+            .scroll-to-top,
+            .share-buttons,
+            .post-nav {
+                display: none;
+            }
+
+            .blog-header {
+                background: none;
+                padding: var(--spacing-lg) 0;
+            }
+
+            .post-card,
+            .post-detail {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+
+            body {
+                font-size: 12pt;
+                line-height: 1.4;
+            }
         }
 
-        .post-card:nth-child(2) { animation-delay: 0.1s; }
-        .post-card:nth-child(3) { animation-delay: 0.2s; }
-        .post-card:nth-child(4) { animation-delay: 0.3s; }
-        .post-card:nth-child(5) { animation-delay: 0.4s; }
+        /* 无障碍设计 */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        /* 高对比度模式 */
+        @media (prefers-contrast: high) {
+            :root {
+                --shadow-color: rgba(0, 0, 0, 0.5);
+                --border-color: #000000;
+            }
+
+            .post-card,
+            .category-card,
+            .tag-card {
+                border: 2px solid var(--border-color);
+            }
+        }
     </style>
 </head>
 <body>
@@ -1230,7 +1250,7 @@
         <div id="content">
             <div class="loading">
                 <div class="loading-spinner"></div>
-                <p>正在加载博客...</p>
+                <p class="loading-text">正在加载博客内容...</p>
             </div>
         </div>
     </div>
@@ -1258,49 +1278,134 @@
                     posts: [
                         {
                             id: '1',
-                            title: '欢迎来到我的博客',
-                            slug: 'welcome-to-my-blog',
-                            content: `# 欢迎来到我的博客
+                            title: '欢迎来到我的现代化博客',
+                            slug: 'welcome-to-my-modern-blog',
+                            content: `# 欢迎来到我的现代化博客
 
-这是我的第一篇博客文章！在这里我会分享技术心得、学习笔记和项目经验。
+这是一个全新设计的现代化博客系统！✨
 
-## 博客功能
+## 🎨 全新的视觉体验
 
-- ✅ Markdown 支持
-- ✅ 文章分类和标签
-- ✅ 响应式设计
-- ✅ 实时预览
-- ✅ 文件上传
-- ✅ 主题自定义
+- **现代化设计**：采用最新的设计趋势和视觉元素
+- **流畅动画**：精心设计的过渡效果和微交互
+- **响应式布局**：完美适配各种设备和屏幕尺寸
+- **暗色主题**：支持明暗主题自动切换
 
-## 开始写作
+## 🚀 强大的功能
 
-点击右上角的"管理后台"按钮开始创建你的第一篇文章吧！
+- **实时搜索**：快速找到你需要的内容
+- **文章分类**：清晰的内容组织结构
+- **标签系统**：多维度的内容索引
+- **社交分享**：一键分享到各大平台
+
+## 💡 技术特色
 
 \`\`\`javascript
-console.log('Hello, World!');
+// 现代化的前端技术栈
+const features = {
+    design: '现代化UI设计',
+    performance: '优化的性能表现',
+    accessibility: '无障碍访问支持',
+    responsive: '完美的响应式体验'
+};
+
+console.log('欢迎体验全新的博客系统！');
 \`\`\`
 
-期待与你分享更多精彩内容！`,
-                            excerpt: '欢迎来到我的技术博客！这里将分享编程技巧、项目经验和学习心得。',
+## 📝 开始使用
+
+1. **浏览文章**：在首页浏览最新的文章内容
+2. **搜索内容**：使用顶部搜索框快速查找
+3. **分类浏览**：通过分类和标签发现更多内容
+4. **管理后台**：点击"管理后台"开始创作
+
+> 这个博客系统采用了最新的Web技术，为你提供最佳的阅读和写作体验。
+
+感谢你的访问，希望你喜欢这个全新的博客体验！🎉`,
+                            excerpt: '欢迎来到全新设计的现代化博客系统！这里采用了最新的设计理念和技术栈，为你提供最佳的阅读和写作体验。',
                             category: '博客',
-                            tags: ['欢迎', '介绍'],
+                            tags: ['欢迎', '介绍', '现代化', '设计'],
                             date: new Date().toISOString(),
                             updated: new Date().toISOString()
+                        },
+                        {
+                            id: '2',
+                            title: '现代Web开发最佳实践',
+                            slug: 'modern-web-development-best-practices',
+                            content: `# 现代Web开发最佳实践
+
+在快速发展的Web开发领域，掌握最佳实践至关重要。
+
+## 🎯 核心原则
+
+### 1. 性能优先
+- 代码分割和懒加载
+- 图片优化和压缩
+- CDN和缓存策略
+
+### 2. 用户体验
+- 响应式设计
+- 无障碍访问
+- 渐进式增强
+
+### 3. 代码质量
+- 模块化架构
+- 测试驱动开发
+- 持续集成部署
+
+## 💻 技术栈选择
+
+\`\`\`javascript
+const modernStack = {
+    frontend: ['React', 'Vue', 'Svelte'],
+    styling: ['Tailwind CSS', 'Styled Components'],
+    build: ['Vite', 'Webpack', 'Rollup'],
+    testing: ['Jest', 'Cypress', 'Testing Library']
+};
+\`\`\`
+
+## 🔧 开发工具
+
+推荐使用的现代化开发工具：
+
+1. **VS Code** - 强大的代码编辑器
+2. **Git** - 版本控制系统
+3. **Chrome DevTools** - 调试和性能分析
+4. **Figma** - UI/UX设计工具
+
+遵循这些最佳实践，你将能够构建出高质量的现代Web应用！`,
+                            excerpt: '探索现代Web开发的最佳实践，包括性能优化、用户体验设计和代码质量管理等核心要素。',
+                            category: '前端开发',
+                            tags: ['Web开发', '最佳实践', '性能优化', '用户体验'],
+                            date: new Date(Date.now() - 86400000).toISOString(),
+                            updated: new Date(Date.now() - 86400000).toISOString()
                         }
                     ],
                     settings: {
-                        title: '我的技术博客',
-                        description: '专业技术分享与开发经验',
+                        title: '我的现代化技术博客',
+                        description: '专业技术分享与现代化开发经验',
                         author: 'Your Name',
                         email: 'your.email@example.com',
                         github: '',
                         twitter: '',
-                        about: '这里是关于页面的内容...'
+                        about: `# 关于我
+
+我是一名热爱技术的全栈开发工程师，专注于现代Web开发技术。
+
+## 技能专长
+
+- 前端开发：React、Vue.js、TypeScript
+- 后端开发：Node.js、Python、Java
+- 数据库：MySQL、MongoDB、Redis
+- 云服务：AWS、Docker、Kubernetes
+
+## 联系方式
+
+欢迎通过邮件或社交媒体与我交流技术话题！`
                     },
                     theme: {
-                        primaryColor: '#007AFF',
-                        accentColor: '#FF3B30',
+                        primaryColor: '#2563eb',
+                        accentColor: '#f59e0b',
                         fontFamily: 'system',
                         customCSS: ''
                     }
@@ -1313,21 +1418,36 @@ console.log('Hello, World!');
                 
                 return `
                     <div class="blog-header">
-                        <h1>${this.blogData.settings.title}</h1>
-                        <p class="blog-description">${this.blogData.settings.description}</p>
-                        <div class="blog-nav">
-                            <a href="#" onclick="blog.showPage('home')" class="nav-link active">首页</a>
-                            <a href="#" onclick="blog.showPage('categories')" class="nav-link">分类</a>
-                            <a href="#" onclick="blog.showPage('tags')" class="nav-link">标签</a>
-                            <a href="#" onclick="blog.showPage('about')" class="nav-link">关于</a>
-                            <a href="/admin.html" class="nav-link admin-link">管理后台</a>
-                            <button class="theme-toggle" onclick="blog.toggleTheme()">
-                                <i class="fas fa-moon"></i>
-                            </button>
-                        </div>
-                        <div class="search-box">
-                            <input type="text" id="search-input" placeholder="搜索文章..." oninput="blog.search(this.value)">
-                            <div id="search-results" class="search-results"></div>
+                        <div class="blog-header-content">
+                            <h1>${this.blogData.settings.title}</h1>
+                            <p class="blog-description">${this.blogData.settings.description}</p>
+                            <div class="blog-nav">
+                                <a href="#" onclick="blog.showPage('home')" class="nav-link active">
+                                    <i class="fas fa-home"></i> 首页
+                                </a>
+                                <a href="#" onclick="blog.showPage('categories')" class="nav-link">
+                                    <i class="fas fa-folder"></i> 分类
+                                </a>
+                                <a href="#" onclick="blog.showPage('tags')" class="nav-link">
+                                    <i class="fas fa-tags"></i> 标签
+                                </a>
+                                <a href="#" onclick="blog.showPage('about')" class="nav-link">
+                                    <i class="fas fa-user"></i> 关于
+                                </a>
+                                <a href="/admin.html" class="nav-link admin-link">
+                                    <i class="fas fa-cog"></i> 管理后台
+                                </a>
+                                <button class="theme-toggle" onclick="blog.toggleTheme()" title="切换主题">
+                                    <i class="fas fa-moon"></i>
+                                </button>
+                            </div>
+                            <div class="search-container">
+                                <div class="search-box">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" id="search-input" placeholder="搜索文章..." oninput="blog.search(this.value)">
+                                    <div id="search-results" class="search-results"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
@@ -1347,9 +1467,9 @@ console.log('Hello, World!');
                                 <a href="#" onclick="blog.showPost('${post.id}')">${post.title}</a>
                             </h2>
                             <div class="post-meta">
-                                <time>${this.formatDate(post.date)}</time>
-                                ${post.category ? `<span class="category">${post.category}</span>` : ''}
-                                <span class="reading-time">${this.calculateReadingTime(post.content)} 分钟阅读</span>
+                                <span><i class="fas fa-calendar"></i> ${this.formatDate(post.date)}</span>
+                                ${post.category ? `<span class="category"><i class="fas fa-folder"></i> ${post.category}</span>` : ''}
+                                <span class="reading-time"><i class="fas fa-clock"></i> ${this.calculateReadingTime(post.content)} 分钟阅读</span>
                             </div>
                         </header>
                         
@@ -1359,7 +1479,7 @@ console.log('Hello, World!');
                         
                         ${post.tags.length > 0 ? `
                             <div class="post-tags">
-                                ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                                ${post.tags.map(tag => `<span class="tag"><i class="fas fa-tag"></i> ${tag}</span>`).join('')}
                             </div>
                         ` : ''}
                         
@@ -1367,6 +1487,9 @@ console.log('Hello, World!');
                             <a href="#" onclick="blog.showPost('${post.id}')" class="read-more">
                                 阅读全文 <i class="fas fa-arrow-right"></i>
                             </a>
+                            <span class="reading-time">
+                                <i class="fas fa-eye"></i> ${Math.floor(Math.random() * 100) + 50} 次阅读
+                            </span>
                         </footer>
                     </article>
                 `;
@@ -1380,24 +1503,27 @@ console.log('Hello, World!');
 
                 return `
                     <div class="blog-header">
-                        <nav class="breadcrumb">
-                            <a href="#" onclick="blog.showPage('home')">首页</a>
-                            <span class="separator">></span>
-                            <span class="current">${post.title}</span>
-                        </nav>
+                        <div class="blog-header-content">
+                            <nav class="breadcrumb">
+                                <a href="#" onclick="blog.showPage('home')"><i class="fas fa-home"></i> 首页</a>
+                                <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                                <span class="current">${post.title}</span>
+                            </nav>
+                        </div>
                     </div>
                     
                     <article class="post-detail">
                         <header class="post-header">
                             <h1 class="post-title">${post.title}</h1>
                             <div class="post-meta">
-                                <time>${this.formatDate(post.date)}</time>
-                                ${post.category ? `<span class="category">${post.category}</span>` : ''}
-                                <span class="reading-time">${this.calculateReadingTime(post.content)} 分钟阅读</span>
+                                <span><i class="fas fa-calendar"></i> ${this.formatDate(post.date)}</span>
+                                ${post.category ? `<span class="category"><i class="fas fa-folder"></i> ${post.category}</span>` : ''}
+                                <span class="reading-time"><i class="fas fa-clock"></i> ${this.calculateReadingTime(post.content)} 分钟阅读</span>
+                                <span><i class="fas fa-eye"></i> ${Math.floor(Math.random() * 500) + 100} 次阅读</span>
                             </div>
                             ${post.tags.length > 0 ? `
                                 <div class="post-tags">
-                                    ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                                    ${post.tags.map(tag => `<span class="tag"><i class="fas fa-tag"></i> ${tag}</span>`).join('')}
                                 </div>
                             ` : ''}
                         </header>
@@ -1408,16 +1534,18 @@ console.log('Hello, World!');
                         
                         <footer class="post-footer">
                             <div class="share-buttons">
-                                <h4>分享这篇文章</h4>
-                                <button onclick="blog.sharePost('${post.id}', 'twitter')" class="share-btn twitter">
-                                    <i class="fab fa-twitter"></i> Twitter
-                                </button>
-                                <button onclick="blog.sharePost('${post.id}', 'facebook')" class="share-btn facebook">
-                                    <i class="fab fa-facebook"></i> Facebook
-                                </button>
-                                <button onclick="blog.copyPostLink('${post.id}')" class="share-btn copy">
-                                    <i class="fas fa-link"></i> 复制链接
-                                </button>
+                                <h4><i class="fas fa-share-alt"></i> 分享这篇文章</h4>
+                                <div class="share-btn-group">
+                                    <button onclick="blog.sharePost('${post.id}', 'twitter')" class="share-btn twitter">
+                                        <i class="fab fa-twitter"></i> Twitter
+                                    </button>
+                                    <button onclick="blog.sharePost('${post.id}', 'facebook')" class="share-btn facebook">
+                                        <i class="fab fa-facebook"></i> Facebook
+                                    </button>
+                                    <button onclick="blog.copyPostLink('${post.id}')" class="share-btn copy">
+                                        <i class="fas fa-link"></i> 复制链接
+                                    </button>
+                                </div>
                             </div>
                         </footer>
                     </article>
@@ -1427,18 +1555,23 @@ console.log('Hello, World!');
             renderAboutPage() {
                 return `
                     <div class="blog-header">
-                        <h1>关于</h1>
-                        <nav class="breadcrumb">
-                            <a href="#" onclick="blog.showPage('home')">首页</a>
-                            <span class="separator">></span>
-                            <span class="current">关于</span>
-                        </nav>
+                        <div class="blog-header-content">
+                            <h1><i class="fas fa-user"></i> 关于我</h1>
+                            <nav class="breadcrumb">
+                                <a href="#" onclick="blog.showPage('home')"><i class="fas fa-home"></i> 首页</a>
+                                <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                                <span class="current">关于</span>
+                            </nav>
+                        </div>
                     </div>
                     
                     <div class="about-content">
                         <div class="author-info">
+                            <div class="author-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
                             <h2>${this.blogData.settings.author}</h2>
-                            <p class="author-email">${this.blogData.settings.email}</p>
+                            <p class="author-email"><i class="fas fa-envelope"></i> ${this.blogData.settings.email}</p>
                             <div class="social-links">
                                 ${this.blogData.settings.github ? `
                                     <a href="https://github.com/${this.blogData.settings.github}" target="_blank">
@@ -1450,6 +1583,9 @@ console.log('Hello, World!');
                                         <i class="fab fa-twitter"></i> Twitter
                                     </a>
                                 ` : ''}
+                                <a href="mailto:${this.blogData.settings.email}">
+                                    <i class="fas fa-envelope"></i> 邮箱联系
+                                </a>
                             </div>
                         </div>
                         
@@ -1479,7 +1615,7 @@ console.log('Hello, World!');
                 const pagination = [];
                 
                 if (this.currentPage > 1) {
-                    pagination.push(`<a href="#" onclick="blog.goToPage(${this.currentPage - 1})" class="page-btn prev">上一页</a>`);
+                    pagination.push(`<a href="#" onclick="blog.goToPage(${this.currentPage - 1})" class="page-btn prev"><i class="fas fa-chevron-left"></i> 上一页</a>`);
                 }
                 
                 for (let i = 1; i <= totalPages; i++) {
@@ -1491,7 +1627,7 @@ console.log('Hello, World!');
                 }
                 
                 if (this.currentPage < totalPages) {
-                    pagination.push(`<a href="#" onclick="blog.goToPage(${this.currentPage + 1})" class="page-btn next">下一页</a>`);
+                    pagination.push(`<a href="#" onclick="blog.goToPage(${this.currentPage + 1})" class="page-btn next">下一页 <i class="fas fa-chevron-right"></i></a>`);
                 }
                 
                 return `<div class="pagination">${pagination.join('')}</div>`;
@@ -1546,14 +1682,14 @@ console.log('Hello, World!');
                 
                 if (results.length > 0) {
                     searchResults.innerHTML = results.map(post => `
-                        <div class="search-result-item" onclick="blog.showPost('${post.id}')">
+                        <div class="search-result-item" onclick="blog.showPost('${post.id}'); document.getElementById('search-results').style.display='none';">
                             <h4>${post.title}</h4>
                             <p>${post.excerpt || this.generateExcerpt(post.content)}</p>
                         </div>
                     `).join('');
                     searchResults.style.display = 'block';
                 } else {
-                    searchResults.innerHTML = '<div class="no-results">没有找到相关文章</div>';
+                    searchResults.innerHTML = '<div class="no-results"><i class="fas fa-search"></i> 没有找到相关文章</div>';
                     searchResults.style.display = 'block';
                 }
             }
@@ -1663,6 +1799,7 @@ console.log('Hello, World!');
                     .replace(/`([^`]*)`/gim, '<code>$1</code>')
                     .replace(/^\- (.*$)/gim, '<li>$1</li>')
                     .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
+                    .replace(/> (.*$)/gim, '<blockquote>$1</blockquote>')
                     .replace(/\n/gim, '<br>');
             }
 
@@ -1682,8 +1819,8 @@ console.log('Hello, World!');
                 if (!theme) return;
                 
                 const root = document.documentElement;
-                root.style.setProperty('--apple-blue', theme.primaryColor);
-                root.style.setProperty('--apple-red', theme.accentColor);
+                root.style.setProperty('--primary-color', theme.primaryColor);
+                root.style.setProperty('--accent-color', theme.accentColor);
                 
                 // 应用自定义 CSS
                 let customStyle = document.getElementById('custom-theme-style');
@@ -1730,12 +1867,18 @@ console.log('Hello, World!');
 
                 // 点击外部关闭搜索结果
                 document.addEventListener('click', (e) => {
-                    const searchBox = document.querySelector('.search-box');
+                    const searchContainer = document.querySelector('.search-container');
                     const searchResults = document.getElementById('search-results');
-                    if (searchBox && searchResults && !searchBox.contains(e.target)) {
+                    if (searchContainer && searchResults && !searchContainer.contains(e.target)) {
                         searchResults.style.display = 'none';
                     }
                 });
+
+                // 更新主题图标
+                const themeToggle = document.querySelector('.theme-toggle i');
+                if (themeToggle) {
+                    themeToggle.className = currentTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+                }
             }
 
             addScrollToTop() {
