@@ -451,23 +451,439 @@ function exportBlog() {
 
 // 导入博客
 function importBlog() {
+    console.log('导入博客功能被调用');
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = '.json';
     
     input.onchange = (e) => {
         const file = e.target.files[0];
-        if (!file) return;
+        if (!file) {
+            console.log('没有选择文件');
+            return;
+        }
+        
+        console.log('开始读取文件:', file.name);
         
         const reader = new FileReader();
         reader.onload = (e) => {
             try {
                 const importedData = JSON.parse(e.target.result);
+                console.log('解析的数据:', importedData);
                 
                 if (confirm('导入数据将覆盖现有数据，确定继续吗？')) {
                     blogData = importedData;
                     saveBlogData();
-                    loadBlogData();
+                    location.reload(); // 重新加载页面以刷新所有数据
+                }
+            } catch (error) {
+                console.error('导入失败:', error);
+                showNotification('导入失败：文件格式错误', 'error');
+            }
+        };
+        
+        reader.onerror = (error) => {
+            console.error('文件读取失败:', error);
+            showNotification('文件读取失败', 'error');
+        };
+        
+        reader.readAsText(file);
+    };
+    
+    // 确保点击事件能触发
+    document.body.appendChild(input);
+    input.click();
+    document.body.removeChild(input);
+}
+
+// 修复文件上传功能
+function setupFileUpload() {
+    const fileInput = document.getElementById('file-input');
+    const uploadArea = document.getElementById('file-upload');
+    
+    if (!fileInput || !uploadArea) {
+        console.warn('文件上传元素未找到');
+        return;
+    }
+    
+    // 点击上传
+    uploadArea.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log('点击文件上传区域');
+        fileInput.click();
+    });
+    
+    // 文件选择
+    fileInput.addEventListener('change', (e) => {
+        console.log('文件选择事件触发');
+        handleFileSelect(e);
+    });
+    
+    // 拖拽上传
+    let dragCounter = 0;
+    
+    document.addEventListener('dragenter', (e) => {
+        e.preventDefault();
+        dragCounter++;
+        if (dragCounter === 1) {
+            uploadArea.style.display = 'block';
+            uploadArea.classList.add('dragover');
+        }
+    });
+    
+    document.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        dragCounter--;
+        if (dragCounter === 0) {
+            uploadArea.classList.remove('dragover');
+            uploadArea.style.display = 'none';
+        }
+    });
+    
+    document.addEventListener('dragover', (e) => {
+        e.preventDefault();
+    });
+    
+    document.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dragCounter = 0;
+        uploadArea.classList.remove('dragover');
+        uploadArea.style.display = 'none';
+        
+        const files = Array.from(e.dataTransfer.files);
+        console.log('拖拽文件:', files);
+        handleFiles(files);
+    });
+}
+
+function handleFileSelect(e) {
+    const files = Array.from(e.target.files);
+    console.log('选择的文件:', files);
+    handleFiles(files);
+}
+
+function handleFiles(files) {
+    console.log('处理文件:', files);
+    files.forEach(file => {
+        console.log('处理文件:', file.name, file.type);
+        if (file.type === 'text/markdown' || file.name.endsWith('.md') || file.name.endsWith('.markdown')) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                console.log('文件读取完成');
+                parseMarkdownFile(e.target.result, file.name);
+            };
+            reader.onerror = (error) => {
+                console.error('文件读取失败:', error);
+                showNotification('文件读取失败', 'error');
+            };
+            reader.readAsText(file);
+        } else {
+            console.warn('不支持的文件类型:', file.type);
+            showNotification(`不支持的文件类型: ${file.type}`, 'error');
+        }
+    });
+}
+
+function parseMarkdownFile(content, filename) {
+    console.log('解析Markdown文件:', filename);
+    
+    // 解析 Front Matter
+    const frontMatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
+    const match = content.match(frontMatterRegex);
+    
+    let frontMatter = {};
+    let markdownContent = content;
+    
+    if (match) {
+        try {
+            // 简单的 YAML 解析
+            const yamlContent = match[1];
+            const lines = yamlContent.split('\n');
+            lines.forEach(line => {
+                const colonIndex = line.indexOf(':');
+                if (colonIndex > 0) {
+                    const key = line.substring(0, colonIndex).trim();
+                    const value = line.substring(colonIndex + 1).trim().replace(/^["']|["']$/g, '');
+                    
+                    // 处理数组格式的标签和分类
+                    if (key === 'tags' || key === 'categories') {
+                        if (value.startsWith('[') && value.endsWith(']')) {
+                            frontMatter[key] = value.slice(1, -1).split(',').map(item => item.trim().replace(/^["']|["']$/g, ''));
+                        } else {
+                            frontMatter[key] = [value];
+                        }
+                    } else {
+                        frontMatter[key] = value;
+                    }
+                }
+            });
+            markdownContent = match[2];
+            console.log('解析的Front Matter:', frontMatter);
+        } catch (error) {
+            console.error('解析 Front Matter 失败:', error);
+            showNotification('解析文件头信息失败', 'error');
+        }
+    }
+    
+    // 填充表单
+    document.getElementById('post-title').value = frontMatter.title || filename.replace(/\.(md|markdown)$/, '');
+    document.getElementById('post-content').value = markdownContent;
+    document.getElementById('post-category').value = Array.isArray(frontMatter.categories) ? frontMatter.categories[0] || '' : frontMatter.categories || '';
+    document.getElementById('post-excerpt').value = frontMatter.excerpt || '';
+    
+    if (frontMatter.date) {
+        try {
+            const date = new Date(frontMatter.date);
+            if (!isNaN(date.getTime())) {
+                date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+                document.getElementById('post-date').value = date.toISOString().slice(0, 16);
+            }
+        } catch (error) {
+            console.error('日期解析失败:', error);
+        }
+    }
+    
+    // 设置标签
+    clearTags();
+    if (frontMatter.tags) {
+        const tags = Array.isArray(frontMatter.tags) ? frontMatter.tags : [frontMatter.tags];
+        tags.forEach(tag => {
+            if (tag && tag.trim()) {
+                addTagToInput(tag.trim());
+            }
+        });
+    }
+    
+    generateSlug();
+    updateMarkdownPreview();
+    showSection('new-post');
+    showNotification('文件导入成功！', 'success');
+}
+
+// 修复预览文章功能
+function previewPost() {
+    console.log('预览文章功能被调用');
+    
+    const postData = {
+        title: document.getElementById('post-title').value || '无标题',
+        content: document.getElementById('post-content').value || '无内容',
+        excerpt: document.getElementById('post-excerpt').value,
+        category: document.getElementById('post-category').value,
+        tags: getTags(),
+        date: document.getElementById('post-date').value
+    };
+    
+    console.log('预览数据:', postData);
+    
+    // 在新窗口中预览
+    const previewWindow = window.open('', '_blank', 'width=1000,height=800');
+    
+    if (!previewWindow) {
+        showNotification('无法打开预览窗口，请检查浏览器弹窗设置', 'error');
+        return;
+    }
+    
+    // 简单的Markdown渲染
+    const renderedContent = renderMarkdown(postData.content);
+    
+    previewWindow.document.write(`
+        <!DOCTYPE html>
+        <html lang="zh-CN">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>${postData.title}</title>
+            <style>
+                body { 
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+                    max-width: 800px; 
+                    margin: 0 auto; 
+                    padding: 20px; 
+                    line-height: 1.6; 
+                    color: #333;
+                }
+                h1, h2, h3, h4, h5, h6 { 
+                    color: #2c3e50; 
+                    margin-top: 2rem;
+                    margin-bottom: 1rem;
+                }
+                .post-meta {
+                    color: #666;
+                    margin-bottom: 2rem;
+                    padding-bottom: 1rem;
+                    border-bottom: 1px solid #eee;
+                }
+                .post-meta span {
+                    margin-right: 1rem;
+                }
+                .category {
+                    background: #3498db;
+                    color: white;
+                    padding: 0.2rem 0.5rem;
+                    border-radius: 3px;
+                    font-size: 0.8rem;
+                }
+                .tag {
+                    background: #ecf0f1;
+                    color: #2c3e50;
+                    padding: 0.2rem 0.5rem;
+                    border-radius: 3px;
+                    font-size: 0.8rem;
+                    margin-right: 0.5rem;
+                }
+                code { 
+                    background: #f4f4f4; 
+                    padding: 2px 4px; 
+                    border-radius: 3px; 
+                    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+                }
+                pre { 
+                    background: #f4f4f4; 
+                    padding: 15px; 
+                    border-radius: 5px; 
+                    overflow-x: auto; 
+                    margin: 1rem 0;
+                }
+                pre code {
+                    background: none;
+                    padding: 0;
+                }
+                blockquote { 
+                    border-left: 4px solid #3498db; 
+                    margin: 1rem 0; 
+                    padding-left: 20px; 
+                    color: #666; 
+                    font-style: italic;
+                }
+                img {
+                    max-width: 100%;
+                    height: auto;
+                    border-radius: 5px;
+                    margin: 1rem 0;
+                }
+                table {
+                    border-collapse: collapse;
+                    width: 100%;
+                    margin: 1rem 0;
+                }
+                th, td {
+                    border: 1px solid #ddd;
+                    padding: 8px;
+                    text-align: left;
+                }
+                th {
+                    background-color: #f2f2f2;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>${postData.title}</h1>
+            <div class="post-meta">
+                <span><strong>日期:</strong> ${formatDate(postData.date)}</span>
+                ${postData.category ? `<span class="category">${postData.category}</span>` : ''}
+                ${postData.tags.length > 0 ? `<div style="margin-top: 0.5rem;"><strong>标签:</strong> ${postData.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>` : ''}
+            </div>
+            <div class="post-content">
+                ${renderedContent}
+            </div>
+        </body>
+        </html>
+    `);
+    
+    previewWindow.document.close();
+    showNotification('预览窗口已打开', 'success');
+}
+
+// 简单的Markdown渲染函数
+function renderMarkdown(content) {
+    return content
+        // 标题
+        .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+        .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+        .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+        // 粗体和斜体
+        .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/gim, '<em>$1</em>')
+        // 代码块
+        .replace(/```([\s\S]*?)```/gim, '<pre><code>$1</code></pre>')
+        .replace(/`([^`]*)`/gim, '<code>$1</code>')
+        // 链接
+        .replace(/\[([^\]]*)\]\(([^)]*)\)/gim, '<a href="$2" target="_blank">$1</a>')
+        // 图片
+        .replace(/!\[([^\]]*)\]\(([^)]*)\)/gim, '<img src="$2" alt="$1">')
+        // 列表
+        .replace(/^\* (.*$)/gim, '<li>$1</li>')
+        .replace(/^- (.*$)/gim, '<li>$1</li>')
+        .replace(/^\d+\. (.*$)/gim, '<li>$1</li>')
+        // 引用
+        .replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>')
+        // 换行
+        .replace(/\n/gim, '<br>');
+}
+
+// 修复导出功能
+function exportBlog() {
+    console.log('导出博客功能被调用');
+    
+    try {
+        const dataStr = JSON.stringify(blogData, null, 2);
+        const dataBlob = new Blob([dataStr], { type: 'application/json' });
+        
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(dataBlob);
+        link.download = `blog-backup-${new Date().toISOString().split('T')[0]}.json`;
+        
+        // 确保链接能被点击
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // 清理URL对象
+        setTimeout(() => {
+            URL.revokeObjectURL(link.href);
+        }, 100);
+        
+        showNotification('博客数据导出成功！', 'success');
+        console.log('导出完成');
+    } catch (error) {
+        console.error('导出失败:', error);
+        showNotification('导出失败：' + error.message, 'error');
+    }
+}
+
+// 修复清空表单功能
+function clearForm() {
+    console.log('清空表单功能被调用');
+    
+    if (confirm('确定要清空当前表单内容吗？')) {
+        document.getElementById('post-form').reset();
+        clearTags();
+        document.getElementById('markdown-preview').innerHTML = '<p>在左侧编辑器中输入内容，这里会显示预览效果...</p>';
+        
+        // 重置发布时间
+        const now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        document.getElementById('post-date').value = now.toISOString().slice(0, 16);
+        
+        showNotification('表单已清空', 'success');
+    }
+}
+
+// 确保所有函数都正确绑定到全局作用域
+window.importBlog = importBlog;
+window.exportBlog = exportBlog;
+window.previewPost = previewPost;
+window.clearForm = clearForm;
+
+// 添加调试信息
+console.log('管理后台脚本加载完成');
+console.log('可用的全局函数:', {
+    importBlog: typeof window.importBlog,
+    exportBlog: typeof window.exportBlog,
+    previewPost: typeof window.previewPost,
+    clearForm: typeof window.clearForm,
+    showSection: typeof window.showSection
+});
                     updatePostsList();
                     updateStats();
                     showNotification('博客数据导入成功！', 'success');
