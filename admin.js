@@ -1,4 +1,5 @@
 import { marked } from 'marked';
+import './github-integration.js';
 
 // 博客数据存储
 let blogData = {
@@ -20,6 +21,7 @@ let blogData = {
 };
 
 let currentEditingPost = null;
+let githubIntegration = null;
 
 // 初始化
 document.addEventListener('DOMContentLoaded', function() {
@@ -27,6 +29,10 @@ document.addEventListener('DOMContentLoaded', function() {
     setupEventListeners();
     updatePostsList();
     updateStats();
+    
+    // 初始化GitHub集成
+    githubIntegration = new GitHubIntegration();
+    updateGitHubStatus();
     
     // 设置默认发布时间
     const now = new Date();
@@ -44,6 +50,9 @@ function setupEventListeners() {
     
     // 主题表单提交
     document.getElementById('theme-form').addEventListener('submit', handleThemeSubmit);
+    
+    // GitHub表单提交
+    document.getElementById('github-form').addEventListener('submit', handleGitHubSubmit);
     
     // Markdown 实时预览
     document.getElementById('post-content').addEventListener('input', updateMarkdownPreview);
@@ -102,6 +111,14 @@ function handlePostSubmit(e) {
     saveBlogData();
     updatePostsList();
     updateStats();
+    
+    // 如果配置了GitHub，询问是否同步
+    if (githubIntegration.isConfigured()) {
+        if (confirm('是否同步到GitHub？')) {
+            syncPostToGitHub(postData);
+        }
+    }
+    
     clearForm();
     currentEditingPost = null;
     document.getElementById('post-form-title').textContent = '新建文章';
@@ -139,6 +156,24 @@ function handleThemeSubmit(e) {
     saveBlogData();
     applyTheme();
     showNotification('主题应用成功！', 'success');
+}
+
+// 处理GitHub配置提交
+function handleGitHubSubmit(e) {
+    e.preventDefault();
+    
+    const token = document.getElementById('github-token').value;
+    const owner = document.getElementById('github-owner').value;
+    const repo = document.getElementById('github-repo').value;
+    
+    if (!token || !owner || !repo) {
+        showNotification('请填写完整的GitHub配置信息', 'error');
+        return;
+    }
+    
+    githubIntegration.setConfig(token, owner, repo);
+    updateGitHubStatus();
+    showNotification('GitHub配置保存成功！', 'success');
 }
 
 // 更新文章列表
@@ -201,10 +236,19 @@ function editPost(postId) {
 function deletePost(postId) {
     if (!confirm('确定要删除这篇文章吗？')) return;
     
+    const post = blogData.posts.find(p => p.id === postId);
     blogData.posts = blogData.posts.filter(p => p.id !== postId);
     saveBlogData();
     updatePostsList();
     updateStats();
+    
+    // 如果配置了GitHub，询问是否删除
+    if (githubIntegration.isConfigured()) {
+        if (confirm('是否从GitHub删除？')) {
+            deletePostFromGitHub(post);
+        }
+    }
+    
     showNotification('文章删除成功！', 'success');
 }
 
@@ -438,6 +482,187 @@ function importBlog() {
     input.click();
 }
 
+// GitHub相关函数
+function updateGitHubStatus() {
+    const statusIndicator = document.getElementById('status-indicator');
+    const statusText = document.getElementById('status-text');
+    const githubActions = document.getElementById('github-actions');
+    
+    // 加载保存的配置
+    const token = localStorage.getItem('github_token');
+    const owner = localStorage.getItem('github_owner');
+    const repo = localStorage.getItem('github_repo');
+    
+    if (token && owner && repo) {
+        document.getElementById('github-token').value = token;
+        document.getElementById('github-owner').value = owner;
+        document.getElementById('github-repo').value = repo;
+        
+        statusIndicator.className = 'status-indicator connected';
+        statusText.textContent = `已连接到 ${owner}/${repo}`;
+        githubActions.style.display = 'block';
+    } else {
+        statusIndicator.className = 'status-indicator';
+        statusText.textContent = '未配置';
+        githubActions.style.display = 'none';
+    }
+}
+
+async function testGitHubConnection() {
+    if (!githubIntegration.isConfigured()) {
+        showNotification('请先配置GitHub信息', 'error');
+        return;
+    }
+    
+    try {
+        await githubIntegration.apiRequest(`/repos/${githubIntegration.owner}/${githubIntegration.repo}`);
+        showNotification('GitHub连接测试成功！', 'success');
+        
+        const statusIndicator = document.getElementById('status-indicator');
+        const statusText = document.getElementById('status-text');
+        statusIndicator.className = 'status-indicator connected';
+        statusText.textContent = `已连接到 ${githubIntegration.owner}/${githubIntegration.repo}`;
+        
+        document.getElementById('github-actions').style.display = 'block';
+    } catch (error) {
+        showNotification(`连接失败: ${error.message}`, 'error');
+        
+        const statusIndicator = document.getElementById('status-indicator');
+        const statusText = document.getElementById('status-text');
+        statusIndicator.className = 'status-indicator error';
+        statusText.textContent = '连接失败';
+    }
+}
+
+async function initializeJekyllSite() {
+    if (!githubIntegration.isConfigured()) {
+        showNotification('请先配置GitHub信息', 'error');
+        return;
+    }
+    
+    addLogEntry('开始初始化Jekyll站点...', 'info');
+    
+    try {
+        const results = await githubIntegration.initializeJekyllSite();
+        
+        results.forEach(result => {
+            if (result.success) {
+                addLogEntry(`✓ 创建文件: ${result.file}`, 'success');
+            } else {
+                addLogEntry(`✗ 创建失败: ${result.file} - ${result.error}`, 'error');
+            }
+        });
+        
+        addLogEntry('Jekyll站点初始化完成！', 'success');
+        showNotification('Jekyll站点初始化成功！', 'success');
+    } catch (error) {
+        addLogEntry(`初始化失败: ${error.message}`, 'error');
+        showNotification(`初始化失败: ${error.message}`, 'error');
+    }
+}
+
+async function syncAllPosts() {
+    if (!githubIntegration.isConfigured()) {
+        showNotification('请先配置GitHub信息', 'error');
+        return;
+    }
+    
+    if (blogData.posts.length === 0) {
+        showNotification('没有文章需要同步', 'info');
+        return;
+    }
+    
+    addLogEntry(`开始同步 ${blogData.posts.length} 篇文章...`, 'info');
+    
+    try {
+        const results = await githubIntegration.syncAllPosts(blogData.posts);
+        
+        let successCount = 0;
+        let errorCount = 0;
+        
+        results.forEach(result => {
+            if (result.success) {
+                addLogEntry(`✓ 同步成功: ${result.post}`, 'success');
+                successCount++;
+            } else {
+                addLogEntry(`✗ 同步失败: ${result.post} - ${result.error}`, 'error');
+                errorCount++;
+            }
+        });
+        
+        addLogEntry(`同步完成！成功: ${successCount}, 失败: ${errorCount}`, 'info');
+        showNotification(`文章同步完成！成功: ${successCount}, 失败: ${errorCount}`, 'success');
+    } catch (error) {
+        addLogEntry(`同步失败: ${error.message}`, 'error');
+        showNotification(`同步失败: ${error.message}`, 'error');
+    }
+}
+
+async function syncSettings() {
+    if (!githubIntegration.isConfigured()) {
+        showNotification('请先配置GitHub信息', 'error');
+        return;
+    }
+    
+    addLogEntry('开始同步站点设置...', 'info');
+    
+    try {
+        await githubIntegration.saveConfig(blogData.settings);
+        addLogEntry('✓ 站点配置同步成功', 'success');
+        
+        await githubIntegration.saveAboutPage(blogData.settings.about || '');
+        addLogEntry('✓ 关于页面同步成功', 'success');
+        
+        addLogEntry('设置同步完成！', 'success');
+        showNotification('设置同步成功！', 'success');
+    } catch (error) {
+        addLogEntry(`设置同步失败: ${error.message}`, 'error');
+        showNotification(`设置同步失败: ${error.message}`, 'error');
+    }
+}
+
+async function syncPostToGitHub(post) {
+    try {
+        await githubIntegration.savePost(post);
+        showNotification('文章已同步到GitHub！', 'success');
+    } catch (error) {
+        showNotification(`GitHub同步失败: ${error.message}`, 'error');
+    }
+}
+
+async function deletePostFromGitHub(post) {
+    try {
+        await githubIntegration.deletePost(post);
+        showNotification('文章已从GitHub删除！', 'success');
+    } catch (error) {
+        showNotification(`GitHub删除失败: ${error.message}`, 'error');
+    }
+}
+
+function addLogEntry(message, type = 'info') {
+    const logContent = document.getElementById('log-content');
+    const entry = document.createElement('div');
+    entry.className = `log-entry ${type}`;
+    entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+    
+    logContent.appendChild(entry);
+    logContent.scrollTop = logContent.scrollHeight;
+}
+
+async function syncToGitHub() {
+    if (!githubIntegration.isConfigured()) {
+        showNotification('请先在GitHub同步页面配置GitHub信息', 'error');
+        showSection('github');
+        return;
+    }
+    
+    if (confirm('是否同步所有内容到GitHub？这将包括文章、设置和关于页面。')) {
+        showSection('github');
+        await syncAllPosts();
+        await syncSettings();
+    }
+}
+
 // 数据持久化
 function saveBlogData() {
     localStorage.setItem('blogData', JSON.stringify(blogData));
@@ -577,3 +802,8 @@ window.removeTag = removeTag;
 window.exportBlog = exportBlog;
 window.importBlog = importBlog;
 window.previewPost = previewPost;
+window.testGitHubConnection = testGitHubConnection;
+window.initializeJekyllSite = initializeJekyllSite;
+window.syncAllPosts = syncAllPosts;
+window.syncSettings = syncSettings;
+window.syncToGitHub = syncToGitHub;
