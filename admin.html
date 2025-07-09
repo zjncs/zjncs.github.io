@@ -5,7 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>博客管理后台</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary-color: #64748b;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --info-color: #3b82f6;
+            
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --bg-dark: #0f172a;
+            --bg-card: #ffffff;
+            
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --text-inverse: #ffffff;
+            
+            --border-color: #e2e8f0;
+            --border-hover: #cbd5e1;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --bg-card: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --border-hover: #475569;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,101 +63,294 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            transition: var(--transition);
         }
 
+        /* 顶部导航栏 */
         .admin-header {
-            background: #2c3e50;
-            color: white;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
             padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .admin-header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .admin-header h1 {
+        .admin-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
             font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .admin-logo i {
+            font-size: 1.75rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .admin-nav {
             display: flex;
-            gap: 1rem;
+            gap: 0.5rem;
+            align-items: center;
         }
 
         .admin-nav button {
-            background: #34495e;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid transparent;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-lg);
             cursor: pointer;
-            transition: background 0.3s;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-nav button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .admin-nav button:hover::before {
+            left: 100%;
         }
 
         .admin-nav button:hover,
         .admin-nav button.active {
-            background: #3498db;
+            background: var(--primary-color);
+            color: var(--text-inverse);
+            border-color: var(--primary-color);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
         }
 
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 1rem;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-color);
+            color: var(--text-inverse);
+            transform: rotate(180deg);
+        }
+
+        /* 主容器 */
         .admin-container {
             display: flex;
-            min-height: calc(100vh - 80px);
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 2rem;
+            padding: 2rem;
+            min-height: calc(100vh - 100px);
         }
 
+        /* 侧边栏 */
         .sidebar {
-            width: 250px;
-            background: white;
-            border-right: 1px solid #ddd;
-            padding: 1rem;
+            width: 280px;
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-lg);
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+            border: 1px solid var(--border-color);
         }
 
         .sidebar h3 {
             margin-bottom: 1rem;
-            color: #2c3e50;
-            font-size: 1.1rem;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sidebar h3::before {
+            content: '';
+            width: 4px;
+            height: 16px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 2px;
         }
 
         .sidebar ul {
             list-style: none;
+            margin-bottom: 2rem;
         }
 
         .sidebar li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
         }
 
         .sidebar a {
-            display: block;
-            padding: 0.5rem;
-            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: var(--text-secondary);
             text-decoration: none;
-            border-radius: 4px;
-            transition: background 0.3s;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            font-weight: 500;
+            position: relative;
+        }
+
+        .sidebar a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 60%;
+            background: var(--primary-color);
+            border-radius: 0 2px 2px 0;
+            transition: width 0.3s ease;
         }
 
         .sidebar a:hover {
-            background: #ecf0f1;
+            background: var(--bg-secondary);
+            color: var(--primary-color);
+            transform: translateX(4px);
         }
 
+        .sidebar a:hover::before {
+            width: 3px;
+        }
+
+        .sidebar a i {
+            width: 18px;
+            text-align: center;
+        }
+
+        .stats-section {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 0.75rem;
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* 主内容区域 */
         .main-content {
             flex: 1;
-            padding: 2rem;
+            min-width: 0;
         }
 
         .content-section {
             display: none;
-            background: white;
-            border-radius: 8px;
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
             padding: 2rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            animation: fadeIn 0.3s ease-in-out;
         }
 
         .content-section.active {
             display: block;
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* 表单样式 */
         .form-group {
             margin-bottom: 1.5rem;
         }
@@ -115,103 +358,180 @@
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #2c3e50;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.875rem;
         }
 
         .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: var(--transition);
+            font-family: inherit;
         }
 
         .form-group input:focus,
         .form-group textarea:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #3498db;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            transform: translateY(-1px);
         }
 
         .form-group textarea {
-            min-height: 300px;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            min-height: 120px;
             resize: vertical;
+            font-family: 'JetBrains Mono', 'Monaco', 'Menlo', monospace;
+            line-height: 1.5;
         }
 
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+            gap: 1.5rem;
         }
 
+        /* 按钮样式 */
         .btn {
-            background: #3498db;
-            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-color);
+            color: var(--text-inverse);
             border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 4px;
+            padding: 0.875rem 1.5rem;
+            border-radius: var(--radius-md);
             cursor: pointer;
-            font-size: 1rem;
-            transition: background 0.3s;
-            margin-right: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:hover {
-            background: #2980b9;
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn:active {
+            transform: translateY(0);
         }
 
         .btn-success {
-            background: #27ae60;
+            background: var(--success-color);
         }
 
         .btn-success:hover {
-            background: #229954;
+            background: #059669;
         }
 
         .btn-danger {
-            background: #e74c3c;
+            background: var(--error-color);
         }
 
         .btn-danger:hover {
-            background: #c0392b;
+            background: #dc2626;
         }
 
         .btn-secondary {
-            background: #95a5a6;
+            background: var(--secondary-color);
+            color: var(--text-inverse);
         }
 
         .btn-secondary:hover {
-            background: #7f8c8d;
+            background: #475569;
         }
 
+        .btn-outline {
+            background: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: var(--text-inverse);
+        }
+
+        /* 文章列表 */
         .posts-list {
-            margin-top: 2rem;
+            margin-top: 1.5rem;
         }
 
         .post-item {
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
-            border-radius: 4px;
-            padding: 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
             margin-bottom: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .post-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .post-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--border-hover);
+        }
+
+        .post-item:hover::before {
+            transform: scaleY(1);
         }
 
         .post-info h4 {
             margin-bottom: 0.5rem;
-            color: #2c3e50;
+            color: var(--text-primary);
+            font-weight: 600;
         }
 
         .post-meta {
-            color: #6c757d;
-            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
         .post-actions {
@@ -219,146 +539,163 @@
             gap: 0.5rem;
         }
 
-        .post-actions button {
-            padding: 0.25rem 0.5rem;
+        .post-actions .btn {
+            padding: 0.5rem 1rem;
             font-size: 0.8rem;
         }
 
+        /* 预览容器 */
         .preview-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
 
         .preview-panel {
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 1rem;
-            background: #f8f9fa;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            background: var(--bg-secondary);
         }
 
         .preview-panel h4 {
-            margin-bottom: 1rem;
-            color: #2c3e50;
+            background: var(--bg-tertiary);
+            padding: 1rem 1.5rem;
+            margin: 0;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.875rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .preview-panel h4 i {
+            color: var(--primary-color);
         }
 
         .markdown-preview {
-            background: white;
+            background: var(--bg-card);
+            padding: 1.5rem;
+            min-height: 400px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            overflow-y: auto;
+        }
+
+        .markdown-preview h1,
+        .markdown-preview h2,
+        .markdown-preview h3 {
+            color: var(--text-primary);
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        .markdown-preview code {
+            background: var(--bg-secondary);
+            padding: 0.2rem 0.4rem;
+            border-radius: var(--radius-sm);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+        }
+
+        .markdown-preview pre {
+            background: var(--bg-secondary);
             padding: 1rem;
-            border-radius: 4px;
-            min-height: 300px;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin: 1rem 0;
         }
 
-        .file-upload {
-            border: 2px dashed #ddd;
-            border-radius: 4px;
-            padding: 2rem;
-            text-align: center;
-            cursor: pointer;
-            transition: border-color 0.3s;
-        }
-
-        .file-upload:hover {
-            border-color: #3498db;
-        }
-
-        .file-upload.dragover {
-            border-color: #3498db;
-            background: #f0f8ff;
-        }
-
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 1rem 1.5rem;
-            border-radius: 4px;
-            color: white;
-            font-weight: 500;
-            z-index: 1000;
-            transform: translateX(400px);
-            transition: transform 0.3s;
-        }
-
-        .notification.show {
-            transform: translateX(0);
-        }
-
-        .notification.success {
-            background: #27ae60;
-        }
-
-        .notification.error {
-            background: #e74c3c;
-        }
-
-        .notification.info {
-            background: #3498db;
-        }
-
+        /* 标签输入 */
         .tag-input {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
             align-items: center;
-            padding: 0.5rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            min-height: 40px;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            min-height: 48px;
+            background: var(--bg-primary);
+            transition: var(--transition);
+        }
+
+        .tag-input:focus-within {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
         }
 
         .tag {
-            background: #3498db;
-            color: white;
-            padding: 0.25rem 0.5rem;
-            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: var(--text-inverse);
+            padding: 0.375rem 0.75rem;
+            border-radius: var(--radius-lg);
             font-size: 0.8rem;
+            font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 0.25rem;
+            gap: 0.375rem;
+            animation: slideIn 0.2s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .tag .remove {
             cursor: pointer;
             font-weight: bold;
+            padding: 0.125rem;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .tag .remove:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .tag-input input {
             border: none;
             outline: none;
             flex: 1;
-            min-width: 100px;
+            min-width: 120px;
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 0.875rem;
         }
 
+        /* GitHub状态 */
         .github-status {
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
-            border-radius: 4px;
-            padding: 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
             margin-bottom: 2rem;
         }
 
         .status-indicator {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
+            font-weight: 500;
         }
 
         .status-indicator.connected {
-            color: #27ae60;
+            color: var(--success-color);
         }
 
         .status-indicator.error {
-            color: #e74c3c;
+            color: var(--error-color);
         }
 
-        .form-actions {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
+        .status-indicator i {
+            font-size: 1.25rem;
         }
 
+        /* 操作按钮组 */
         .action-buttons {
             display: flex;
             gap: 1rem;
@@ -366,109 +703,408 @@
             flex-wrap: wrap;
         }
 
+        /* 同步日志 */
         .sync-log {
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
-            border-radius: 4px;
-            padding: 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .sync-log h4 {
+            background: var(--bg-tertiary);
+            padding: 1rem 1.5rem;
+            margin: 0;
+            color: var(--text-primary);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .log-content {
             max-height: 300px;
             overflow-y: auto;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 0.9rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
             line-height: 1.4;
+            padding: 1rem;
         }
 
         .log-entry {
             margin-bottom: 0.5rem;
-            padding: 0.25rem 0;
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+
+        .log-entry:hover {
+            background: var(--bg-tertiary);
         }
 
         .log-entry.success {
-            color: #27ae60;
+            color: var(--success-color);
+            border-left: 3px solid var(--success-color);
+            padding-left: 0.75rem;
         }
 
         .log-entry.error {
-            color: #e74c3c;
+            color: var(--error-color);
+            border-left: 3px solid var(--error-color);
+            padding-left: 0.75rem;
         }
 
         .log-entry.info {
-            color: #3498db;
+            color: var(--info-color);
+            border-left: 3px solid var(--info-color);
+            padding-left: 0.75rem;
         }
 
-        @media (max-width: 768px) {
+        /* 文件上传 */
+        .file-upload {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .upload-modal {
+            background: var(--bg-card);
+            padding: 3rem;
+            border-radius: var(--radius-xl);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border-color);
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .upload-text {
+            font-size: 1.125rem;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .upload-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        /* 通知样式 */
+        .notification {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-lg);
+            color: var(--text-inverse);
+            font-weight: 500;
+            z-index: 3000;
+            transform: translateX(400px);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 300px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, var(--success-color), #059669);
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, var(--error-color), #dc2626);
+        }
+
+        .notification.info {
+            background: linear-gradient(135deg, var(--info-color), #2563eb);
+        }
+
+        .notification i {
+            font-size: 1.25rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
             .admin-container {
                 flex-direction: column;
+                gap: 1.5rem;
             }
 
             .sidebar {
                 width: 100%;
-                border-right: none;
-                border-bottom: 1px solid #ddd;
+                position: static;
+            }
+
+            .preview-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .admin-header {
+                padding: 1rem;
+            }
+
+            .admin-nav {
+                flex-wrap: wrap;
+                gap: 0.25rem;
+            }
+
+            .admin-nav button {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.8rem;
+            }
+
+            .admin-container {
+                padding: 1rem;
+            }
+
+            .content-section {
+                padding: 1.5rem;
             }
 
             .form-row {
                 grid-template-columns: 1fr;
             }
 
-            .preview-container {
-                grid-template-columns: 1fr;
-            }
-
             .action-buttons {
                 flex-direction: column;
             }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .post-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .post-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .admin-logo {
+                font-size: 1.25rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .upload-modal {
+                padding: 2rem;
+                margin: 1rem;
+            }
+
+            .notification {
+                right: 1rem;
+                left: 1rem;
+                transform: translateY(-100px);
+                min-width: auto;
+            }
+
+            .notification.show {
+                transform: translateY(0);
+            }
+        }
+
+        /* 加载动画 */
+        .loading-spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 工具提示 */
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-dark);
+            color: var(--text-inverse);
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius-md);
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        .tooltip:hover::after {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+
+        /* 焦点可见性 */
+        .focus-visible {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
         }
     </style>
 </head>
 <body>
+    <!-- 顶部导航栏 -->
     <header class="admin-header">
-        <h1><i class="fas fa-cog"></i> 博客管理后台</h1>
-        <nav class="admin-nav">
-            <button onclick="showSection('posts')" class="active" id="posts-tab">
-                <i class="fas fa-file-alt"></i> 文章管理
-            </button>
-            <button onclick="showSection('new-post')" id="new-post-tab">
-                <i class="fas fa-plus"></i> 新建文章
-            </button>
-            <button onclick="showSection('settings')" id="settings-tab">
-                <i class="fas fa-cog"></i> 站点设置
-            </button>
-            <button onclick="showSection('theme')" id="theme-tab">
-                <i class="fas fa-palette"></i> 主题设置
-            </button>
-            <button onclick="showSection('github')" id="github-tab">
-                <i class="fab fa-github"></i> GitHub 同步
-            </button>
-        </nav>
+        <div class="admin-header-content">
+            <div class="admin-logo">
+                <i class="fas fa-blog"></i>
+                <span>博客管理后台</span>
+            </div>
+            
+            <nav class="admin-nav">
+                <button onclick="showSection('posts')" class="active" id="posts-tab">
+                    <i class="fas fa-file-alt"></i>
+                    <span>文章管理</span>
+                </button>
+                <button onclick="showSection('new-post')" id="new-post-tab">
+                    <i class="fas fa-plus"></i>
+                    <span>新建文章</span>
+                </button>
+                <button onclick="showSection('settings')" id="settings-tab">
+                    <i class="fas fa-cog"></i>
+                    <span>站点设置</span>
+                </button>
+                <button onclick="showSection('theme')" id="theme-tab">
+                    <i class="fas fa-palette"></i>
+                    <span>主题设置</span>
+                </button>
+                <button onclick="showSection('github')" id="github-tab">
+                    <i class="fab fa-github"></i>
+                    <span>GitHub 同步</span>
+                </button>
+                
+                <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" data-tooltip="切换主题">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </nav>
+        </div>
     </header>
 
     <div class="admin-container">
+        <!-- 侧边栏 -->
         <aside class="sidebar">
-            <h3>快速操作</h3>
+            <h3><i class="fas fa-rocket"></i> 快速操作</h3>
             <ul>
                 <li><a href="#" onclick="showSection('posts')"><i class="fas fa-list"></i> 所有文章</a></li>
                 <li><a href="#" onclick="showSection('new-post')"><i class="fas fa-plus"></i> 写文章</a></li>
                 <li><a href="#" onclick="exportBlog()" id="export-btn"><i class="fas fa-download"></i> 导出博客</a></li>
                 <li><a href="#" onclick="importBlog()" id="import-btn"><i class="fas fa-upload"></i> 导入博客</a></li>
+                <li><a href="#" id="upload-link"><i class="fas fa-file-upload"></i> 上传Markdown</a></li>
                 <li><a href="/" target="_blank"><i class="fas fa-eye"></i> 预览博客</a></li>
                 <li><a href="#" onclick="syncToGitHub()"><i class="fab fa-github"></i> 同步到GitHub</a></li>
             </ul>
 
-            <h3>统计信息</h3>
-            <ul>
-                <li>文章总数: <span id="total-posts">0</span></li>
-                <li>分类数量: <span id="total-categories">0</span></li>
-                <li>标签数量: <span id="total-tags">0</span></li>
-            </ul>
+            <div class="stats-section">
+                <h3><i class="fas fa-chart-bar"></i> 统计信息</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number" id="total-posts">0</span>
+                        <span class="stat-label">文章总数</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="total-categories">0</span>
+                        <span class="stat-label">分类数量</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="total-tags">0</span>
+                        <span class="stat-label">标签数量</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">运行状态</span>
+                    </div>
+                </div>
+            </div>
         </aside>
 
+        <!-- 主内容区域 -->
         <main class="main-content">
             <!-- 文章管理 -->
             <section id="posts-section" class="content-section active">
-                <h2>文章管理</h2>
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-file-alt"></i>
+                        文章管理
+                    </h2>
+                    <p class="section-subtitle">管理你的所有博客文章，编辑、删除或创建新文章</p>
+                </div>
+                
                 <div class="posts-list" id="posts-list">
                     <!-- 文章列表将在这里动态生成 -->
                 </div>
@@ -476,64 +1112,98 @@
 
             <!-- 新建文章 -->
             <section id="new-post-section" class="content-section">
-                <h2 id="post-form-title">新建文章</h2>
+                <div class="section-header">
+                    <h2 class="section-title" id="post-form-title">
+                        <i class="fas fa-plus"></i>
+                        新建文章
+                    </h2>
+                    <p class="section-subtitle">创建一篇新的博客文章，支持Markdown语法和实时预览</p>
+                </div>
+                
                 <form id="post-form">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="post-title">文章标题</label>
-                            <input type="text" id="post-title" required>
+                            <label for="post-title">
+                                <i class="fas fa-heading"></i>
+                                文章标题
+                            </label>
+                            <input type="text" id="post-title" required placeholder="输入文章标题...">
                         </div>
                         <div class="form-group">
-                            <label for="post-slug">URL别名</label>
+                            <label for="post-slug">
+                                <i class="fas fa-link"></i>
+                                URL别名
+                            </label>
                             <input type="text" id="post-slug" placeholder="自动生成">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="post-category">分类</label>
+                            <label for="post-category">
+                                <i class="fas fa-folder"></i>
+                                分类
+                            </label>
                             <input type="text" id="post-category" placeholder="输入分类名称">
                         </div>
                         <div class="form-group">
-                            <label for="post-date">发布日期</label>
+                            <label for="post-date">
+                                <i class="fas fa-calendar"></i>
+                                发布日期
+                            </label>
                             <input type="datetime-local" id="post-date">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label>标签</label>
+                        <label>
+                            <i class="fas fa-tags"></i>
+                            标签
+                        </label>
                         <div class="tag-input" id="tag-input">
                             <input type="text" placeholder="输入标签后按回车" onkeypress="addTag(event)">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="post-excerpt">摘要</label>
+                        <label for="post-excerpt">
+                            <i class="fas fa-quote-left"></i>
+                            摘要
+                        </label>
                         <textarea id="post-excerpt" rows="3" placeholder="文章摘要（可选）"></textarea>
                     </div>
 
                     <div class="preview-container">
                         <div class="preview-panel">
-                            <h4>Markdown 编辑器</h4>
+                            <h4>
+                                <i class="fas fa-edit"></i>
+                                Markdown 编辑器
+                            </h4>
                             <textarea id="post-content" placeholder="在这里写你的文章内容...支持 Markdown 语法"></textarea>
                         </div>
                         <div class="preview-panel">
-                            <h4>实时预览</h4>
+                            <h4>
+                                <i class="fas fa-eye"></i>
+                                实时预览
+                            </h4>
                             <div class="markdown-preview" id="markdown-preview">
                                 <p>在左侧编辑器中输入内容，这里会显示预览效果...</p>
                             </div>
                         </div>
                     </div>
 
-                    <div style="margin-top: 2rem;">
+                    <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
                         <button type="submit" class="btn btn-success">
-                            <i class="fas fa-save"></i> 保存文章
+                            <i class="fas fa-save"></i>
+                            保存文章
                         </button>
                         <button type="button" class="btn btn-secondary" onclick="clearForm()">
-                            <i class="fas fa-times"></i> 清空
+                            <i class="fas fa-times"></i>
+                            清空
                         </button>
-                        <button type="button" class="btn" onclick="previewPost()" id="preview-btn">
-                            <i class="fas fa-eye"></i> 预览
+                        <button type="button" class="btn btn-outline" onclick="previewPost()" id="preview-btn">
+                            <i class="fas fa-eye"></i>
+                            预览
                         </button>
                     </div>
                 </form>
@@ -541,68 +1211,113 @@
 
             <!-- 站点设置 -->
             <section id="settings-section" class="content-section">
-                <h2>站点设置</h2>
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-cog"></i>
+                        站点设置
+                    </h2>
+                    <p class="section-subtitle">配置你的博客基本信息和个人资料</p>
+                </div>
+                
                 <form id="settings-form">
                     <div class="form-group">
-                        <label for="site-title">站点标题</label>
+                        <label for="site-title">
+                            <i class="fas fa-globe"></i>
+                            站点标题
+                        </label>
                         <input type="text" id="site-title" value="我的技术博客">
                     </div>
 
                     <div class="form-group">
-                        <label for="site-description">站点描述</label>
+                        <label for="site-description">
+                            <i class="fas fa-info-circle"></i>
+                            站点描述
+                        </label>
                         <textarea id="site-description" rows="3">专业技术分享与开发经验</textarea>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="site-author">作者姓名</label>
+                            <label for="site-author">
+                                <i class="fas fa-user"></i>
+                                作者姓名
+                            </label>
                             <input type="text" id="site-author" value="Your Name">
                         </div>
                         <div class="form-group">
-                            <label for="site-email">联系邮箱</label>
+                            <label for="site-email">
+                                <i class="fas fa-envelope"></i>
+                                联系邮箱
+                            </label>
                             <input type="email" id="site-email" value="your.email@example.com">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="github-username">GitHub 用户名</label>
+                            <label for="github-username">
+                                <i class="fab fa-github"></i>
+                                GitHub 用户名
+                            </label>
                             <input type="text" id="github-username" placeholder="yourusername">
                         </div>
                         <div class="form-group">
-                            <label for="twitter-username">Twitter 用户名</label>
+                            <label for="twitter-username">
+                                <i class="fab fa-twitter"></i>
+                                Twitter 用户名
+                            </label>
                             <input type="text" id="twitter-username" placeholder="yourusername">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="about-content">关于页面内容</label>
+                        <label for="about-content">
+                            <i class="fas fa-address-card"></i>
+                            关于页面内容
+                        </label>
                         <textarea id="about-content" rows="10" placeholder="在这里编写关于页面的内容..."></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-success">
-                        <i class="fas fa-save"></i> 保存设置
+                        <i class="fas fa-save"></i>
+                        保存设置
                     </button>
                 </form>
             </section>
 
             <!-- 主题设置 -->
             <section id="theme-section" class="content-section">
-                <h2>主题设置</h2>
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-palette"></i>
+                        主题设置
+                    </h2>
+                    <p class="section-subtitle">自定义你的博客外观和样式</p>
+                </div>
+                
                 <form id="theme-form">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="primary-color">主色调</label>
-                            <input type="color" id="primary-color" value="#3498db">
+                            <label for="primary-color">
+                                <i class="fas fa-paint-brush"></i>
+                                主色调
+                            </label>
+                            <input type="color" id="primary-color" value="#6366f1">
                         </div>
                         <div class="form-group">
-                            <label for="accent-color">强调色</label>
-                            <input type="color" id="accent-color" value="#e74c3c">
+                            <label for="accent-color">
+                                <i class="fas fa-star"></i>
+                                强调色
+                            </label>
+                            <input type="color" id="accent-color" value="#f59e0b">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="font-family">字体选择</label>
+                        <label for="font-family">
+                            <i class="fas fa-font"></i>
+                            字体选择
+                        </label>
                         <select id="font-family">
                             <option value="system">系统默认</option>
                             <option value="serif">衬线字体</option>
@@ -611,19 +1326,29 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="custom-css">自定义 CSS</label>
+                        <label for="custom-css">
+                            <i class="fas fa-code"></i>
+                            自定义 CSS
+                        </label>
                         <textarea id="custom-css" rows="10" placeholder="在这里添加自定义 CSS 样式..."></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-success">
-                        <i class="fas fa-save"></i> 应用主题
+                        <i class="fas fa-magic"></i>
+                        应用主题
                     </button>
                 </form>
             </section>
 
             <!-- GitHub 同步 -->
             <section id="github-section" class="content-section">
-                <h2>GitHub 同步设置</h2>
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fab fa-github"></i>
+                        GitHub 同步设置
+                    </h2>
+                    <p class="section-subtitle">将你的博客同步到GitHub Pages进行托管</p>
+                </div>
                 
                 <div class="github-status" id="github-status">
                     <div class="status-indicator" id="status-indicator">
@@ -634,51 +1359,73 @@
 
                 <form id="github-form">
                     <div class="form-group">
-                        <label for="github-token">GitHub Personal Access Token</label>
+                        <label for="github-token">
+                            <i class="fas fa-key"></i>
+                            GitHub Personal Access Token
+                        </label>
                         <input type="password" id="github-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
-                        <small>需要 repo 权限。<a href="https://github.com/settings/tokens" target="_blank">创建 Token</a></small>
+                        <small style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.5rem; display: block;">
+                            需要 repo 权限。<a href="https://github.com/settings/tokens" target="_blank" style="color: var(--primary-color);">创建 Token</a>
+                        </small>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="github-owner">GitHub 用户名/组织名</label>
+                            <label for="github-owner">
+                                <i class="fas fa-user"></i>
+                                GitHub 用户名/组织名
+                            </label>
                             <input type="text" id="github-owner" placeholder="yourusername">
                         </div>
                         <div class="form-group">
-                            <label for="github-repo">仓库名</label>
+                            <label for="github-repo">
+                                <i class="fas fa-repository"></i>
+                                仓库名
+                            </label>
                             <input type="text" id="github-repo" placeholder="yourusername.github.io">
                         </div>
                     </div>
 
-                    <div class="form-actions">
+                    <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
                         <button type="submit" class="btn btn-success">
-                            <i class="fas fa-save"></i> 保存配置
+                            <i class="fas fa-save"></i>
+                            保存配置
                         </button>
-                        <button type="button" class="btn" onclick="testGitHubConnection()">
-                            <i class="fas fa-plug"></i> 测试连接
+                        <button type="button" class="btn btn-outline" onclick="testGitHubConnection()">
+                            <i class="fas fa-plug"></i>
+                            测试连接
                         </button>
                     </div>
                 </form>
 
                 <div class="github-actions" id="github-actions" style="display: none;">
-                    <h3>同步操作</h3>
+                    <h3 style="margin-bottom: 1.5rem; color: var(--text-primary);">
+                        <i class="fas fa-sync"></i>
+                        同步操作
+                    </h3>
                     
                     <div class="action-buttons">
                         <button class="btn" onclick="initializeJekyllSite()">
-                            <i class="fas fa-rocket"></i> 初始化 Jekyll 站点
+                            <i class="fas fa-rocket"></i>
+                            初始化 Jekyll 站点
                         </button>
                         <button class="btn btn-success" onclick="syncAllPosts()">
-                            <i class="fas fa-sync"></i> 同步所有文章
+                            <i class="fas fa-sync"></i>
+                            同步所有文章
                         </button>
                         <button class="btn" onclick="syncSettings()">
-                            <i class="fas fa-cog"></i> 同步站点设置
+                            <i class="fas fa-cog"></i>
+                            同步站点设置
                         </button>
                     </div>
 
                     <div class="sync-log" id="sync-log">
-                        <h4>同步日志</h4>
+                        <h4>
+                            <i class="fas fa-terminal"></i>
+                            同步日志
+                        </h4>
                         <div class="log-content" id="log-content">
-                            <p>等待同步操作...</p>
+                            <p style="color: var(--text-muted); text-align: center; padding: 2rem;">等待同步操作...</p>
                         </div>
                     </div>
                 </div>
@@ -686,75 +1433,197 @@
         </main>
     </div>
 
-    <!-- 文件上传区域 -->
-    <div id="file-upload" class="file-upload" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 2000; display: flex; align-items: center; justify-content: center;">
-        <div style="background: white; padding: 2rem; border-radius: 8px; text-align: center; max-width: 400px;">
-        <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: #3498db; margin-bottom: 1rem;"></i>
-        <p>拖拽 Markdown 文件到这里，或点击选择文件</p>
-            <button onclick="document.getElementById('file-input').click()" style="margin: 1rem; padding: 0.5rem 1rem; background: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer;">选择文件</button>
-            <button onclick="document.getElementById('file-upload').style.display='none'" style="margin: 1rem; padding: 0.5rem 1rem; background: #95a5a6; color: white; border: none; border-radius: 4px; cursor: pointer;">取消</button>
-        <input type="file" id="file-input" accept=".md,.markdown" multiple style="display: none;">
+    <!-- 文件上传模态框 -->
+    <div id="file-upload" class="file-upload">
+        <div class="upload-modal">
+            <div class="upload-icon">
+                <i class="fas fa-cloud-upload-alt"></i>
+            </div>
+            <p class="upload-text">拖拽 Markdown 文件到这里，或点击选择文件</p>
+            <div class="upload-actions">
+                <button class="btn" onclick="document.getElementById('file-input').click()">
+                    <i class="fas fa-file"></i>
+                    选择文件
+                </button>
+                <button class="btn btn-secondary" onclick="document.getElementById('file-upload').style.display='none'">
+                    <i class="fas fa-times"></i>
+                    取消
+                </button>
+            </div>
+            <input type="file" id="file-input" accept=".md,.markdown" multiple style="display: none;">
         </div>
     </div>
 
-    <script type="module" src="/admin.js"></script>
+    <script src="/admin.js"></script>
     
     <script>
-        // 确保页面加载完成后绑定事件
+        // 主题切换功能
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('admin-theme', newTheme);
+            
+            const themeToggle = document.getElementById('theme-toggle');
+            const icon = themeToggle.querySelector('i');
+            icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        }
+
+        // 初始化主题
+        function initTheme() {
+            const savedTheme = localStorage.getItem('admin-theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            
+            const themeToggle = document.getElementById('theme-toggle');
+            const icon = themeToggle.querySelector('i');
+            icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        }
+
+        // 页面加载完成后的初始化
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM加载完成，开始绑定事件');
+            console.log('DOM加载完成，开始初始化美化版管理后台');
             
-            // 测试按钮点击
-            const exportBtn = document.getElementById('export-btn');
-            const importBtn = document.getElementById('import-btn');
-            const previewBtn = document.getElementById('preview-btn');
+            // 初始化主题
+            initTheme();
             
-            if (exportBtn) {
-                exportBtn.addEventListener('click', function(e) {
+            // 绑定上传链接事件
+            const uploadLink = document.getElementById('upload-link');
+            if (uploadLink) {
+                uploadLink.addEventListener('click', function(e) {
                     e.preventDefault();
-                    console.log('导出按钮被点击');
-                    if (typeof exportBlog === 'function') {
-                        exportBlog();
-                    } else {
-                        console.error('exportBlog函数未定义');
-                    }
+                    document.getElementById('file-upload').style.display = 'flex';
                 });
             }
-            
-            if (importBtn) {
-                importBtn.addEventListener('click', function(e) {
+
+            // 添加平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
                     e.preventDefault();
-                    console.log('导入按钮被点击');
-                    if (typeof importBlog === 'function') {
-                        importBlog();
-                    } else {
-                        console.error('importBlog函数未定义');
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
                     }
                 });
-            }
-            
-            if (previewBtn) {
-                previewBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('预览按钮被点击');
-                    if (typeof previewPost === 'function') {
-                        previewPost();
-                    } else {
-                        console.error('previewPost函数未定义');
-                    }
-                });
-            }
-            
-            // 添加文件上传快捷方式
-            const uploadLink = document.createElement('li');
-            uploadLink.innerHTML = '<a href="#" id="upload-link"><i class="fas fa-file-upload"></i> 上传Markdown</a>';
-            document.querySelector('.sidebar ul').appendChild(uploadLink);
-            
-            document.getElementById('upload-link').addEventListener('click', function(e) {
-                e.preventDefault();
-                document.getElementById('file-upload').style.display = 'flex';
             });
+
+            // 添加键盘快捷键
+            document.addEventListener('keydown', function(e) {
+                // Ctrl/Cmd + S 保存
+                if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                    e.preventDefault();
+                    const activeSection = document.querySelector('.content-section.active');
+                    const form = activeSection?.querySelector('form');
+                    if (form) {
+                        form.dispatchEvent(new Event('submit'));
+                    }
+                }
+                
+                // Ctrl/Cmd + N 新建文章
+                if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
+                    e.preventDefault();
+                    showSection('new-post');
+                }
+                
+                // Esc 关闭模态框
+                if (e.key === 'Escape') {
+                    const uploadModal = document.getElementById('file-upload');
+                    if (uploadModal.style.display === 'flex') {
+                        uploadModal.style.display = 'none';
+                    }
+                }
+            });
+
+            // 添加自动保存功能（草稿）
+            let autoSaveTimer;
+            const postContent = document.getElementById('post-content');
+            const postTitle = document.getElementById('post-title');
+            
+            function autoSave() {
+                const draft = {
+                    title: postTitle?.value || '',
+                    content: postContent?.value || '',
+                    timestamp: new Date().toISOString()
+                };
+                localStorage.setItem('blog-draft', JSON.stringify(draft));
+                console.log('草稿已自动保存');
+            }
+            
+            function setupAutoSave() {
+                [postContent, postTitle].forEach(element => {
+                    if (element) {
+                        element.addEventListener('input', function() {
+                            clearTimeout(autoSaveTimer);
+                            autoSaveTimer = setTimeout(autoSave, 2000); // 2秒后自动保存
+                        });
+                    }
+                });
+            }
+            
+            setupAutoSave();
+
+            // 恢复草稿
+            function restoreDraft() {
+                const draft = localStorage.getItem('blog-draft');
+                if (draft && postTitle && postContent) {
+                    try {
+                        const draftData = JSON.parse(draft);
+                        if (draftData.title || draftData.content) {
+                            if (confirm('发现未保存的草稿，是否恢复？')) {
+                                postTitle.value = draftData.title;
+                                postContent.value = draftData.content;
+                                updateMarkdownPreview();
+                            }
+                        }
+                    } catch (error) {
+                        console.error('恢复草稿失败:', error);
+                    }
+                }
+            }
+            
+            // 延迟恢复草稿，确保页面完全加载
+            setTimeout(restoreDraft, 1000);
+
+            console.log('美化版管理后台初始化完成！');
         });
+
+        // 增强的通知系统
+        function showEnhancedNotification(message, type = 'info', duration = 3000) {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            
+            const icons = {
+                success: 'fas fa-check-circle',
+                error: 'fas fa-exclamation-circle',
+                info: 'fas fa-info-circle',
+                warning: 'fas fa-exclamation-triangle'
+            };
+            
+            notification.innerHTML = `
+                <i class="${icons[type] || icons.info}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // 显示动画
+            setTimeout(() => notification.classList.add('show'), 100);
+            
+            // 隐藏动画
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, duration);
+        }
+
+        // 覆盖原有的通知函数
+        if (typeof showNotification !== 'undefined') {
+            const originalShowNotification = showNotification;
+            showNotification = showEnhancedNotification;
+        }
     </script>
 </body>
 </html>
