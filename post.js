@@ -12,7 +12,11 @@ marked.setOptions({
   }
 });
 
-// Blog posts data (in a real app, this would come from a CMS or API)
+// Get post ID from URL
+const urlParams = new URLSearchParams(window.location.search);
+const postId = urlParams.get('id');
+
+// Posts data (same as in main.js - in a real app, this would be shared)
 const posts = [
   {
     id: 'welcome-to-my-blog',
@@ -242,17 +246,11 @@ CSS Grid让布局变得前所未有的简单和强大！
   }
 ];
 
-// DOM elements
-const featuredPostsContainer = document.getElementById('featured-posts-container');
-const recentPostsContainer = document.getElementById('recent-posts-container');
-const searchInput = document.getElementById('search-input');
-const searchResults = document.getElementById('search-results');
-const themeToggle = document.getElementById('theme-toggle');
-
 // Theme management
 function initTheme() {
   const savedTheme = localStorage.getItem('theme') || 'light';
   document.documentElement.setAttribute('data-theme', savedTheme);
+  const themeToggle = document.getElementById('theme-toggle');
   themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
 }
 
@@ -262,90 +260,87 @@ function toggleTheme() {
   
   document.documentElement.setAttribute('data-theme', newTheme);
   localStorage.setItem('theme', newTheme);
+  const themeToggle = document.getElementById('theme-toggle');
   themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
 }
 
-// Post rendering
-function renderPostCard(post, isFeatured = false) {
-  const formattedDate = format(new Date(post.date), 'yyyy年MM月dd日', { locale: zhCN });
-  
-  return `
-    <article class="post-card ${isFeatured ? 'featured' : ''}">
-      <div class="post-meta">
-        <time datetime="${post.date}">${formattedDate}</time>
-        <div class="post-categories">
-          ${post.categories.map(cat => `<span class="category">${cat}</span>`).join('')}
-        </div>
-      </div>
-      <h3><a href="/post.html?id=${post.id}">${post.title}</a></h3>
-      <p class="post-excerpt">${post.excerpt}</p>
-      <div class="post-tags">
-        ${post.tags.map(tag => `<span class="tag">#${tag}</span>`).join('')}
-      </div>
-      <a href="/post.html?id=${post.id}" class="read-more">阅读更多 →</a>
-    </article>
-  `;
-}
-
-function renderPosts() {
-  // Render featured posts
-  const featuredPosts = posts.filter(post => post.featured);
-  featuredPostsContainer.innerHTML = featuredPosts.map(post => renderPostCard(post, true)).join('');
-  
-  // Render recent posts
-  const recentPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 6);
-  recentPostsContainer.innerHTML = recentPosts.map(post => renderPostCard(post)).join('');
-}
-
-// Search functionality
-function performSearch(query) {
-  if (!query.trim()) {
-    searchResults.style.display = 'none';
+// Load and render post
+function loadPost() {
+  if (!postId) {
+    document.getElementById('post-body').innerHTML = '<p>未找到文章ID</p>';
     return;
   }
   
-  const results = posts.filter(post => 
-    post.title.toLowerCase().includes(query.toLowerCase()) ||
-    post.content.toLowerCase().includes(query.toLowerCase()) ||
-    post.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()))
-  );
+  const post = posts.find(p => p.id === postId);
   
-  if (results.length > 0) {
-    searchResults.innerHTML = results.map(post => `
-      <div class="search-result">
-        <h4><a href="/post.html?id=${post.id}">${post.title}</a></h4>
-        <p>${post.excerpt}</p>
-      </div>
-    `).join('');
-    searchResults.style.display = 'block';
-  } else {
-    searchResults.innerHTML = '<div class="search-result">没有找到相关文章</div>';
-    searchResults.style.display = 'block';
+  if (!post) {
+    document.getElementById('post-body').innerHTML = '<p>文章不存在</p>';
+    return;
+  }
+  
+  // Update page title
+  document.title = `${post.title} - 技术分享博客`;
+  document.getElementById('post-title').textContent = post.title;
+  document.getElementById('post-title-display').textContent = post.title;
+  
+  // Update meta information
+  const formattedDate = format(new Date(post.date), 'yyyy年MM月dd日', { locale: zhCN });
+  document.getElementById('post-date').textContent = formattedDate;
+  document.getElementById('post-date').setAttribute('datetime', post.date);
+  
+  // Update categories
+  const categoriesContainer = document.getElementById('post-categories');
+  categoriesContainer.innerHTML = post.categories.map(cat => 
+    `<span class="category">${cat}</span>`
+  ).join('');
+  
+  // Update tags
+  const tagsContainer = document.getElementById('post-tags');
+  tagsContainer.innerHTML = post.tags.map(tag => 
+    `<span class="tag">#${tag}</span>`
+  ).join('');
+  
+  // Render content
+  const contentHtml = marked(post.content);
+  document.getElementById('post-body').innerHTML = contentHtml;
+  
+  // Highlight code blocks
+  Prism.highlightAll();
+  
+  // Setup navigation
+  setupPostNavigation(post);
+}
+
+function setupPostNavigation(currentPost) {
+  const currentIndex = posts.findIndex(p => p.id === currentPost.id);
+  const prevPost = posts[currentIndex + 1];
+  const nextPost = posts[currentIndex - 1];
+  
+  const prevContainer = document.getElementById('prev-post');
+  const nextContainer = document.getElementById('next-post');
+  
+  if (prevPost) {
+    prevContainer.innerHTML = `
+      <a href="/post.html?id=${prevPost.id}">
+        <span class="nav-label">← 上一篇</span>
+        <span class="nav-title">${prevPost.title}</span>
+      </a>
+    `;
+  }
+  
+  if (nextPost) {
+    nextContainer.innerHTML = `
+      <a href="/post.html?id=${nextPost.id}">
+        <span class="nav-label">下一篇 →</span>
+        <span class="nav-title">${nextPost.title}</span>
+      </a>
+    `;
   }
 }
 
 // Event listeners
-themeToggle.addEventListener('click', toggleTheme);
-
-searchInput.addEventListener('input', (e) => {
-  performSearch(e.target.value);
-});
-
-searchInput.addEventListener('focus', () => {
-  if (searchInput.value.trim()) {
-    searchResults.style.display = 'block';
-  }
-});
-
-document.addEventListener('click', (e) => {
-  if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
-    searchResults.style.display = 'none';
-  }
-});
+document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
 
 // Initialize
 initTheme();
-renderPosts();
-
-// Export posts for other pages
-window.blogPosts = posts;
+loadPost();
