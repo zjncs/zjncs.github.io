@@ -86,6 +86,81 @@ layout: default
         {% endif %}
     </header>
 
+    {% if page.series %}
+    <!-- 文章系列导航 -->
+    <div class="series-navigation">
+        <div class="series-header">
+            <h3>
+                <i class="fas fa-list-ol"></i>
+                系列文章：{{ page.series }}
+            </h3>
+        </div>
+        
+        <div class="series-posts">
+            {% assign series_posts = site.posts | where: "series", page.series | sort: "series_order" %}
+            {% assign current_index = 0 %}
+            
+            <ol class="series-list">
+                {% for series_post in series_posts %}
+                {% assign series_index = forloop.index %}
+                {% if series_post.url == page.url %}
+                    {% assign current_index = series_index %}
+                {% endif %}
+                
+                <li class="series-item {% if series_post.url == page.url %}current{% endif %}">
+                    {% if series_post.url == page.url %}
+                        <span class="series-current">
+                            <i class="fas fa-arrow-right"></i>
+                            {{ series_post.title }}
+                        </span>
+                    {% else %}
+                        <a href="{{ series_post.url | relative_url }}" class="series-link">
+                            {{ series_post.title }}
+                        </a>
+                    {% endif %}
+                    
+                    {% if series_post.excerpt %}
+                    <p class="series-excerpt">{{ series_post.excerpt | strip_html | truncate: 80 }}</p>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ol>
+            
+            <div class="series-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{ current_index | times: 100 | divided_by: series_posts.size }}%"></div>
+                </div>
+                <span class="progress-text">{{ current_index }} / {{ series_posts.size }}</span>
+            </div>
+        </div>
+        
+        <!-- 系列导航按钮 -->
+        <div class="series-navigation-buttons">
+            {% if current_index > 1 %}
+                {% assign prev_post = series_posts[current_index | minus: 2] %}
+                <a href="{{ prev_post.url | relative_url }}" class="series-nav-btn prev">
+                    <i class="fas fa-chevron-left"></i>
+                    <div class="nav-content">
+                        <span class="nav-label">上一篇</span>
+                        <span class="nav-title">{{ prev_post.title }}</span>
+                    </div>
+                </a>
+            {% endif %}
+            
+            {% if current_index < series_posts.size %}
+                {% assign next_post = series_posts[current_index] %}
+                <a href="{{ next_post.url | relative_url }}" class="series-nav-btn next">
+                    <div class="nav-content">
+                        <span class="nav-label">下一篇</span>
+                        <span class="nav-title">{{ next_post.title }}</span>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
     {% if site.toc and page.toc != false %}
     <div class="table-of-contents">
         <div class="toc-header">
@@ -179,24 +254,7 @@ layout: default
 {% endif %}
 
 <!-- Comments -->
-{% if page.comments and site.disqus_shortname %}
-<section class="comments-section">
-    <div id="disqus_thread"></div>
-    <script>
-        var disqus_config = function () {
-            this.page.url = "{{ site.url }}{{ page.url }}";
-            this.page.identifier = "{{ page.id }}";
-        };
-        (function() {
-            var d = document, s = d.createElement('script');
-            s.src = 'https://{{ site.disqus_shortname }}.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        })();
-    </script>
-    <noscript>请启用 JavaScript 来查看 <a href="https://disqus.com/?ref_noscript">Disqus 评论</a>。</noscript>
-</section>
-{% endif %}
+{% include comments.html %}
 
 <script>
 // Reading time calculation
