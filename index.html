@@ -1,0 +1,3322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赵嘉宁的技术笔记</title>
+    <meta name="description" content="记录学习过程中的点点滴滴">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="favicon.ico">
+    
+    <!-- 字体和图标 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 优雅字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 自然风格设计系统 */
+        :root {
+            /* 温暖的主色调 */
+            --primary-color: #2d5a87;
+            --primary-dark: #1e3a5f;
+            --primary-light: #4a7ba7;
+
+            /* 自然辅助色 */
+            --secondary-color: #5a6c7d;
+            --accent-color: #d4a574;
+            --success-color: #6b8e5a;
+            --warning-color: #c9975b;
+            --error-color: #c85a5a;
+
+            /* 温和的中性色 */
+            --gray-50: #fafbfc;
+            --gray-100: #f4f6f8;
+            --gray-200: #e8ecf0;
+            --gray-300: #d1d9e0;
+            --gray-400: #9aa5b1;
+            --gray-500: #6b7684;
+            --gray-600: #57606a;
+            --gray-700: #424a53;
+            --gray-800: #2d3339;
+            --gray-900: #1a1d21;
+
+            /* 舒适的语义化颜色 */
+            --bg-color: #ffffff;
+            --bg-secondary: #fafbfc;
+            --bg-tertiary: #f4f6f8;
+            --text-color: #2d3339;
+            --text-secondary: #57606a;
+            --text-muted: #9aa5b1;
+            --border-color: #e8ecf0;
+            --shadow-color: rgba(45, 51, 57, 0.08);
+            
+            /* 优雅的字体组合 */
+            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            --font-serif: 'Playfair Display', 'Lora', 'Georgia', 'Times New Roman', serif;
+            --font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+            
+            /* 间距 */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+            --spacing-3xl: 4rem;
+            
+            /* 圆角 */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            
+            /* 阴影 */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            
+            /* 动画 */
+            --transition-fast: 0.15s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+        }
+
+        /* 暗色主题 */
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-color: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+        }
+
+        /* 重置样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: background-color var(--transition-normal), color var(--transition-normal);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* 容器 */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+
+        /* 优雅的标题样式 - 衬线字体 */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-serif);
+            color: var(--text-color);
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: var(--spacing-md);
+            letter-spacing: -0.02em;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 500;
+        }
+
+        /* 瀑布流布局容器 */
+        .posts-masonry {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-gap: var(--spacing-xl);
+            grid-auto-rows: 10px;
+            margin: var(--spacing-2xl) 0;
+        }
+
+        /* 加载状态 */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-color);
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* 自然风格博客头部 */
+        .blog-header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: var(--spacing-2xl) 0 var(--spacing-3xl) 0;
+            margin-bottom: var(--spacing-2xl);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23e2e8f0" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.5;
+        }
+
+        .blog-header-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .blog-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .blog-description {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xl);
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .blog-nav {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-lg);
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            color: var(--text-color);
+            text-decoration: none;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid transparent;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-dark);
+        }
+
+        .nav-link.admin-link {
+            background: var(--error-color);
+            color: white;
+        }
+
+        .nav-link.admin-link:hover {
+            background: #dc2626;
+        }
+
+        /* 搜索框 - 毛玻璃效果 */
+        .search-container {
+            position: relative;
+            max-width: 400px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease 0.6s both;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 5px;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: var(--spacing-md) var(--spacing-lg);
+            padding-left: 3rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: all var(--transition-fast);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: var(--spacing-md);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            z-index: 1000;
+            display: none;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: var(--spacing-xs);
+        }
+
+        .search-result-item {
+            padding: var(--spacing-lg);
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .search-result-item:hover {
+            background: var(--bg-secondary);
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-item h4 {
+            margin-bottom: var(--spacing-xs);
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .search-result-item p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .no-results {
+            padding: var(--spacing-xl);
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        /* 主题切换按钮 */
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: scale(1.05);
+            border-color: var(--accent-color);
+        }
+
+        /* 面包屑导航 */
+        .breadcrumb {
+            margin-bottom: var(--spacing-lg);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary-dark);
+        }
+
+        .separator {
+            color: var(--text-muted);
+        }
+
+        .current {
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        /* 文章容器 - 瀑布流布局 */
+        .posts-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-gap: var(--spacing-xl);
+            grid-auto-rows: 10px;
+        }
+
+        /* 文章卡片 */
+        /* 动态文章卡片 */
+        .post-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            /* 瀑布流支持 */
+            break-inside: avoid;
+            margin-bottom: var(--spacing-lg);
+            /* 动态高度 */
+            height: fit-content;
+        }
+
+        /* 光影追随效果 */
+        .post-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle 100px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                        rgba(102, 126, 234, 0.1) 0%,
+                        transparent 50%);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+            pointer-events: none;
+        }
+
+        /* 边框流光效果 */
+        .post-card::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg,
+                        var(--primary-color),
+                        var(--accent-color),
+                        var(--primary-color));
+            background-size: 300% 300%;
+            border-radius: var(--radius-lg);
+            z-index: -1;
+            opacity: 0;
+            animation: borderFlow 3s ease infinite;
+            transition: opacity var(--transition-normal);
+        }
+
+        .post-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: transparent;
+        }
+
+        .post-card:hover::before {
+            opacity: 1;
+        }
+
+        .post-card:hover::after {
+            opacity: 1;
+        }
+
+        @keyframes borderFlow {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* 文章图片样式 */
+        .post-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+            position: relative;
+        }
+
+        .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all var(--transition-normal);
+        }
+
+        .post-content-wrapper {
+            padding: var(--spacing-lg);
+        }
+
+        /* 动态高度变化 */
+        .post-card.short {
+            grid-row-end: span 35;
+        }
+
+        .post-card.medium {
+            grid-row-end: span 45;
+        }
+
+        .post-card.tall {
+            grid-row-end: span 55;
+        }
+
+        /* 增强的文章标题 */
+        .post-title {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .post-title a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        .post-title a:hover {
+            color: var(--primary-color);
+        }
+
+        /* 文章摘要 */
+        .post-excerpt {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        /* 增强的标签样式 */
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .tag {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-fast);
+            cursor: pointer;
+        }
+
+        .tag:hover {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+            transform: translateY(-1px);
+        }
+
+        .tag-more {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+        }
+
+        /* 文章底部 */
+        .post-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--spacing-md);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .read-more {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+        }
+
+        .read-more:hover {
+            color: var(--primary-dark);
+            transform: translateX(4px);
+        }
+
+        .read-more i {
+            transition: transform var(--transition-fast);
+        }
+
+        .read-more:hover i {
+            transform: translateX(4px);
+        }
+
+        .post-stats {
+            display: flex;
+            gap: var(--spacing-md);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .post-stats span {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        /* 响应式瀑布流布局 */
+        @media (max-width: 1200px) {
+            .posts-container {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                grid-gap: var(--spacing-lg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .posts-container {
+                grid-template-columns: 1fr;
+                grid-gap: var(--spacing-md);
+            }
+
+            .post-card {
+                margin-bottom: var(--spacing-md);
+            }
+
+            .post-card.short,
+            .post-card.medium,
+            .post-card.tall {
+                grid-row-end: auto;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            h3 {
+                font-size: 1.5rem;
+            }
+
+            .post-image {
+                height: 150px;
+            }
+
+            .post-content-wrapper {
+                padding: var(--spacing-md);
+            }
+        }
+
+        .post-header {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .post-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            line-height: 1.3;
+        }
+
+        .post-title a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        .post-title a:hover {
+            color: var(--primary-color);
+        }
+
+        /* 元信息样式 - 等宽字体 */
+        .post-meta {
+            display: flex;
+            gap: var(--spacing-lg);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+            align-items: center;
+            letter-spacing: 0.025em;
+            text-transform: uppercase;
+        }
+
+        .post-meta > * {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .category {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-md);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.025em;
+        }
+
+        .post-excerpt {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .post-tags {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.625rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-fast);
+            cursor: pointer;
+        }
+
+        .tag:hover {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+            transform: translateY(-1px);
+        }
+
+        .post-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .read-more {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+        }
+
+        .read-more:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateX(4px);
+        }
+
+        .reading-time {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* 文章详情 */
+        .post-detail {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--bg-color);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-3xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .post-detail .post-title {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.2;
+        }
+
+        .post-content {
+            margin: var(--spacing-2xl) 0;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .post-content h1,
+        .post-content h2,
+        .post-content h3,
+        .post-content h4,
+        .post-content h5,
+        .post-content h6 {
+            margin: var(--spacing-2xl) 0 var(--spacing-lg) 0;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .post-content h1 { font-size: 2rem; }
+        .post-content h2 { font-size: 1.75rem; }
+        .post-content h3 { font-size: 1.5rem; }
+
+        .post-content p {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .post-content ul,
+        .post-content ol {
+            margin-bottom: var(--spacing-lg);
+            padding-left: var(--spacing-xl);
+        }
+
+        .post-content li {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .post-content code {
+            background: var(--bg-secondary);
+            padding: 0.2rem 0.4rem;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-mono);
+            font-size: 0.9em;
+            color: var(--error-color);
+        }
+
+        .post-content pre {
+            background: var(--bg-secondary);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            overflow-x: auto;
+            margin: var(--spacing-lg) 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .post-content pre code {
+            background: none;
+            padding: 0;
+            color: var(--text-color);
+        }
+
+        .post-content blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: var(--spacing-lg);
+            margin: var(--spacing-lg) 0;
+            color: var(--text-secondary);
+            font-style: italic;
+            background: var(--bg-secondary);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+        }
+
+        .post-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--radius-lg);
+            margin: var(--spacing-lg) 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* 文章导航 */
+        .post-nav {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-lg);
+            margin: var(--spacing-2xl) 0;
+        }
+
+        .post-nav-item {
+            padding: var(--spacing-lg);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-fast);
+        }
+
+        .post-nav-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .post-nav-item.prev {
+            text-align: left;
+        }
+
+        .post-nav-item.next {
+            text-align: right;
+        }
+
+        .nav-label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: var(--spacing-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .post-nav-item a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color var(--transition-fast);
+        }
+
+        .post-nav-item a:hover {
+            color: var(--primary-color);
+        }
+
+        /* 分享按钮 */
+        .share-buttons {
+            margin-top: var(--spacing-2xl);
+            padding-top: var(--spacing-2xl);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .share-buttons h4 {
+            margin-bottom: var(--spacing-lg);
+            color: var(--text-color);
+        }
+
+        .share-btn-group {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border: none;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+            text-decoration: none;
+        }
+
+        .share-btn.twitter {
+            background: #1da1f2;
+            color: white;
+        }
+
+        .share-btn.facebook {
+            background: #4267b2;
+            color: white;
+        }
+
+        .share-btn.copy {
+            background: var(--bg-secondary);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* 自然风格分页 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-xs);
+            margin: var(--spacing-2xl) 0;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--bg-color);
+            color: var(--text-color);
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-fast);
+            font-weight: 500;
+            min-width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-btn:hover {
+            background: var(--primary-light);
+            color: white;
+            border-color: var(--primary-light);
+            transform: translateY(-1px);
+        }
+
+        .page-btn.current {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* 分类和标签页面 */
+        .categories-grid,
+        .tags-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-xl);
+            margin: var(--spacing-2xl) 0;
+        }
+
+        .category-card,
+        .tag-card {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
+        }
+
+        .category-card:hover,
+        .tag-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+
+        .category-name,
+        .tag-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--primary-color);
+        }
+
+        .category-count,
+        .tag-count {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .category-posts,
+        .tag-posts {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .category-post,
+        .tag-post {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .category-post:last-child,
+        .tag-post:last-child {
+            border-bottom: none;
+        }
+
+        .category-post a,
+        .tag-post a {
+            color: var(--text-color);
+            text-decoration: none;
+            flex: 1;
+            transition: color var(--transition-fast);
+        }
+
+        .category-post a:hover,
+        .tag-post a:hover {
+            color: var(--primary-color);
+        }
+
+        .category-post time,
+        .tag-post time {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* 标签云 */
+        .tags-cloud {
+            text-align: center;
+            margin: var(--spacing-2xl) 0;
+            padding: var(--spacing-2xl);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-color);
+        }
+
+        .tag-item {
+            display: inline-block;
+            margin: var(--spacing-xs);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            background: var(--bg-color);
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-fast);
+            font-weight: 500;
+        }
+
+        .tag-item:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .tag-size-1 { font-size: 0.8rem; }
+        .tag-size-2 { font-size: 0.9rem; }
+        .tag-size-3 { font-size: 1rem; }
+        .tag-size-4 { font-size: 1.1rem; font-weight: 600; }
+        .tag-size-5 { font-size: 1.2rem; font-weight: 700; }
+
+        /* 关于页面 */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--bg-color);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-3xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .author-info {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+            padding-bottom: var(--spacing-2xl);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .author-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto var(--spacing-lg);
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--text-muted);
+            border: 4px solid var(--border-color);
+        }
+
+        .author-info h2 {
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-color);
+            font-size: 2rem;
+        }
+
+        .author-email {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-lg);
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            background: var(--bg-secondary);
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-fast);
+            font-weight: 500;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .about-text {
+            margin-bottom: var(--spacing-2xl);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .blog-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+            text-align: center;
+        }
+
+        .stat {
+            padding: var(--spacing-lg);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-fast);
+        }
+
+        .stat:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* 回到顶部按钮 */
+        .scroll-to-top {
+            position: fixed;
+            bottom: var(--spacing-xl);
+            right: var(--spacing-xl);
+            width: 56px;
+            height: 56px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-normal);
+            z-index: 1000;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            background: var(--primary-dark);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* 通知系统 */
+        .notification {
+            position: fixed;
+            top: var(--spacing-xl);
+            right: var(--spacing-xl);
+            padding: var(--spacing-lg) var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            color: white;
+            font-weight: 500;
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform var(--transition-normal);
+            box-shadow: var(--shadow-xl);
+            max-width: 300px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: var(--success-color);
+        }
+
+        .notification.error {
+            background: var(--error-color);
+        }
+
+        .notification.info {
+            background: var(--primary-color);
+        }
+
+        /* 增强的动画效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* 滚动触发动画 */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animate-on-scroll.slide-left {
+            transform: translateX(-40px);
+        }
+
+        .animate-on-scroll.slide-left.animated {
+            transform: translateX(0);
+        }
+
+        .animate-on-scroll.slide-right {
+            transform: translateX(40px);
+        }
+
+        .animate-on-scroll.slide-right.animated {
+            transform: translateX(0);
+        }
+
+        .animate-on-scroll.scale {
+            transform: scale(0.9);
+        }
+
+        .animate-on-scroll.scale.animated {
+            transform: scale(1);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 var(--spacing-md);
+            }
+
+            .blog-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .categories-grid,
+            .tags-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .blog-header {
+                padding: var(--spacing-2xl) 0;
+            }
+
+            .blog-header h1 {
+                font-size: 2rem;
+            }
+
+            .blog-nav {
+                gap: var(--spacing-md);
+            }
+
+            .post-card {
+                padding: var(--spacing-xl);
+            }
+
+            .post-detail {
+                padding: var(--spacing-xl);
+            }
+
+            .post-detail .post-title {
+                font-size: 2rem;
+            }
+
+            .post-nav {
+                grid-template-columns: 1fr;
+            }
+
+            .categories-grid,
+            .tags-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .blog-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .search-container {
+                margin: var(--spacing-lg) 0 0 0;
+            }
+
+            .post-meta {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+                align-items: flex-start;
+            }
+
+            .share-btn-group {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blog-header {
+                padding: var(--spacing-xl) 0;
+            }
+
+            .blog-nav {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+            }
+
+            .post-card {
+                padding: var(--spacing-lg);
+            }
+
+            .post-detail {
+                padding: var(--spacing-lg);
+            }
+
+            .scroll-to-top {
+                bottom: var(--spacing-lg);
+                right: var(--spacing-lg);
+                width: 48px;
+                height: 48px;
+            }
+
+            .notification {
+                right: var(--spacing-md);
+                left: var(--spacing-md);
+                max-width: none;
+                transform: translateY(-100px);
+            }
+
+            .notification.show {
+                transform: translateY(0);
+            }
+        }
+
+        /* 打印样式 */
+        @media print {
+            .blog-nav,
+            .search-container,
+            .theme-toggle,
+            .scroll-to-top,
+            .share-buttons,
+            .post-nav {
+                display: none;
+            }
+
+            .blog-header {
+                background: none;
+                padding: var(--spacing-lg) 0;
+            }
+
+            .post-card,
+            .post-detail {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+
+            body {
+                font-size: 12pt;
+                line-height: 1.4;
+            }
+        }
+
+        /* 无障碍设计 */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        /* 高对比度模式 */
+        @media (prefers-contrast: high) {
+            :root {
+                --shadow-color: rgba(0, 0, 0, 0.5);
+                --border-color: #000000;
+            }
+
+            .post-card,
+            .category-card,
+            .tag-card {
+                border: 2px solid var(--border-color);
+            }
+        }
+
+        /* 分类页面样式 */
+        .categories-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-2xl) var(--spacing-lg);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--spacing-xl);
+        }
+
+        .category-card {
+            background: var(--bg-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-normal);
+            border: 1px solid var(--border-color);
+        }
+
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .category-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .category-count {
+            background: var(--primary-color);
+            color: white;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .category-posts {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+
+        .category-post {
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .category-post:last-child {
+            border-bottom: none;
+        }
+
+        .post-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: color var(--transition-fast);
+        }
+
+        .post-link:hover {
+            color: var(--primary-color);
+        }
+
+        .post-title {
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .post-date {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-left: var(--spacing-md);
+        }
+
+        .category-more {
+            margin-top: var(--spacing-md);
+            padding-top: var(--spacing-md);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .more-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+        }
+
+        .more-link:hover {
+            color: var(--primary-dark);
+            transform: translateX(4px);
+        }
+
+        /* 标签页面样式 */
+        .tags-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-2xl) var(--spacing-lg);
+        }
+
+        .tags-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-3xl);
+            padding: var(--spacing-xl);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .tag-item {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all var(--transition-fast);
+            font-size: 0.875rem;
+        }
+
+        .tag-item:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .tag-count {
+            background: var(--gray-200);
+            color: var(--text-secondary);
+            padding: 2px 6px;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .tag-item:hover .tag-count {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .tags-list {
+            display: grid;
+            gap: var(--spacing-xl);
+        }
+
+        .tag-detail {
+            background: var(--bg-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .tag-detail .tag-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin: 0 0 var(--spacing-sm) 0;
+        }
+
+        .tag-detail .tag-count {
+            background: var(--accent-color);
+            color: white;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            margin-bottom: var(--spacing-lg);
+            display: inline-block;
+        }
+
+        .tag-posts {
+            display: grid;
+            gap: var(--spacing-md);
+        }
+
+        .tag-post-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-md);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all var(--transition-fast);
+            border: 1px solid transparent;
+        }
+
+        .tag-post-link:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateX(4px);
+            border-color: var(--primary-color);
+        }
+
+        /* 友情链接页面样式 */
+        .friends-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-2xl) var(--spacing-lg);
+        }
+
+        .friends-category {
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-xl);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .friends-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-xl);
+        }
+
+        .friend-card {
+            background: var(--bg-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-normal);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+        }
+
+        .friend-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .friend-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .friend-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-fallback {
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .friend-info {
+            flex: 1;
+        }
+
+        .friend-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin: 0 0 var(--spacing-sm) 0;
+        }
+
+        .friend-description {
+            color: var(--text-secondary);
+            margin: 0 0 var(--spacing-md) 0;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .friend-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: all var(--transition-fast);
+        }
+
+        .friend-link:hover {
+            color: var(--primary-dark);
+            transform: translateX(2px);
+        }
+
+        .add-friend-section {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-2xl);
+            text-align: center;
+            border: 1px solid var(--border-color);
+            margin-top: var(--spacing-3xl);
+        }
+
+        .add-friend-section h3 {
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-sm);
+        }
+
+        .contact-methods {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-lg);
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-md) var(--spacing-lg);
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            transition: all var(--transition-fast);
+        }
+
+        .contact-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Coding Time页面样式 */
+        .coding-time-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-2xl) var(--spacing-lg);
+        }
+
+        .coding-header,
+        .coding-footer {
+            text-align: center;
+            margin: var(--spacing-2xl) 0;
+        }
+
+        .coding-header img,
+        .coding-footer img {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: var(--radius-lg);
+        }
+
+        .typing-animation {
+            text-align: center;
+            margin: var(--spacing-2xl) 0;
+        }
+
+        .github-stats {
+            margin: var(--spacing-3xl) 0;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-xl);
+            justify-items: center;
+        }
+
+        .stats-row img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: var(--radius-md);
+        }
+
+        .activity-graph,
+        .trophies,
+        .skills {
+            text-align: center;
+            margin: var(--spacing-3xl) 0;
+        }
+
+        .activity-graph img,
+        .trophies img,
+        .skills img {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: var(--radius-md);
+        }
+
+        .social-badges {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin: var(--spacing-2xl) 0;
+            flex-wrap: wrap;
+        }
+
+        .social-badges img {
+            height: 28px;
+            transition: transform var(--transition-fast);
+        }
+
+        .social-badges img:hover {
+            transform: scale(1.05);
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .friends-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .friend-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .contact-methods {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+
+            .social-badges {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="content">
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p class="loading-text">正在加载博客内容...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 简单的博客数据和渲染逻辑
+        class SimpleBlog {
+            constructor() {
+                this.blogData = this.loadBlogData();
+                this.currentPage = 1;
+                this.postsPerPage = 5;
+                this.currentFilter = null;
+            }
+
+            loadBlogData() {
+                const saved = localStorage.getItem('blogData');
+                if (saved) {
+                    try {
+                        return JSON.parse(saved);
+                    } catch (error) {
+                        console.error('加载博客数据失败:', error);
+                    }
+                }
+                
+                return {
+                    posts: [
+                        {
+                            id: '1',
+                            title: '折腾了一个简单的博客系统',
+                            slug: 'simple-blog-system',
+                            content: `# 折腾了一个简单的博客系统
+
+最近花了点时间搭了这个简单的博客，主要是想有个地方记录一些学习笔记和遇到的问题。
+
+## 为什么要自己搭博客
+
+之前一直在用各种现成的平台，但总觉得不够自由。想要什么功能都得看平台支持不支持，而且数据也不在自己手里。
+
+所以就想着自己搭一个，虽然功能简单，但至少是自己的。
+
+## 技术选择
+
+没有用什么复杂的框架，就是简单的HTML + CSS + JavaScript。主要考虑：
+
+- 简单易维护
+- 不需要服务器，可以直接放GitHub Pages
+- 加载速度快
+- 可以随时修改
+
+## 目前的功能
+
+基本的功能都有了：
+- 文章管理（增删改查）
+- 分类和标签
+- 搜索功能
+- 简单的管理后台
+
+后面可能会慢慢加一些其他功能，比如评论什么的。
+
+总的来说，虽然简陋，但够用了。最重要的是数据在自己手里，想怎么折腾就怎么折腾。`,
+                            excerpt: '最近花了点时间搭了这个简单的博客，主要是想有个地方记录一些学习笔记和遇到的问题。',
+                            category: '随笔',
+                            tags: ['博客', '折腾', '记录'],
+                            date: new Date().toISOString(),
+                            updated: new Date().toISOString()
+                        },
+                        {
+                            id: '2',
+                            title: '学习React的一些心得',
+                            slug: 'learning-react-notes',
+                            content: `# 学习React的一些心得
+
+最近在学React，记录一下学习过程中的一些想法和遇到的问题。
+
+## 为什么选择React
+
+主要是因为工作需要，公司的新项目要用React。之前一直在写原生JavaScript，刚开始接触React的时候确实有点不习惯。
+
+## 学习过程
+
+### 1. 从基础开始
+- 先学了JSX语法，刚开始觉得在JS里写HTML很奇怪
+- 然后是组件的概念，这个倒是比较好理解
+- 状态管理是个重点，useState用起来还挺方便的
+
+### 2. 遇到的问题
+- 一开始总是忘记key属性，控制台老是报警告
+- 对于何时使用useEffect还是有点迷糊
+- 组件之间的数据传递，props的使用需要多练习
+
+## 一些小技巧
+
+学习过程中发现的一些有用的东西：
+
+\`\`\`javascript
+// 使用解构赋值简化props
+function MyComponent({ title, content }) {
+    return (
+        <div>
+            <h1>{title}</h1>
+            <p>{content}</p>
+        </div>
+    );
+}
+\`\`\`
+
+## 下一步计划
+
+- 继续深入学习Hooks
+- 尝试做一个小项目练手
+- 学习一下状态管理库，可能是Redux或者Zustand
+
+总的来说，React确实挺有意思的，虽然学习曲线有点陡峭，但慢慢来应该没问题。`,
+                            excerpt: '最近在学React，记录一下学习过程中的一些想法和遇到的问题。',
+                            category: '学习笔记',
+                            tags: ['React', '前端', '学习', 'JavaScript'],
+                            date: new Date(Date.now() - 86400000).toISOString(),
+                            updated: new Date(Date.now() - 86400000).toISOString()
+                        },
+                        {
+                            id: '3',
+                            title: '解决了一个CSS布局的问题',
+                            slug: 'css-layout-problem-solved',
+                            content: `# 解决了一个CSS布局的问题
+
+今天遇到了一个挺头疼的CSS布局问题，折腾了半天才解决，记录一下。
+
+## 问题描述
+
+需要做一个三栏布局，左右固定宽度，中间自适应。听起来很简单，但实际做的时候遇到了一些问题。
+
+## 尝试的方案
+
+### 方案一：float
+最开始用的float，但是遇到了高度塌陷的问题，而且代码看起来也不够清晰。
+
+### 方案二：flexbox
+后来改用flexbox，这个确实好用多了：
+
+\`\`\`css
+.container {
+    display: flex;
+}
+
+.sidebar {
+    width: 200px;
+    flex-shrink: 0;
+}
+
+.main {
+    flex: 1;
+}
+\`\`\`
+
+## 最终解决方案
+
+最后用的是CSS Grid，感觉是最优雅的解决方案：
+
+\`\`\`css
+.container {
+    display: grid;
+    grid-template-columns: 200px 1fr 200px;
+    gap: 20px;
+}
+\`\`\`
+
+简单明了，而且很容易理解。
+
+## 总结
+
+CSS Grid真的很强大，以后遇到复杂布局可以优先考虑用它。不过兼容性方面还是要注意一下，虽然现在主流浏览器都支持了。`,
+                            excerpt: '今天遇到了一个挺头疼的CSS布局问题，折腾了半天才解决，记录一下解决过程。',
+                            category: '技术',
+                            tags: ['CSS', '布局', 'Grid', 'Flexbox'],
+                            date: new Date(Date.now() - 2 * 86400000).toISOString(),
+                            updated: new Date(Date.now() - 2 * 86400000).toISOString()
+                        },
+                        {
+                            id: '4',
+                            title: '周末做了个小工具',
+                            slug: 'weekend-small-tool',
+                            content: `# 周末做了个小工具
+
+周末闲着没事，做了个简单的小工具，用来批量重命名文件。
+
+## 起因
+
+电脑里有一堆照片，文件名都是相机自动生成的，看起来很乱。想要批量重命名，但是系统自带的功能不够灵活。
+
+## 实现过程
+
+用Python写了个简单的脚本：
+
+\`\`\`python
+import os
+import re
+from datetime import datetime
+
+def rename_files(directory, pattern):
+    files = os.listdir(directory)
+    for i, filename in enumerate(files):
+        if filename.lower().endswith(('.jpg', '.png', '.jpeg')):
+            new_name = f"{pattern}_{i+1:03d}.jpg"
+            old_path = os.path.join(directory, filename)
+            new_path = os.path.join(directory, new_name)
+            os.rename(old_path, new_path)
+            print(f"重命名: {filename} -> {new_name}")
+
+# 使用示例
+rename_files("/path/to/photos", "vacation_2024")
+\`\`\`
+
+## 后续改进
+
+后来又加了一些功能：
+- 支持按日期重命名
+- 可以预览重命名结果
+- 添加了简单的GUI界面
+
+虽然功能简单，但用起来还挺方便的。有时候自己写的小工具比下载现成的软件更合适。`,
+                            excerpt: '周末闲着没事，做了个简单的小工具，用来批量重命名文件。',
+                            category: '项目',
+                            tags: ['Python', '工具', '文件管理'],
+                            date: new Date(Date.now() - 3 * 86400000).toISOString(),
+                            updated: new Date(Date.now() - 3 * 86400000).toISOString()
+                        }
+                    ],
+                    settings: {
+                        title: '赵嘉宁的技术笔记',
+                        description: '记录学习过程中的点点滴滴',
+                        author: '赵嘉宁',
+                        email: 'zjncs@example.com',
+                        github: 'zjncs',
+                        orcid: '0009-0005-0821-6046',
+                        twitter: '',
+                        about: `# 关于我
+
+大家好，我是赵嘉宁，天津大学信息管理与信息系统专业的学生。
+
+我对数据分析、人工智能、后端开发等技术领域充满热情，有着丰富的实习经验。这个博客主要用来记录自己在学习和工作中遇到的问题和解决方案，希望能对其他人有所帮助。
+
+## 目前在做什么
+
+- 专注于数据分析和AI技术的学习
+- 积极参与各种技术项目和实习
+- 在GitHub上分享代码和项目经验
+- 通过ORCID记录学术成果
+
+## 联系我
+
+- GitHub: [https://github.com/zjncs](https://github.com/zjncs)
+- ORCID: [https://orcid.org/0009-0005-0821-6046](https://orcid.org/0009-0005-0821-6046)
+- 邮箱: zjncs@example.com
+
+如果你有什么问题或者想法，欢迎通过以上方式联系我！`
+                    },
+                    friendLinks: [
+                        {
+                            id: '1',
+                            name: 'zjncs GitHub',
+                            url: 'https://github.com/zjncs',
+                            description: '我的GitHub主页，记录代码历程',
+                            avatar: 'https://github.com/zjncs.png',
+                            category: '个人主页'
+                        },
+                        {
+                            id: '2',
+                            name: 'ORCID Profile',
+                            url: 'https://orcid.org/0009-0005-0821-6046',
+                            description: '学术身份标识，记录学术成果',
+                            avatar: 'https://orcid.org/assets/vectors/orcid.logo.icon.svg',
+                            category: '学术平台'
+                        }
+                    ],
+                    theme: {
+                        primaryColor: '#2563eb',
+                        accentColor: '#f59e0b',
+                        fontFamily: 'system',
+                        customCSS: ''
+                    }
+                };
+            }
+
+            renderHomePage() {
+                const posts = this.getPaginatedPosts();
+                const filteredPosts = this.getFilteredPosts();
+                const totalPages = Math.ceil(filteredPosts.length / this.postsPerPage);
+                
+                return `
+                    <div class="blog-header">
+                        <div class="blog-header-content">
+                            <h1>${this.blogData.settings.title}</h1>
+                            <p class="blog-description">${this.blogData.settings.description}</p>
+                            <div class="blog-nav">
+                                <a href="#" onclick="blog.showPage('home').catch(console.error)" class="nav-link active">
+                                    <i class="fas fa-home"></i> 首页
+                                </a>
+                                <a href="#" onclick="blog.showPage('categories').catch(console.error)" class="nav-link">
+                                    <i class="fas fa-folder"></i> 分类
+                                </a>
+                                <a href="#" onclick="blog.showPage('tags').catch(console.error)" class="nav-link">
+                                    <i class="fas fa-tags"></i> 标签
+                                </a>
+                                <a href="#" onclick="blog.showPage('friends').catch(console.error)" class="nav-link">
+                                    <i class="fas fa-link"></i> 友链
+                                </a>
+                                <a href="#" onclick="blog.showPage('coding-time').catch(console.error)" class="nav-link">
+                                    <i class="fas fa-code"></i> Coding Time
+                                </a>
+                                <a href="#" onclick="blog.showPage('about').catch(console.error)" class="nav-link">
+                                    <i class="fas fa-user"></i> 关于
+                                </a>
+                                <a href="/login.html" class="nav-link admin-link">
+                                    <i class="fas fa-cog"></i> 管理后台
+                                </a>
+                                <button class="theme-toggle" onclick="blog.toggleTheme()" title="切换主题">
+                                    <i class="fas fa-moon"></i>
+                                </button>
+                                <button class="theme-toggle" onclick="openBackgroundPanel()" title="背景设置" style="margin-left: 10px;">
+                                    <i class="fas fa-palette"></i>
+                                </button>
+                            </div>
+                            <div class="search-container">
+                                <div class="search-box">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" id="search-input" placeholder="搜索文章..." oninput="blog.search(this.value)">
+                                    <div id="search-results" class="search-results"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="posts-container">
+                        ${posts.map(post => this.renderPostCard(post)).join('')}
+                    </div>
+                    
+                    ${totalPages > 1 ? this.renderPagination(totalPages) : ''}
+                `;
+            }
+
+            renderPostCard(post) {
+                // 为每篇文章生成随机特色图片
+                const imageId = Math.abs(this.hashCode(post.id)) % 1000 + 1;
+                const featuredImage = `https://picsum.photos/400/250?random=${imageId}`;
+
+                // 计算动态高度类
+                const contentLength = (post.excerpt || this.generateExcerpt(post.content)).length;
+                const heightClass = contentLength > 200 ? 'tall' : contentLength > 100 ? 'medium' : 'short';
+
+                return `
+                    <article class="post-card ${heightClass}" data-post-id="${post.id}">
+                        ${post.featured_image || Math.random() > 0.3 ? `
+                            <div class="post-image">
+                                <img src="${post.featured_image || featuredImage}"
+                                     alt="${post.title}"
+                                     loading="lazy"
+                                     onerror="this.style.display='none'">
+                            </div>
+                        ` : ''}
+
+                        <div class="post-content-wrapper">
+                            <header class="post-header">
+                                <h2 class="post-title">
+                                    <a href="#" onclick="blog.showPost('${post.id}')">${post.title}</a>
+                                </h2>
+                                <div class="post-meta">
+                                    <span><i class="fas fa-calendar"></i> ${this.formatDate(post.date)}</span>
+                                    ${post.category ? `<span class="category"><i class="fas fa-folder"></i> ${post.category}</span>` : ''}
+                                    <span class="reading-time"><i class="fas fa-clock"></i> ${this.calculateReadingTime(post.content)} min</span>
+                                </div>
+                            </header>
+
+                            <div class="post-excerpt">
+                                ${post.excerpt || this.generateExcerpt(post.content)}
+                            </div>
+
+                            ${post.tags && post.tags.length > 0 ? `
+                                <div class="post-tags">
+                                    ${post.tags.slice(0, 3).map(tag => `<span class="tag"># ${tag}</span>`).join('')}
+                                    ${post.tags.length > 3 ? `<span class="tag-more">+${post.tags.length - 3}</span>` : ''}
+                                </div>
+                            ` : ''}
+
+                            <footer class="post-footer">
+                                <a href="#" onclick="blog.showPost('${post.id}')" class="read-more">
+                                    <span>阅读全文</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                                <div class="post-stats">
+                                    <span class="views">
+                                        <i class="fas fa-eye"></i> ${this.getPostViews(post.id)}
+                                    </span>
+                                    <span class="likes">
+                                        <i class="fas fa-heart"></i> ${Math.floor(Math.random() * 50) + 5}
+                                    </span>
+                                </div>
+                            </footer>
+                        </div>
+                    </article>
+                `;
+            }
+
+            // 字符串哈希函数，用于生成一致的随机数
+            hashCode(str) {
+                let hash = 0;
+                for (let i = 0; i < str.length; i++) {
+                    const char = str.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char;
+                    hash = hash & hash; // Convert to 32bit integer
+                }
+                return hash;
+            }
+
+            renderPost(postId) {
+                const post = this.blogData.posts.find(p => p.id === postId);
+                if (!post) {
+                    return '<div class="error">文章不存在</div>';
+                }
+
+                return `
+                    <div class="blog-header">
+                        <div class="blog-header-content">
+                            <nav class="breadcrumb">
+                                <a href="#" onclick="blog.showPage('home').catch(console.error)"><i class="fas fa-home"></i> 首页</a>
+                                <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                                <span class="current">${post.title}</span>
+                            </nav>
+                        </div>
+                    </div>
+                    
+                    <article class="post-detail">
+                        <header class="post-header">
+                            <h1 class="post-title">${post.title}</h1>
+                            <div class="post-meta">
+                                <span><i class="fas fa-calendar"></i> ${this.formatDate(post.date)}</span>
+                                ${post.category ? `<span class="category"><i class="fas fa-folder"></i> ${post.category}</span>` : ''}
+                                <span class="reading-time"><i class="fas fa-clock"></i> ${this.calculateReadingTime(post.content)} 分钟阅读</span>
+                                <span><i class="fas fa-eye"></i> ${this.getPostViews(post.id)} 次阅读</span>
+                            </div>
+                            ${post.tags.length > 0 ? `
+                                <div class="post-tags">
+                                    ${post.tags.map(tag => `<span class="tag"><i class="fas fa-tag"></i> ${tag}</span>`).join('')}
+                                </div>
+                            ` : ''}
+                        </header>
+                        
+                        <div class="post-content">
+                            ${this.parseMarkdown(post.content)}
+                        </div>
+
+                        ${post.tags && post.tags.length > 0 ? `
+                            <div class="post-tags">
+                                <h4><i class="fas fa-tags"></i> 标签</h4>
+                                <div class="tags-list">
+                                    ${post.tags.map(tag => `<span class="tag"><i class="fas fa-tag"></i> ${tag}</span>`).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+
+                        <footer class="post-footer">
+                            <div class="share-buttons">
+                                <h4><i class="fas fa-share-alt"></i> 分享这篇文章</h4>
+                                <div class="share-btn-group">
+                                    <button onclick="blog.sharePost('${post.id}', 'twitter')" class="share-btn twitter">
+                                        <i class="fab fa-twitter"></i> Twitter
+                                    </button>
+                                    <button onclick="blog.sharePost('${post.id}', 'facebook')" class="share-btn facebook">
+                                        <i class="fab fa-facebook"></i> Facebook
+                                    </button>
+                                    <button onclick="blog.copyPostLink('${post.id}')" class="share-btn copy">
+                                        <i class="fas fa-link"></i> 复制链接
+                                    </button>
+                                </div>
+                            </div>
+                        </footer>
+                    </article>
+                `;
+            }
+
+            renderAboutPage() {
+                return `
+                    <div class="blog-header">
+                        <div class="blog-header-content">
+                            <h1><i class="fas fa-user"></i> 关于我</h1>
+                            <nav class="breadcrumb">
+                                <a href="#" onclick="blog.showPage('home').catch(console.error)"><i class="fas fa-home"></i> 首页</a>
+                                <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                                <span class="current">关于</span>
+                            </nav>
+                        </div>
+                    </div>
+                    
+                    <div class="about-content">
+                        <div class="author-info">
+                            <div class="author-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h2>${this.blogData.settings.author}</h2>
+                            <p class="author-email"><i class="fas fa-envelope"></i> ${this.blogData.settings.email}</p>
+                            <div class="social-links">
+                                ${this.blogData.settings.github ? `
+                                    <a href="https://github.com/${this.blogData.settings.github}" target="_blank">
+                                        <i class="fab fa-github"></i> GitHub
+                                    </a>
+                                ` : ''}
+                                ${this.blogData.settings.orcid ? `
+                                    <a href="https://orcid.org/${this.blogData.settings.orcid}" target="_blank">
+                                        <i class="fab fa-orcid"></i> ORCID
+                                    </a>
+                                ` : ''}
+                                ${this.blogData.settings.twitter ? `
+                                    <a href="https://twitter.com/${this.blogData.settings.twitter}" target="_blank">
+                                        <i class="fab fa-twitter"></i> Twitter
+                                    </a>
+                                ` : ''}
+                                <a href="mailto:${this.blogData.settings.email}">
+                                    <i class="fas fa-envelope"></i> 邮箱联系
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="about-text">
+                            ${this.parseMarkdown(this.blogData.settings.about || '这里是关于页面的内容...')}
+                        </div>
+                        
+                        <div class="blog-stats">
+                            <div class="stat">
+                                <span class="stat-number">${this.blogData.posts.length}</span>
+                                <span class="stat-label">篇文章</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">${Object.keys(this.getCategories()).length}</span>
+                                <span class="stat-label">个分类</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">${Object.keys(this.getTags()).length}</span>
+                                <span class="stat-label">个标签</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderCategoriesPage() {
+                const categories = this.getCategories();
+                const categoryEntries = Object.entries(categories).sort(([,a], [,b]) => b.length - a.length);
+
+                return `
+                    <div class="blog-header">
+                        <div class="blog-header-content">
+                            <h1><i class="fas fa-folder"></i> 文章分类</h1>
+                            <nav class="breadcrumb">
+                                <a href="#" onclick="blog.showPage('home').catch(console.error)"><i class="fas fa-home"></i> 首页</a>
+                                <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                                <span class="current">分类</span>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div class="categories-content">
+                        <div class="categories-grid">
+                            ${categoryEntries.map(([category, posts]) => `
+                                <div class="category-card">
+                                    <div class="category-header">
+                                        <h3 class="category-name"><i class="fas fa-folder"></i> ${category}</h3>
+                                        <span class="category-count">${posts.length} 篇文章</span>
+                                    </div>
+                                    <div class="category-posts">
+                                        ${posts.slice(0, 5).map(post => `
+                                            <div class="category-post">
+                                                <a href="#" onclick="blog.showPost('${post.id}')" class="post-link">
+                                                    <span class="post-title">${post.title}</span>
+                                                    <span class="post-date">${this.formatDate(post.date)}</span>
+                                                </a>
+                                            </div>
+                                        `).join('')}
+                                        ${posts.length > 5 ? `
+                                            <div class="category-more">
+                                                <a href="#" onclick="blog.filterByCategory('${category}')" class="more-link">
+                                                    查看全部 ${posts.length} 篇文章 <i class="fas fa-arrow-right"></i>
+                                                </a>
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderTagsPage() {
+                const tags = this.getTags();
+                const tagEntries = Object.entries(tags).sort(([,a], [,b]) => b.length - a.length);
+
+                return `
+                    <div class="blog-header">
+                        <div class="blog-header-content">
+                            <h1><i class="fas fa-tags"></i> 文章标签</h1>
+                            <nav class="breadcrumb">
+                                <a href="#" onclick="blog.showPage('home').catch(console.error)"><i class="fas fa-home"></i> 首页</a>
+                                <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                                <span class="current">标签</span>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div class="tags-content">
+                        <div class="tags-cloud">
+                            ${tagEntries.map(([tag, posts]) => `
+                                <a href="#" onclick="blog.filterByTag('${tag}')" class="tag-item" data-count="${posts.length}">
+                                    <span class="tag-name"># ${tag}</span>
+                                    <span class="tag-count">${posts.length}</span>
+                                </a>
+                            `).join('')}
+                        </div>
+
+                        <div class="tags-list">
+                            ${tagEntries.map(([tag, posts]) => `
+                                <div class="tag-detail">
+                                    <h3 class="tag-name"># ${tag}</h3>
+                                    <span class="tag-count">${posts.length} 篇文章</span>
+                                    <div class="tag-posts">
+                                        ${posts.map(post => `
+                                            <a href="#" onclick="blog.showPost('${post.id}')" class="tag-post-link">
+                                                <span class="post-title">${post.title}</span>
+                                                <span class="post-date">${this.formatDate(post.date)}</span>
+                                            </a>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderFriendLinksPage() {
+                const friendLinks = this.blogData.friendLinks || [];
+                const categories = {};
+
+                // 按分类分组
+                friendLinks.forEach(link => {
+                    if (!categories[link.category]) {
+                        categories[link.category] = [];
+                    }
+                    categories[link.category].push(link);
+                });
+
+                return `
+                    <div class="blog-header">
+                        <div class="blog-header-content">
+                            <h1><i class="fas fa-link"></i> 友情链接</h1>
+                            <nav class="breadcrumb">
+                                <a href="#" onclick="blog.showPage('home')"><i class="fas fa-home"></i> 首页</a>
+                                <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                                <span class="current">友链</span>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div class="friends-content">
+                        ${Object.entries(categories).map(([category, links]) => `
+                            <div class="friends-category">
+                                <h3 class="category-title"><i class="fas fa-folder"></i> ${category}</h3>
+                                <div class="friends-grid">
+                                    ${links.map(link => `
+                                        <div class="friend-card">
+                                            <div class="friend-avatar">
+                                                <img src="${link.avatar}" alt="${link.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                                <div class="avatar-fallback" style="display: none;">
+                                                    <i class="fas fa-link"></i>
+                                                </div>
+                                            </div>
+                                            <div class="friend-info">
+                                                <h4 class="friend-name">${link.name}</h4>
+                                                <p class="friend-description">${link.description}</p>
+                                                <a href="${link.url}" target="_blank" rel="noopener noreferrer" class="friend-link">
+                                                    <span>访问链接</span>
+                                                    <i class="fas fa-external-link-alt"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `).join('')}
+
+                        <div class="add-friend-section">
+                            <h3><i class="fas fa-plus-circle"></i> 申请友链</h3>
+                            <p>如果您想申请友情链接，请通过以下方式联系我：</p>
+                            <div class="contact-methods">
+                                <a href="mailto:${this.blogData.settings.email}" class="contact-btn">
+                                    <i class="fas fa-envelope"></i> 邮件联系
+                                </a>
+                                <a href="https://github.com/${this.blogData.settings.github}" target="_blank" class="contact-btn">
+                                    <i class="fab fa-github"></i> GitHub
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            async renderCodingTimePage() {
+                const username = this.blogData.settings.github || 'zjncs';
+
+                return `
+                    <div class="blog-header">
+                        <div class="blog-header-content">
+                            <h1><i class="fas fa-code"></i> Coding Time</h1>
+                            <nav class="breadcrumb">
+                                <a href="#" onclick="blog.showPage('home')"><i class="fas fa-home"></i> 首页</a>
+                                <span class="separator"><i class="fas fa-chevron-right"></i></span>
+                                <span class="current">Coding Time</span>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div class="coding-time-content">
+                        <div class="coding-header">
+                            <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=300&&section=header&text=Coding%20Forever&fontSize=90&fontAlign=50&fontAlignY=30&desc=I%20am%20${username}&descAlign=50&descSize=30&descAlignY=60&animation=twinkling" alt="Coding Forever" />
+                        </div>
+
+                        <div class="typing-animation">
+                            <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&width=435&lines=Independent+Spirit+and+Free+Mind" alt="Typing SVG" />
+                        </div>
+
+                        <div class="github-stats">
+                            <div class="stats-row">
+                                <img src="https://github-readme-stats.vercel.app/api?username=${username}&theme=transparent&show_icons=true&hide_border=true&show=reviews,discussions_started&hide_title=true&hide=contribs&number_format=long&count_private=true" alt="Profile Stats" />
+                                <img src="https://streak-stats.demolab.com?user=${username}" alt="GitHub Streak" />
+                            </div>
+                        </div>
+
+                        <div class="activity-graph">
+                            <img src="https://github-readme-activity-graph.vercel.app/graph?username=${username}&theme=github-compact&hide_border=true&area=true&custom_title=Activity%20Graph" alt="Activity Graph" />
+                        </div>
+
+                        <div class="trophies">
+                            <img src="https://github-profile-trophy.vercel.app/?username=${username}&no-bg=true&no-frame=true&theme=algolia&title=-MultiLanguage" alt="Profile Trophy" />
+                        </div>
+
+                        <div class="skills">
+                            <img src="https://go-skill-icons.vercel.app/api/icons?i=java,py,cpp,md,latex,matlab&titles=true" alt="Skill Icons" />
+                        </div>
+
+                        <div class="social-badges">
+                            <a href="https://github.com/${username}"><img src="https://img.shields.io/badge/GitHub-${username}-blue?logo=github" alt="GitHub" /></a>
+                            ${this.blogData.settings.orcid ? `<a href="https://orcid.org/${this.blogData.settings.orcid}"><img src="https://img.shields.io/badge/ORCID-${this.blogData.settings.orcid}-green?logo=orcid" alt="ORCID" /></a>` : ''}
+                        </div>
+
+                        <div class="coding-footer">
+                            <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=300&&section=footer&text=THE%20END&fontSize=90&fontAlign=50&fontAlignY=70&desc=Keep%20it%20simple,%20stupid&descAlign=50&descSize=30&descAlignY=40&animation=twinkling" alt="The End" />
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderPagination(totalPages) {
+                const pagination = [];
+                
+                if (this.currentPage > 1) {
+                    pagination.push(`<a href="#" onclick="blog.goToPage(${this.currentPage - 1})" class="page-btn prev"><i class="fas fa-chevron-left"></i> 上一页</a>`);
+                }
+                
+                for (let i = 1; i <= totalPages; i++) {
+                    if (i === this.currentPage) {
+                        pagination.push(`<span class="page-btn current">${i}</span>`);
+                    } else {
+                        pagination.push(`<a href="#" onclick="blog.goToPage(${i})" class="page-btn">${i}</a>`);
+                    }
+                }
+                
+                if (this.currentPage < totalPages) {
+                    pagination.push(`<a href="#" onclick="blog.goToPage(${this.currentPage + 1})" class="page-btn next">下一页 <i class="fas fa-chevron-right"></i></a>`);
+                }
+                
+                return `<div class="pagination">${pagination.join('')}</div>`;
+            }
+
+            async showPage(page) {
+                let content = '';
+                
+                switch (page) {
+                    case 'home':
+                        content = this.renderHomePage();
+                        break;
+                    case 'categories':
+                        content = this.renderCategoriesPage();
+                        break;
+                    case 'tags':
+                        content = this.renderTagsPage();
+                        break;
+                    case 'friends':
+                        content = this.renderFriendLinksPage();
+                        break;
+                    case 'coding-time':
+                        content = await this.renderCodingTimePage();
+                        break;
+                    case 'about':
+                        content = this.renderAboutPage();
+                        break;
+                    default:
+                        content = this.renderHomePage();
+                }
+                
+                document.getElementById('content').innerHTML = content;
+                this.updateActiveNav(page);
+                this.applyTheme();
+                window.scrollTo(0, 0);
+            }
+
+            showPost(postId) {
+                // 增加阅读量
+                this.incrementPostViews(postId);
+
+                const content = this.renderPost(postId);
+                document.getElementById('content').innerHTML = content;
+                this.applyTheme();
+                window.scrollTo(0, 0);
+            }
+
+            async goToPage(page) {
+                this.currentPage = page;
+                await this.showPage('home');
+            }
+
+            search(query) {
+                const searchResults = document.getElementById('search-results');
+                
+                if (!query || query.length < 2) {
+                    searchResults.style.display = 'none';
+                    return;
+                }
+                
+                const results = this.blogData.posts.filter(post => 
+                    post.title.toLowerCase().includes(query.toLowerCase()) ||
+                    post.content.toLowerCase().includes(query.toLowerCase()) ||
+                    post.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase())) ||
+                    (post.category && post.category.toLowerCase().includes(query.toLowerCase()))
+                ).slice(0, 5);
+                
+                if (results.length > 0) {
+                    searchResults.innerHTML = results.map(post => `
+                        <div class="search-result-item" onclick="blog.showPost('${post.id}'); document.getElementById('search-results').style.display='none';">
+                            <h4>${post.title}</h4>
+                            <p>${post.excerpt || this.generateExcerpt(post.content)}</p>
+                        </div>
+                    `).join('');
+                    searchResults.style.display = 'block';
+                } else {
+                    searchResults.innerHTML = '<div class="no-results"><i class="fas fa-search"></i> 没有找到相关文章</div>';
+                    searchResults.style.display = 'block';
+                }
+            }
+
+            toggleTheme() {
+                const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                
+                const themeToggle = document.querySelector('.theme-toggle i');
+                themeToggle.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            }
+
+            sharePost(postId, platform) {
+                const post = this.blogData.posts.find(p => p.id === postId);
+                if (!post) return;
+                
+                const url = window.location.href;
+                const text = `${post.title} - ${this.blogData.settings.title}`;
+                
+                let shareUrl = '';
+                switch (platform) {
+                    case 'twitter':
+                        shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+                        break;
+                    case 'facebook':
+                        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+                        break;
+                }
+                
+                if (shareUrl) {
+                    window.open(shareUrl, '_blank', 'width=600,height=400');
+                }
+            }
+
+            copyPostLink(postId) {
+                const url = window.location.href;
+                navigator.clipboard.writeText(url).then(() => {
+                    this.showNotification('链接已复制到剪贴板', 'success');
+                });
+            }
+
+            // 工具方法
+            getPaginatedPosts() {
+                const filteredPosts = this.getFilteredPosts();
+                const start = (this.currentPage - 1) * this.postsPerPage;
+                const end = start + this.postsPerPage;
+                return filteredPosts.slice(start, end);
+            }
+
+            getCategories() {
+                const categories = {};
+                this.blogData.posts.forEach(post => {
+                    if (post.category) {
+                        if (!categories[post.category]) {
+                            categories[post.category] = [];
+                        }
+                        categories[post.category].push(post);
+                    }
+                });
+                return categories;
+            }
+
+            getTags() {
+                const tags = {};
+                this.blogData.posts.forEach(post => {
+                    post.tags.forEach(tag => {
+                        if (!tags[tag]) {
+                            tags[tag] = [];
+                        }
+                        tags[tag].push(post);
+                    });
+                });
+                return tags;
+            }
+
+            async filterByCategory(category) {
+                this.currentFilter = { type: 'category', value: category };
+                this.currentPage = 1;
+                await this.showPage('home');
+            }
+
+            async filterByTag(tag) {
+                this.currentFilter = { type: 'tag', value: tag };
+                this.currentPage = 1;
+                await this.showPage('home');
+            }
+
+            async clearFilter() {
+                this.currentFilter = null;
+                this.currentPage = 1;
+                await this.showPage('home');
+            }
+
+            getFilteredPosts() {
+                if (!this.currentFilter) {
+                    return this.blogData.posts;
+                }
+
+                if (this.currentFilter.type === 'category') {
+                    return this.blogData.posts.filter(post => post.category === this.currentFilter.value);
+                } else if (this.currentFilter.type === 'tag') {
+                    return this.blogData.posts.filter(post => post.tags.includes(this.currentFilter.value));
+                }
+
+                return this.blogData.posts;
+            }
+
+            formatDate(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('zh-CN', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            }
+
+            calculateReadingTime(content) {
+                const wordsPerMinute = 200;
+                const words = content.split(/\s+/).length;
+                return Math.ceil(words / wordsPerMinute);
+            }
+
+            // 获取文章阅读量
+            getPostViews(postId) {
+                const views = localStorage.getItem('post_views') || '{}';
+                const viewsData = JSON.parse(views);
+
+                if (!viewsData[postId]) {
+                    // 为新文章生成一个合理的初始阅读量
+                    const baseViews = Math.floor(Math.random() * 50) + 20;
+                    viewsData[postId] = baseViews;
+                    localStorage.setItem('post_views', JSON.stringify(viewsData));
+                }
+
+                return viewsData[postId];
+            }
+
+            // 增加文章阅读量
+            incrementPostViews(postId) {
+                const views = localStorage.getItem('post_views') || '{}';
+                const viewsData = JSON.parse(views);
+
+                if (!viewsData[postId]) {
+                    viewsData[postId] = 1;
+                } else {
+                    viewsData[postId]++;
+                }
+
+                localStorage.setItem('post_views', JSON.stringify(viewsData));
+                return viewsData[postId];
+            }
+
+            generateExcerpt(content) {
+                const plainText = content.replace(/[#*`]/g, '').substring(0, 200);
+                return plainText + (content.length > 200 ? '...' : '');
+            }
+
+            parseMarkdown(content) {
+                // 简单的 Markdown 解析
+                return content
+                    .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+                    .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+                    .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                    .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
+                    .replace(/\*(.*)\*/gim, '<em>$1</em>')
+                    .replace(/```([\s\S]*?)```/gim, '<pre><code>$1</code></pre>')
+                    .replace(/`([^`]*)`/gim, '<code>$1</code>')
+                    .replace(/^\- (.*$)/gim, '<li>$1</li>')
+                    .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
+                    .replace(/> (.*$)/gim, '<blockquote>$1</blockquote>')
+                    .replace(/\n/gim, '<br>');
+            }
+
+            updateActiveNav(currentPage) {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                const activeLink = document.querySelector(`[onclick="blog.showPage('${currentPage}')"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+
+            applyTheme() {
+                const theme = this.blogData.theme;
+                if (!theme) return;
+                
+                const root = document.documentElement;
+                root.style.setProperty('--primary-color', theme.primaryColor);
+                root.style.setProperty('--accent-color', theme.accentColor);
+                
+                // 应用自定义 CSS
+                let customStyle = document.getElementById('custom-theme-style');
+                if (!customStyle) {
+                    customStyle = document.createElement('style');
+                    customStyle.id = 'custom-theme-style';
+                    document.head.appendChild(customStyle);
+                }
+                customStyle.textContent = theme.customCSS;
+            }
+
+            showNotification(message, type = 'info') {
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.textContent = message;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => notification.classList.add('show'), 100);
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    setTimeout(() => notification.remove(), 300);
+                }, 3000);
+            }
+
+            async init() {
+                // 检查当前主题
+                const currentTheme = localStorage.getItem('theme') || 'light';
+                document.documentElement.setAttribute('data-theme', currentTheme);
+
+                await this.showPage('home');
+
+                // 监听存储变化，实时更新博客内容
+                window.addEventListener('storage', async (e) => {
+                    if (e.key === 'blogData') {
+                        this.blogData = this.loadBlogData();
+                        await this.showPage('home');
+                    }
+                });
+
+                // 添加回到顶部按钮
+                this.addScrollToTop();
+
+                // 点击外部关闭搜索结果
+                document.addEventListener('click', (e) => {
+                    const searchContainer = document.querySelector('.search-container');
+                    const searchResults = document.getElementById('search-results');
+                    if (searchContainer && searchResults && !searchContainer.contains(e.target)) {
+                        searchResults.style.display = 'none';
+                    }
+                });
+
+                // 更新主题图标
+                const themeToggle = document.querySelector('.theme-toggle i');
+                if (themeToggle) {
+                    themeToggle.className = currentTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+                }
+            }
+
+            addScrollToTop() {
+                const scrollToTopBtn = document.createElement('button');
+                scrollToTopBtn.className = 'scroll-to-top';
+                scrollToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+                scrollToTopBtn.title = '回到顶部';
+                
+                document.body.appendChild(scrollToTopBtn);
+                
+                // 滚动显示/隐藏按钮
+                window.addEventListener('scroll', () => {
+                    if (window.pageYOffset > 300) {
+                        scrollToTopBtn.classList.add('visible');
+                    } else {
+                        scrollToTopBtn.classList.remove('visible');
+                    }
+                });
+                
+                // 点击回到顶部
+                scrollToTopBtn.addEventListener('click', () => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+        }
+
+        // 创建博客实例
+        const blog = new SimpleBlog();
+        window.blog = blog;
+
+        // 初始化博客
+        document.addEventListener('DOMContentLoaded', async () => {
+            await blog.init();
+        });
+    </script>
+    <!-- Live2D 看板娘脚本 -->
+    <script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script>
+    <script>
+    L2Dwidget.init({
+      model: {
+        jsonPath: 'https://cdn.jsdelivr.net/npm/live2d-widget-model-hibiki@1.0.5/assets/hibiki.model.json',
+      },
+      display: {
+        position: 'right',
+        width: 220,
+        height: 350,
+        hOffset: 20,
+        vOffset: -60,
+        superSample: 2
+      },
+      mobile: {
+        show: true,
+        scale: 0.5,
+        hOffset: 15,
+        vOffset: -40
+      },
+      react: {
+        opacityDefault: 1,
+        opacityOnHover: 1
+      }
+    });
+    </script>
+
+    <!-- 增强交互效果 -->
+    <script src="enhanced-interactions.js"></script>
+
+    <script>
+    // 背景控制面板
+    function openBackgroundPanel() {
+        window.open('background-control-panel.html', 'backgroundPanel',
+            'width=1200,height=800,scrollbars=yes,resizable=yes');
+    }
+
+    // 初始化动态背景
+    let particleSystem = null;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // 检查是否禁用了动态背景
+        const disabled = localStorage.getItem('dynamicBackgroundDisabled');
+        if (disabled === 'true') {
+            console.log('动态背景已被用户禁用');
+            return;
+        }
+
+        // 加载保存的设置
+        const savedSettings = localStorage.getItem('dynamicBackgroundSettings');
+        let settings = {
+            type: 'particles',
+            particleCount: 80,
+            connectionDistance: 120,
+            mouseInteraction: true
+        };
+
+        if (savedSettings) {
+            try {
+                settings = { ...settings, ...JSON.parse(savedSettings) };
+            } catch (error) {
+                console.log('加载背景设置失败，使用默认设置');
+            }
+        }
+
+        // 延迟启动动态背景
+        setTimeout(() => {
+            if (window.DynamicBackground) {
+                particleSystem = new DynamicBackground(settings);
+            } else {
+                console.log('使用内置粒子系统');
+            }
+        }, 1500);
+    });
+    </script>
+</body>
+</html>

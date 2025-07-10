@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>紧急重启系统</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ff4757;
+            color: white;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .emergency-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 600px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .emergency-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .emergency-title {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .emergency-message {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .emergency-btn {
+            background: white;
+            color: #ff4757;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .emergency-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .emergency-btn.secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .status {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            font-weight: 500;
+        }
+        
+        .countdown {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #ffd700;
+        }
+        
+        .log {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            max-height: 200px;
+            overflow-y: auto;
+            text-align: left;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="emergency-container">
+        <div class="emergency-icon">🚨</div>
+        <h1 class="emergency-title">紧急系统重启</h1>
+        <p class="emergency-message">
+            检测到系统正在发生无限GET请求循环<br>
+            立即执行紧急停止和重启操作
+        </p>
+        
+        <div id="status" class="status">准备执行紧急操作...</div>
+        
+        <div class="countdown" id="countdown">5</div>
+        
+        <button class="emergency-btn" onclick="emergencyStop()">
+            🛑 立即停止所有请求
+        </button>
+        
+        <button class="emergency-btn secondary" onclick="fullRestart()">
+            🔄 完整重启系统
+        </button>
+        
+        <button class="emergency-btn secondary" onclick="cancelOperation()">
+            ❌ 取消操作
+        </button>
+        
+        <div class="log" id="emergency-log">等待操作...</div>
+    </div>
+
+    <script>
+        let emergencyLog = [];
+        let countdownTimer = null;
+        let autoStopTimer = null;
+
+        function addEmergencyLog(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${message}`;
+            emergencyLog.push(logEntry);
+            
+            const logElement = document.getElementById('emergency-log');
+            logElement.textContent = emergencyLog.join('\n');
+            logElement.scrollTop = logElement.scrollHeight;
+            
+            console.log(logEntry);
+        }
+
+        function updateStatus(message) {
+            document.getElementById('status').textContent = message;
+        }
+
+        function emergencyStop() {
+            addEmergencyLog('🚨 执行紧急停止操作');
+            updateStatus('正在停止所有请求和定时器...');
+            
+            try {
+                // 1. 停止所有定时器
+                addEmergencyLog('停止所有setTimeout定时器...');
+                const highestTimeoutId = setTimeout(() => {}, 0);
+                for (let i = 0; i <= highestTimeoutId; i++) {
+                    clearTimeout(i);
+                }
+                
+                addEmergencyLog('停止所有setInterval定时器...');
+                const highestIntervalId = setInterval(() => {}, 1000);
+                for (let i = 0; i <= highestIntervalId; i++) {
+                    clearInterval(i);
+                }
+                clearInterval(highestIntervalId);
+                
+                // 2. 阻止所有fetch请求
+                addEmergencyLog('阻止所有fetch请求...');
+                const originalFetch = window.fetch;
+                window.fetch = function() {
+                    addEmergencyLog('❌ 阻止了一个fetch请求');
+                    return Promise.reject(new Error('请求已被紧急停止'));
+                };
+                
+                // 3. 阻止所有XMLHttpRequest
+                addEmergencyLog('阻止所有XMLHttpRequest...');
+                const originalXHR = window.XMLHttpRequest;
+                window.XMLHttpRequest = function() {
+                    addEmergencyLog('❌ 阻止了一个XMLHttpRequest');
+                    throw new Error('XMLHttpRequest已被紧急停止');
+                };
+                
+                // 4. 移除所有事件监听器
+                addEmergencyLog('清理事件监听器...');
+                const allElements = document.querySelectorAll('*');
+                allElements.forEach(element => {
+                    const newElement = element.cloneNode(true);
+                    if (element.parentNode) {
+                        element.parentNode.replaceChild(newElement, element);
+                    }
+                });
+                
+                // 5. 停止所有动画
+                addEmergencyLog('停止所有动画...');
+                const animations = document.getAnimations();
+                animations.forEach(animation => animation.cancel());
+                
+                // 6. 清理可能的问题脚本
+                addEmergencyLog('移除外部脚本...');
+                const scripts = document.querySelectorAll('script[src]');
+                scripts.forEach(script => {
+                    if (script.src.includes('live2d') || 
+                        script.src.includes('cdn.jsdelivr.net') ||
+                        script.src.includes('cdnjs.cloudflare.com')) {
+                        script.remove();
+                        addEmergencyLog(`移除脚本: ${script.src}`);
+                    }
+                });
+                
+                addEmergencyLog('✅ 紧急停止操作完成');
+                updateStatus('所有请求和定时器已停止');
+                
+                // 显示重启选项
+                setTimeout(() => {
+                    if (confirm('紧急停止完成！是否要清除所有数据并重启系统？')) {
+                        fullRestart();
+                    }
+                }, 2000);
+                
+            } catch (error) {
+                addEmergencyLog(`❌ 紧急停止失败: ${error.message}`);
+                updateStatus('紧急停止失败，请手动刷新页面');
+            }
+        }
+
+        function fullRestart() {
+            addEmergencyLog('🔄 开始完整重启系统');
+            updateStatus('正在清除所有数据...');
+            
+            try {
+                // 清除所有存储
+                localStorage.clear();
+                sessionStorage.clear();
+                addEmergencyLog('✅ 本地存储已清除');
+                
+                // 清除所有缓存
+                if ('caches' in window) {
+                    caches.keys().then(names => {
+                        names.forEach(name => {
+                            caches.delete(name);
+                            addEmergencyLog(`清除缓存: ${name}`);
+                        });
+                    });
+                }
+                
+                addEmergencyLog('🔄 准备重新加载页面...');
+                updateStatus('系统将在3秒后重启...');
+                
+                // 倒计时重启
+                let countdown = 3;
+                const countdownElement = document.getElementById('countdown');
+                const countdownInterval = setInterval(() => {
+                    countdownElement.textContent = countdown;
+                    countdown--;
+                    
+                    if (countdown < 0) {
+                        clearInterval(countdownInterval);
+                        addEmergencyLog('🚀 重启系统...');
+                        window.location.href = 'index.html';
+                    }
+                }, 1000);
+                
+            } catch (error) {
+                addEmergencyLog(`❌ 重启失败: ${error.message}`);
+                updateStatus('重启失败，请手动刷新页面');
+            }
+        }
+
+        function cancelOperation() {
+            addEmergencyLog('❌ 用户取消操作');
+            updateStatus('操作已取消');
+            
+            if (countdownTimer) {
+                clearTimeout(countdownTimer);
+            }
+            if (autoStopTimer) {
+                clearTimeout(autoStopTimer);
+            }
+            
+            // 提供返回选项
+            setTimeout(() => {
+                if (confirm('是否返回主页？')) {
+                    window.location.href = 'index.html';
+                }
+            }, 1000);
+        }
+
+        // 自动倒计时
+        function startCountdown() {
+            let count = 5;
+            const countdownElement = document.getElementById('countdown');
+            
+            countdownTimer = setInterval(() => {
+                count--;
+                countdownElement.textContent = count;
+                
+                if (count <= 0) {
+                    clearInterval(countdownTimer);
+                    addEmergencyLog('⏰ 自动执行紧急停止');
+                    emergencyStop();
+                }
+            }, 1000);
+        }
+
+        // 页面加载时立即开始
+        document.addEventListener('DOMContentLoaded', function() {
+            addEmergencyLog('🚨 紧急重启工具已启动');
+            updateStatus('检测到无限请求，准备自动停止...');
+            
+            // 立即执行紧急停止
+            autoStopTimer = setTimeout(() => {
+                addEmergencyLog('🤖 自动执行紧急停止操作');
+                emergencyStop();
+            }, 5000);
+            
+            // 开始倒计时
+            startCountdown();
+        });
+
+        // 防止页面被其他脚本干扰
+        window.addEventListener('beforeunload', function() {
+            addEmergencyLog('🔄 页面即将重新加载');
+        });
+
+        // 阻止所有可能的网络请求
+        if (navigator.serviceWorker) {
+            navigator.serviceWorker.getRegistrations().then(registrations => {
+                registrations.forEach(registration => {
+                    registration.unregister();
+                    addEmergencyLog('移除Service Worker');
+                });
+            });
+        }
+    </script>
+</body>
+</html>

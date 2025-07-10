@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客系统调试工具</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .debug-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .debug-header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .debug-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .debug-header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        .debug-content {
+            padding: 30px;
+        }
+
+        .debug-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .debug-section {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            border-left: 4px solid #007AFF;
+        }
+
+        .debug-section h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status {
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .status.warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .btn {
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 5px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+            transform: translateY(-1px);
+        }
+
+        .btn.secondary {
+            background: #6c757d;
+        }
+
+        .btn.secondary:hover {
+            background: #545b62;
+        }
+
+        .btn.danger {
+            background: #dc3545;
+        }
+
+        .btn.danger:hover {
+            background: #c82333;
+        }
+
+        .btn.success {
+            background: #28a745;
+        }
+
+        .btn.success:hover {
+            background: #218838;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .log {
+            background: #1e1e1e;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            margin: 15px 0;
+        }
+
+        .data-display {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+        }
+
+        .navigation {
+            background: #f8f9fa;
+            padding: 20px;
+            border-top: 1px solid #dee2e6;
+            text-align: center;
+        }
+
+        .navigation a {
+            color: #007AFF;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+        }
+
+        .navigation a:hover {
+            text-decoration: underline;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid #dee2e6;
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #007AFF;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-container">
+        <div class="debug-header">
+            <h1><i class="fas fa-bug"></i> 博客系统调试工具</h1>
+            <p>用于测试和调试博客系统的各项功能</p>
+        </div>
+
+        <div class="debug-content">
+            <div class="debug-grid">
+                <!-- 系统状态 -->
+                <div class="debug-section">
+                    <h3><i class="fas fa-heartbeat"></i> 系统状态</h3>
+                    <div id="system-status" class="status info">正在检查系统状态...</div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value" id="posts-count">0</div>
+                            <div class="stat-label">文章数量</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="storage-size">0KB</div>
+                            <div class="stat-label">存储大小</div>
+                        </div>
+                    </div>
+                    <button class="btn" onclick="checkSystemStatus()">
+                        <i class="fas fa-sync"></i> 刷新状态
+                    </button>
+                </div>
+
+                <!-- 登录测试 -->
+                <div class="debug-section">
+                    <h3><i class="fas fa-key"></i> 登录测试</h3>
+                    <div class="form-group">
+                        <label>用户名</label>
+                        <input type="text" id="test-username" value="admin" placeholder="输入用户名">
+                    </div>
+                    <div class="form-group">
+                        <label>密码</label>
+                        <input type="password" id="test-password" value="admin123" placeholder="输入密码">
+                    </div>
+                    <button class="btn" onclick="testLogin()">
+                        <i class="fas fa-sign-in-alt"></i> 测试登录
+                    </button>
+                    <button class="btn secondary" onclick="checkSession()">
+                        <i class="fas fa-user-check"></i> 检查会话
+                    </button>
+                    <button class="btn danger" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> 退出登录
+                    </button>
+                </div>
+
+                <!-- 数据管理 -->
+                <div class="debug-section">
+                    <h3><i class="fas fa-database"></i> 数据管理</h3>
+                    <button class="btn" onclick="showStorageData()">
+                        <i class="fas fa-eye"></i> 查看存储数据
+                    </button>
+                    <button class="btn secondary" onclick="exportData()">
+                        <i class="fas fa-download"></i> 导出数据
+                    </button>
+                    <button class="btn secondary" onclick="importData()">
+                        <i class="fas fa-upload"></i> 导入数据
+                    </button>
+                    <button class="btn danger" onclick="clearAllData()">
+                        <i class="fas fa-trash"></i> 清除所有数据
+                    </button>
+                    <div id="data-display" class="data-display" style="display: none;"></div>
+                </div>
+
+                <!-- 调试日志 -->
+                <div class="debug-section">
+                    <h3><i class="fas fa-terminal"></i> 调试日志</h3>
+                    <div id="debug-log" class="log">等待操作...</div>
+                    <button class="btn secondary" onclick="clearLog()">
+                        <i class="fas fa-eraser"></i> 清除日志
+                    </button>
+                    <button class="btn secondary" onclick="downloadLog()">
+                        <i class="fas fa-download"></i> 下载日志
+                    </button>
+                </div>
+            </div>
+
+            <!-- 快速操作 -->
+            <div class="debug-section">
+                <h3><i class="fas fa-bolt"></i> 快速操作</h3>
+                <button class="btn" onclick="initializeSystem()">
+                    <i class="fas fa-cog"></i> 初始化系统
+                </button>
+                <button class="btn success" onclick="createSampleData()">
+                    <i class="fas fa-plus"></i> 创建示例数据
+                </button>
+                <button class="btn secondary" onclick="validateData()">
+                    <i class="fas fa-check"></i> 验证数据完整性
+                </button>
+                <button class="btn secondary" onclick="performanceTest()">
+                    <i class="fas fa-tachometer-alt"></i> 性能测试
+                </button>
+                <button class="btn secondary" onclick="showRequestHistory()">
+                    <i class="fas fa-network-wired"></i> 请求历史
+                </button>
+                <button class="btn danger" onclick="stopAllTimers()">
+                    <i class="fas fa-stop"></i> 停止所有定时器
+                </button>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <a href="index.html"><i class="fas fa-home"></i> 返回首页</a>
+            <a href="login.html"><i class="fas fa-sign-in-alt"></i> 登录页面</a>
+            <a href="admin.html"><i class="fas fa-cog"></i> 管理后台</a>
+            <a href="https://github.com/zjncs/zjncs.github.io" target="_blank"><i class="fab fa-github"></i> GitHub仓库</a>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script>
+        let debugLog = [];
+        let auth = null;
+
+        // 添加日志
+        function addLog(message, type = 'info') {
+            const timestamp = new Date().toLocaleString();
+            const logEntry = `[${timestamp}] [${type.toUpperCase()}] ${message}`;
+            debugLog.push(logEntry);
+            
+            const logElement = document.getElementById('debug-log');
+            logElement.textContent = debugLog.join('\n');
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+
+        // 检查系统状态
+        function checkSystemStatus() {
+            addLog('开始检查系统状态');
+
+            try {
+                // 检查认证系统
+                auth = new BlogAuth();
+                const isLoggedIn = auth.isLoggedIn();
+                const settings = auth.getAuthSettings();
+
+                // 检查博客数据
+                const blogData = localStorage.getItem('blogData');
+                const parsedData = blogData ? JSON.parse(blogData) : null;
+                const postsCount = parsedData ? parsedData.posts.length : 0;
+
+                // 计算存储大小
+                const storageSize = calculateStorageSize();
+
+                // 更新状态显示
+                const statusElement = document.getElementById('system-status');
+                if (settings.initialized) {
+                    statusElement.className = 'status success';
+                    statusElement.innerHTML = `<i class="fas fa-check-circle"></i> 系统正常运行，用户: ${settings.username}`;
+                } else {
+                    statusElement.className = 'status warning';
+                    statusElement.innerHTML = '<i class="fas fa-exclamation-triangle"></i> 系统未初始化，需要设置账户';
+                }
+
+                // 更新统计数据
+                document.getElementById('posts-count').textContent = postsCount;
+                document.getElementById('storage-size').textContent = formatBytes(storageSize);
+
+                addLog(`系统状态检查完成 - 登录状态: ${isLoggedIn}, 文章数: ${postsCount}, 存储: ${formatBytes(storageSize)}`);
+
+            } catch (error) {
+                const statusElement = document.getElementById('system-status');
+                statusElement.className = 'status error';
+                statusElement.innerHTML = `<i class="fas fa-times-circle"></i> 系统错误: ${error.message}`;
+                addLog(`系统状态检查失败: ${error.message}`, 'error');
+            }
+        }
+
+        // 测试登录
+        function testLogin() {
+            const username = document.getElementById('test-username').value;
+            const password = document.getElementById('test-password').value;
+
+            if (!username || !password) {
+                addLog('请输入用户名和密码', 'warning');
+                return;
+            }
+
+            try {
+                auth = new BlogAuth();
+                const success = auth.login(username, password, false);
+
+                if (success) {
+                    addLog(`登录成功: ${username}`, 'success');
+                    checkSystemStatus();
+                } else {
+                    addLog('登录失败: 用户名或密码错误', 'error');
+                }
+            } catch (error) {
+                addLog(`登录失败: ${error.message}`, 'error');
+            }
+        }
+
+        // 检查会话
+        function checkSession() {
+            try {
+                auth = new BlogAuth();
+                const isLoggedIn = auth.isLoggedIn();
+                const sessionData = localStorage.getItem('blog_session');
+
+                if (isLoggedIn) {
+                    const session = JSON.parse(sessionData);
+                    addLog(`会话有效 - 用户: ${session.username}, 过期时间: ${new Date(session.expiresAt).toLocaleString()}`, 'success');
+                } else {
+                    addLog('当前未登录或会话已过期', 'info');
+                }
+            } catch (error) {
+                addLog(`检查会话失败: ${error.message}`, 'error');
+            }
+        }
+
+        // 退出登录
+        function logout() {
+            try {
+                auth = new BlogAuth();
+                auth.logout();
+                addLog('已退出登录', 'info');
+                checkSystemStatus();
+            } catch (error) {
+                addLog(`退出登录失败: ${error.message}`, 'error');
+            }
+        }
+
+        // 显示存储数据
+        function showStorageData() {
+            const dataDisplay = document.getElementById('data-display');
+            const data = {
+                authSettings: localStorage.getItem('blog_auth_settings'),
+                session: localStorage.getItem('blog_session'),
+                blogData: localStorage.getItem('blogData'),
+                theme: localStorage.getItem('blog_theme')
+            };
+
+            let displayText = '';
+            for (const [key, value] of Object.entries(data)) {
+                displayText += `${key}:\n`;
+                if (value) {
+                    try {
+                        const parsed = JSON.parse(value);
+                        displayText += JSON.stringify(parsed, null, 2);
+                    } catch {
+                        displayText += value;
+                    }
+                } else {
+                    displayText += '(未设置)';
+                }
+                displayText += '\n\n';
+            }
+
+            dataDisplay.textContent = displayText;
+            dataDisplay.style.display = 'block';
+            addLog('已显示存储数据');
+        }
+
+        // 导出数据
+        function exportData() {
+            try {
+                const data = {
+                    authSettings: localStorage.getItem('blog_auth_settings'),
+                    session: localStorage.getItem('blog_session'),
+                    blogData: localStorage.getItem('blogData'),
+                    theme: localStorage.getItem('blog_theme'),
+                    exportTime: new Date().toISOString()
+                };
+
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `blog-data-${new Date().toISOString().split('T')[0]}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+
+                addLog('数据导出成功', 'success');
+            } catch (error) {
+                addLog(`数据导出失败: ${error.message}`, 'error');
+            }
+        }
+
+        // 导入数据
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const data = JSON.parse(e.target.result);
+
+                        if (confirm('确定要导入数据吗？这将覆盖现有数据。')) {
+                            if (data.authSettings) localStorage.setItem('blog_auth_settings', data.authSettings);
+                            if (data.blogData) localStorage.setItem('blogData', data.blogData);
+                            if (data.theme) localStorage.setItem('blog_theme', data.theme);
+
+                            addLog('数据导入成功', 'success');
+                            checkSystemStatus();
+                        }
+                    } catch (error) {
+                        addLog(`数据导入失败: ${error.message}`, 'error');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        // 清除所有数据
+        function clearAllData() {
+            if (confirm('确定要清除所有数据吗？此操作不可恢复！')) {
+                localStorage.clear();
+                addLog('所有数据已清除', 'warning');
+                checkSystemStatus();
+            }
+        }
+
+        // 清除日志
+        function clearLog() {
+            debugLog = [];
+            document.getElementById('debug-log').textContent = '日志已清除';
+            addLog('调试日志已清除');
+        }
+
+        // 下载日志
+        function downloadLog() {
+            const blob = new Blob([debugLog.join('\n')], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `debug-log-${new Date().toISOString().split('T')[0]}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+            addLog('日志下载完成');
+        }
+
+        // 初始化系统
+        function initializeSystem() {
+            try {
+                auth = new BlogAuth();
+                const username = 'admin';
+                const password = 'admin123';
+
+                if (auth.setupAccount(username, password)) {
+                    addLog('系统初始化成功', 'success');
+                    checkSystemStatus();
+                } else {
+                    addLog('系统初始化失败', 'error');
+                }
+            } catch (error) {
+                addLog(`系统初始化失败: ${error.message}`, 'error');
+            }
+        }
+
+        // 创建示例数据
+        function createSampleData() {
+            try {
+                const sampleData = {
+                    posts: [
+                        {
+                            id: 'sample-1',
+                            title: '示例文章 1',
+                            slug: 'sample-post-1',
+                            content: '这是一篇示例文章的内容。',
+                            excerpt: '这是示例文章的摘要。',
+                            date: new Date().toISOString(),
+                            category: '技术',
+                            tags: ['示例', '测试'],
+                            published: true
+                        },
+                        {
+                            id: 'sample-2',
+                            title: '示例文章 2',
+                            slug: 'sample-post-2',
+                            content: '这是另一篇示例文章的内容。',
+                            excerpt: '这是另一篇示例文章的摘要。',
+                            date: new Date().toISOString(),
+                            category: '生活',
+                            tags: ['示例', '日记'],
+                            published: true
+                        }
+                    ],
+                    settings: {
+                        title: '我的技术博客',
+                        description: '专业技术分享与开发经验',
+                        author: 'Your Name',
+                        email: 'your.email@example.com'
+                    },
+                    theme: {
+                        primaryColor: '#3498db',
+                        accentColor: '#e74c3c',
+                        fontFamily: 'system'
+                    }
+                };
+
+                localStorage.setItem('blogData', JSON.stringify(sampleData));
+                addLog('示例数据创建成功', 'success');
+                checkSystemStatus();
+            } catch (error) {
+                addLog(`创建示例数据失败: ${error.message}`, 'error');
+            }
+        }
+
+        // 验证数据完整性
+        function validateData() {
+            try {
+                const blogData = localStorage.getItem('blogData');
+                if (!blogData) {
+                    addLog('未找到博客数据', 'warning');
+                    return;
+                }
+
+                const data = JSON.parse(blogData);
+                let issues = [];
+
+                if (!data.posts || !Array.isArray(data.posts)) {
+                    issues.push('文章数据格式错误');
+                }
+
+                if (!data.settings || typeof data.settings !== 'object') {
+                    issues.push('设置数据格式错误');
+                }
+
+                data.posts.forEach((post, index) => {
+                    if (!post.id) issues.push(`文章 ${index + 1} 缺少ID`);
+                    if (!post.title) issues.push(`文章 ${index + 1} 缺少标题`);
+                    if (!post.content) issues.push(`文章 ${index + 1} 缺少内容`);
+                });
+
+                if (issues.length === 0) {
+                    addLog('数据验证通过，未发现问题', 'success');
+                } else {
+                    addLog(`数据验证发现 ${issues.length} 个问题:\n${issues.join('\n')}`, 'warning');
+                }
+            } catch (error) {
+                addLog(`数据验证失败: ${error.message}`, 'error');
+            }
+        }
+
+        // 性能测试
+        function performanceTest() {
+            addLog('开始性能测试...');
+
+            const startTime = performance.now();
+
+            // 测试本地存储读写
+            const testData = { test: 'performance test data' };
+            localStorage.setItem('perf_test', JSON.stringify(testData));
+            const retrieved = JSON.parse(localStorage.getItem('perf_test'));
+            localStorage.removeItem('perf_test');
+
+            // 测试DOM操作
+            const testDiv = document.createElement('div');
+            testDiv.innerHTML = '<p>Performance test</p>';
+            document.body.appendChild(testDiv);
+            document.body.removeChild(testDiv);
+
+            const endTime = performance.now();
+            const duration = endTime - startTime;
+
+            addLog(`性能测试完成 - 耗时: ${duration.toFixed(2)}ms`, 'success');
+        }
+
+        // 显示请求历史
+        function showRequestHistory() {
+            const dataDisplay = document.getElementById('data-display');
+            let historyText = '最近请求历史:\n\n';
+
+            requestHistory.slice(-20).forEach((req, index) => {
+                const time = new Date(req.timestamp).toLocaleTimeString();
+                historyText += `${index + 1}. [${time}] ${req.type}: ${req.url}\n`;
+            });
+
+            if (requestHistory.length === 0) {
+                historyText += '暂无请求记录';
+            }
+
+            dataDisplay.textContent = historyText;
+            dataDisplay.style.display = 'block';
+            addLog(`显示了 ${requestHistory.length} 条请求记录`);
+        }
+
+        // 停止所有定时器
+        function stopAllTimers() {
+            // 清除所有setTimeout
+            const highestTimeoutId = setTimeout(() => {}, 0);
+            for (let i = 0; i <= highestTimeoutId; i++) {
+                clearTimeout(i);
+            }
+
+            // 清除所有setInterval
+            const highestIntervalId = setInterval(() => {}, 1000);
+            for (let i = 0; i <= highestIntervalId; i++) {
+                clearInterval(i);
+            }
+            clearInterval(highestIntervalId);
+
+            addLog('已尝试清除所有定时器', 'warning');
+        }
+
+        // 工具函数
+        function calculateStorageSize() {
+            let total = 0;
+            for (let key in localStorage) {
+                if (localStorage.hasOwnProperty(key)) {
+                    total += localStorage[key].length;
+                }
+            }
+            return total;
+        }
+
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // 请求监控
+        let requestCount = 0;
+        let requestHistory = [];
+        const maxRequestsPerSecond = 10;
+
+        function monitorRequests() {
+            // 监控fetch请求
+            const originalFetch = window.fetch;
+            window.fetch = function(...args) {
+                requestCount++;
+                requestHistory.push({
+                    url: args[0],
+                    timestamp: Date.now(),
+                    type: 'fetch'
+                });
+
+                // 清理旧记录（保留最近1分钟）
+                const oneMinuteAgo = Date.now() - 60000;
+                requestHistory = requestHistory.filter(req => req.timestamp > oneMinuteAgo);
+
+                // 检查是否有异常请求
+                const recentRequests = requestHistory.filter(req => req.timestamp > Date.now() - 1000);
+                if (recentRequests.length > maxRequestsPerSecond) {
+                    addLog(`警告：检测到异常请求频率 - ${recentRequests.length} 请求/秒`, 'warning');
+                    console.warn('异常请求检测:', recentRequests);
+                }
+
+                addLog(`请求: ${args[0]}`, 'info');
+                return originalFetch.apply(this, args);
+            };
+
+            // 监控事件监听器
+            const originalAddEventListener = EventTarget.prototype.addEventListener;
+            EventTarget.prototype.addEventListener = function(type, listener, options) {
+                if (this === window || this === document) {
+                    addLog(`全局事件监听器: ${type}`, 'info');
+                }
+                return originalAddEventListener.call(this, type, listener, options);
+            };
+        }
+
+        // 检测循环调用
+        function detectInfiniteLoops() {
+            const callStack = new Map();
+            const originalSetTimeout = window.setTimeout;
+            const originalSetInterval = window.setInterval;
+
+            window.setTimeout = function(callback, delay, ...args) {
+                const stack = new Error().stack;
+                const key = stack.split('\n')[2]; // 获取调用位置
+
+                if (callStack.has(key)) {
+                    const count = callStack.get(key) + 1;
+                    callStack.set(key, count);
+
+                    if (count > 50) {
+                        addLog(`警告：检测到可能的无限setTimeout循环`, 'error');
+                        console.error('无限setTimeout检测:', key);
+                        return;
+                    }
+                } else {
+                    callStack.set(key, 1);
+                }
+
+                return originalSetTimeout.call(this, callback, delay, ...args);
+            };
+
+            window.setInterval = function(callback, delay, ...args) {
+                addLog(`设置定时器: 间隔 ${delay}ms`, 'warning');
+                return originalSetInterval.call(this, callback, delay, ...args);
+            };
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            addLog('调试工具初始化完成');
+            monitorRequests();
+            detectInfiniteLoops();
+            checkSystemStatus();
+        });
+    </script>
+</body>
+</html>

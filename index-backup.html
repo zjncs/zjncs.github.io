@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赵嘉宁的技术博客</title>
+    <meta name="description" content="记录学习、研究与实践的点点滴滴">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fafc;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #64748b;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 3rem 0;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .post-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .post-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .post-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+
+        .post-excerpt {
+            color: #64748b;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        .post-category {
+            background: #e0e7ff;
+            color: #3730a3;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .post-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background: #f1f5f9;
+            color: #475569;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .about-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .about-section h2 {
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: #1e293b;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e2e8f0;
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: 1rem;
+            color: #64748b;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .posts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">赵嘉宁的技术博客</div>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#about">关于</a></li>
+                        <li><a href="login.html">管理后台</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>赵嘉宁的技术博客</h1>
+            <p>记录学习、研究与实践的点点滴滴</p>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="container">
+            <div id="content">
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p class="loading-text">正在加载博客内容...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 赵嘉宁的技术博客. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 简化的博客数据
+        const blogData = {
+            posts: [
+                {
+                    id: '1',
+                    title: '图算法与GNN性能比较研究',
+                    slug: 'graph-algorithm-gnn-comparison',
+                    content: `# 图算法与GNN性能比较研究
+
+最近完成了一项关于传统图算法与图神经网络在节点分类任务中的性能对比研究，实验结果表明GNN在多个数据集上都有显著的性能提升。
+
+## 研究背景
+
+图数据在社交网络、知识图谱、生物信息学等领域广泛存在。传统的图算法如PageRank、标签传播等虽然简单高效，但在复杂的节点分类任务中可能存在局限性。
+
+## 实验结果
+
+实验表明GNN方法在所有数据集上都明显优于传统图算法，GAT通过注意力机制取得了最好的效果。
+
+## 主要发现
+
+1. **性能提升显著**：GNN方法效果更好
+2. **注意力机制有效**：GAT效果最佳
+3. **计算复杂度权衡**：需要平衡效果和开销
+
+这项研究让我对图学习有了更深入的理解。`,
+                    excerpt: '对比传统图算法与图神经网络在节点分类中的表现，实验表明GNN效果提升显著。',
+                    category: '研究',
+                    tags: ['图神经网络', 'GNN', '节点分类', '机器学习'],
+                    date: new Date().toISOString(),
+                    updated: new Date().toISOString()
+                },
+                {
+                    id: '2',
+                    title: '车联网数据隐私与安全研究',
+                    slug: 'connected-vehicle-data-privacy-security',
+                    content: `# 车联网数据隐私与安全研究
+
+基于博弈模型分析汽车产业数据安全问题，研究成果已发表于SSCI期刊。
+
+## 研究背景
+
+随着智能网联汽车的快速发展，车辆产生的数据量呈指数级增长。如何在保护用户隐私的同时实现数据价值最大化成为关键问题。
+
+## 主要发现
+
+1. **隐私悖论现象**：用户虽然关注隐私，但在获得便利服务时往往愿意妥协
+2. **监管政策的双刃剑效应**：需要平衡隐私保护与技术创新
+3. **技术解决方案的重要性**：差分隐私、联邦学习等技术很重要
+
+## 研究意义
+
+这项研究为车联网数据治理提供了理论基础，相关论文已发表在SSCI期刊上。`,
+                    excerpt: '基于博弈模型分析汽车产业数据安全问题，成果发表于SSCI期刊。',
+                    category: '研究',
+                    tags: ['车联网', '数据隐私', '博弈论', '信息安全'],
+                    date: new Date(Date.now() - 86400000).toISOString(),
+                    updated: new Date(Date.now() - 86400000).toISOString()
+                },
+                {
+                    id: '3',
+                    title: '数智餐饮与消费者行为分析',
+                    slug: 'smart-catering-consumer-behavior-analysis',
+                    content: `# 数智餐饮与消费者行为分析
+
+这是我参与的国家级大创项目，结合数据挖掘和可视化技术，深入研究消费者在数字化餐饮场景下的行为规律。
+
+## 项目背景
+
+随着数字化转型的深入，餐饮行业正在经历前所未有的变革。本项目旨在通过大数据分析，揭示消费者行为特征和决策模式。
+
+## 主要发现
+
+1. **个性化推荐显著提升用户体验**：点击率提升56%，转化率提升89%
+2. **社交因素影响消费决策**：好友推荐的转化率比算法推荐高35%
+3. **移动端成为主要入口**：85%的订单来自手机APP
+
+## 项目成果
+
+- 发表学术论文1篇
+- 申请软件著作权1项
+- 项目获得校级优秀大创项目奖
+
+这个项目让我深入了解了数据科学在商业场景中的应用。`,
+                    excerpt: '国家级大创项目，结合数据挖掘和可视化，研究消费者行为规律。',
+                    category: '项目',
+                    tags: ['数据挖掘', '消费者行为', '可视化', '大创项目'],
+                    date: new Date(Date.now() - 2 * 86400000).toISOString(),
+                    updated: new Date(Date.now() - 2 * 86400000).toISOString()
+                }
+            ],
+            settings: {
+                title: '赵嘉宁的技术博客',
+                description: '记录学习、研究与实践的点点滴滴',
+                author: '赵嘉宁',
+                email: 'zhaojianing@tju.edu.cn',
+                github: 'zhaojianing',
+                twitter: '',
+                about: `# 🙋‍♂️ 关于我
+
+我是赵嘉宁，天津大学信息管理与信息系统专业在读，本科生。对数据分析、人工智能和后端开发充满热情，喜欢动手实践项目，也乐于探索前沿技术。曾获多项国家级竞赛奖项，有科研、企业实习和自主开发经验，热爱分享和学习。
+
+## 🎓 教育背景
+
+**天津大学** | 信息管理与信息系统（2023-2027）
+- 主修课程：数据结构、数据库、计算机网络、经济学、运筹学等
+- 奖项：三好学生奖学金等
+
+## 💻 技术栈
+
+**编程语言**：Python、Java、SQL  
+**后端开发**：Spring Boot、MyBatis、JWT、RabbitMQ、Redis、Git  
+**数据分析**：Pandas、SPSS、Excel、Tableau、Matplotlib  
+**AI 应用**：熟练使用 ChatGPT、Gemini、Claude，掌握Prompt设计与RAG应用  
+**其他**：熟练使用LaTeX、Markdown，擅长制作专业文档与演示材料
+
+## 📧 联系我
+
+如果你对我的研究或项目感兴趣，欢迎通过邮件联系我！`
+            }
+        };
+
+        // 渲染博客内容
+        function renderBlog() {
+            const contentDiv = document.getElementById('content');
+            
+            // 渲染文章列表
+            const postsHtml = blogData.posts.map(post => `
+                <div class="post-card">
+                    <h2 class="post-title">${post.title}</h2>
+                    <p class="post-excerpt">${post.excerpt}</p>
+                    <div class="post-meta">
+                        <span class="post-category">${post.category}</span>
+                        <span>${new Date(post.date).toLocaleDateString('zh-CN')}</span>
+                    </div>
+                    <div class="post-tags">
+                        ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            // 渲染关于部分
+            const aboutHtml = `
+                <div class="about-section">
+                    <h2>关于我</h2>
+                    <div>${blogData.settings.about.replace(/\n/g, '<br>').replace(/##/g, '<h3>').replace(/#/g, '<h2>')}</div>
+                </div>
+            `;
+
+            contentDiv.innerHTML = `
+                <div class="posts-grid">
+                    ${postsHtml}
+                </div>
+                ${aboutHtml}
+            `;
+        }
+
+        // 页面加载完成后渲染内容
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(renderBlog, 500); // 短暂延迟以显示加载效果
+        });
+    </script>
+</body>
+</html>

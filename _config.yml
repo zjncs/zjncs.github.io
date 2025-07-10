@@ -1,0 +1,77 @@
+# Site settings
+title: "TechShare Blog"
+description: "专业技术分享与开发经验"
+baseurl: ""
+url: "https://yourusername.github.io"
+author: "Your Name"
+email: "your.email@example.com"
+github_username: "yourusername"
+twitter_username: "yourusername"
+linkedin_username: "yourusername"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /:categories/:year/:month/:day/:title/
+paginate: 6
+paginate_path: "/page:num/"
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-paginate
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /:categories/:year/:month/:day/:title/
+
+# Default values
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      comments: true
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+# Syntax highlighting
+kramdown:
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: 'highlight'
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+
+# SEO settings
+google_analytics: "UA-XXXXXXXX-X"
+disqus_shortname: "your-disqus-shortname"
+
+# Social sharing
+social_share: true
+
+# Reading time
+reading_time: true
+
+# Table of contents
+toc: true
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md

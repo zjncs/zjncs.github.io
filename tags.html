@@ -1,0 +1,147 @@
+---
+layout: default
+title: "标签云"
+permalink: /tags/
+---
+
+<div class="tags-page">
+    <header class="page-header">
+        <h1 class="page-title">标签云</h1>
+        <p class="page-subtitle">按标签浏览所有文章</p>
+    </header>
+
+    <div class="tags-content">
+        <div class="tags-overview">
+            <div class="tags-stats">
+                <div class="stat-item">
+                    <span class="stat-number">{{ site.tags.size }}</span>
+                    <span class="stat-label">个标签</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">{{ site.posts.size }}</span>
+                    <span class="stat-label">篇文章</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tag Cloud -->
+        <div class="tag-cloud">
+            {% assign sorted_tags = site.tags | sort %}
+            {% for tag in sorted_tags %}
+            {% assign tag_size = tag[1].size %}
+            {% if tag_size > 5 %}
+                {% assign tag_class = "tag-xl" %}
+            {% elsif tag_size > 3 %}
+                {% assign tag_class = "tag-lg" %}
+            {% elsif tag_size > 1 %}
+                {% assign tag_class = "tag-md" %}
+            {% else %}
+                {% assign tag_class = "tag-sm" %}
+            {% endif %}
+            <a href="#tag-{{ tag[0] | slugify }}" class="tag-cloud-item {{ tag_class }}" data-count="{{ tag_size }}">
+                {{ tag[0] }}
+                <span class="tag-count">{{ tag_size }}</span>
+            </a>
+            {% endfor %}
+        </div>
+
+        <!-- Tag Sections -->
+        <div class="tags-sections">
+            {% for tag in site.tags %}
+            <div class="tag-section" id="tag-{{ tag[0] | slugify }}">
+                <div class="tag-header">
+                    <h2 class="tag-title">
+                        <i class="fas fa-tag"></i>
+                        {{ tag[0] }}
+                        <span class="tag-count">({{ tag[1].size }})</span>
+                    </h2>
+                </div>
+                
+                <div class="tag-posts">
+                    {% assign sorted_posts = tag[1] | sort: 'date' | reverse %}
+                    {% for post in sorted_posts %}
+                    <article class="tag-post">
+                        <div class="post-meta">
+                            <time datetime="{{ post.date | date_to_xmlschema }}">
+                                {{ post.date | date: "%Y-%m-%d" }}
+                            </time>
+                            {% if post.categories %}
+                            <span class="post-category">{{ post.categories.first }}</span>
+                            {% endif %}
+                        </div>
+                        <h3 class="post-title">
+                            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                        </h3>
+                        <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
+                        <div class="post-footer">
+                            <a href="{{ post.url | relative_url }}" class="read-more">
+                                阅读全文 <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <span class="reading-time">
+                                <i class="fas fa-clock"></i>
+                                约 {{ post.content | number_of_words | divided_by: 200 | ceil }} 分钟
+                            </span>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Tags Navigation -->
+    <nav class="tags-nav">
+        <h3>标签导航</h3>
+        <div class="tags-nav-cloud">
+            {% for tag in site.tags %}
+            <a href="#tag-{{ tag[0] | slugify }}" class="tag-nav-link">
+                {{ tag[0] }}
+                <span class="count">{{ tag[1].size }}</span>
+            </a>
+            {% endfor %}
+        </div>
+    </nav>
+</div>
+
+<script>
+// Smooth scroll for tag navigation
+document.querySelectorAll('.tag-cloud-item, .tag-nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Highlight active tag in navigation
+const observerOptions = {
+    threshold: 0.3,
+    rootMargin: '-100px 0px -50% 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const id = entry.target.id;
+            document.querySelectorAll('.tag-nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            const activeLink = document.querySelector(`a[href="#${id}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.tag-section').forEach(section => {
+    observer.observe(section);
+});
+</script>

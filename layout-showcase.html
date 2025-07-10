@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>华丽布局展示 - 博客系统</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #2d5a87;
+            --primary-dark: #1e3a5f;
+            --primary-light: #4a7ba7;
+            --accent-color: #d4a574;
+            --success-color: #6b8e5a;
+            --bg-color: #ffffff;
+            --bg-secondary: #fafbfc;
+            --text-color: #2d3339;
+            --text-secondary: #57606a;
+            --text-muted: #9aa5b1;
+            --border-color: #e8ecf0;
+            --shadow-color: rgba(45, 51, 57, 0.08);
+            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-serif: 'Playfair Display', 'Lora', 'Georgia', serif;
+            --font-mono: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            --spacing-xs: 0.375rem;
+            --spacing-sm: 0.75rem;
+            --spacing-md: 1.25rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: linear-gradient(135deg, 
+                rgba(102, 126, 234, 0.05) 0%, 
+                rgba(118, 75, 162, 0.05) 50%, 
+                rgba(45, 90, 135, 0.05) 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .showcase-header {
+            text-align: center;
+            padding: var(--spacing-xl) var(--spacing-lg);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .showcase-header h1 {
+            font-family: var(--font-serif);
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .showcase-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle 100px at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                        rgba(102, 126, 234, 0.1) 0%, 
+                        transparent 50%);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+            pointer-events: none;
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                        var(--primary-color), 
+                        var(--accent-color), 
+                        var(--primary-color));
+            background-size: 300% 300%;
+            border-radius: var(--radius-lg);
+            z-index: -1;
+            opacity: 0;
+            animation: borderFlow 3s ease infinite;
+            transition: opacity var(--transition-normal);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover::after {
+            opacity: 1;
+        }
+
+        @keyframes borderFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .feature-title {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-color);
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .demo-section {
+            margin: var(--spacing-xl) 0;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            color: var(--primary-color);
+        }
+
+        .masonry-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-gap: var(--spacing-xl);
+            grid-auto-rows: 10px;
+        }
+
+        .demo-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+
+        .demo-card.short { grid-row-end: span 35; }
+        .demo-card.medium { grid-row-end: span 45; }
+        .demo-card.tall { grid-row-end: span 55; }
+
+        .demo-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-md);
+            transition: all var(--transition-normal);
+        }
+
+        .demo-card:hover img {
+            transform: scale(1.05);
+            filter: saturate(1.2) brightness(1.1);
+        }
+
+        .demo-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .demo-meta {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .demo-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xs);
+            margin-top: var(--spacing-md);
+        }
+
+        .demo-tag {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-fast);
+        }
+
+        .demo-tag:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: var(--spacing-sm);
+            z-index: 1000;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-sm);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            color: var(--primary-color);
+        }
+
+        .control-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .showcase-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .masonry-demo {
+                grid-template-columns: 1fr;
+            }
+            
+            .demo-card.short,
+            .demo-card.medium,
+            .demo-card.tall {
+                grid-row-end: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 动态背景 -->
+    <canvas id="particles-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;"></canvas>
+
+    <!-- 控制按钮 -->
+    <div class="controls">
+        <button class="control-btn" onclick="window.location.href='index.html'" title="返回首页">
+            <i class="fas fa-home"></i>
+        </button>
+        <button class="control-btn" onclick="toggleAnimations()" title="切换动画">
+            <i class="fas fa-magic"></i>
+        </button>
+        <button class="control-btn" onclick="regenerateLayout()" title="重新生成布局">
+            <i class="fas fa-refresh"></i>
+        </button>
+    </div>
+
+    <!-- 头部 -->
+    <header class="showcase-header animate-on-scroll">
+        <h1>华丽布局展示</h1>
+        <p>体验全新的交错式瀑布流布局、光影追随效果、优雅字体组合和丰富的微交互</p>
+    </header>
+
+    <div class="container">
+        <!-- 特性展示 -->
+        <section class="demo-section">
+            <h2 class="section-title animate-on-scroll">核心特性</h2>
+            <div class="features-grid">
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-th-large"></i>
+                    </div>
+                    <h3 class="feature-title">交错式瀑布流</h3>
+                    <p class="feature-description">
+                        采用CSS Grid实现的智能瀑布流布局，文章卡片根据内容自然流动，形成错落有致的视觉效果。
+                    </p>
+                </div>
+
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-mouse-pointer"></i>
+                    </div>
+                    <h3 class="feature-title">光影追随效果</h3>
+                    <p class="feature-description">
+                        鼠标悬停时的光斑跟随效果，配合流动边框动画，创造高级质感的交互体验。
+                    </p>
+                </div>
+
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-font"></i>
+                    </div>
+                    <h3 class="feature-title">优雅字体组合</h3>
+                    <p class="feature-description">
+                        标题使用Playfair Display衬线字体，正文使用无衬线字体，元信息采用等宽字体，层次分明。
+                    </p>
+                </div>
+
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3 class="feature-title">滚动触发动画</h3>
+                    <p class="feature-description">
+                        元素进入视窗时触发的交错动画效果，配合缓动函数创造流畅的视觉节奏。
+                    </p>
+                </div>
+
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <h3 class="feature-title">图片增强效果</h3>
+                    <p class="feature-description">
+                        悬停时图片缓慢放大并增强饱和度，配合毛玻璃背景创造层次感。
+                    </p>
+                </div>
+
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="feature-title">响应式设计</h3>
+                    <p class="feature-description">
+                        完美适配各种设备尺寸，移动端自动切换为单列布局，保持最佳阅读体验。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 瀑布流演示 -->
+        <section class="demo-section">
+            <h2 class="section-title animate-on-scroll">瀑布流布局演示</h2>
+            <div class="masonry-demo" id="masonryDemo">
+                <!-- 动态生成的演示卡片 -->
+            </div>
+        </section>
+    </div>
+
+    <script src="dynamic-background.js"></script>
+    <script src="enhanced-interactions.js"></script>
+    <script>
+        // 生成演示内容
+        const demoData = [
+            { title: "现代Web设计趋势", content: "探索2024年最新的网页设计趋势，包括极简主义、暗色模式、微交互等。", tags: ["设计", "趋势", "UI"], height: "medium" },
+            { title: "JavaScript性能优化", content: "深入了解JavaScript性能优化的最佳实践。", tags: ["JavaScript", "性能"], height: "short" },
+            { title: "CSS Grid完全指南", content: "从基础到高级，全面掌握CSS Grid布局系统。学习如何创建复杂的网格布局，响应式设计技巧，以及实际项目中的应用案例。", tags: ["CSS", "布局", "Grid"], height: "tall" },
+            { title: "React Hooks深度解析", content: "理解React Hooks的工作原理和最佳实践。", tags: ["React", "Hooks"], height: "medium" },
+            { title: "TypeScript入门教程", content: "从零开始学习TypeScript。", tags: ["TypeScript"], height: "short" },
+            { title: "前端工程化实践", content: "构建现代化的前端开发工作流，包括自动化构建、代码质量检查、持续集成等方面的实践经验分享。", tags: ["工程化", "构建"], height: "tall" }
+        ];
+
+        function generateMasonryDemo() {
+            const container = document.getElementById('masonryDemo');
+            container.innerHTML = '';
+
+            demoData.forEach((item, index) => {
+                const imageId = Math.abs(hashCode(item.title)) % 1000 + 1;
+                const card = document.createElement('div');
+                card.className = `demo-card ${item.height} animate-on-scroll`;
+                card.innerHTML = `
+                    <img src="https://picsum.photos/400/200?random=${imageId}" alt="${item.title}" loading="lazy">
+                    <h3>${item.title}</h3>
+                    <div class="demo-meta">
+                        <i class="fas fa-calendar"></i> 2024-01-${String(index + 1).padStart(2, '0')} • 
+                        <i class="fas fa-clock"></i> ${Math.floor(Math.random() * 10) + 3} min
+                    </div>
+                    <p>${item.content}</p>
+                    <div class="demo-tags">
+                        ${item.tags.map(tag => `<span class="demo-tag"># ${tag}</span>`).join('')}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            // 重新观察新元素
+            if (window.enhancedInteractions) {
+                setTimeout(() => {
+                    window.enhancedInteractions.observeElements(window.enhancedInteractions.observer);
+                }, 100);
+            }
+        }
+
+        function hashCode(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return hash;
+        }
+
+        function toggleAnimations() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            elements.forEach(el => {
+                el.classList.toggle('animated');
+            });
+        }
+
+        function regenerateLayout() {
+            generateMasonryDemo();
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            generateMasonryDemo();
+            
+            // 初始化动态背景
+            if (window.DynamicBackground) {
+                new DynamicBackground({
+                    type: 'particles',
+                    particleCount: 60,
+                    mouseInteraction: true
+                });
+            }
+
+            // 光影追随效果
+            document.addEventListener('mousemove', (e) => {
+                const cards = document.querySelectorAll('.feature-card, .demo-card');
+                cards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+                    
+                    if (x >= 0 && x <= 100 && y >= 0 && y <= 100) {
+                        card.style.setProperty('--mouse-x', `${x}%`);
+                        card.style.setProperty('--mouse-y', `${y}%`);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

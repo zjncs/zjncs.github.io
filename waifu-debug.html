@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>看板娘调试工具</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+
+        .debug-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .debug-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .debug-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .control-group {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .control-group h3 {
+            margin-bottom: 15px;
+            color: #FFD700;
+        }
+
+        .control-item {
+            margin-bottom: 15px;
+        }
+
+        .control-item label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .control-item input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 14px;
+        }
+
+        .control-item input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .btn {
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+            transform: translateY(-1px);
+        }
+
+        .btn.success {
+            background: #28a745;
+        }
+
+        .btn.success:hover {
+            background: #218838;
+        }
+
+        .btn.danger {
+            background: #dc3545;
+        }
+
+        .btn.danger:hover {
+            background: #c82333;
+        }
+
+        .status {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .log {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+        }
+
+        .preset-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .info-box {
+            background: rgba(255, 193, 7, 0.2);
+            border: 1px solid rgba(255, 193, 7, 0.5);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        /* 看板娘调试样式 */
+        #live2d-widget {
+            border: 2px dashed rgba(255, 255, 255, 0.5) !important;
+        }
+
+        .position-indicator {
+            position: fixed;
+            background: rgba(255, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            z-index: 1001;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-container">
+        <div class="debug-header">
+            <h1>🎭 看板娘调试工具</h1>
+            <p>调整看板娘的显示参数，确保头部完整显示</p>
+        </div>
+
+        <div class="info-box">
+            <strong>💡 使用说明：</strong>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>调整下方参数来优化看板娘显示</li>
+                <li>红色虚线框显示看板娘的边界</li>
+                <li>确保头部在可视区域内完整显示</li>
+                <li>找到最佳参数后点击"应用到博客"</li>
+            </ul>
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <h3>📐 尺寸设置</h3>
+                <div class="control-item">
+                    <label>宽度 (width)</label>
+                    <input type="number" id="width" value="240" min="100" max="400">
+                </div>
+                <div class="control-item">
+                    <label>高度 (height)</label>
+                    <input type="number" id="height" value="480" min="200" max="600">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h3>📍 位置设置</h3>
+                <div class="control-item">
+                    <label>水平偏移 (hOffset)</label>
+                    <input type="number" id="hOffset" value="5" min="-100" max="100">
+                </div>
+                <div class="control-item">
+                    <label>垂直偏移 (vOffset)</label>
+                    <input type="number" id="vOffset" value="-80" min="-200" max="100">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h3>📱 移动端设置</h3>
+                <div class="control-item">
+                    <label>缩放比例 (scale)</label>
+                    <input type="number" id="mobileScale" value="0.7" min="0.3" max="1.0" step="0.1">
+                </div>
+                <div class="control-item">
+                    <label>移动端垂直偏移</label>
+                    <input type="number" id="mobileVOffset" value="-30" min="-100" max="50">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h3>🎮 操作</h3>
+                <button class="btn success" onclick="applySettings()">
+                    🔄 应用设置
+                </button>
+                <button class="btn" onclick="resetToDefault()">
+                    🔧 重置默认
+                </button>
+                <button class="btn danger" onclick="hideWaifu()">
+                    👻 隐藏看板娘
+                </button>
+                <button class="btn" onclick="showWaifu()">
+                    👀 显示看板娘
+                </button>
+            </div>
+        </div>
+
+        <div class="preset-buttons">
+            <h3 style="width: 100%; margin-bottom: 10px;">🎯 预设方案：</h3>
+            <button class="btn" onclick="applyPreset('default')">默认设置</button>
+            <button class="btn" onclick="applyPreset('fullHead')">完整头部</button>
+            <button class="btn" onclick="applyPreset('compact')">紧凑模式</button>
+            <button class="btn" onclick="applyPreset('mobile')">移动优化</button>
+        </div>
+
+        <div class="status" id="status">
+            等待操作...
+        </div>
+
+        <div class="log" id="log">等待日志...</div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="btn success" onclick="generateCode()" style="font-size: 16px; padding: 15px 30px;">
+                📋 生成代码并应用到博客
+            </button>
+        </div>
+    </div>
+
+    <!-- Live2D 看板娘 -->
+    <script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script>
+    
+    <script>
+        let debugLog = [];
+        let currentSettings = {
+            width: 240,
+            height: 480,
+            hOffset: 5,
+            vOffset: -80,
+            mobileScale: 0.7,
+            mobileVOffset: -30
+        };
+
+        function addLog(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${message}`;
+            debugLog.push(logEntry);
+            
+            const logElement = document.getElementById('log');
+            logElement.textContent = debugLog.join('\n');
+            logElement.scrollTop = logElement.scrollHeight;
+            
+            console.log(logEntry);
+        }
+
+        function updateStatus(message) {
+            document.getElementById('status').textContent = message;
+        }
+
+        function initWaifu() {
+            try {
+                L2Dwidget.init({
+                    model: {
+                        jsonPath: 'https://cdn.jsdelivr.net/npm/live2d-widget-model-hibiki@1.0.5/assets/hibiki.model.json',
+                    },
+                    display: {
+                        position: 'right',
+                        width: currentSettings.width,
+                        height: currentSettings.height,
+                        hOffset: currentSettings.hOffset,
+                        vOffset: currentSettings.vOffset,
+                        superSample: 2
+                    },
+                    mobile: {
+                        show: true,
+                        scale: currentSettings.mobileScale,
+                        hOffset: 5,
+                        vOffset: currentSettings.mobileVOffset
+                    },
+                    react: {
+                        opacityDefault: 0.8,
+                        opacityOnHover: 1
+                    },
+                    dialog: {
+                        enable: true,
+                        script: {
+                            'tap body': '正在调试中~',
+                            'tap face': '不要摸我的脸啦！',
+                            'tap': '调试模式已启用'
+                        }
+                    }
+                });
+                
+                addLog('看板娘初始化成功');
+                updateStatus('✅ 看板娘已加载，可以开始调试');
+                
+                // 添加边界指示器
+                setTimeout(() => {
+                    const widget = document.getElementById('live2d-widget');
+                    if (widget) {
+                        widget.style.border = '2px dashed rgba(255, 255, 255, 0.5)';
+                        addLog('已添加边界指示器');
+                    }
+                }, 2000);
+                
+            } catch (error) {
+                addLog(`看板娘加载失败: ${error.message}`);
+                updateStatus('❌ 看板娘加载失败');
+            }
+        }
+
+        function applySettings() {
+            // 获取当前设置
+            currentSettings.width = parseInt(document.getElementById('width').value);
+            currentSettings.height = parseInt(document.getElementById('height').value);
+            currentSettings.hOffset = parseInt(document.getElementById('hOffset').value);
+            currentSettings.vOffset = parseInt(document.getElementById('vOffset').value);
+            currentSettings.mobileScale = parseFloat(document.getElementById('mobileScale').value);
+            currentSettings.mobileVOffset = parseInt(document.getElementById('mobileVOffset').value);
+            
+            addLog(`应用新设置: ${JSON.stringify(currentSettings)}`);
+            updateStatus('🔄 正在重新加载看板娘...');
+            
+            // 移除现有的看板娘
+            const existingWidget = document.getElementById('live2d-widget');
+            if (existingWidget) {
+                existingWidget.remove();
+            }
+            
+            // 重新初始化
+            setTimeout(() => {
+                initWaifu();
+            }, 500);
+        }
+
+        function resetToDefault() {
+            document.getElementById('width').value = 240;
+            document.getElementById('height').value = 480;
+            document.getElementById('hOffset').value = 5;
+            document.getElementById('vOffset').value = -80;
+            document.getElementById('mobileScale').value = 0.7;
+            document.getElementById('mobileVOffset').value = -30;
+            
+            addLog('重置为默认设置');
+            applySettings();
+        }
+
+        function applyPreset(preset) {
+            const presets = {
+                default: { width: 240, height: 480, hOffset: 5, vOffset: -80, mobileScale: 0.7, mobileVOffset: -30 },
+                fullHead: { width: 260, height: 520, hOffset: 0, vOffset: -100, mobileScale: 0.6, mobileVOffset: -50 },
+                compact: { width: 200, height: 400, hOffset: 10, vOffset: -60, mobileScale: 0.8, mobileVOffset: -20 },
+                mobile: { width: 180, height: 360, hOffset: 15, vOffset: -40, mobileScale: 0.9, mobileVOffset: -10 }
+            };
+            
+            const settings = presets[preset];
+            if (settings) {
+                document.getElementById('width').value = settings.width;
+                document.getElementById('height').value = settings.height;
+                document.getElementById('hOffset').value = settings.hOffset;
+                document.getElementById('vOffset').value = settings.vOffset;
+                document.getElementById('mobileScale').value = settings.mobileScale;
+                document.getElementById('mobileVOffset').value = settings.mobileVOffset;
+                
+                addLog(`应用预设: ${preset}`);
+                applySettings();
+            }
+        }
+
+        function hideWaifu() {
+            const widget = document.getElementById('live2d-widget');
+            if (widget) {
+                widget.style.display = 'none';
+                addLog('看板娘已隐藏');
+                updateStatus('👻 看板娘已隐藏');
+            }
+        }
+
+        function showWaifu() {
+            const widget = document.getElementById('live2d-widget');
+            if (widget) {
+                widget.style.display = 'block';
+                addLog('看板娘已显示');
+                updateStatus('👀 看板娘已显示');
+            }
+        }
+
+        function generateCode() {
+            const code = `
+// 看板娘优化配置
+L2Dwidget.init({
+    model: {
+        jsonPath: 'https://cdn.jsdelivr.net/npm/live2d-widget-model-hibiki@1.0.5/assets/hibiki.model.json',
+    },
+    display: {
+        position: 'right',
+        width: ${currentSettings.width},
+        height: ${currentSettings.height},
+        hOffset: ${currentSettings.hOffset},
+        vOffset: ${currentSettings.vOffset},
+        superSample: 2
+    },
+    mobile: {
+        show: true,
+        scale: ${currentSettings.mobileScale},
+        hOffset: 5,
+        vOffset: ${currentSettings.mobileVOffset}
+    },
+    react: {
+        opacityDefault: 0.8,
+        opacityOnHover: 1
+    }
+});`;
+
+            // 复制到剪贴板
+            navigator.clipboard.writeText(code).then(() => {
+                addLog('配置代码已复制到剪贴板');
+                updateStatus('📋 配置代码已复制，可以粘贴到博客中');
+                alert('配置代码已复制到剪贴板！\n\n请将代码粘贴到 _layouts/default.html 文件中的 L2Dwidget.init 部分。');
+            }).catch(() => {
+                addLog('复制失败，请手动复制');
+                prompt('请手动复制以下代码:', code);
+            });
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            addLog('调试工具初始化完成');
+            updateStatus('🎭 调试工具已准备就绪');
+            
+            // 延迟加载看板娘
+            setTimeout(() => {
+                initWaifu();
+            }, 1000);
+        });
+
+        // 监听窗口大小变化
+        window.addEventListener('resize', function() {
+            addLog(`窗口大小变化: ${window.innerWidth}x${window.innerHeight}`);
+        });
+    </script>
+</body>
+</html>

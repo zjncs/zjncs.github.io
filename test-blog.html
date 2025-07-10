@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客功能测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>博客功能测试页面</h1>
+    
+    <div class="test-section">
+        <h2>导航测试</h2>
+        <button class="test-button" onclick="testNavigation('home')">首页</button>
+        <button class="test-button" onclick="testNavigation('categories')">分类</button>
+        <button class="test-button" onclick="testNavigation('tags')">标签</button>
+        <button class="test-button" onclick="testNavigation('friends')">友链</button>
+        <button class="test-button" onclick="testNavigation('coding-time')">Coding Time</button>
+        <button class="test-button" onclick="testNavigation('about')">关于</button>
+        <div id="nav-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>数据测试</h2>
+        <button class="test-button" onclick="testBlogData()">检查博客数据</button>
+        <button class="test-button" onclick="testFriendLinks()">检查友情链接</button>
+        <button class="test-button" onclick="testSettings()">检查设置</button>
+        <div id="data-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>功能测试</h2>
+        <button class="test-button" onclick="testCategoriesFilter()">分类过滤</button>
+        <button class="test-button" onclick="testTagsFilter()">标签过滤</button>
+        <button class="test-button" onclick="testSearch()">搜索功能</button>
+        <div id="function-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>GitHub统计测试</h2>
+        <button class="test-button" onclick="testGitHubStats()">测试GitHub API</button>
+        <div id="github-result" class="result"></div>
+    </div>
+
+    <script>
+        // 加载主博客脚本
+        function loadMainBlog() {
+            return new Promise((resolve) => {
+                const script = document.createElement('script');
+                script.src = 'index.html';
+                script.onload = resolve;
+                document.head.appendChild(script);
+            });
+        }
+
+        function testNavigation(page) {
+            const result = document.getElementById('nav-result');
+            try {
+                if (typeof window.blog !== 'undefined') {
+                    window.blog.showPage(page);
+                    result.innerHTML = `✅ 成功导航到: ${page}`;
+                } else {
+                    result.innerHTML = `❌ 博客实例未找到，请先打开 index.html`;
+                }
+            } catch (error) {
+                result.innerHTML = `❌ 导航失败: ${error.message}`;
+            }
+        }
+
+        function testBlogData() {
+            const result = document.getElementById('data-result');
+            try {
+                const data = localStorage.getItem('blogData');
+                if (data) {
+                    const blogData = JSON.parse(data);
+                    result.innerHTML = `✅ 博客数据存在<br>
+                        - 文章数量: ${blogData.posts?.length || 0}<br>
+                        - 作者: ${blogData.settings?.author || '未设置'}<br>
+                        - GitHub: ${blogData.settings?.github || '未设置'}<br>
+                        - ORCID: ${blogData.settings?.orcid || '未设置'}`;
+                } else {
+                    result.innerHTML = `❌ 未找到博客数据`;
+                }
+            } catch (error) {
+                result.innerHTML = `❌ 数据解析失败: ${error.message}`;
+            }
+        }
+
+        function testFriendLinks() {
+            const result = document.getElementById('data-result');
+            try {
+                const data = localStorage.getItem('blogData');
+                if (data) {
+                    const blogData = JSON.parse(data);
+                    const friendLinks = blogData.friendLinks || [];
+                    result.innerHTML = `✅ 友情链接数据<br>
+                        - 链接数量: ${friendLinks.length}<br>
+                        ${friendLinks.map(link => `- ${link.name}: ${link.url}`).join('<br>')}`;
+                } else {
+                    result.innerHTML = `❌ 未找到友情链接数据`;
+                }
+            } catch (error) {
+                result.innerHTML = `❌ 友链数据解析失败: ${error.message}`;
+            }
+        }
+
+        function testSettings() {
+            const result = document.getElementById('data-result');
+            try {
+                const data = localStorage.getItem('blogData');
+                if (data) {
+                    const blogData = JSON.parse(data);
+                    const settings = blogData.settings || {};
+                    result.innerHTML = `✅ 设置数据<br>
+                        - 标题: ${settings.title || '未设置'}<br>
+                        - 描述: ${settings.description || '未设置'}<br>
+                        - 作者: ${settings.author || '未设置'}<br>
+                        - 邮箱: ${settings.email || '未设置'}<br>
+                        - GitHub: ${settings.github || '未设置'}<br>
+                        - ORCID: ${settings.orcid || '未设置'}`;
+                } else {
+                    result.innerHTML = `❌ 未找到设置数据`;
+                }
+            } catch (error) {
+                result.innerHTML = `❌ 设置数据解析失败: ${error.message}`;
+            }
+        }
+
+        function testCategoriesFilter() {
+            const result = document.getElementById('function-result');
+            result.innerHTML = `ℹ️ 分类过滤功能需要在主博客页面中测试`;
+        }
+
+        function testTagsFilter() {
+            const result = document.getElementById('function-result');
+            result.innerHTML = `ℹ️ 标签过滤功能需要在主博客页面中测试`;
+        }
+
+        function testSearch() {
+            const result = document.getElementById('function-result');
+            result.innerHTML = `ℹ️ 搜索功能需要在主博客页面中测试`;
+        }
+
+        function testGitHubStats() {
+            const result = document.getElementById('github-result');
+            const username = 'zjncs';
+            
+            result.innerHTML = `🔄 正在测试GitHub API...`;
+            
+            // 测试GitHub API
+            const testUrls = [
+                `https://github-readme-stats.vercel.app/api?username=${username}&theme=transparent&show_icons=true`,
+                `https://streak-stats.demolab.com?user=${username}`,
+                `https://github-readme-activity-graph.vercel.app/graph?username=${username}&theme=github-compact`,
+                `https://github-profile-trophy.vercel.app/?username=${username}&no-bg=true&no-frame=true&theme=algolia`,
+                `https://go-skill-icons.vercel.app/api/icons?i=java,py,cpp,md,latex,matlab&titles=true`
+            ];
+            
+            let loadedCount = 0;
+            const totalCount = testUrls.length;
+            
+            testUrls.forEach((url, index) => {
+                const img = new Image();
+                img.onload = () => {
+                    loadedCount++;
+                    if (loadedCount === totalCount) {
+                        result.innerHTML = `✅ 所有GitHub统计API都可以正常访问`;
+                    }
+                };
+                img.onerror = () => {
+                    result.innerHTML = `❌ 部分GitHub API无法访问`;
+                };
+                img.src = url;
+            });
+            
+            setTimeout(() => {
+                if (loadedCount < totalCount) {
+                    result.innerHTML = `⚠️ 部分API响应较慢，已加载 ${loadedCount}/${totalCount}`;
+                }
+            }, 5000);
+        }
+
+        // 页面加载时自动测试数据
+        window.addEventListener('load', () => {
+            testBlogData();
+        });
+    </script>
+</body>
+</html>
