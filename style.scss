@@ -1,0 +1,256 @@
+---
+# Front matter tells Jekyll to process this file
+---
+
+// Main SCSS File
+// =============================================================================
+// This file imports all Sass modules in the correct order
+
+// 1. Import design tokens (variables, functions, mixins)
+@import "tokens";
+
+// 2. Import base styles (reset, typography, global styles)
+@import "base";
+
+// 3. Import layout styles (header, footer, main structure)
+@import "layout";
+
+// 4. Import component styles
+@import "components/post-card";
+@import "components/site-header";
+@import "components/search";
+@import "components/buttons";
+
+// 5. Additional component imports can be added here as needed
+// @import "components/pagination";
+// @import "components/sidebar";
+// @import "components/code-highlight";
+
+// 6. Custom overrides and utilities
+// =============================================================================
+
+// Dynamic background and glassmorphism effects
+.dynamic-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  background: linear-gradient(135deg,
+    rgba(102, 126, 234, 0.1) 0%,
+    rgba(118, 75, 162, 0.1) 50%,
+    rgba(45, 90, 135, 0.1) 100%);
+  animation: backgroundShift 20s ease-in-out infinite;
+}
+
+.particles-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes backgroundShift {
+  0%, 100% {
+    background: linear-gradient(135deg,
+      rgba(102, 126, 234, 0.1) 0%,
+      rgba(118, 75, 162, 0.1) 50%,
+      rgba(45, 90, 135, 0.1) 100%);
+  }
+  33% {
+    background: linear-gradient(135deg,
+      rgba(118, 75, 162, 0.1) 0%,
+      rgba(45, 90, 135, 0.1) 50%,
+      rgba(102, 126, 234, 0.1) 100%);
+  }
+  66% {
+    background: linear-gradient(135deg,
+      rgba(45, 90, 135, 0.1) 0%,
+      rgba(102, 126, 234, 0.1) 50%,
+      rgba(118, 75, 162, 0.1) 100%);
+  }
+}
+
+// Glassmorphism utility class
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: shadow(lg) !important;
+}
+
+[data-theme="dark"] .glass-effect {
+  background: rgba(0, 0, 0, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+// Live2D widget adjustments
+#live2d-widget {
+  z-index: z-index(fixed) !important;
+  pointer-events: none !important;
+  top: -60px !important;
+  right: -10px !important;
+  bottom: auto !important;
+  position: fixed !important;
+  overflow: visible !important;
+  width: auto !important;
+  height: auto !important;
+  margin-top: 0 !important;
+  padding-top: 60px !important;
+}
+
+#live2dcanvas,
+#live2d-widget canvas {
+  pointer-events: auto !important;
+  max-width: none !important;
+  max-height: none !important;
+  width: 220px !important;
+  height: 420px !important;
+  clip-path: none !important;
+  transform-origin: center bottom !important;
+  margin-top: 0 !important;
+  top: 0 !important;
+  object-fit: contain !important;
+  object-position: center bottom !important;
+}
+
+// Responsive layout adjustments for Live2D
+@media (min-width: breakpoint(xl)) {
+  .container {
+    margin-right: 260px;
+  }
+}
+
+@media (max-width: breakpoint(md)) {
+  #live2d-widget {
+    transform: scale(0.7) !important;
+    right: -20px !important;
+    bottom: 0 !important;
+    top: auto !important;
+  }
+  
+  .container {
+    margin-right: auto !important;
+  }
+}
+
+@media (max-width: breakpoint(lg)) and (min-width: breakpoint(md)) {
+  #live2d-widget {
+    transform: scale(0.85) !important;
+    right: -15px !important;
+  }
+  
+  .container {
+    margin-right: auto !important;
+  }
+}
+
+// Utility classes
+// =============================================================================
+
+// Text utilities
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+// Spacing utilities
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: spacing(1); }
+.mt-2 { margin-top: spacing(2); }
+.mt-3 { margin-top: spacing(3); }
+.mt-4 { margin-top: spacing(4); }
+.mt-6 { margin-top: spacing(6); }
+.mt-8 { margin-top: spacing(8); }
+
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: spacing(1); }
+.mb-2 { margin-bottom: spacing(2); }
+.mb-3 { margin-bottom: spacing(3); }
+.mb-4 { margin-bottom: spacing(4); }
+.mb-6 { margin-bottom: spacing(6); }
+.mb-8 { margin-bottom: spacing(8); }
+
+.p-0 { padding: 0; }
+.p-1 { padding: spacing(1); }
+.p-2 { padding: spacing(2); }
+.p-3 { padding: spacing(3); }
+.p-4 { padding: spacing(4); }
+.p-6 { padding: spacing(6); }
+.p-8 { padding: spacing(8); }
+
+// Display utilities
+.d-none { display: none; }
+.d-block { display: block; }
+.d-inline { display: inline; }
+.d-inline-block { display: inline-block; }
+.d-flex { display: flex; }
+.d-grid { display: grid; }
+
+// Flexbox utilities
+.flex-row { flex-direction: row; }
+.flex-column { flex-direction: column; }
+.justify-start { justify-content: flex-start; }
+.justify-center { justify-content: center; }
+.justify-end { justify-content: flex-end; }
+.justify-between { justify-content: space-between; }
+.align-start { align-items: flex-start; }
+.align-center { align-items: center; }
+.align-end { align-items: flex-end; }
+
+// Color utilities
+.text-primary { color: color(primary, 600); }
+.text-secondary { color: color(secondary, 600); }
+.text-success { color: color(success, 600); }
+.text-warning { color: color(warning, 600); }
+.text-error { color: color(error, 600); }
+
+[data-theme="dark"] .text-primary { color: color(primary, 400); }
+[data-theme="dark"] .text-secondary { color: color(secondary, 400); }
+[data-theme="dark"] .text-success { color: color(success, 400); }
+[data-theme="dark"] .text-warning { color: color(warning, 400); }
+[data-theme="dark"] .text-error { color: color(error, 400); }
+
+// Background utilities
+.bg-primary { background-color: color(primary, 600); }
+.bg-secondary { background-color: color(secondary, 600); }
+.bg-success { background-color: color(success, 600); }
+.bg-warning { background-color: color(warning, 600); }
+.bg-error { background-color: color(error, 600); }
+
+// Border utilities
+.border { border: 1px solid color(neutral, 200); }
+.border-primary { border-color: color(primary, 600); }
+.border-secondary { border-color: color(secondary, 600); }
+.rounded { border-radius: layout(border-radius); }
+.rounded-lg { border-radius: layout(border-radius-lg); }
+.rounded-full { border-radius: layout(border-radius-full); }
+
+[data-theme="dark"] .border { border-color: color(neutral, 700); }
+
+// Shadow utilities
+.shadow-sm { box-shadow: shadow(sm); }
+.shadow { box-shadow: shadow(base); }
+.shadow-md { box-shadow: shadow(md); }
+.shadow-lg { box-shadow: shadow(lg); }
+.shadow-xl { box-shadow: shadow(xl); }
+
+// Responsive utilities
+@media (max-width: breakpoint(sm)) {
+  .sm-hidden { display: none; }
+  .sm-block { display: block; }
+}
+
+@media (max-width: breakpoint(md)) {
+  .md-hidden { display: none; }
+  .md-block { display: block; }
+}
+
+@media (max-width: breakpoint(lg)) {
+  .lg-hidden { display: none; }
+  .lg-block { display: block; }
+}

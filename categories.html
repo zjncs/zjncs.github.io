@@ -1,0 +1,131 @@
+---
+layout: default
+title: "文章分类"
+permalink: /categories/
+---
+
+<div class="categories-page">
+    <header class="page-header">
+        <h1 class="page-title">文章分类</h1>
+        <p class="page-subtitle">按分类浏览所有文章</p>
+    </header>
+
+    <div class="categories-content">
+        <div class="categories-overview">
+            <div class="categories-stats">
+                <div class="stat-item">
+                    <span class="stat-number">{{ site.categories.size }}</span>
+                    <span class="stat-label">个分类</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">{{ site.posts.size }}</span>
+                    <span class="stat-label">篇文章</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="categories-grid">
+            {% for category in site.categories %}
+            <div class="category-section" id="category-{{ category[0] | slugify }}">
+                <div class="category-header">
+                    <h2 class="category-title">
+                        <i class="fas fa-folder-open"></i>
+                        {{ category[0] }}
+                        <span class="category-count">({{ category[1].size }})</span>
+                    </h2>
+                </div>
+                
+                <div class="category-posts">
+                    {% assign sorted_posts = category[1] | sort: 'date' | reverse %}
+                    {% for post in sorted_posts %}
+                    <article class="category-post">
+                        <div class="post-meta">
+                            <time datetime="{{ post.date | date_to_xmlschema }}">
+                                {{ post.date | date: "%Y-%m-%d" }}
+                            </time>
+                            {% if post.tags %}
+                            <div class="post-tags">
+                                {% for tag in post.tags limit:2 %}
+                                <span class="tag">{{ tag }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <h3 class="post-title">
+                            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                        </h3>
+                        <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
+                        <div class="post-footer">
+                            <a href="{{ post.url | relative_url }}" class="read-more">
+                                阅读全文 <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <span class="reading-time">
+                                <i class="fas fa-clock"></i>
+                                约 {{ post.content | number_of_words | divided_by: 200 | ceil }} 分钟
+                            </span>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Categories Navigation -->
+    <nav class="categories-nav">
+        <h3>快速导航</h3>
+        <ul class="categories-list">
+            {% for category in site.categories %}
+            <li>
+                <a href="#category-{{ category[0] | slugify }}" class="category-nav-link">
+                    {{ category[0] }}
+                    <span class="count">{{ category[1].size }}</span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </nav>
+</div>
+
+<script>
+// Smooth scroll for category navigation
+document.querySelectorAll('.category-nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Highlight active category in navigation
+const observerOptions = {
+    threshold: 0.3,
+    rootMargin: '-100px 0px -50% 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const id = entry.target.id;
+            document.querySelectorAll('.category-nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            const activeLink = document.querySelector(`a[href="#${id}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.category-section').forEach(section => {
+    observer.observe(section);
+});
+</script>

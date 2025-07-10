@@ -1,0 +1,334 @@
+/* Compiled CSS from our Sass Design System */
+/* This is what style.scss would compile to */
+
+/* Design Tokens - CSS Custom Properties */
+:root {
+  /* 1. Color System (HEX & HSL for flexibility) */
+  --color-primary-hue: 210;
+  --color-primary: hsl(var(--color-primary-hue), 85%, 55%);
+  --color-primary-light: hsl(var(--color-primary-hue), 85%, 65%);
+  --color-primary-dark: hsl(var(--color-primary-hue), 85%, 45%);
+  
+  --color-text-base: #1C1E21;
+  --color-text-muted: #606770;
+  --color-text-inverse: #FFFFFF;
+  
+  --color-background-body: #FFFFFF;
+  --color-background-surface: #F0F2F5;
+  --color-background-elevated: #FFFFFF;
+  
+  --color-border-default: #CED0D4;
+  --color-border-light: #E4E6EA;
+  --color-border-strong: #8A8D91;
+
+  /* 2. Typography System */
+  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-family-heading: 'Inter', 'Montserrat', sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+  
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+
+  /* 3. Spacing System (4pt Grid) */
+  --space-xs: 4px;
+  --space-s: 8px;
+  --space-m: 16px;
+  --space-l: 24px;
+  --space-xl: 32px;
+  --space-xxl: 48px;
+  --space-3xl: 64px;
+
+  /* 4. Layout System */
+  --container-max-width: 1200px;
+  --header-height: 70px;
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+  --border-radius-full: 9999px;
+
+  /* 5. Visual Effects */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.2);
+
+  /* 6. Z-index Scale */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal: 1050;
+}
+
+/* Dark Theme (Auto-adapts to system preference) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary-hue: 211;
+    --color-primary: hsl(var(--color-primary-hue), 100%, 60%);
+    --color-primary-light: hsl(var(--color-primary-hue), 100%, 70%);
+    --color-primary-dark: hsl(var(--color-primary-hue), 100%, 50%);
+    
+    --color-text-base: #E4E6EB;
+    --color-text-muted: #B0B3B8;
+    --color-text-inverse: #1C1E21;
+    
+    --color-background-body: #121212;
+    --color-background-surface: #1E1E1E;
+    --color-background-elevated: #2A2A2A;
+    
+    --color-border-default: #3A3B3C;
+    --color-border-light: #2F3031;
+    --color-border-strong: #5A5B5C;
+    
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.25);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.4);
+    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Manual Dark Theme Toggle */
+[data-theme="dark"] {
+  --color-primary-hue: 211;
+  --color-primary: hsl(var(--color-primary-hue), 100%, 60%);
+  --color-primary-light: hsl(var(--color-primary-hue), 100%, 70%);
+  --color-primary-dark: hsl(var(--color-primary-hue), 100%, 50%);
+  
+  --color-text-base: #E4E6EB;
+  --color-text-muted: #B0B3B8;
+  --color-text-inverse: #1C1E21;
+  
+  --color-background-body: #121212;
+  --color-background-surface: #1E1E1E;
+  --color-background-elevated: #2A2A2A;
+  
+  --color-border-default: #3A3B3C;
+  --color-border-light: #2F3031;
+  --color-border-strong: #5A5B5C;
+  
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Base Styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  color: var(--color-text-base);
+  background-color: var(--color-background-body);
+  transition: color var(--transition-normal), background-color var(--transition-normal);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-heading);
+  font-weight: 700;
+  color: var(--color-text-base);
+  margin-top: var(--space-l);
+  margin-bottom: var(--space-m);
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: var(--font-size-4xl);
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: var(--font-size-3xl);
+  }
+}
+
+h2 {
+  font-size: var(--font-size-3xl);
+}
+
+@media (max-width: 768px) {
+  h2 {
+    font-size: var(--font-size-2xl);
+  }
+}
+
+h3 {
+  font-size: var(--font-size-2xl);
+}
+
+@media (max-width: 768px) {
+  h3 {
+    font-size: var(--font-size-xl);
+  }
+}
+
+h4 {
+  font-size: var(--font-size-xl);
+}
+
+h5 {
+  font-size: var(--font-size-lg);
+}
+
+h6 {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: var(--space-m);
+  line-height: 1.6;
+}
+
+/* Links */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--space-xs);
+}
+
+/* Layout */
+.wrapper {
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--space-l) var(--space-m);
+}
+
+.site-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-main,
+.main-content {
+  flex: 1;
+  padding: var(--space-xl) 0;
+}
+
+@media (max-width: 768px) {
+  .site-main,
+  .main-content {
+    padding: var(--space-l) 0;
+  }
+}
+
+/* Site Header */
+.site-header {
+  padding: var(--space-m) 0;
+  border-bottom: 1px solid var(--color-border-default);
+  background-color: var(--color-background-body);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  backdrop-filter: blur(10px);
+  background-color: hsla(0, 0%, 100%, 0.8);
+}
+
+@media (prefers-color-scheme: dark) {
+  .site-header {
+    background-color: rgba(18, 18, 18, 0.8);
+  }
+}
+
+.site-header .wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-text-base);
+  text-decoration: none;
+}
+
+.site-nav a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.site-nav a:not(:last-child) {
+  margin-right: var(--space-l);
+}
+
+.site-nav a:hover {
+  color: var(--color-primary);
+}
+
+/* Post Card Component */
+.post-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.post-card {
+  background-color: var(--color-background-surface);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-l);
+  margin-bottom: var(--space-l);
+  border: 1px solid var(--color-border-default);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.post-card__title {
+  margin-top: 0;
+  margin-bottom: var(--space-s);
+  font-size: var(--font-size-xl);
+}
+
+.post-card__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.post-card__meta {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-m);
+}
+
+.post-card__excerpt {
+  margin-bottom: 0;
+}

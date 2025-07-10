@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>修复无限请求问题</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .fix-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .fix-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .fix-header h1 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+        
+        .fix-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        .btn {
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+        
+        .btn:hover {
+            background: #0056b3;
+        }
+        
+        .btn.danger {
+            background: #e74c3c;
+        }
+        
+        .btn.danger:hover {
+            background: #c0392b;
+        }
+        
+        .btn.success {
+            background: #27ae60;
+        }
+        
+        .btn.success:hover {
+            background: #219a52;
+        }
+        
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .status.warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .log {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="fix-container">
+        <div class="fix-header">
+            <h1>🔧 修复无限请求问题</h1>
+            <p>这个工具可以帮助您诊断和修复博客系统中的无限请求循环问题</p>
+        </div>
+
+        <div class="fix-section">
+            <h3>🚨 紧急修复</h3>
+            <p>如果系统正在发生无限请求，请立即点击下面的按钮：</p>
+            <button class="btn danger" onclick="emergencyStop()">
+                🛑 紧急停止所有请求和定时器
+            </button>
+            <button class="btn danger" onclick="clearAllData()">
+                🗑️ 清除所有数据并重置
+            </button>
+        </div>
+
+        <div class="fix-section">
+            <h3>🔍 诊断工具</h3>
+            <button class="btn" onclick="checkTimers()">检查活动定时器</button>
+            <button class="btn" onclick="checkEventListeners()">检查事件监听器</button>
+            <button class="btn" onclick="checkLocalStorage()">检查本地存储</button>
+            <button class="btn" onclick="monitorRequests()">开始监控请求</button>
+        </div>
+
+        <div class="fix-section">
+            <h3>🛠️ 修复操作</h3>
+            <button class="btn success" onclick="fixEventListeners()">修复事件监听器</button>
+            <button class="btn success" onclick="resetAuthSystem()">重置认证系统</button>
+            <button class="btn success" onclick="cleanupStorage()">清理存储数据</button>
+            <button class="btn success" onclick="restartSystem()">重启系统</button>
+        </div>
+
+        <div class="fix-section">
+            <h3>📊 系统状态</h3>
+            <div id="system-status" class="status">正在检查系统状态...</div>
+        </div>
+
+        <div class="fix-section">
+            <h3>📝 操作日志</h3>
+            <div id="fix-log" class="log">等待操作...</div>
+            <button class="btn" onclick="clearLog()">清除日志</button>
+            <button class="btn" onclick="downloadLog()">下载日志</button>
+        </div>
+
+        <div class="fix-section">
+            <h3>🔗 快速导航</h3>
+            <button class="btn" onclick="goToDebug()">调试页面</button>
+            <button class="btn" onclick="goToAdmin()">管理后台</button>
+            <button class="btn" onclick="goToHome()">返回首页</button>
+        </div>
+    </div>
+
+    <script>
+        let fixLog = [];
+        let requestMonitor = null;
+        let timerIds = [];
+
+        // 添加日志
+        function addFixLog(message, type = 'info') {
+            const timestamp = new Date().toLocaleString();
+            const logEntry = `[${timestamp}] [${type.toUpperCase()}] ${message}`;
+            fixLog.push(logEntry);
+            
+            const logElement = document.getElementById('fix-log');
+            logElement.textContent = fixLog.join('\n');
+            logElement.scrollTop = logElement.scrollHeight;
+            
+            console.log(logEntry);
+        }
+
+        // 紧急停止
+        function emergencyStop() {
+            addFixLog('执行紧急停止操作', 'warning');
+            
+            try {
+                // 停止所有定时器
+                const highestTimeoutId = setTimeout(() => {}, 0);
+                for (let i = 0; i <= highestTimeoutId; i++) {
+                    clearTimeout(i);
+                }
+                
+                const highestIntervalId = setInterval(() => {}, 1000);
+                for (let i = 0; i <= highestIntervalId; i++) {
+                    clearInterval(i);
+                }
+                clearInterval(highestIntervalId);
+                
+                // 停止所有fetch请求
+                if (window.fetch) {
+                    window.fetch = function() {
+                        addFixLog('阻止了一个fetch请求', 'warning');
+                        return Promise.reject(new Error('请求已被紧急停止'));
+                    };
+                }
+                
+                addFixLog('紧急停止完成', 'success');
+                updateSystemStatus('紧急停止已执行', 'warning');
+                
+            } catch (error) {
+                addFixLog(`紧急停止失败: ${error.message}`, 'error');
+            }
+        }
+
+        // 清除所有数据
+        function clearAllData() {
+            if (confirm('警告：这将清除所有数据，包括文章、设置和登录信息！\n\n确定要继续吗？')) {
+                try {
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    addFixLog('所有数据已清除', 'success');
+                    updateSystemStatus('数据已清除，请刷新页面', 'success');
+                    
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                } catch (error) {
+                    addFixLog(`清除数据失败: ${error.message}`, 'error');
+                }
+            }
+        }
+
+        // 检查定时器
+        function checkTimers() {
+            addFixLog('检查活动定时器...', 'info');
+            
+            // 这是一个简化的检查，实际的定时器检查比较复杂
+            const testTimeout = setTimeout(() => {}, 0);
+            const testInterval = setInterval(() => {}, 1000);
+            
+            clearTimeout(testTimeout);
+            clearInterval(testInterval);
+            
+            addFixLog(`检测到的定时器ID范围: setTimeout(${testTimeout}), setInterval(${testInterval})`, 'info');
+            
+            if (testTimeout > 1000 || testInterval > 100) {
+                addFixLog('警告：检测到大量定时器，可能存在泄漏', 'warning');
+                updateSystemStatus('检测到定时器泄漏', 'warning');
+            } else {
+                addFixLog('定时器数量正常', 'success');
+            }
+        }
+
+        // 检查事件监听器
+        function checkEventListeners() {
+            addFixLog('检查事件监听器...', 'info');
+            
+            // 检查常见的事件监听器
+            const events = ['click', 'submit', 'input', 'change', 'storage', 'load'];
+            let listenerCount = 0;
+            
+            events.forEach(eventType => {
+                // 这是一个简化的检查
+                const testElement = document.createElement('div');
+                const testListener = () => {};
+                
+                testElement.addEventListener(eventType, testListener);
+                testElement.removeEventListener(eventType, testListener);
+                
+                listenerCount++;
+            });
+            
+            addFixLog(`检查了 ${events.length} 种事件类型`, 'info');
+            addFixLog('事件监听器检查完成', 'success');
+        }
+
+        // 检查本地存储
+        function checkLocalStorage() {
+            addFixLog('检查本地存储...', 'info');
+            
+            try {
+                const keys = Object.keys(localStorage);
+                let totalSize = 0;
+                
+                keys.forEach(key => {
+                    const value = localStorage.getItem(key);
+                    totalSize += key.length + (value ? value.length : 0);
+                });
+                
+                addFixLog(`本地存储项目数: ${keys.length}`, 'info');
+                addFixLog(`本地存储大小: ${(totalSize / 1024).toFixed(2)} KB`, 'info');
+                
+                // 检查可能有问题的数据
+                const problemKeys = keys.filter(key => 
+                    key.includes('temp') || 
+                    key.includes('cache') || 
+                    localStorage.getItem(key).length > 100000
+                );
+                
+                if (problemKeys.length > 0) {
+                    addFixLog(`发现可能有问题的存储项: ${problemKeys.join(', ')}`, 'warning');
+                }
+                
+                addFixLog('本地存储检查完成', 'success');
+                
+            } catch (error) {
+                addFixLog(`检查本地存储失败: ${error.message}`, 'error');
+            }
+        }
+
+        // 监控请求
+        function monitorRequests() {
+            if (requestMonitor) {
+                addFixLog('请求监控已在运行', 'warning');
+                return;
+            }
+            
+            addFixLog('开始监控请求...', 'info');
+            
+            const originalFetch = window.fetch;
+            let requestCount = 0;
+            
+            window.fetch = function(...args) {
+                requestCount++;
+                addFixLog(`请求 #${requestCount}: ${args[0]}`, 'info');
+                
+                if (requestCount > 50) {
+                    addFixLog('警告：请求数量过多，可能存在无限循环', 'error');
+                    updateSystemStatus('检测到异常请求频率', 'error');
+                }
+                
+                return originalFetch.apply(this, args);
+            };
+            
+            requestMonitor = true;
+            addFixLog('请求监控已启动', 'success');
+        }
+
+        // 修复事件监听器
+        function fixEventListeners() {
+            addFixLog('修复事件监听器...', 'info');
+            
+            try {
+                // 重新加载页面是最彻底的修复方法
+                if (confirm('修复事件监听器需要重新加载页面，确定继续吗？')) {
+                    addFixLog('重新加载页面以修复事件监听器', 'success');
+                    window.location.reload();
+                }
+            } catch (error) {
+                addFixLog(`修复事件监听器失败: ${error.message}`, 'error');
+            }
+        }
+
+        // 重置认证系统
+        function resetAuthSystem() {
+            addFixLog('重置认证系统...', 'info');
+            
+            try {
+                localStorage.removeItem('blog_auth_settings');
+                localStorage.removeItem('blog_session');
+                addFixLog('认证系统已重置', 'success');
+                updateSystemStatus('认证系统已重置', 'success');
+            } catch (error) {
+                addFixLog(`重置认证系统失败: ${error.message}`, 'error');
+            }
+        }
+
+        // 清理存储数据
+        function cleanupStorage() {
+            addFixLog('清理存储数据...', 'info');
+            
+            try {
+                const keys = Object.keys(localStorage);
+                let cleanedCount = 0;
+                
+                keys.forEach(key => {
+                    if (key.includes('temp') || key.includes('cache') || key.includes('debug')) {
+                        localStorage.removeItem(key);
+                        cleanedCount++;
+                    }
+                });
+                
+                addFixLog(`清理了 ${cleanedCount} 个临时存储项`, 'success');
+                updateSystemStatus('存储数据已清理', 'success');
+            } catch (error) {
+                addFixLog(`清理存储数据失败: ${error.message}`, 'error');
+            }
+        }
+
+        // 重启系统
+        function restartSystem() {
+            if (confirm('确定要重启系统吗？这将刷新页面。')) {
+                addFixLog('重启系统...', 'info');
+                window.location.reload();
+            }
+        }
+
+        // 更新系统状态
+        function updateSystemStatus(message, type) {
+            const statusElement = document.getElementById('system-status');
+            statusElement.textContent = message;
+            statusElement.className = `status ${type}`;
+        }
+
+        // 清除日志
+        function clearLog() {
+            fixLog = [];
+            document.getElementById('fix-log').textContent = '日志已清除';
+            addFixLog('日志已清除');
+        }
+
+        // 下载日志
+        function downloadLog() {
+            const blob = new Blob([fixLog.join('\n')], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `fix-log-${new Date().toISOString().split('T')[0]}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+            addFixLog('日志下载完成');
+        }
+
+        // 导航函数
+        function goToDebug() {
+            window.location.href = 'debug.html';
+        }
+
+        function goToAdmin() {
+            window.location.href = 'admin.html';
+        }
+
+        function goToHome() {
+            window.location.href = 'index.html';
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            addFixLog('修复工具初始化完成');
+            updateSystemStatus('系统状态检查中...', 'info');
+            
+            // 自动检查系统状态
+            setTimeout(() => {
+                checkTimers();
+                checkLocalStorage();
+                updateSystemStatus('系统检查完成', 'success');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

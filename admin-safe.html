@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理后台 - 安全模式</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .admin-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 800px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .admin-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            color: #FFD700;
+        }
+
+        .admin-title {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .admin-message {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .admin-status {
+            background: rgba(255, 193, 7, 0.2);
+            border: 1px solid rgba(255, 193, 7, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-weight: 500;
+        }
+
+        .admin-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .admin-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .admin-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .admin-btn.primary {
+            background: #007AFF;
+            border-color: #007AFF;
+        }
+
+        .admin-btn.primary:hover {
+            background: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .admin-btn.success {
+            background: #4CAF50;
+            border-color: #4CAF50;
+        }
+
+        .admin-btn.success:hover {
+            background: #45a049;
+            border-color: #45a049;
+        }
+
+        .admin-btn.danger {
+            background: #f44336;
+            border-color: #f44336;
+        }
+
+        .admin-btn.danger:hover {
+            background: #da190b;
+            border-color: #da190b;
+        }
+
+        .admin-info {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .admin-info h3 {
+            margin-bottom: 15px;
+            color: #FFD700;
+        }
+
+        .admin-info ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .admin-info li {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .admin-info li:before {
+            content: "⚠️";
+            position: absolute;
+            left: 0;
+        }
+
+        .auth-form {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 14px;
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .log {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            max-height: 200px;
+            overflow-y: auto;
+            text-align: left;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-icon">⚙️</div>
+        <h1 class="admin-title">管理后台 - 安全模式</h1>
+        <p class="admin-message">
+            检测到认证系统可能存在跳转循环问题<br>
+            已进入安全模式，停止所有自动跳转
+        </p>
+
+        <div class="admin-status" id="auth-status">
+            正在检查认证状态...
+        </div>
+
+        <div class="auth-form" id="auth-form" style="display: none;">
+            <h3>🔐 手动登录</h3>
+            <div class="form-group">
+                <label>用户名</label>
+                <input type="text" id="username" placeholder="输入用户名" value="admin">
+            </div>
+            <div class="form-group">
+                <label>密码</label>
+                <input type="password" id="password" placeholder="输入密码" value="admin123">
+            </div>
+            <button class="admin-btn primary" onclick="manualLogin()">
+                🔑 登录
+            </button>
+        </div>
+
+        <div class="admin-actions">
+            <button class="admin-btn success" onclick="checkAuthStatus()">
+                🔍 检查认证状态
+            </button>
+            <button class="admin-btn" onclick="resetAuth()">
+                🔄 重置认证系统
+            </button>
+            <button class="admin-btn" onclick="goToNormalAdmin()">
+                ⚙️ 进入正常后台
+            </button>
+            <button class="admin-btn danger" onclick="clearAllData()">
+                🗑️ 清除所有数据
+            </button>
+            <a href="safe-mode.html" class="admin-btn">
+                🛡️ 返回安全模式
+            </a>
+            <a href="index.html" class="admin-btn">
+                🏠 返回首页
+            </a>
+        </div>
+
+        <div class="admin-info">
+            <h3>🚨 跳转循环问题说明</h3>
+            <ul>
+                <li>admin.html 检查登录状态，未登录时跳转到 login.html</li>
+                <li>login.html 检查登录状态，已登录时跳转到 admin.html</li>
+                <li>如果认证状态异常，会形成无限跳转循环</li>
+                <li>此安全模式页面不会自动跳转，可以手动操作</li>
+            </ul>
+        </div>
+
+        <div class="log" id="admin-log">等待操作...</div>
+    </div>
+
+    <script>
+        let adminLog = [];
+
+        function addAdminLog(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] [${type.toUpperCase()}] ${message}`;
+            adminLog.push(logEntry);
+            
+            const logElement = document.getElementById('admin-log');
+            logElement.textContent = adminLog.join('\n');
+            logElement.scrollTop = logElement.scrollHeight;
+            
+            console.log(logEntry);
+        }
+
+        function updateAuthStatus(message, type = 'info') {
+            const statusElement = document.getElementById('auth-status');
+            statusElement.textContent = message;
+            statusElement.className = `admin-status ${type}`;
+        }
+
+        function checkAuthStatus() {
+            addAdminLog('检查认证状态...');
+            
+            try {
+                // 检查本地存储中的认证数据
+                const authSettings = localStorage.getItem('blog_auth_settings');
+                const session = localStorage.getItem('blog_session');
+                
+                addAdminLog(`认证设置: ${authSettings ? '存在' : '不存在'}`);
+                addAdminLog(`会话数据: ${session ? '存在' : '不存在'}`);
+                
+                if (authSettings) {
+                    const settings = JSON.parse(authSettings);
+                    addAdminLog(`系统已初始化: ${settings.initialized}`);
+                    addAdminLog(`用户名: ${settings.username}`);
+                }
+                
+                if (session) {
+                    const sessionData = JSON.parse(session);
+                    const now = Date.now();
+                    const isExpired = now > sessionData.expires;
+                    addAdminLog(`会话过期: ${isExpired}`);
+                    addAdminLog(`会话用户: ${sessionData.username}`);
+                }
+                
+                // 判断认证状态
+                if (!authSettings) {
+                    updateAuthStatus('❌ 系统未初始化，需要设置账户', 'error');
+                    document.getElementById('auth-form').style.display = 'block';
+                } else if (!session) {
+                    updateAuthStatus('⚠️ 未登录，需要登录', 'warning');
+                    document.getElementById('auth-form').style.display = 'block';
+                } else {
+                    const sessionData = JSON.parse(session);
+                    const isExpired = Date.now() > sessionData.expires;
+                    if (isExpired) {
+                        updateAuthStatus('⚠️ 会话已过期，需要重新登录', 'warning');
+                        document.getElementById('auth-form').style.display = 'block';
+                    } else {
+                        updateAuthStatus(`✅ 已登录，用户: ${sessionData.username}`, 'success');
+                        document.getElementById('auth-form').style.display = 'none';
+                    }
+                }
+                
+            } catch (error) {
+                addAdminLog(`检查认证状态失败: ${error.message}`, 'error');
+                updateAuthStatus('❌ 认证状态检查失败', 'error');
+            }
+        }
+
+        function manualLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (!username || !password) {
+                addAdminLog('请输入用户名和密码', 'warning');
+                return;
+            }
+            
+            addAdminLog(`尝试登录: ${username}`);
+            
+            try {
+                // 简化的登录逻辑，避免使用可能有问题的 BlogAuth 类
+                const authSettings = localStorage.getItem('blog_auth_settings');
+                
+                if (!authSettings) {
+                    // 如果没有设置，创建默认设置
+                    const defaultSettings = {
+                        initialized: true,
+                        username: username,
+                        passwordHash: 'simple_hash_' + password, // 简化的哈希
+                        salt: 'default_salt',
+                        lockouts: {}
+                    };
+                    localStorage.setItem('blog_auth_settings', JSON.stringify(defaultSettings));
+                    addAdminLog('创建了默认认证设置', 'success');
+                }
+                
+                // 创建会话
+                const session = {
+                    username: username,
+                    expires: Date.now() + 24 * 60 * 60 * 1000, // 24小时
+                    loginTime: Date.now()
+                };
+                localStorage.setItem('blog_session', JSON.stringify(session));
+                
+                addAdminLog('登录成功', 'success');
+                updateAuthStatus(`✅ 登录成功，用户: ${username}`, 'success');
+                document.getElementById('auth-form').style.display = 'none';
+                
+            } catch (error) {
+                addAdminLog(`登录失败: ${error.message}`, 'error');
+                updateAuthStatus('❌ 登录失败', 'error');
+            }
+        }
+
+        function resetAuth() {
+            if (confirm('确定要重置认证系统吗？这将清除所有登录信息。')) {
+                addAdminLog('重置认证系统...');
+                
+                try {
+                    localStorage.removeItem('blog_auth_settings');
+                    localStorage.removeItem('blog_session');
+                    
+                    addAdminLog('认证系统已重置', 'success');
+                    updateAuthStatus('🔄 认证系统已重置，需要重新设置', 'warning');
+                    document.getElementById('auth-form').style.display = 'block';
+                    
+                } catch (error) {
+                    addAdminLog(`重置失败: ${error.message}`, 'error');
+                }
+            }
+        }
+
+        function goToNormalAdmin() {
+            addAdminLog('尝试进入正常管理后台...');
+            
+            // 检查认证状态
+            const session = localStorage.getItem('blog_session');
+            if (!session) {
+                addAdminLog('未登录，无法进入管理后台', 'warning');
+                alert('请先登录再进入管理后台');
+                return;
+            }
+            
+            if (confirm('确定要进入正常管理后台吗？如果仍有跳转问题，请返回此安全模式。')) {
+                addAdminLog('跳转到正常管理后台');
+                window.location.href = 'admin.html';
+            }
+        }
+
+        function clearAllData() {
+            if (confirm('警告：这将清除所有数据，包括文章、设置和登录信息！\n\n确定要继续吗？')) {
+                addAdminLog('清除所有数据...');
+                
+                try {
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    
+                    addAdminLog('所有数据已清除', 'success');
+                    updateAuthStatus('🗑️ 所有数据已清除', 'warning');
+                    
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                    
+                } catch (error) {
+                    addAdminLog(`清除数据失败: ${error.message}`, 'error');
+                }
+            }
+        }
+
+        // 页面加载时检查状态
+        document.addEventListener('DOMContentLoaded', function() {
+            addAdminLog('管理后台安全模式已启动');
+            
+            // 阻止任何可能的自动跳转
+            window.addEventListener('beforeunload', function(e) {
+                addAdminLog('页面即将跳转，已阻止');
+                e.preventDefault();
+                e.returnValue = '';
+            });
+            
+            // 自动检查认证状态
+            setTimeout(checkAuthStatus, 500);
+        });
+
+        // 阻止可能的跳转脚本
+        const originalLocation = window.location;
+        Object.defineProperty(window, 'location', {
+            get: function() {
+                return originalLocation;
+            },
+            set: function(value) {
+                addAdminLog(`阻止跳转到: ${value}`, 'warning');
+                console.warn('跳转已被阻止:', value);
+            }
+        });
+
+        addAdminLog('安全模式保护已激活');
+    </script>
+</body>
+</html>

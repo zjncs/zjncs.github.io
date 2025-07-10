@@ -1,0 +1,189 @@
+---
+layout: default
+---
+
+<main class="post-article">
+    <article>
+        <header class="post-header">
+            <div class="post-meta">
+                <time class="post-date" datetime="{{ page.date | date_to_xmlschema }}">
+                    <i class="fas fa-calendar"></i>
+                    {{ page.date | date: "%Y年%m月%d日" }}
+                </time>
+                
+                {% if page.categories %}
+                <div class="post-categories">
+                    <i class="fas fa-folder"></i>
+                    {% for category in page.categories %}
+                    <a href="{{ '/categories/' | append: category | relative_url }}" class="category-link">{{ category }}</a>
+                    {% unless forloop.last %}, {% endunless %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                {% if site.reading_time %}
+                <span class="reading-time">
+                    <i class="fas fa-clock"></i>
+                    <span id="reading-time">计算中...</span>
+                </span>
+                {% endif %}
+            </div>
+            
+            <h1 class="post-title">{{ page.title }}</h1>
+            
+            {% if page.subtitle %}
+            <p class="post-subtitle">{{ page.subtitle }}</p>
+            {% endif %}
+            
+            {% if page.tags %}
+            <div class="post-tags">
+                {% for tag in page.tags %}
+                <a href="{{ '/tags/' | append: tag | relative_url }}" class="tag-link">
+                    <i class="fas fa-tag"></i>{{ tag }}
+                </a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </header>
+
+        {% if site.toc and page.toc != false %}
+        <div class="table-of-contents">
+            <div class="toc-header">
+                <i class="fas fa-list"></i>
+                <span>目录</span>
+                <button class="toc-toggle" id="toc-toggle">
+                    <i class="fas fa-chevron-up"></i>
+                </button>
+            </div>
+            <nav class="toc-content" id="toc-content"></nav>
+        </div>
+        {% endif %}
+
+        <div class="post-content">
+            {{ content }}
+        </div>
+
+        <footer class="post-footer">
+            {% if site.social_share %}
+            <div class="social-share">
+                <h4>分享这篇文章</h4>
+                <div class="share-buttons">
+                    <a href="https://twitter.com/intent/tweet?text={{ page.title | uri_escape }}&url={{ site.url }}{{ page.url }}" 
+                       target="_blank" rel="noopener" class="share-btn twitter" aria-label="分享到Twitter">
+                        <i class="fab fa-twitter"></i>
+                        <span>Twitter</span>
+                    </a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" 
+                       target="_blank" rel="noopener" class="share-btn facebook" aria-label="分享到Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Facebook</span>
+                    </a>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ site.url }}{{ page.url }}" 
+                       target="_blank" rel="noopener" class="share-btn linkedin" aria-label="分享到LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                        <span>LinkedIn</span>
+                    </a>
+                    <button class="share-btn copy-link" onclick="copyToClipboard('{{ site.url }}{{ page.url }}')" aria-label="复制链接">
+                        <i class="fas fa-link"></i>
+                        <span>复制链接</span>
+                    </button>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="post-navigation">
+                {% if page.previous %}
+                <div class="nav-previous">
+                    <a href="{{ page.previous.url | relative_url }}" class="nav-link">
+                        <i class="fas fa-chevron-left"></i>
+                        <div class="nav-content">
+                            <span class="nav-label">上一篇</span>
+                            <span class="nav-title">{{ page.previous.title }}</span>
+                        </div>
+                    </a>
+                </div>
+                {% endif %}
+                
+                {% if page.next %}
+                <div class="nav-next">
+                    <a href="{{ page.next.url | relative_url }}" class="nav-link">
+                        <div class="nav-content">
+                            <span class="nav-label">下一篇</span>
+                            <span class="nav-title">{{ page.next.title }}</span>
+                        </div>
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </footer>
+    </article>
+</main>
+
+<!-- Related Posts -->
+{% assign related_posts = site.related_posts | limit: 3 %}
+{% if related_posts.size > 0 %}
+<section class="related-posts">
+    <h3>相关文章</h3>
+    <div class="related-grid">
+        {% for post in related_posts %}
+        <article class="related-post">
+            <a href="{{ post.url | relative_url }}" class="related-link">
+                <h4>{{ post.title }}</h4>
+                <p>{{ post.excerpt | strip_html | truncate: 100 }}</p>
+                <time>{{ post.date | date: "%Y-%m-%d" }}</time>
+            </a>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<!-- Comments -->
+{% if page.comments and site.disqus_shortname %}
+<section class="comments-section">
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function () {
+            this.page.url = "{{ site.url }}{{ page.url }}";
+            this.page.identifier = "{{ page.id }}";
+        };
+        (function() {
+            var d = document, s = d.createElement('script');
+            s.src = 'https://{{ site.disqus_shortname }}.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>请启用 JavaScript 来查看 <a href="https://disqus.com/?ref_noscript">Disqus 评论</a>。</noscript>
+</section>
+{% endif %}
+
+<script>
+// Reading time calculation
+if (document.getElementById('reading-time')) {
+    const content = document.querySelector('.post-content');
+    const text = content.textContent || content.innerText || '';
+    const wordsPerMinute = 200;
+    const words = text.trim().split(/\s+/).length;
+    const readingTime = Math.ceil(words / wordsPerMinute);
+    document.getElementById('reading-time').textContent = `约 ${readingTime} 分钟`;
+}
+
+// Table of contents generation
+if (document.getElementById('toc-content')) {
+    generateTableOfContents();
+}
+
+// Copy link function
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function() {
+        const btn = event.target.closest('.copy-link');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i><span>已复制</span>';
+        setTimeout(() => {
+            btn.innerHTML = originalText;
+        }, 2000);
+    });
+}
+</script>

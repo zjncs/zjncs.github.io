@@ -1,0 +1,48 @@
+// Site Header Component
+// =============================================================================
+// Professional header with glassmorphism effect
+
+.site-header {
+  padding: var(--space-m) 0;
+  border-bottom: 1px solid var(--color-border-default);
+  background-color: var(--color-background-body);
+
+  // Fixed header with glassmorphism effect
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  backdrop-filter: blur(10px);
+  background-color: hsla(0, 0%, 100%, 0.8); // Semi-transparent background
+
+  @media (prefers-color-scheme: dark) {
+    background-color: rgba(18, 18, 18, 0.8);
+  }
+}
+
+// Header uses flexbox for alignment
+.site-header .wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-text-base);
+  text-decoration: none;
+}
+
+.site-nav a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  
+  &:not(:last-child) {
+    margin-right: var(--space-l);
+  }
+  
+  &:hover {
+    color: var(--color-primary);
+  }
+}
