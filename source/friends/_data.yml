@@ -1,0 +1,30 @@
+# 友链数据文件
+# 可以使用 {% linksfile friends/_data.yml %} 来引用
+
+- site: 優萌初華
+  owner: 霜月琉璃
+  url: https://shoka.lostyu.me
+  desc: 琉璃的医学 & 编程笔记
+  image: https://cdn.jsdelivr.net/gh/amehime/shoka@latest/images/avatar.jpg
+  color: "#e9546b"
+
+- site: Hexo 官网
+  url: https://hexo.io
+  desc: 快速、简洁且高效的博客框架
+  image: /images/hexo-logo.png
+  color: "#0e83cd"
+
+- site: Node.js 官网
+  url: https://nodejs.org
+  desc: JavaScript 运行环境
+  color: "#339933"
+
+- site: Vue.js 官网
+  url: https://vuejs.org
+  desc: 渐进式 JavaScript 框架
+  color: "#4fc08d"
+
+- site: React 官网
+  url: https://reactjs.org
+  desc: 用于构建用户界面的 JavaScript 库
+  color: "#61dafb"

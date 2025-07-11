@@ -1,0 +1,43 @@
+# 中文语言包
+zh-CN:
+  menu:
+    home: 首页
+    about: 关于
+    posts: 文章
+    archives: 归档
+    categories: 分类
+    tags: 标签
+    friends: 友情链接
+    links: 链接
+  
+  post:
+    sticky: 置顶
+    posted: 发表于
+    edited: 编辑于
+    in: 分类于
+    read_more: 阅读全文
+    untitled: 无标题
+    toc_empty: 此文章未包含目录
+    copyright:
+      author: 本文作者
+      link: 本文链接
+      license_title: 版权声明
+      license_content: 本博客所有文章除特别声明外，均采用 %s 许可协议。转载请注明出处！
+    
+  page:
+    totally: 共有
+    tags: 标签
+    categories: 分类
+    
+  search:
+    placeholder: 搜索文章...
+    
+  comments:
+    title: 评论
+    visitor: 游客
+    master: 博主
+    friend: 朋友
+    
+  footer:
+    powered: 由 %s 强力驱动
+    theme: 主题
