@@ -109,8 +109,10 @@ theme: shoka
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: git@github.com:zjncs/zjncs.github.io.git
-  branch: main
+  repo:
+    github: git@github.com:zjncs/zjncs.github.io.git
+  branch: gh-pages
+  message: "Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}"
 
 # 性能优化配置
 neat_enable: true
