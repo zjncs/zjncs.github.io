@@ -1,72 +1,191 @@
-// 自定义样式文件
-// 修复黑色区域和其他样式问题
+// 现代 CSS 优化和性能增强
+// 使用现代 CSS 特性提升性能和用户体验
 
-// 修复页面背景
-html, body
-  background-color: #ffffff !important
-  min-height: 100vh
+// CSS 自定义属性（CSS Variables）
+:root
+  // 颜色系统
+  --color-primary: #4a90e2
+  --color-secondary: #7b68ee
+  --color-success: #28a745
+  --color-warning: #ffc107
+  --color-danger: #dc3545
+  --color-info: #17a2b8
 
-// 修复主容器
+  // 背景色
+  --color-bg: #ffffff
+  --color-bg-secondary: #f8f9fa
+  --color-bg-dark: #1a1a1a
+
+  // 文字颜色
+  --color-text: #333333
+  --color-text-secondary: #6c757d
+  --color-text-muted: #999999
+
+  // 间距系统
+  --spacing-xs: 0.25rem
+  --spacing-sm: 0.5rem
+  --spacing-md: 1rem
+  --spacing-lg: 1.5rem
+  --spacing-xl: 3rem
+
+  // 阴影系统
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1)
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1)
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1)
+
+  // 边框半径
+  --radius-sm: 4px
+  --radius-md: 8px
+  --radius-lg: 12px
+
+// 现代字体栈
+html
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif
+  font-display: swap
+  scroll-behavior: smooth
+
+// 性能优化：使用 contain 属性
+body
+  background-color: var(--color-bg)
+  color: var(--color-text)
+  line-height: 1.6
+  contain: layout style
+
+// 现代布局：使用 CSS Grid 和 Flexbox
 .container
-  background-color: transparent !important
+  display: grid
+  grid-template-columns: 1fr min(65ch, 100%) 1fr
+  grid-column-gap: var(--spacing-lg)
 
-// 修复封面区域
-.cover
-  background-color: transparent !important
-  background-image: none !important
-  
-.cover::before
-  background: linear-gradient(135deg, rgba(74, 144, 226, 0.1), rgba(123, 104, 238, 0.1)) !important
-  opacity: 0.8 !important
+.container > *
+  grid-column: 2
 
-// 修复友链页面
-.links-container
-  background-color: transparent !important
-  
-.link-item
-  background-color: #ffffff !important
-  border: 1px solid #e1e8ed !important
-  border-radius: 8px !important
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important
+// 响应式图片容器
+.image-container
+  position: relative
+  overflow: hidden
+  border-radius: var(--radius-md)
 
-// 修复文章卡片
-.post-card
-  background-color: #ffffff !important
-  border: 1px solid #e1e8ed !important
-  border-radius: 8px !important
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important
+.image-container img
+  width: 100%
+  height: auto
+  object-fit: cover
+  transition: transform 0.3s ease
 
-// 修复导航栏
+.image-container:hover img
+  transform: scale(1.05)
+
+// 现代卡片设计
+.card, .post-card, .link-item
+  background: var(--color-bg)
+  border-radius: var(--radius-md)
+  box-shadow: var(--shadow-sm)
+  transition: all 0.3s ease
+  contain: layout style paint
+
+.card:hover, .post-card:hover, .link-item:hover
+  box-shadow: var(--shadow-md)
+  transform: translateY(-2px)
+
+// 现代导航栏
 .navbar
-  background-color: rgba(255, 255, 255, 0.95) !important
-  backdrop-filter: blur(10px) !important
+  background: rgba(255, 255, 255, 0.95)
+  backdrop-filter: blur(10px)
+  -webkit-backdrop-filter: blur(10px)
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+  position: sticky
+  top: 0
+  z-index: 1000
+  contain: layout style
 
-// 修复侧边栏
-.sidebar
-  background-color: rgba(255, 255, 255, 0.95) !important
+// 现代按钮设计
+.btn
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  padding: var(--spacing-sm) var(--spacing-md)
+  border: none
+  border-radius: var(--radius-sm)
+  font-weight: 500
+  text-decoration: none
+  transition: all 0.2s ease
+  cursor: pointer
 
-// 修复页脚
-.footer
-  background-color: #f8f9fa !important
-  border-top: 1px solid #e1e8ed !important
+.btn-primary
+  background: var(--color-primary)
+  color: white
 
-// 确保所有区域都有正确的背景
-.main-content
-  background-color: transparent !important
-  
-.content-wrapper
-  background-color: transparent !important
+.btn-primary:hover
+  background: #357abd
+  transform: translateY(-1px)
 
-// 修复可能的黑色遮罩
-.overlay, .mask
-  display: none !important
+// 现代表单设计
+.form-control
+  width: 100%
+  padding: var(--spacing-sm) var(--spacing-md)
+  border: 2px solid #e1e8ed
+  border-radius: var(--radius-sm)
+  font-size: 1rem
+  transition: border-color 0.2s ease
 
-// 修复图片加载失败的情况
-img
-  background-color: #f8f9fa !important
-  
-img:not([src]), img[src=""]
-  background-color: #f8f9fa !important
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23f8f9fa'/%3E%3Ctext x='50' y='50' text-anchor='middle' dy='0.3em' font-family='Arial' font-size='12' fill='%23999'%3E图片加载中%3C/text%3E%3C/svg%3E") !important
-  background-repeat: no-repeat !important
-  background-position: center !important
+.form-control:focus
+  outline: none
+  border-color: var(--color-primary)
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1)
+
+// 现代加载状态
+.loading
+  position: relative
+  overflow: hidden
+
+.loading::after
+  content: ''
+  position: absolute
+  top: 0
+  left: -100%
+  width: 100%
+  height: 100%
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent)
+  animation: loading 1.5s infinite
+
+@keyframes loading
+  0%
+    left: -100%
+  100%
+    left: 100%
+
+// 现代滚动条
+::-webkit-scrollbar
+  width: 8px
+  height: 8px
+
+::-webkit-scrollbar-track
+  background: var(--color-bg-secondary)
+
+::-webkit-scrollbar-thumb
+  background: var(--color-text-muted)
+  border-radius: var(--radius-sm)
+
+::-webkit-scrollbar-thumb:hover
+  background: var(--color-text-secondary)
+
+// 现代焦点样式
+*:focus-visible
+  outline: 2px solid var(--color-primary)
+  outline-offset: 2px
+
+// 减少动画对于偏好减少动画的用户
+@media (prefers-reduced-motion: reduce)
+  *
+    animation-duration: 0.01ms !important
+    animation-iteration-count: 1 !important
+    transition-duration: 0.01ms !important
+
+// 暗色模式支持
+@media (prefers-color-scheme: dark)
+  :root
+    --color-bg: #1a1a1a
+    --color-bg-secondary: #2d2d2d
+    --color-text: #e0e0e0
+    --color-text-secondary: #a0a0a0
+    --color-text-muted: #666666
