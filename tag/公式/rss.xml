@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>我的技术博客 • Posts by &#34;公式&#34; tag</title>
+        <link>https://zjncs.github.io</link>
+        <description>一个专注于技术分享的个人博客</description>
+        <language>zh-CN</language>
+        <pubDate>Thu, 04 Jan 2024 10:00:00 +0800</pubDate>
+        <lastBuildDate>Thu, 04 Jan 2024 10:00:00 +0800</lastBuildDate>
+        <category>数学</category>
+        <category>KaTeX</category>
+        <category>公式</category>
+        <category>Mermaid</category>
+        <category>流程图</category>
+        <category>图表</category>
+        <category>博客</category>
+        <category>欢迎</category>
+        <category>JavaScript</category>
+        <category>前端</category>
+        <category>基础</category>
+        <category>Hexo</category>
+        <category>Shoka</category>
+        <category>功能展示</category>
+        <item>
+            <guid isPermalink="true">https://zjncs.github.io/math-formulas-demo/</guid>
+            <title>数学公式展示</title>
+            <link>https://zjncs.github.io/math-formulas-demo/</link>
+            <category>数学</category>
+            <category>KaTeX</category>
+            <category>公式</category>
+            <pubDate>Thu, 04 Jan 2024 10:00:00 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;数学公式展示&#34;&gt;&lt;a href=&#34;#数学公式展示&#34; class=&#34;headerlink&#34; title=&#34;数学公式展示&#34;&gt;&lt;/a&gt;数学公式展示&lt;/h1&gt;&lt;p&gt;本文展示了 KaTeX 数学公式的各种用法。&lt;/p&gt;
+&lt;h2 id=&#34;基础公式&#34;&gt;&lt;a href=&#34;#基础公式&#34; class=&#34;headerlink&#34; title=&#34;基础公式&#34;&gt;&lt;/a&gt;基础公式&lt;/h2&gt;&lt;h3 id=&#34;行内公式&#34;&gt;&lt;a href=&#34;#行内公式&#34; class=&#34;headerlink&#34; title=&#34;行内公式&#34;&gt;&lt;/a&gt;行内公式&lt;/h3&gt;&lt;p&gt;这是一个行内公式：$E &amp;#x3D; mc^2$，爱因斯坦的质能方程。&lt;/p&gt;
+&lt;p&gt;勾股定理：$a^2 + b^2 &amp;#x3D; c^2$&lt;/p&gt;
+&lt;p&gt;二次方程求根公式：$x &amp;#x3D; \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$&lt;/p&gt;
+&lt;h3 id=&#34;块级公式&#34;&gt;&lt;a href=&#34;#块级公式&#34; class=&#34;headerlink&#34; title=&#34;块级公式&#34;&gt;&lt;/a&gt;块级公式&lt;/h3&gt;&lt;p&gt;欧拉公式：&lt;br&gt;$$e^{i\pi} + 1 &amp;#x3D; 0$$&lt;/p&gt;
+&lt;p&gt;麦克斯韦方程组：&lt;br&gt;$$&lt;br&gt;\begin{align}&lt;br&gt;\nabla \times \vec{\mathbf{B}} -, \frac1c, \frac{\partial\vec{\mathbf{E}}}{\partial t} &amp;amp;&amp;#x3D; \frac{4\pi}{c}\vec{\mathbf{j}} \&lt;br&gt;\nabla \cdot \vec{\mathbf{E}} &amp;amp;&amp;#x3D; 4 \pi \rho \&lt;br&gt;\nabla \times \vec{\mathbf{E}}, +, \frac1c, \frac{\partial\vec{\mathbf{B}}}{\partial t} &amp;amp;&amp;#x3D; \vec{\mathbf{0}} \&lt;br&gt;\nabla \cdot \vec{\mathbf{B}} &amp;amp;&amp;#x3D; 0&lt;br&gt;\end{align}&lt;br&gt;$$&lt;/p&gt;
+&lt;span id=&#34;more&#34;&gt;&lt;/span&gt;
+
+&lt;h2 id=&#34;高级公式&#34;&gt;&lt;a href=&#34;#高级公式&#34; class=&#34;headerlink&#34; title=&#34;高级公式&#34;&gt;&lt;/a&gt;高级公式&lt;/h2&gt;&lt;h3 id=&#34;矩阵&#34;&gt;&lt;a href=&#34;#矩阵&#34; class=&#34;headerlink&#34; title=&#34;矩阵&#34;&gt;&lt;/a&gt;矩阵&lt;/h3&gt;&lt;h1 id=&#34;begin-pmatrix-a-b-c-d-end-pmatrix-begin-pmatrix-x-y-end-pmatrix&#34;&gt;&lt;a href=&#34;#begin-pmatrix-a-b-c-d-end-pmatrix-begin-pmatrix-x-y-end-pmatrix&#34; class=&#34;headerlink&#34; title=&#34;$$\begin{pmatrix}a &amp;amp; b \c &amp;amp; d\end{pmatrix}\begin{pmatrix}x \y\end{pmatrix}&#34;&gt;&lt;/a&gt;$$&lt;br&gt;\begin{pmatrix}&lt;br&gt;a &amp;amp; b \&lt;br&gt;c &amp;amp; d&lt;br&gt;\end{pmatrix}&lt;br&gt;\begin{pmatrix}&lt;br&gt;x \&lt;br&gt;y&lt;br&gt;\end{pmatrix}&lt;/h1&gt;&lt;p&gt;\begin{pmatrix}&lt;br&gt;ax + by \&lt;br&gt;cx + dy&lt;br&gt;\end{pmatrix}&lt;br&gt;$$&lt;/p&gt;
+&lt;h3 id=&#34;积分&#34;&gt;&lt;a href=&#34;#积分&#34; class=&#34;headerlink&#34; title=&#34;积分&#34;&gt;&lt;/a&gt;积分&lt;/h3&gt;&lt;p&gt;$$\int_{-\infty}^{\infty} e^{-x^2} dx &amp;#x3D; \sqrt{\pi}$$&lt;/p&gt;
+&lt;h3 id=&#34;求和&#34;&gt;&lt;a href=&#34;#求和&#34; class=&#34;headerlink&#34; title=&#34;求和&#34;&gt;&lt;/a&gt;求和&lt;/h3&gt;&lt;p&gt;$$\sum_{n&amp;#x3D;1}^{\infty} \frac{1}{n^2} &amp;#x3D; \frac{\pi^2}{6}$$&lt;/p&gt;
+&lt;h3 id=&#34;极限&#34;&gt;&lt;a href=&#34;#极限&#34; class=&#34;headerlink&#34; title=&#34;极限&#34;&gt;&lt;/a&gt;极限&lt;/h3&gt;&lt;p&gt;$$\lim_{x \to 0} \frac{\sin x}{x} &amp;#x3D; 1$$&lt;/p&gt;
+&lt;h3 id=&#34;分数&#34;&gt;&lt;a href=&#34;#分数&#34; class=&#34;headerlink&#34; title=&#34;分数&#34;&gt;&lt;/a&gt;分数&lt;/h3&gt;&lt;p&gt;$$\frac{d}{dx}\left( \int_{0}^{x} f(u),du\right)&amp;#x3D;f(x)$$&lt;/p&gt;
+&lt;h2 id=&#34;特殊符号&#34;&gt;&lt;a href=&#34;#特殊符号&#34; class=&#34;headerlink&#34; title=&#34;特殊符号&#34;&gt;&lt;/a&gt;特殊符号&lt;/h2&gt;&lt;h3 id=&#34;希腊字母&#34;&gt;&lt;a href=&#34;#希腊字母&#34; class=&#34;headerlink&#34; title=&#34;希腊字母&#34;&gt;&lt;/a&gt;希腊字母&lt;/h3&gt;&lt;p&gt;$\alpha, \beta, \gamma, \delta, \epsilon, \zeta, \eta, \theta$&lt;/p&gt;
+&lt;p&gt;$\Alpha, \Beta, \Gamma, \Delta, \Epsilon, \Zeta, \Eta, \Theta$&lt;/p&gt;
+&lt;h3 id=&#34;运算符&#34;&gt;&lt;a href=&#34;#运算符&#34; class=&#34;headerlink&#34; title=&#34;运算符&#34;&gt;&lt;/a&gt;运算符&lt;/h3&gt;&lt;p&gt;$\pm, \mp, \times, \div, \cdot, \ast, \star, \circ, \bullet$&lt;/p&gt;
+&lt;h3 id=&#34;关系符&#34;&gt;&lt;a href=&#34;#关系符&#34; class=&#34;headerlink&#34; title=&#34;关系符&#34;&gt;&lt;/a&gt;关系符&lt;/h3&gt;&lt;p&gt;$&amp;#x3D;, \neq, &amp;lt;, &amp;gt;, \leq, \geq, \equiv, \approx, \sim, \propto$&lt;/p&gt;
+&lt;h3 id=&#34;集合符号&#34;&gt;&lt;a href=&#34;#集合符号&#34; class=&#34;headerlink&#34; title=&#34;集合符号&#34;&gt;&lt;/a&gt;集合符号&lt;/h3&gt;&lt;p&gt;$\in, \notin, \subset, \supset, \subseteq, \supseteq, \cap, \cup, \emptyset$&lt;/p&gt;
+&lt;h2 id=&#34;复杂公式示例&#34;&gt;&lt;a href=&#34;#复杂公式示例&#34; class=&#34;headerlink&#34; title=&#34;复杂公式示例&#34;&gt;&lt;/a&gt;复杂公式示例&lt;/h2&gt;&lt;h3 id=&#34;傅里叶变换&#34;&gt;&lt;a href=&#34;#傅里叶变换&#34; class=&#34;headerlink&#34; title=&#34;傅里叶变换&#34;&gt;&lt;/a&gt;傅里叶变换&lt;/h3&gt;&lt;p&gt;$$\mathcal{F}(f)(x) &amp;#x3D; \int_{-\infty}^{\infty} f(t) e^{-2\pi i x t} dt$$&lt;/p&gt;
+&lt;h3 id=&#34;薛定谔方程&#34;&gt;&lt;a href=&#34;#薛定谔方程&#34; class=&#34;headerlink&#34; title=&#34;薛定谔方程&#34;&gt;&lt;/a&gt;薛定谔方程&lt;/h3&gt;&lt;p&gt;$$i\hbar\frac{\partial}{\partial t}\Psi(\mathbf{r},t) &amp;#x3D; \hat{H}\Psi(\mathbf{r},t)$$&lt;/p&gt;
+&lt;h3 id=&#34;贝叶斯定理&#34;&gt;&lt;a href=&#34;#贝叶斯定理&#34; class=&#34;headerlink&#34; title=&#34;贝叶斯定理&#34;&gt;&lt;/a&gt;贝叶斯定理&lt;/h3&gt;&lt;p&gt;$$P(A|B) &amp;#x3D; \frac{P(B|A)P(A)}{P(B)}$$&lt;/p&gt;
+&lt;h3 id=&#34;泰勒级数&#34;&gt;&lt;a href=&#34;#泰勒级数&#34; class=&#34;headerlink&#34; title=&#34;泰勒级数&#34;&gt;&lt;/a&gt;泰勒级数&lt;/h3&gt;&lt;p&gt;$$f(x) &amp;#x3D; \sum_{n&amp;#x3D;0}^{\infty} \frac{f^{(n)}(a)}{n!}(x-a)^n$$&lt;/p&gt;
+&lt;h2 id=&#34;化学公式&#34;&gt;&lt;a href=&#34;#化学公式&#34; class=&#34;headerlink&#34; title=&#34;化学公式&#34;&gt;&lt;/a&gt;化学公式&lt;/h2&gt;&lt;p&gt;化学反应方程式：&lt;br&gt;$$\ce{2H2 + O2 -&amp;gt; 2H2O}$$&lt;/p&gt;
+&lt;p&gt;分子式：&lt;br&gt;$$\ce{C6H12O6 + 6O2 -&amp;gt; 6CO2 + 6H2O}$$&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;&lt;a href=&#34;#总结&#34; class=&#34;headerlink&#34; title=&#34;总结&#34;&gt;&lt;/a&gt;总结&lt;/h2&gt;&lt;p&gt;KaTeX 提供了强大的数学公式渲染能力，支持：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;基础数学符号和运算&lt;/li&gt;
+&lt;li&gt;复杂的公式排版&lt;/li&gt;
+&lt;li&gt;矩阵和向量表示&lt;/li&gt;
+&lt;li&gt;积分、求和、极限等高级数学概念&lt;/li&gt;
+&lt;li&gt;化学公式支持&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这使得在博客中展示数学内容变得非常方便！&lt;/p&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>
