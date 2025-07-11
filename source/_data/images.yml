@@ -1,0 +1,18 @@
+# 自定义图片列表
+# 使用可靠的图片源
+
+# 使用 Unsplash 的图片（稳定可靠）
+- https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop
+- https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=800&h=600&fit=crop
+- https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop
+- https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop
+- https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&h=600&fit=crop
+- https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&h=600&fit=crop
+- https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=600&fit=crop
+- https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop
+- https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=800&h=600&fit=crop
+- https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop
+
+# 备用图片（本地图片）
+- /images/avatar.jpg
+- /images/404.png

@@ -1,0 +1,72 @@
+// 自定义样式文件
+// 修复黑色区域和其他样式问题
+
+// 修复页面背景
+html, body
+  background-color: #ffffff !important
+  min-height: 100vh
+
+// 修复主容器
+.container
+  background-color: transparent !important
+
+// 修复封面区域
+.cover
+  background-color: transparent !important
+  background-image: none !important
+  
+.cover::before
+  background: linear-gradient(135deg, rgba(74, 144, 226, 0.1), rgba(123, 104, 238, 0.1)) !important
+  opacity: 0.8 !important
+
+// 修复友链页面
+.links-container
+  background-color: transparent !important
+  
+.link-item
+  background-color: #ffffff !important
+  border: 1px solid #e1e8ed !important
+  border-radius: 8px !important
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important
+
+// 修复文章卡片
+.post-card
+  background-color: #ffffff !important
+  border: 1px solid #e1e8ed !important
+  border-radius: 8px !important
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important
+
+// 修复导航栏
+.navbar
+  background-color: rgba(255, 255, 255, 0.95) !important
+  backdrop-filter: blur(10px) !important
+
+// 修复侧边栏
+.sidebar
+  background-color: rgba(255, 255, 255, 0.95) !important
+
+// 修复页脚
+.footer
+  background-color: #f8f9fa !important
+  border-top: 1px solid #e1e8ed !important
+
+// 确保所有区域都有正确的背景
+.main-content
+  background-color: transparent !important
+  
+.content-wrapper
+  background-color: transparent !important
+
+// 修复可能的黑色遮罩
+.overlay, .mask
+  display: none !important
+
+// 修复图片加载失败的情况
+img
+  background-color: #f8f9fa !important
+  
+img:not([src]), img[src=""]
+  background-color: #f8f9fa !important
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23f8f9fa'/%3E%3Ctext x='50' y='50' text-anchor='middle' dy='0.3em' font-family='Arial' font-size='12' fill='%23999'%3E图片加载中%3C/text%3E%3C/svg%3E") !important
+  background-repeat: no-repeat !important
+  background-position: center !important

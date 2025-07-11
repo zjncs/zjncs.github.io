@@ -1,6 +1,13 @@
 // 自定义颜色配置
 // 这个文件会覆盖主题默认的颜色设置
 
+// 修复黑色区域问题
+.cover
+  background-color: transparent !important
+
+.cover::before
+  background: linear-gradient(135deg, rgba(74, 144, 226, 0.8), rgba(123, 104, 238, 0.8)) !important
+
 // 主色调
 :root
   --color-primary: #4a90e2
@@ -15,3 +22,14 @@
   --color-code-bg-dark: #2d3748
   --color-border: #e1e8ed
   --color-border-dark: #4a5568
+
+// 修复页面背景
+body
+  background-color: #ffffff !important
+
+.main
+  background-color: transparent !important
+
+// 修复友链页面样式
+.links
+  background-color: transparent !important
