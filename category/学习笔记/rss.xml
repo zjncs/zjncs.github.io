@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>我的技术博客 • Posts by &#34;学习笔记&#34; category</title>
+        <link>https://zjncs.github.io</link>
+        <description>一个专注于技术分享的个人博客</description>
+        <language>zh-CN</language>
+        <pubDate>Thu, 04 Jan 2024 10:00:00 +0800</pubDate>
+        <lastBuildDate>Thu, 04 Jan 2024 10:00:00 +0800</lastBuildDate>
+        <category>数学</category>
+        <category>KaTeX</category>
+        <category>公式</category>
+        <category>Mermaid</category>
+        <category>流程图</category>
+        <category>图表</category>
+        <category>博客</category>
+        <category>欢迎</category>
+        <category>JavaScript</category>
+        <category>前端</category>
+        <category>基础</category>
+        <category>Hexo</category>
+        <category>Shoka</category>
+        <category>功能展示</category>
+        <item>
+            <guid isPermalink="true">https://zjncs.github.io/math-formulas-demo/</guid>
+            <title>数学公式展示</title>
+            <link>https://zjncs.github.io/math-formulas-demo/</link>
+            <category>数学</category>
+            <category>KaTeX</category>
+            <category>公式</category>
+            <pubDate>Thu, 04 Jan 2024 10:00:00 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;数学公式展示&#34;&gt;&lt;a href=&#34;#数学公式展示&#34; class=&#34;headerlink&#34; title=&#34;数学公式展示&#34;&gt;&lt;/a&gt;数学公式展示&lt;/h1&gt;&lt;p&gt;本文展示了 KaTeX 数学公式的各种用法。&lt;/p&gt;
+&lt;h2 id=&#34;基础公式&#34;&gt;&lt;a href=&#34;#基础公式&#34; class=&#34;headerlink&#34; title=&#34;基础公式&#34;&gt;&lt;/a&gt;基础公式&lt;/h2&gt;&lt;h3 id=&#34;行内公式&#34;&gt;&lt;a href=&#34;#行内公式&#34; class=&#34;headerlink&#34; title=&#34;行内公式&#34;&gt;&lt;/a&gt;行内公式&lt;/h3&gt;&lt;p&gt;这是一个行内公式：$E &amp;#x3D; mc^2$，爱因斯坦的质能方程。&lt;/p&gt;
+&lt;p&gt;勾股定理：$a^2 + b^2 &amp;#x3D; c^2$&lt;/p&gt;
+&lt;p&gt;二次方程求根公式：$x &amp;#x3D; \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$&lt;/p&gt;
+&lt;h3 id=&#34;块级公式&#34;&gt;&lt;a href=&#34;#块级公式&#34; class=&#34;headerlink&#34; title=&#34;块级公式&#34;&gt;&lt;/a&gt;块级公式&lt;/h3&gt;&lt;p&gt;欧拉公式：&lt;br&gt;$$e^{i\pi} + 1 &amp;#x3D; 0$$&lt;/p&gt;
+&lt;p&gt;麦克斯韦方程组：&lt;br&gt;$$&lt;br&gt;\begin{align}&lt;br&gt;\nabla \times \vec{\mathbf{B}} -, \frac1c, \frac{\partial\vec{\mathbf{E}}}{\partial t} &amp;amp;&amp;#x3D; \frac{4\pi}{c}\vec{\mathbf{j}} \&lt;br&gt;\nabla \cdot \vec{\mathbf{E}} &amp;amp;&amp;#x3D; 4 \pi \rho \&lt;br&gt;\nabla \times \vec{\mathbf{E}}, +, \frac1c, \frac{\partial\vec{\mathbf{B}}}{\partial t} &amp;amp;&amp;#x3D; \vec{\mathbf{0}} \&lt;br&gt;\nabla \cdot \vec{\mathbf{B}} &amp;amp;&amp;#x3D; 0&lt;br&gt;\end{align}&lt;br&gt;$$&lt;/p&gt;
+&lt;span id=&#34;more&#34;&gt;&lt;/span&gt;
+
+&lt;h2 id=&#34;高级公式&#34;&gt;&lt;a href=&#34;#高级公式&#34; class=&#34;headerlink&#34; title=&#34;高级公式&#34;&gt;&lt;/a&gt;高级公式&lt;/h2&gt;&lt;h3 id=&#34;矩阵&#34;&gt;&lt;a href=&#34;#矩阵&#34; class=&#34;headerlink&#34; title=&#34;矩阵&#34;&gt;&lt;/a&gt;矩阵&lt;/h3&gt;&lt;h1 id=&#34;begin-pmatrix-a-b-c-d-end-pmatrix-begin-pmatrix-x-y-end-pmatrix&#34;&gt;&lt;a href=&#34;#begin-pmatrix-a-b-c-d-end-pmatrix-begin-pmatrix-x-y-end-pmatrix&#34; class=&#34;headerlink&#34; title=&#34;$$\begin{pmatrix}a &amp;amp; b \c &amp;amp; d\end{pmatrix}\begin{pmatrix}x \y\end{pmatrix}&#34;&gt;&lt;/a&gt;$$&lt;br&gt;\begin{pmatrix}&lt;br&gt;a &amp;amp; b \&lt;br&gt;c &amp;amp; d&lt;br&gt;\end{pmatrix}&lt;br&gt;\begin{pmatrix}&lt;br&gt;x \&lt;br&gt;y&lt;br&gt;\end{pmatrix}&lt;/h1&gt;&lt;p&gt;\begin{pmatrix}&lt;br&gt;ax + by \&lt;br&gt;cx + dy&lt;br&gt;\end{pmatrix}&lt;br&gt;$$&lt;/p&gt;
+&lt;h3 id=&#34;积分&#34;&gt;&lt;a href=&#34;#积分&#34; class=&#34;headerlink&#34; title=&#34;积分&#34;&gt;&lt;/a&gt;积分&lt;/h3&gt;&lt;p&gt;$$\int_{-\infty}^{\infty} e^{-x^2} dx &amp;#x3D; \sqrt{\pi}$$&lt;/p&gt;
+&lt;h3 id=&#34;求和&#34;&gt;&lt;a href=&#34;#求和&#34; class=&#34;headerlink&#34; title=&#34;求和&#34;&gt;&lt;/a&gt;求和&lt;/h3&gt;&lt;p&gt;$$\sum_{n&amp;#x3D;1}^{\infty} \frac{1}{n^2} &amp;#x3D; \frac{\pi^2}{6}$$&lt;/p&gt;
+&lt;h3 id=&#34;极限&#34;&gt;&lt;a href=&#34;#极限&#34; class=&#34;headerlink&#34; title=&#34;极限&#34;&gt;&lt;/a&gt;极限&lt;/h3&gt;&lt;p&gt;$$\lim_{x \to 0} \frac{\sin x}{x} &amp;#x3D; 1$$&lt;/p&gt;
+&lt;h3 id=&#34;分数&#34;&gt;&lt;a href=&#34;#分数&#34; class=&#34;headerlink&#34; title=&#34;分数&#34;&gt;&lt;/a&gt;分数&lt;/h3&gt;&lt;p&gt;$$\frac{d}{dx}\left( \int_{0}^{x} f(u),du\right)&amp;#x3D;f(x)$$&lt;/p&gt;
+&lt;h2 id=&#34;特殊符号&#34;&gt;&lt;a href=&#34;#特殊符号&#34; class=&#34;headerlink&#34; title=&#34;特殊符号&#34;&gt;&lt;/a&gt;特殊符号&lt;/h2&gt;&lt;h3 id=&#34;希腊字母&#34;&gt;&lt;a href=&#34;#希腊字母&#34; class=&#34;headerlink&#34; title=&#34;希腊字母&#34;&gt;&lt;/a&gt;希腊字母&lt;/h3&gt;&lt;p&gt;$\alpha, \beta, \gamma, \delta, \epsilon, \zeta, \eta, \theta$&lt;/p&gt;
+&lt;p&gt;$\Alpha, \Beta, \Gamma, \Delta, \Epsilon, \Zeta, \Eta, \Theta$&lt;/p&gt;
+&lt;h3 id=&#34;运算符&#34;&gt;&lt;a href=&#34;#运算符&#34; class=&#34;headerlink&#34; title=&#34;运算符&#34;&gt;&lt;/a&gt;运算符&lt;/h3&gt;&lt;p&gt;$\pm, \mp, \times, \div, \cdot, \ast, \star, \circ, \bullet$&lt;/p&gt;
+&lt;h3 id=&#34;关系符&#34;&gt;&lt;a href=&#34;#关系符&#34; class=&#34;headerlink&#34; title=&#34;关系符&#34;&gt;&lt;/a&gt;关系符&lt;/h3&gt;&lt;p&gt;$&amp;#x3D;, \neq, &amp;lt;, &amp;gt;, \leq, \geq, \equiv, \approx, \sim, \propto$&lt;/p&gt;
+&lt;h3 id=&#34;集合符号&#34;&gt;&lt;a href=&#34;#集合符号&#34; class=&#34;headerlink&#34; title=&#34;集合符号&#34;&gt;&lt;/a&gt;集合符号&lt;/h3&gt;&lt;p&gt;$\in, \notin, \subset, \supset, \subseteq, \supseteq, \cap, \cup, \emptyset$&lt;/p&gt;
+&lt;h2 id=&#34;复杂公式示例&#34;&gt;&lt;a href=&#34;#复杂公式示例&#34; class=&#34;headerlink&#34; title=&#34;复杂公式示例&#34;&gt;&lt;/a&gt;复杂公式示例&lt;/h2&gt;&lt;h3 id=&#34;傅里叶变换&#34;&gt;&lt;a href=&#34;#傅里叶变换&#34; class=&#34;headerlink&#34; title=&#34;傅里叶变换&#34;&gt;&lt;/a&gt;傅里叶变换&lt;/h3&gt;&lt;p&gt;$$\mathcal{F}(f)(x) &amp;#x3D; \int_{-\infty}^{\infty} f(t) e^{-2\pi i x t} dt$$&lt;/p&gt;
+&lt;h3 id=&#34;薛定谔方程&#34;&gt;&lt;a href=&#34;#薛定谔方程&#34; class=&#34;headerlink&#34; title=&#34;薛定谔方程&#34;&gt;&lt;/a&gt;薛定谔方程&lt;/h3&gt;&lt;p&gt;$$i\hbar\frac{\partial}{\partial t}\Psi(\mathbf{r},t) &amp;#x3D; \hat{H}\Psi(\mathbf{r},t)$$&lt;/p&gt;
+&lt;h3 id=&#34;贝叶斯定理&#34;&gt;&lt;a href=&#34;#贝叶斯定理&#34; class=&#34;headerlink&#34; title=&#34;贝叶斯定理&#34;&gt;&lt;/a&gt;贝叶斯定理&lt;/h3&gt;&lt;p&gt;$$P(A|B) &amp;#x3D; \frac{P(B|A)P(A)}{P(B)}$$&lt;/p&gt;
+&lt;h3 id=&#34;泰勒级数&#34;&gt;&lt;a href=&#34;#泰勒级数&#34; class=&#34;headerlink&#34; title=&#34;泰勒级数&#34;&gt;&lt;/a&gt;泰勒级数&lt;/h3&gt;&lt;p&gt;$$f(x) &amp;#x3D; \sum_{n&amp;#x3D;0}^{\infty} \frac{f^{(n)}(a)}{n!}(x-a)^n$$&lt;/p&gt;
+&lt;h2 id=&#34;化学公式&#34;&gt;&lt;a href=&#34;#化学公式&#34; class=&#34;headerlink&#34; title=&#34;化学公式&#34;&gt;&lt;/a&gt;化学公式&lt;/h2&gt;&lt;p&gt;化学反应方程式：&lt;br&gt;$$\ce{2H2 + O2 -&amp;gt; 2H2O}$$&lt;/p&gt;
+&lt;p&gt;分子式：&lt;br&gt;$$\ce{C6H12O6 + 6O2 -&amp;gt; 6CO2 + 6H2O}$$&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;&lt;a href=&#34;#总结&#34; class=&#34;headerlink&#34; title=&#34;总结&#34;&gt;&lt;/a&gt;总结&lt;/h2&gt;&lt;p&gt;KaTeX 提供了强大的数学公式渲染能力，支持：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;基础数学符号和运算&lt;/li&gt;
+&lt;li&gt;复杂的公式排版&lt;/li&gt;
+&lt;li&gt;矩阵和向量表示&lt;/li&gt;
+&lt;li&gt;积分、求和、极限等高级数学概念&lt;/li&gt;
+&lt;li&gt;化学公式支持&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这使得在博客中展示数学内容变得非常方便！&lt;/p&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://zjncs.github.io/shoka-features-demo/</guid>
+            <title>Shoka 主题功能展示</title>
+            <link>https://zjncs.github.io/shoka-features-demo/</link>
+            <category>Hexo</category>
+            <category>Shoka</category>
+            <category>功能展示</category>
+            <pubDate>Wed, 03 Jan 2024 14:00:00 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;Shoka-主题功能全面展示&#34;&gt;&lt;a href=&#34;#Shoka-主题功能全面展示&#34; class=&#34;headerlink&#34; title=&#34;Shoka 主题功能全面展示&#34;&gt;&lt;/a&gt;Shoka 主题功能全面展示&lt;/h1&gt;&lt;p&gt;本文展示了 Shoka 主题的各种强大功能。&lt;/p&gt;
+&lt;h2 id=&#34;🔗-友链展示&#34;&gt;&lt;a href=&#34;#🔗-友链展示&#34; class=&#34;headerlink&#34; title=&#34;🔗 友链展示&#34;&gt;&lt;/a&gt;🔗 友链展示&lt;/h2&gt;&lt;div class=&#34;links&#34;&gt;&lt;div class=&#34;item&#34; title=&#34;霜月琉璃&#34; style=&#34;--block-color:#e9546b;&#34;&gt;&lt;span class=&#34;exturl image&#34; data-url=&#34;aHR0cHM6Ly9zaG9rYS5sb3N0eXUubWU=&#34; data-background-image=&#34;https://cdn.jsdelivr.net/gh/amehime/shoka@latest/images/avatar.jpg&#34;&gt;&lt;/span&gt;
+          &lt;div class=&#34;info&#34;&gt;
+          &lt;span class=&#34;exturl title&#34; data-url=&#34;aHR0cHM6Ly9zaG9rYS5sb3N0eXUubWU=&#34;&gt;優萌初華&lt;/span&gt;
+          &lt;p class=&#34;desc&#34;&gt;琉璃的医学 &amp; 编程笔记&lt;/p&gt;
+          &lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;item&#34; title=&#34;Hexo 官网&#34; style=&#34;--block-color:#0e83cd;&#34;&gt;&lt;span class=&#34;exturl image&#34; data-url=&#34;aHR0cHM6Ly9oZXhvLmlv&#34; data-background-image=&#34;/images/404.png&#34;&gt;&lt;/span&gt;
+          &lt;div class=&#34;info&#34;&gt;
+          &lt;span class=&#34;exturl title&#34; data-url=&#34;aHR0cHM6Ly9oZXhvLmlv&#34;&gt;Hexo 官网&lt;/span&gt;
+          &lt;p class=&#34;desc&#34;&gt;快速、简洁且高效的博客框架&lt;/p&gt;
+          &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&#34;💻-代码块展示&#34;&gt;&lt;a href=&#34;#💻-代码块展示&#34; class=&#34;headerlink&#34; title=&#34;💻 代码块展示&#34;&gt;&lt;/a&gt;💻 代码块展示&lt;/h2&gt;&lt;figure class=&#34;highlight javascript&#34;&gt;&lt;figcaption&gt;&lt;span&gt;高亮示例&lt;/span&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9kZXZlbG9wZXIubW96aWxsYS5vcmcvemgtQ04vZG9jcy9XZWIvSmF2YVNjcmlwdA==&#34;&gt;参考文档 mark:2,5-7&lt;/span&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// JavaScript 函数示例&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;greetUser&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;name&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; (!name) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;quot;Hello, Guest!&amp;quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;const&lt;/span&gt; greeting = &lt;span class=&#34;string&#34;&gt;`Hello, &lt;span class=&#34;subst&#34;&gt;$&amp;#123;name&amp;#125;&lt;/span&gt;!`&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;variable language_&#34;&gt;console&lt;/span&gt;.&lt;span class=&#34;title function_&#34;&gt;log&lt;/span&gt;(greeting);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; greeting;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;title function_&#34;&gt;greetUser&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;张三&amp;quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption&gt;&lt;span&gt;命令行示例 command:(&#34;[root@localhost] $&#34;:1,3||&#34;[user@server] #&#34;:5-6)&lt;/span&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;built_in&#34;&gt;pwd&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;/home/user/projects&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;built_in&#34;&gt;ls&lt;/span&gt; -la&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;total 16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;drwxr-xr-x 3 user user 4096 Jan  3 14:00 .&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;drwxr-xr-x 5 user user 4096 Jan  3 13:30 ..&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;span id=&#34;more&#34;&gt;&lt;/span&gt;
+
+&lt;h2 id=&#34;🎯-练习题展示&#34;&gt;&lt;a href=&#34;#🎯-练习题展示&#34; class=&#34;headerlink&#34; title=&#34;🎯 练习题展示&#34;&gt;&lt;/a&gt;🎯 练习题展示&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Hexo 是一个基于 Node.js 的静态博客框架。 {.quiz .true}&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;下列哪些是 Shoka 主题的特色功能？ {.quiz .multi}&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;友链展示 {.correct}&lt;/li&gt;
+&lt;li&gt;代码高亮 {.correct}&lt;/li&gt;
+&lt;li&gt;数学公式支持 {.correct}&lt;/li&gt;
+&lt;li&gt;视频播放&lt;br&gt;{.options}&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;✅ 支持友链卡片展示&lt;/li&gt;
+&lt;li&gt;✅ 支持多种代码高亮&lt;/li&gt;
+&lt;li&gt;✅ 支持 KaTeX 数学公式&lt;/li&gt;
+&lt;li&gt;❌ 不是主要特色功能&lt;br&gt;{.options}&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Shoka 主题基于 [Hexo]{.gap} 框架开发。 {.quiz .fill}&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;🎨-文字特效展示&#34;&gt;&lt;a href=&#34;#🎨-文字特效展示&#34; class=&#34;headerlink&#34; title=&#34;🎨 文字特效展示&#34;&gt;&lt;/a&gt;🎨 文字特效展示&lt;/h2&gt;&lt;p&gt;++ 下划线效果 ++&lt;br&gt;++ 波浪线效果 ++{.wavy}&lt;br&gt;++ 着重点效果 ++{.dot}&lt;br&gt;++ 彩色下划线 ++{.primary}&lt;br&gt;~~ 删除线效果 ~~&lt;br&gt;&amp;#x3D;&amp;#x3D; 荧光高亮效果 &amp;#x3D;&amp;#x3D;&lt;/p&gt;
+&lt;p&gt;[赤橙黄绿青蓝紫]{.rainbow}&lt;br&gt;[红色文字]{.red} [蓝色文字]{.blue} [绿色文字]{.green}&lt;/p&gt;
+&lt;p&gt;快捷键示例：[Ctrl]{.kbd} + [C]{.kbd .primary}&lt;/p&gt;
+&lt;h2 id=&#34;🔒-隐藏文字展示&#34;&gt;&lt;a href=&#34;#🔒-隐藏文字展示&#34; class=&#34;headerlink&#34; title=&#34;🔒 隐藏文字展示&#34;&gt;&lt;/a&gt;🔒 隐藏文字展示&lt;/h2&gt;&lt;p&gt;!! 这是隐藏的内容，鼠标悬停显示 !!&lt;br&gt;!! 这是模糊的内容，选中文字显示 !!{.blur}&lt;/p&gt;
+&lt;h2 id=&#34;🏷️-标签展示&#34;&gt;&lt;a href=&#34;#🏷️-标签展示&#34; class=&#34;headerlink&#34; title=&#34;🏷️ 标签展示&#34;&gt;&lt;/a&gt;🏷️ 标签展示&lt;/h2&gt;&lt;p&gt;[默认]{.label} [主要]{.label .primary} [信息]{.label .info}&lt;br&gt;[成功]{.label .success} [警告]{.label .warning} [危险]{.label .danger}&lt;/p&gt;
+&lt;h2 id=&#34;📝-提醒块展示&#34;&gt;&lt;a href=&#34;#📝-提醒块展示&#34; class=&#34;headerlink&#34; title=&#34;📝 提醒块展示&#34;&gt;&lt;/a&gt;📝 提醒块展示&lt;/h2&gt;&lt;p&gt;:::info 信息提示&lt;br&gt;这是一个信息提示块，用于显示重要信息。&lt;br&gt;:::&lt;/p&gt;
+&lt;p&gt;:::success 成功提示&lt;br&gt;这是一个成功提示块，表示操作成功完成。&lt;br&gt;:::&lt;/p&gt;
+&lt;p&gt;:::warning 警告提示&lt;br&gt;这是一个警告提示块，提醒用户注意。&lt;br&gt;:::&lt;/p&gt;
+&lt;p&gt;:::danger 危险提示&lt;br&gt;这是一个危险提示块，警告用户潜在风险。&lt;br&gt;:::&lt;/p&gt;
+&lt;h2 id=&#34;📑-标签卡展示&#34;&gt;&lt;a href=&#34;#📑-标签卡展示&#34; class=&#34;headerlink&#34; title=&#34;📑 标签卡展示&#34;&gt;&lt;/a&gt;📑 标签卡展示&lt;/h2&gt;&lt;p&gt;;;;demo1 前端技术&lt;/p&gt;
+&lt;h3 id=&#34;HTML&#34;&gt;&lt;a href=&#34;#HTML&#34; class=&#34;headerlink&#34; title=&#34;HTML&#34;&gt;&lt;/a&gt;HTML&lt;/h3&gt;&lt;p&gt;超文本标记语言，用于创建网页结构。&lt;/p&gt;
+&lt;h3 id=&#34;CSS&#34;&gt;&lt;a href=&#34;#CSS&#34; class=&#34;headerlink&#34; title=&#34;CSS&#34;&gt;&lt;/a&gt;CSS&lt;/h3&gt;&lt;p&gt;层叠样式表，用于网页样式设计。&lt;br&gt;;;;&lt;/p&gt;
+&lt;p&gt;;;;demo1 后端技术&lt;/p&gt;
+&lt;h3 id=&#34;Node-js&#34;&gt;&lt;a href=&#34;#Node-js&#34; class=&#34;headerlink&#34; title=&#34;Node.js&#34;&gt;&lt;/a&gt;Node.js&lt;/h3&gt;&lt;p&gt;基于 Chrome V8 引擎的 JavaScript 运行环境。&lt;/p&gt;
+&lt;h3 id=&#34;Python&#34;&gt;&lt;a href=&#34;#Python&#34; class=&#34;headerlink&#34; title=&#34;Python&#34;&gt;&lt;/a&gt;Python&lt;/h3&gt;&lt;p&gt;简洁优雅的编程语言，适合快速开发。&lt;br&gt;;;;&lt;/p&gt;
+&lt;h2 id=&#34;📁-折叠块展示&#34;&gt;&lt;a href=&#34;#📁-折叠块展示&#34; class=&#34;headerlink&#34; title=&#34;📁 折叠块展示&#34;&gt;&lt;/a&gt;📁 折叠块展示&lt;/h2&gt;&lt;p&gt;+++ primary JavaScript 基础知识&lt;br&gt;JavaScript 是一种高级的、解释型的编程语言。&lt;/p&gt;
+&lt;figure class=&#34;highlight javascript&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;const&lt;/span&gt; message = &lt;span class=&#34;string&#34;&gt;&amp;quot;Hello, World!&amp;quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;variable language_&#34;&gt;console&lt;/span&gt;.&lt;span class=&#34;title function_&#34;&gt;log&lt;/span&gt;(message);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;+++&lt;/p&gt;
+&lt;p&gt;+++ success CSS 样式技巧&lt;br&gt;CSS 可以让网页变得更加美观。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用 Flexbox 布局&lt;/li&gt;
+&lt;li&gt;响应式设计&lt;/li&gt;
+&lt;li&gt;动画效果&lt;br&gt;+++&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;✅-待办事项展示&#34;&gt;&lt;a href=&#34;#✅-待办事项展示&#34; class=&#34;headerlink&#34; title=&#34;✅ 待办事项展示&#34;&gt;&lt;/a&gt;✅ 待办事项展示&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 学习 Hexo 基础&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 安装 Shoka 主题 {.success}&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 配置主题功能&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 编写第一篇文章 {.primary}&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;🔤-注音展示&#34;&gt;&lt;a href=&#34;#🔤-注音展示&#34; class=&#34;headerlink&#34; title=&#34;🔤 注音展示&#34;&gt;&lt;/a&gt;🔤 注音展示&lt;/h2&gt;&lt;p&gt;{可愛い犬^か・わい・いいぬ}&lt;br&gt;{Hello^你好}&lt;br&gt;{Hexo^静态博客框架}&lt;/p&gt;
+&lt;h2 id=&#34;🧮-数学公式展示&#34;&gt;&lt;a href=&#34;#🧮-数学公式展示&#34; class=&#34;headerlink&#34; title=&#34;🧮 数学公式展示&#34;&gt;&lt;/a&gt;🧮 数学公式展示&lt;/h2&gt;&lt;p&gt;行内公式：$E &amp;#x3D; mc^2$&lt;/p&gt;
+&lt;p&gt;块级公式：&lt;br&gt;$$&lt;br&gt;\begin{align}&lt;br&gt;\nabla \times \vec{\mathbf{B}} -, \frac1c, \frac{\partial\vec{\mathbf{E}}}{\partial t} &amp;amp;&amp;#x3D; \frac{4\pi}{c}\vec{\mathbf{j}} \&lt;br&gt;\nabla \cdot \vec{\mathbf{E}} &amp;amp;&amp;#x3D; 4 \pi \rho \&lt;br&gt;\nabla \times \vec{\mathbf{E}}, +, \frac1c, \frac{\partial\vec{\mathbf{B}}}{\partial t} &amp;amp;&amp;#x3D; \vec{\mathbf{0}} \&lt;br&gt;\nabla \cdot \vec{\mathbf{B}} &amp;amp;&amp;#x3D; 0&lt;br&gt;\end{align}&lt;br&gt;$$&lt;/p&gt;
+&lt;h2 id=&#34;📊-流程图展示&#34;&gt;&lt;a href=&#34;#📊-流程图展示&#34; class=&#34;headerlink&#34; title=&#34;📊 流程图展示&#34;&gt;&lt;/a&gt;📊 流程图展示&lt;/h2&gt;&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;graph TD&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    A[开始] --&amp;gt; B&amp;#123;是否安装 Hexo?&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    B --&amp;gt;|是| C[安装 Shoka 主题]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    B --&amp;gt;|否| D[安装 Hexo]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    D --&amp;gt; C&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    C --&amp;gt; E[配置主题]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    E --&amp;gt; F[编写文章]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    F --&amp;gt; G[部署博客]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    G --&amp;gt; H[完成]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;sequenceDiagram&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    participant 用户&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    participant Hexo&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    participant Shoka&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    用户-&amp;gt;&amp;gt;Hexo: 创建新文章&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    Hexo-&amp;gt;&amp;gt;Shoka: 应用主题样式&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    Shoka-&amp;gt;&amp;gt;用户: 渲染页面&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    用户-&amp;gt;&amp;gt;Shoka: 查看效果&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h2 id=&#34;😀-Emoji-展示&#34;&gt;&lt;a href=&#34;#😀-Emoji-展示&#34; class=&#34;headerlink&#34; title=&#34;😀 Emoji 展示&#34;&gt;&lt;/a&gt;😀 Emoji 展示&lt;/h2&gt;&lt;p&gt;:heart: :star: :rocket: :computer: :books: :coffee:&lt;/p&gt;
+&lt;h2 id=&#34;总结&#34;&gt;&lt;a href=&#34;#总结&#34; class=&#34;headerlink&#34; title=&#34;总结&#34;&gt;&lt;/a&gt;总结&lt;/h2&gt;&lt;p&gt;Shoka 主题提供了丰富的功能，让博客内容更加生动有趣！&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;支持多种内容展示方式&lt;/li&gt;
+&lt;li&gt;提供丰富的交互功能&lt;/li&gt;
+&lt;li&gt;具有优秀的视觉效果&lt;/li&gt;
+&lt;li&gt;易于使用和配置&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://zjncs.github.io/welcome/</guid>
+            <title>欢迎来到我的技术博客</title>
+            <link>https://zjncs.github.io/welcome/</link>
+            <category>博客</category>
+            <category>欢迎</category>
+            <pubDate>Mon, 01 Jan 2024 12:00:00 +0800</pubDate>
+            <description><![CDATA[ &lt;h1 id=&#34;欢迎来到我的技术博客！&#34;&gt;&lt;a href=&#34;#欢迎来到我的技术博客！&#34; class=&#34;headerlink&#34; title=&#34;欢迎来到我的技术博客！&#34;&gt;&lt;/a&gt;欢迎来到我的技术博客！&lt;/h1&gt;&lt;p&gt;这是一篇置顶文章，用来欢迎访问者。&lt;/p&gt;
+&lt;h2 id=&#34;博客特色&#34;&gt;&lt;a href=&#34;#博客特色&#34; class=&#34;headerlink&#34; title=&#34;博客特色&#34;&gt;&lt;/a&gt;博客特色&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;📝 技术文章分享&lt;/li&gt;
+&lt;li&gt;💡 学习心得记录  &lt;/li&gt;
+&lt;li&gt;🔧 实用工具推荐&lt;/li&gt;
+&lt;li&gt;📚 读书笔记整理&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;最近更新&#34;&gt;&lt;a href=&#34;#最近更新&#34; class=&#34;headerlink&#34; title=&#34;最近更新&#34;&gt;&lt;/a&gt;最近更新&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;搭建了基于 Hexo + Shoka 主题的博客&lt;/li&gt;
+&lt;li&gt;配置了评论系统&lt;/li&gt;
+&lt;li&gt;添加了分类和标签功能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;感谢您的访问，希望这里的内容对您有所帮助！&lt;/p&gt;
+&lt;span id=&#34;more&#34;&gt;&lt;/span&gt;
+
+&lt;h2 id=&#34;详细介绍&#34;&gt;&lt;a href=&#34;#详细介绍&#34; class=&#34;headerlink&#34; title=&#34;详细介绍&#34;&gt;&lt;/a&gt;详细介绍&lt;/h2&gt;&lt;p&gt;这里可以写更多详细的内容…&lt;/p&gt;
+&lt;h3 id=&#34;技术栈&#34;&gt;&lt;a href=&#34;#技术栈&#34; class=&#34;headerlink&#34; title=&#34;技术栈&#34;&gt;&lt;/a&gt;技术栈&lt;/h3&gt;&lt;p&gt;本博客使用的技术栈：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;静态站点生成器&lt;/strong&gt;: Hexo&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;主题&lt;/strong&gt;: Shoka&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;部署&lt;/strong&gt;: GitHub Pages&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;评论系统&lt;/strong&gt;: Valine&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;联系我&#34;&gt;&lt;a href=&#34;#联系我&#34; class=&#34;headerlink&#34; title=&#34;联系我&#34;&gt;&lt;/a&gt;联系我&lt;/h3&gt;&lt;p&gt;如果您有任何问题或建议，欢迎通过以下方式联系我：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在文章下方留言&lt;/li&gt;
+&lt;li&gt;发送邮件到：&lt;span class=&#34;exturl&#34; data-url=&#34;bWFpbHRvOiYjeDc5OyYjeDZmOyYjMTE3OyYjeDcyOyYjeDJkOyYjeDY1OyYjeDZkOyYjOTc7JiMxMDU7JiN4NmM7JiM2NDsmI3g2NTsmI3g3ODsmI3g2MTsmIzEwOTsmI3g3MDsmIzEwODsmIzEwMTsmI3gyZTsmI3g2MzsmIzExMTsmIzEwOTs=&#34;&gt;your-email@example.com&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;访问我的 GitHub：&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9naXRodWIuY29tL3lvdXJ1c2VybmFtZQ==&#34;&gt;https://github.com/yourusername&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>

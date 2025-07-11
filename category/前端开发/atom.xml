@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://zjncs.github.io</id>
+    <title>我的技术博客 • Posts by &#34;前端开发&#34; category</title>
+    <link href="https://zjncs.github.io" />
+    <updated>2024-01-02T02:00:00.000Z</updated>
+    <category term="数学" />
+    <category term="KaTeX" />
+    <category term="公式" />
+    <category term="Mermaid" />
+    <category term="流程图" />
+    <category term="图表" />
+    <category term="博客" />
+    <category term="欢迎" />
+    <category term="JavaScript" />
+    <category term="前端" />
+    <category term="基础" />
+    <category term="Hexo" />
+    <category term="Shoka" />
+    <category term="功能展示" />
+    <entry>
+        <id>https://zjncs.github.io/frontend/javascript-basics/</id>
+        <title>JavaScript 基础知识总结</title>
+        <link rel="alternate" href="https://zjncs.github.io/frontend/javascript-basics/"/>
+        <content type="html">&lt;h1 id=&#34;JavaScript-基础知识总结&#34;&gt;&lt;a href=&#34;#JavaScript-基础知识总结&#34; class=&#34;headerlink&#34; title=&#34;JavaScript 基础知识总结&#34;&gt;&lt;/a&gt;JavaScript 基础知识总结&lt;/h1&gt;&lt;p&gt;本文总结了 JavaScript 的基础知识点。&lt;/p&gt;
+&lt;h2 id=&#34;变量声明&#34;&gt;&lt;a href=&#34;#变量声明&#34; class=&#34;headerlink&#34; title=&#34;变量声明&#34;&gt;&lt;/a&gt;变量声明&lt;/h2&gt;&lt;p&gt;JavaScript 中有三种声明变量的方式：&lt;/p&gt;
+&lt;h3 id=&#34;var&#34;&gt;&lt;a href=&#34;#var&#34; class=&#34;headerlink&#34; title=&#34;var&#34;&gt;&lt;/a&gt;var&lt;/h3&gt;&lt;figure class=&#34;highlight javascript&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;var&lt;/span&gt; name = &lt;span class=&#34;string&#34;&gt;&amp;quot;张三&amp;quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;variable language_&#34;&gt;console&lt;/span&gt;.&lt;span class=&#34;title function_&#34;&gt;log&lt;/span&gt;(name); &lt;span class=&#34;comment&#34;&gt;// 张三&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h3 id=&#34;let&#34;&gt;&lt;a href=&#34;#let&#34; class=&#34;headerlink&#34; title=&#34;let&#34;&gt;&lt;/a&gt;let&lt;/h3&gt;&lt;figure class=&#34;highlight javascript&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;let&lt;/span&gt; age = &lt;span class=&#34;number&#34;&gt;25&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;variable language_&#34;&gt;console&lt;/span&gt;.&lt;span class=&#34;title function_&#34;&gt;log&lt;/span&gt;(age); &lt;span class=&#34;comment&#34;&gt;// 25&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h3 id=&#34;const&#34;&gt;&lt;a href=&#34;#const&#34; class=&#34;headerlink&#34; title=&#34;const&#34;&gt;&lt;/a&gt;const&lt;/h3&gt;&lt;figure class=&#34;highlight javascript&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;variable constant_&#34;&gt;PI&lt;/span&gt; = &lt;span class=&#34;number&#34;&gt;3.14159&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;variable language_&#34;&gt;console&lt;/span&gt;.&lt;span class=&#34;title function_&#34;&gt;log&lt;/span&gt;(&lt;span class=&#34;variable constant_&#34;&gt;PI&lt;/span&gt;); &lt;span class=&#34;comment&#34;&gt;// 3.14159&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;span id=&#34;more&#34;&gt;&lt;/span&gt;
+
+&lt;h2 id=&#34;数据类型&#34;&gt;&lt;a href=&#34;#数据类型&#34; class=&#34;headerlink&#34; title=&#34;数据类型&#34;&gt;&lt;/a&gt;数据类型&lt;/h2&gt;&lt;p&gt;JavaScript 有以下几种基本数据类型：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Number&lt;/strong&gt; - 数字&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;String&lt;/strong&gt; - 字符串  &lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Boolean&lt;/strong&gt; - 布尔值&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Undefined&lt;/strong&gt; - 未定义&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Null&lt;/strong&gt; - 空值&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Symbol&lt;/strong&gt; - 符号（ES6新增）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;BigInt&lt;/strong&gt; - 大整数（ES2020新增）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;函数&#34;&gt;&lt;a href=&#34;#函数&#34; class=&#34;headerlink&#34; title=&#34;函数&#34;&gt;&lt;/a&gt;函数&lt;/h2&gt;&lt;h3 id=&#34;函数声明&#34;&gt;&lt;a href=&#34;#函数声明&#34; class=&#34;headerlink&#34; title=&#34;函数声明&#34;&gt;&lt;/a&gt;函数声明&lt;/h3&gt;&lt;figure class=&#34;highlight javascript&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;greet&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;name&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;quot;Hello, &amp;quot;&lt;/span&gt; + name + &lt;span class=&#34;string&#34;&gt;&amp;quot;!&amp;quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h3 id=&#34;箭头函数&#34;&gt;&lt;a href=&#34;#箭头函数&#34; class=&#34;headerlink&#34; title=&#34;箭头函数&#34;&gt;&lt;/a&gt;箭头函数&lt;/h3&gt;&lt;figure class=&#34;highlight javascript&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;greet&lt;/span&gt; = (&lt;span class=&#34;params&#34;&gt;name&lt;/span&gt;) =&amp;gt; &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;`Hello, &lt;span class=&#34;subst&#34;&gt;$&amp;#123;name&amp;#125;&lt;/span&gt;!`&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h2 id=&#34;总结&#34;&gt;&lt;a href=&#34;#总结&#34; class=&#34;headerlink&#34; title=&#34;总结&#34;&gt;&lt;/a&gt;总结&lt;/h2&gt;&lt;p&gt;JavaScript 是一门功能强大的编程语言，掌握好基础知识对后续学习很重要。&lt;/p&gt;
+</content>
+        <category term="JavaScript" />
+        <category term="前端" />
+        <category term="基础" />
+        <updated>2024-01-02T02:00:00.000Z</updated>
+    </entry>
+</feed>
