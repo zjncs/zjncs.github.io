@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on JohnnyZhao's Blog</title><link>https://zjncs.github.io/posts/</link><description>Recent content in Posts on JohnnyZhao's Blog</description><generator>Hugo -- 0.148.2</generator><language>zh</language><copyright>©2025 JohnnyZhao&amp;rsquo;s Blog</copyright><lastBuildDate>Wed, 30 Jul 2025 22:00:00 +0800</lastBuildDate><atom:link href="https://zjncs.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Hello Hugo</title><link>https://zjncs.github.io/posts/hello-world/</link><pubDate>Wed, 30 Jul 2025 22:00:00 +0800</pubDate><guid>https://zjncs.github.io/posts/hello-world/</guid><description>&lt;p>1行内数学公式：$a^2 + b^2 = c^2$。
+2
+3块公式，
+4
+5$$
+6a^2 + b^2 = c^2
+7$$
+8
+9&lt;div>
+10$$
+11\boldsymbol{x}&lt;em>{i+1}+\boldsymbol{x}&lt;/em>{i+2}=\boldsymbol{x}_{i+3}
+12$$
+13&lt;/div>&lt;/p></description></item></channel></rss>
