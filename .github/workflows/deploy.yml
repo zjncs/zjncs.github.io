@@ -1,0 +1,44 @@
+# .github/workflows/deploy.yml
+
+name: Build and Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # 当 main 分支有代码推送时，自动触发
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest # 使用最新的 ubuntu 系统环境
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3 # 第一步：拉取你的源代码
+
+      - name: Setup Node.js 🟩
+        uses: actions/setup-node@v3 # 第二步：安装 Node.js 环境 (Hexo 需要)
+        with:
+          node-version: '16' # 指定 Node.js 版本
+
+      - name: Install Dependencies 👨🏻‍💻
+        run: npm install # 第三步：安装博客的依赖项
+
+      - name: Build 🏗️
+        run: npm run build # 第四步：执行构建命令 (通常是 hexo generate)
+
+      - name: Deploy 🚀
+        uses: peaceiris/actions-gh-pages@v3 # 第五步：使用一个专门的部署工具
+        with:
+          # 这个 token 是 GitHub Actions 自动生成的，有权限推送到你的仓库
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # 这个是构建好的静态文件所在的文件夹，Hexo 默认为 public
+          publish_dir: ./public
+          # 这个是目标仓库，也就是你最终要部署到的地方
+          external_repository: zjncs/zjncs.github.io
+          # 这个是目标仓库的分支
+          publish_branch: main
+          # 部署时使用的用户名
+          user_name: 'github-actions[bot]'
+          # 部署时使用的邮箱
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          # 部署时的提交信息
+          commit_message: 'CI: Deploy static files'

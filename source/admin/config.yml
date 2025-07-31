@@ -4,8 +4,9 @@
 
 # 1. 后端设置：使用我们配置好的 Netlify Identity
 backend:
-  name: git-gateway
-  branch: source # 你的源代码分支
+  name: github
+  repo: zjncs/zjncs.github.io
+  branch: main # 你的源代码分支
 
 # 2. 媒体和站点信息
 media_folder: "source/images/uploads" # 建议使用一个通用的 uploads 文件夹
