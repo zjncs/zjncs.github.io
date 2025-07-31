@@ -1,0 +1,89 @@
+# ----------------------------------------------------------------
+# 这是为 zjncs 配置的 Decap CMS 后台文件
+# ----------------------------------------------------------------
+
+# 1. 后端设置：使用我们配置好的 Netlify Identity
+backend:
+  name: git-gateway
+  branch: source # 你的源代码分支
+
+# 2. 媒体和站点信息
+media_folder: "source/images/uploads" # 建议使用一个通用的 uploads 文件夹
+public_folder: "/images/uploads"
+site_url: "https://zjncs.github.io"
+#logo_url: "https://zjncs.github.io/favicon.png" # 确保你的博客根目录有这个图标文件
+locale: "zh_Hans"
+
+# 3. YAML 锚点：这是一个可复用的配置模板，避免重复代码
+common_col_conf: &common_col_conf
+  create: true
+  slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # 改为更通用的 slug 格式
+  sortable_fields:
+    - "commit_date"
+    - "title"
+    - "date"
+    - "updated"
+  fields:
+    - label: "标题"
+      name: "title"
+      widget: "string"
+    - label: "发表日期"
+      name: "date"
+      widget: "datetime"
+      format: "YYYY-MM-DD HH:mm:ss"
+      date_format: "YYYY-MM-DD"
+      time_format: "HH:mm:ss"
+    - label: "更新日期"
+      name: "updated"
+      widget: "datetime"
+      format: "YYYY-MM-DD HH:mm:ss"
+      date_format: "YYYY-MM-DD"
+      time_format: "HH:mm:ss"
+      required: false
+    - label: "封面"
+      name: "cover"
+      widget: "image"
+      required: false
+    - label: "标签"
+      name: "tags"
+      widget: "list" # 改为 list，这样可以输入任意新标签，更灵活
+      required: false
+    - label: "分类"
+      name: "categories"
+      widget: "list" # 改为 list，更灵活
+      required: false
+    - label: "正文"
+      name: "body"
+      widget: "markdown"
+    - label: "显示TOC目录" # 根据你的主题，toc 可能更合适
+      name: "toc"
+      widget: "boolean"
+      default: true
+    - label: "开启评论"
+      name: "comments"
+      widget: "boolean"
+      default: true
+
+# 4. 内容集合：定义你博客里的不同内容类型
+collections:
+  # 文章集合
+  - name: "posts"
+    label: "所有文章" # 用一个集合管理所有文章更简单
+    folder: "source/_posts" # 所有文章都放在这里
+    <<: *common_col_conf # 直接引用上面的模板
+
+  # 页面集合
+  - name: "pages"
+    label: "独立页面"
+    files:
+      - name: "about"
+        label: "关于页面"
+        file: "source/about/index.md" # 确保你有 source/about/index.md 这个文件
+        preview_path: "about/"
+        <<: *common_col_conf # 页面也使用同样的模板
+      # 如果你需要友链页面，可以取消下面的注释
+      # - name: "friends"
+      #   label: "友链页面"
+      #   file: "source/friends/index.md"
+      #   preview_path: "friends/"
+      #   <<: *common_col_conf
