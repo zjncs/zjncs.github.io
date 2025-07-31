@@ -1,3 +1,0 @@
-User-agent: *
-Disallow:
-Sitemap: https://zjncs.github.io/sitemap.xml
