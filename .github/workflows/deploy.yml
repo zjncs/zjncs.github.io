@@ -5,7 +5,7 @@ name: Build and Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main # 当 main 分支有代码推送时，自动触发
+      - blogsource # 当 main 分支有代码推送时，自动触发
 
 jobs:
   build-and-deploy:
