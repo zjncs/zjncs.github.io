@@ -5,6 +5,9 @@ backend:
   repo: zjncs/zjncs.github.io 
   # 你的源代码所在的分支
   branch: source
+  auth_scope: repo
+  base_url: https://zjncs.github.io
+  auth_endpoint: oauth
 
 # 媒体文件（如图片）的存储和引用路径
 # 当你在后台上传图片，它会被保存到 'source/images/uploads' 文件夹
