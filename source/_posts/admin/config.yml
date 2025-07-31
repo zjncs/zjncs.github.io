@@ -1,0 +1,27 @@
+# 后端配置：连接到你的 GitHub 仓库
+backend:
+  name: github
+  # 你的 GitHub 用户名 / 仓库名
+  repo: zjncs/zjncs.github.io 
+  # 你的源代码所在的分支
+  branch: source
+
+# 媒体文件（如图片）的存储和引用路径
+# 当你在后台上传图片，它会被保存到 'source/images/uploads' 文件夹
+media_folder: "source/images/uploads"
+# 在生成的文章中，图片的引用路径是 '/images/uploads/...'
+public_folder: "/images/uploads"
+
+# 内容集合：定义你的文章结构
+collections:
+  - name: "post" # 集合的唯一标识，内部使用
+    label: "文章" # 在后台界面显示的名称，给你自己看的
+    folder: "source/_posts" # 新建文章的 .md 文件将保存在这个文件夹
+    create: true # 允许在后台创建新文章
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # 自动生成的文件名格式
+    fields: # 定义文章的字段，对应 Markdown 的 Front-matter 和正文
+      - {label: "标题 (Title)", name: "title", widget: "string"}
+      - {label: "发布日期 (Date)", name: "date", widget: "datetime"}
+      - {label: "标签 (Tags)", name: "tags", widget: "list", required: false}
+      - {label: "分类 (Categories)", name: "categories", widget: "list", required: false}
+      - {label: "正文 (Body)", name: "body", widget: "markdown"}
