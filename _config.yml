@@ -99,6 +99,21 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: butterfly
 
+comment:
+  enable: true
+  type: giscus
+  giscus:
+    repo: "zjncs/zjn-blog-comments"
+    repoId: "R_kgDOPVdIdg"
+    category: "Announcements"
+    categoryId: "DIC_kwDOPVdIds4CtlzW"
+    mapping: "pathname"
+    strict: false
+    reactionsEnabled: true
+    emitMetadata: false
+    inputPosition: "bottom"
+    theme: "noborder_light"
+    lang: "zh-CN"
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
