@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hexo</title>
+  <title>Johnny-Zhao&#39;s TechBlog</title>
   
+  <subtitle>KEEP FIGHTING</subtitle>
+  <link href="https://zjncs.github.io/atom.xml" rel="self"/>
   
-  <link href="http://example.com/atom.xml" rel="self"/>
-  
-  <link href="http://example.com/"/>
+  <link href="https://zjncs.github.io/"/>
   <updated>2025-08-01T07:32:17.107Z</updated>
-  <id>http://example.com/</id>
+  <id>https://zjncs.github.io/</id>
   
   <author>
-    <name>John Doe</name>
+    <name>Johnny-Zhao</name>
     
   </author>
   
@@ -18,8 +18,8 @@
   
   <entry>
     <title>脚本测试</title>
-    <link href="http://example.com/2025/08/01/%E8%84%9A%E6%9C%AC%E6%B5%8B%E8%AF%95/"/>
-    <id>http://example.com/2025/08/01/%E8%84%9A%E6%9C%AC%E6%B5%8B%E8%AF%95/</id>
+    <link href="https://zjncs.github.io/2025/08/01/%E8%84%9A%E6%9C%AC%E6%B5%8B%E8%AF%95/"/>
+    <id>https://zjncs.github.io/2025/08/01/%E8%84%9A%E6%9C%AC%E6%B5%8B%E8%AF%95/</id>
     <published>2025-08-01T07:32:17.000Z</published>
     <updated>2025-08-01T07:32:17.107Z</updated>
     
@@ -39,8 +39,8 @@
   
   <entry>
     <title>第二次测试</title>
-    <link href="http://example.com/2025/08/01/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E6%B5%8B%E8%AF%95/"/>
-    <id>http://example.com/2025/08/01/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E6%B5%8B%E8%AF%95/</id>
+    <link href="https://zjncs.github.io/2025/08/01/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E6%B5%8B%E8%AF%95/"/>
+    <id>https://zjncs.github.io/2025/08/01/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E6%B5%8B%E8%AF%95/</id>
     <published>2025-08-01T07:20:23.000Z</published>
     <updated>2025-08-01T07:20:23.033Z</updated>
     
@@ -60,8 +60,8 @@
   
   <entry>
     <title>客户端测试 (1754031523605)</title>
-    <link href="http://example.com/2025/08/01/%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B5%8B%E8%AF%95-1754031523605/"/>
-    <id>http://example.com/2025/08/01/%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B5%8B%E8%AF%95-1754031523605/</id>
+    <link href="https://zjncs.github.io/2025/08/01/%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B5%8B%E8%AF%95-1754031523605/"/>
+    <id>https://zjncs.github.io/2025/08/01/%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B5%8B%E8%AF%95-1754031523605/</id>
     <published>2025-08-01T07:00:25.000Z</published>
     <updated>2025-08-01T07:13:54.870Z</updated>
     
@@ -80,8 +80,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://example.com/2025/08/01/hello-world/"/>
-    <id>http://example.com/2025/08/01/hello-world/</id>
+    <link href="https://zjncs.github.io/2025/08/01/hello-world/"/>
+    <id>https://zjncs.github.io/2025/08/01/hello-world/</id>
     <published>2025-08-01T03:11:39.991Z</published>
     <updated>2025-08-01T03:11:39.991Z</updated>
     
