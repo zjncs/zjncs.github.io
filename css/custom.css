@@ -1,9 +1,17 @@
-/* 针对移动端设备 (屏幕宽度小于等于 768px)
-  修改首页顶部大图的显示方式为“居中缩小”
-*/
+/* 最终方案：针对移动端，智能放大铺满屏幕 */
 @media (max-width: 768px) {
   #page-header {
-    background-size: contain !important; /* 核心代码：让背景图等比缩小，直到完全容纳进容器内 */
-    background-repeat: no-repeat !important; /* 确保图片不重复平铺 */
+    /* 核心代码 (二选一):
+      1. background-size: cover;  (这是默认值，通常不需要写)
+         让图片放大，完全覆盖容器，可能会裁剪边缘。
+
+      2. background-position: center top !important; 
+         调整图片位置，让图片的“顶部居中”区域优先显示。
+         您可以根据您的图片，将其修改为：
+         - center center: (默认值) 上下左右都居中
+         - center top:    顶部居中 (适合人物在上半部分的图)
+         - center bottom: 底部居中 (适合风景在地平线以下的图)
+    */
+    background-position: center top !important;
   }
 }
