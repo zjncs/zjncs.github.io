@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: zjncs/zjncs.github.io
-  branch: source
+  branch: main
   client_id: Ov23lidjNE3gKm9QMBln
   auth_type: implicit
   auth_scope: repo

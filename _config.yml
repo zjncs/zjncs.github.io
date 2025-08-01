@@ -102,3 +102,7 @@ theme: butterfly
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
+deploy:
+  type: git
+  repo: https://github.com/zjncs/zjncs.github.io.git
+  branch: main
