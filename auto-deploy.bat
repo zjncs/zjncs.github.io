@@ -20,7 +20,7 @@ echo.
 echo ✅ 提交 Markdown 和配置更改到源码仓库...
 git add .
 git commit -m "!commit! %commit_msg%"
-git push origin main
+git push origin master
 IF %ERRORLEVEL% NEQ 0 (
     echo ❌ Git 源码推送失败，请检查远程仓库配置！
     pause
