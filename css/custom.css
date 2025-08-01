@@ -1,0 +1,9 @@
+/* 针对移动端设备 (屏幕宽度小于等于 768px)
+  修改首页顶部大图的显示方式为“居中缩小”
+*/
+@media (max-width: 768px) {
+  #page-header {
+    background-size: contain !important; /* 核心代码：让背景图等比缩小，直到完全容纳进容器内 */
+    background-repeat: no-repeat !important; /* 确保图片不重复平铺 */
+  }
+}
