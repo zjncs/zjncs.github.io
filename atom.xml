@@ -6,7 +6,7 @@
   <link href="https://zjncs.github.io/atom.xml" rel="self"/>
   
   <link href="https://zjncs.github.io/"/>
-  <updated>2025-08-01T07:32:17.107Z</updated>
+  <updated>2025-08-01T09:48:00.989Z</updated>
   <id>https://zjncs.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://zjncs.github.io/2025/08/01/%E7%BB%84%E5%90%88%E4%B8%A4%E4%B8%AA%E8%A1%A8/"/>
+    <id>https://zjncs.github.io/2025/08/01/%E7%BB%84%E5%90%88%E4%B8%A4%E4%B8%AA%E8%A1%A8/</id>
+    <published>2025-08-01T09:46:19.691Z</published>
+    <updated>2025-08-01T09:48:00.989Z</updated>
+    
+    <content type="html"><![CDATA[<p>算法</p><p>因为表 Address 中的 personId 是表 Person 的外关键字，所以我们可以连接这两个表来获取一个人的地址信息。</p><p>考虑到可能不是每个人都有地址信息，我们应该使用 outer join 而不是默认的 inner join。</p><p>MySQL<br>select FirstName, LastName, City, State<br>from Person left join Address<br>on Person.PersonId &#x3D; Address.PersonId<br>;</p><p>作者：LeetCode<br>链接：<a href="https://leetcode.cn/problems/combine-two-tables/solutions/3573/zu-he-liang-ge-biao-by-leetcode/">https://leetcode.cn/problems/combine-two-tables/solutions/3573/zu-he-liang-ge-biao-by-leetcode/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;算法&lt;/p&gt;
+&lt;p&gt;因为表 Address 中的 personId 是表 Person 的外关键字，所以我们可以连接这两个表来获取一个人的地址信息。&lt;/p&gt;
+&lt;p&gt;考虑到可能不是每个人都有地址信息，我们应该使用 outer join 而不是默认的 inner join。&lt;/</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>脚本测试</title>
