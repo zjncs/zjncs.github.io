@@ -1,0 +1,15 @@
+# 首页封面图
+index_img: http://img.netbian.com/file/2025/0730/232951FIVFd.jpg
+# 文章列表的样式
+post_list:
+  style: card
+
+# 侧边栏配置
+aside:
+  card_author:
+    enable: true
+    avatar: /img/avatar.png
+    author: Johnny-Zhao
+    social_icons:
+      fab fa-github: https://github.com/zjncs
+      fas fa-envelope: mailto:zhaojianing@tju.edu.cn
