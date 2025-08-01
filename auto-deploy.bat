@@ -17,7 +17,7 @@ git status
 echo.
 
 :: Step 2: 提交源文件更改
-echo ✅ 提交 Markdown 和配置更改到源码仓库...
+echo ✅ 提交Markdown和配置更改到源码仓库...
 git add .
 git commit -m "!commit! %commit_msg%"
 git push origin master --force
