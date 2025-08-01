@@ -1,5 +1,5 @@
 # 首页封面图
-index_img: http://img.netbian.com/file/2025/0730/232951FIVFd.jpg
+index_img: /img/carousel.jpg
 # 文章列表的样式
 post_list:
   style: card
