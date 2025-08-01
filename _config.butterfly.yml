@@ -24,3 +24,7 @@ aside:
     author: Johnny-Zhao
     # 作者描述或签名
     description: Attention is all you need.
+# _config.butterfly.yml
+inject:
+  head:
+    - <link rel="stylesheet" href="/css/custom.css">
