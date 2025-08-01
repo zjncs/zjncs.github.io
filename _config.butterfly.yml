@@ -4,12 +4,23 @@ index_img: http://img.netbian.com/file/2025/0730/232951FIVFd.jpg
 post_list:
   style: card
 
+# -----------------
+# 社交链接（顶层配置）
+# 这里是控制侧边栏和页脚社交图标的地方
+# -----------------
+social:
+  fab fa-github: https://github.com/zjncs || Github
+  fas fa-envelope: mailto:zhaojianing@tju.edu.cn || Email
+
+# -----------------
 # 侧边栏配置
+# -----------------
 aside:
   card_author:
     enable: true
+    # 作者头像
     avatar: /img/avatar.png
+    # 作者昵称
     author: Johnny-Zhao
-    social_icons:
-      fab fa-github: https://github.com/zjncs
-      fas fa-envelope: mailto:zhaojianing@tju.edu.cn
+    # 作者描述或签名
+    description: Attention is all you need.
