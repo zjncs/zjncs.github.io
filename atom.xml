@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Johnny-Zhao&#39;s TechBlog</title>
+  
+  <subtitle>KEEP FIGHTING</subtitle>
+  <link href="https://zjncs.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://zjncs.github.io/"/>
+  <updated>2025-08-05T03:28:22.273Z</updated>
+  <id>https://zjncs.github.io/</id>
+  
+  <author>
+    <name>Johnny-Zhao</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Blog搭建指南</title>
+    <link href="https://zjncs.github.io/2025/08/05/Blog%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/"/>
+    <id>https://zjncs.github.io/2025/08/05/Blog%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/</id>
+    <published>2025-08-05T03:28:22.000Z</published>
+    <updated>2025-08-05T03:28:22.273Z</updated>
+    
+    <content type="html"><![CDATA[<p>我们选择hexo</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;我们选择hexo&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>
