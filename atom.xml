@@ -6,7 +6,7 @@
   <link href="https://zjncs.github.io/atom.xml" rel="self"/>
   
   <link href="https://zjncs.github.io/"/>
-  <updated>2025-08-07T09:05:02.307Z</updated>
+  <updated>2025-08-08T07:18:00.984Z</updated>
   <id>https://zjncs.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>链表双指针0808</title>
+    <link href="https://zjncs.github.io/2025/08/08/%E9%93%BE%E8%A1%A8%E5%8F%8C%E6%8C%87%E9%92%880808/"/>
+    <id>https://zjncs.github.io/2025/08/08/%E9%93%BE%E8%A1%A8%E5%8F%8C%E6%8C%87%E9%92%880808/</id>
+    <published>2025-08-08T07:17:53.000Z</published>
+    <updated>2025-08-08T07:18:00.984Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="3-0019-删除链表的倒数第-N-个结点"><a href="#3-0019-删除链表的倒数第-N-个结点" class="headerlink" title="3.0019. 删除链表的倒数第 N 个结点"></a><a href="https://datawhalechina.github.io/leetcode-notes/#/ch02/02.01/02.01.09-Exercises?id=_3-0019-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC-n-%E4%B8%AA%E7%BB%93%E7%82%B9">3.</a><a href="https://leetcode.cn/problems/remove-nth-node-from-end-of-list/">0019. 删除链表的倒数第 N 个结点</a></h2><h3 id="3-1-题目大意"><a href="#3-1-题目大意" class="headerlink" title="3.1 题目大意"></a><a href="https://datawhalechina.github.io/leetcode-notes/#/ch02/02.01/02.01.09-Exercises?id=_31-%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F">3.1 题目大意</a></h3><p><strong>描述</strong>：给定一个链表的头节点 <code>head</code>。</p><p><strong>要求</strong>：删除链表的倒数第 <code>n</code> 个节点，并且返回链表的头节点。</p><p><strong>说明</strong>：</p><ul><li><strong>要求使用一次遍历实现。</strong></li><li>**链表中结点的数目为 **<code>sz</code>。</li></ul><p><strong>示例</strong>：</p><p><img src="https://datawhalechina.github.io/leetcode-notes/images/20201024001901.jpg" alt="img"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> 输入：head = [1,2,3,4,5], n = 2</span><br><span class="line"> 输出：[1,2,3,5]</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> 输入：head = [1], n = 1</span><br><span class="line"> 输出：[]</span><br></pre></td></tr></table></figure><p><strong>题解：</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"> class Solution:</span><br><span class="line">     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -&gt; Optional[ListNode]:</span><br><span class="line">         slow, fast = head, head</span><br><span class="line">         </span><br><span class="line">         # fast 先走 n 步</span><br><span class="line">         for _ in range(n):</span><br><span class="line">             fast = fast.next</span><br><span class="line">         </span><br><span class="line">         # 如果 fast 走到 None，说明删除的是头节点</span><br><span class="line">         if not fast:</span><br><span class="line">             return head.next</span><br><span class="line">         </span><br><span class="line">         # 同步移动，直到 fast 到最后一个节点</span><br><span class="line">         while fast.next:</span><br><span class="line">             slow = slow.next</span><br><span class="line">             fast = fast.next</span><br><span class="line">         </span><br><span class="line">         # 删除 slow.next 节点</span><br><span class="line">         slow.next = slow.next.next</span><br><span class="line">         return head</span><br><span class="line"> </span><br></pre></td></tr></table></figure><ul><li><a href="https://leetcode.cn/problems/middle-of-the-linked-list/">876. 链表的中间结点 - 力扣（LeetCode）</a></li></ul><h4 id="3-4-2-题目大意"><a href="#3-4-2-题目大意" class="headerlink" title="3.4.2 题目大意"></a><a href="https://datawhalechina.github.io/leetcode-notes/#/ch02/02.01/02.01.08-Linked-List-Two-Pointers?id=_342-%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F">3.4.2 题目大意</a></h4><p><strong>描述</strong>：给定一个单链表的头节点 <code>head</code>。</p><p><strong>要求</strong>：返回链表的中间节点。如果有两个中间节点，则返回第二个中间节点。</p><p><strong>说明</strong>：</p><ul><li>**给定链表的结点数介于 **<code>1</code> 和 <code>100</code> 之间。</li></ul><p><strong>示例</strong>：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> 输入：[1,2,3,4,5]</span><br><span class="line"> 输出：此列表中的结点 3 (序列化形式：[3,4,5])</span><br><span class="line"> 解释：返回的结点值为 3 。</span><br><span class="line"> 注意，我们返回了一个 ListNode 类型的对象 ans，这样：</span><br><span class="line"> ans.val = 3, ans.next.val = 4, ans.next.next.val = 5, 以及 ans.next.next.next = NULL.</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> 输入：[1,2,3,4,5,6]</span><br><span class="line"> 输出：此列表中的结点 4 (序列化形式：[4,5,6])</span><br><span class="line"> 解释：由于该列表有两个中间结点，值分别为 3 和 4，我们返回第二个结点。</span><br></pre></td></tr></table></figure><p><strong>题解：</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> class Solution:</span><br><span class="line">     def middleNode(self, head: Optional[ListNode]) -&gt; Optional[ListNode]:</span><br><span class="line">         slow, fast = head, head</span><br><span class="line">         while fast and fast.next:</span><br><span class="line">             slow = slow.next</span><br><span class="line">             fast = fast.next.next</span><br><span class="line">         return slow</span><br><span class="line"> </span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;3-0019-删除链表的倒数第-N-个结点&quot;&gt;&lt;a href=&quot;#3-0019-删除链表的倒数第-N-个结点&quot; class=&quot;headerlink&quot; title=&quot;3.0019. 删除链表的倒数第 N 个结点&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://dataw</summary>
+      
+    
+    
+    
+    <category term="leetcode" scheme="https://zjncs.github.io/categories/leetcode/"/>
+    
+    
+    <category term="2508" scheme="https://zjncs.github.io/tags/2508/"/>
+    
+  </entry>
   
   <entry>
     <title>链表排序0807</title>
