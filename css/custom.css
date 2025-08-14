@@ -1,17 +1,118 @@
-/* 最终方案：针对移动端，智能放大铺满屏幕 */
-@media (max-width: 768px) {
-  #page-header {
-    /* 核心代码 (二选一):
-      1. background-size: cover;  (这是默认值，通常不需要写)
-         让图片放大，完全覆盖容器，可能会裁剪边缘。
+/* =========================================================
+   custom.css — Hexo Butterfly Enhanced Styles
+   Author: ChatGPT
+   License: MIT
+   Description:
+     - Sidebar & card polish
+     - Tag colors
+     - Hover/scale effects
+     - Reading progress bar
+     - Small tweaks for code blocks and toc
+   ========================================================= */
 
-      2. background-position: center top !important; 
-         调整图片位置，让图片的“顶部居中”区域优先显示。
-         您可以根据您的图片，将其修改为：
-         - center center: (默认值) 上下左右都居中
-         - center top:    顶部居中 (适合人物在上半部分的图)
-         - center bottom: 底部居中 (适合风景在地平线以下的图)
-    */
-    background-position: center top !important;
-  }
+:root{
+  --brand: #6366f1;             /* theme accent, matches your PWA */
+  --brand-soft: rgba(99,102,241,.15);
+  --card-radius: 16px;
+  --card-shadow: 0 10px 25px rgba(0,0,0,.08);
+  --hover-shadow: 0 16px 40px rgba(0,0,0,.12);
+  --tag-bg: rgba(99,102,241,.10);
+  --tag-border: rgba(99,102,241,.25);
+  --like-color: #ff4757;
 }
+
+/* --- Card polish --- */
+.card-widget, .recent-post-item, .post-block, .post-card, .card {
+  border-radius: var(--card-radius) !important;
+  box-shadow: var(--card-shadow);
+  transition: transform .25s ease, box-shadow .25s ease;
+  will-change: transform;
+}
+
+.card-widget:hover, .recent-post-item:hover, .post-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--hover-shadow);
+}
+
+/* --- Tag aesthetics --- */
+.tag-cloud a, .card-tag-cloud a, .tags a {
+  display: inline-block;
+  padding: 4px 10px;
+  margin: 6px 8px 0 0;
+  border-radius: 999px;
+  border: 1px solid var(--tag-border);
+  background: var(--tag-bg);
+  text-decoration: none !important;
+  transition: transform .2s ease, background .2s ease, border-color .2s ease;
+}
+
+.tag-cloud a:hover, .card-tag-cloud a:hover, .tags a:hover {
+  transform: translateY(-2px);
+  border-color: var(--brand);
+  background: var(--brand-soft);
+}
+
+/* --- Reading progress bar --- */
+#reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  z-index: 9999;
+  background: linear-gradient(90deg, var(--brand), #22d3ee, #22c55e);
+  box-shadow: 0 0 8px rgba(0,0,0,.2);
+  transition: width .15s ease-out;
+}
+html[theme='dark'] #reading-progress { opacity: .9; }
+
+/* --- Like button --- */
+.post-like-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.1);
+  background: #fff;
+  cursor: pointer;
+  user-select: none;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+html[theme='dark'] .post-like-btn { background: #111; border-color: rgba(255,255,255,.15); }
+.post-like-btn:hover { transform: translateY(-1px); box-shadow: var(--card-shadow); }
+.post-like-btn.liked { border-color: var(--like-color); color: var(--like-color); }
+
+/* --- Share buttons --- */
+.share-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,.12);
+  background: #fff;
+  text-decoration: none !important;
+  font-size: 14px;
+  transition: transform .2s ease, background .2s ease, border-color .2s ease;
+}
+html[theme='dark'] .share-btn { background: #111; border-color: rgba(255,255,255,.15); }
+.share-btn:hover { transform: translateY(-1px); border-color: var(--brand); background: var(--brand-soft); }
+
+/* --- Code block polish --- */
+figure.highlight, pre code, pre {
+  border-radius: 12px;
+  overflow: auto;
+}
+
+/* --- TOC tweaks --- */
+.toc .toc-item a:hover { color: var(--brand); }
+
+/* --- Footer small heart pulse --- */
+.footer-inner .custom_text { animation: gentlePulse 2s ease-in-out infinite; }
+@keyframes gentlePulse { 0%{transform:scale(1)} 50%{transform:scale(1.02)} 100%{transform:scale(1)} }
