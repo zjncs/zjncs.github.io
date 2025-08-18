@@ -1,3 +1,4 @@
+https://zjncs.github.io/2025/08/18/llm%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86-RNN/
 https://zjncs.github.io/2025/08/13/eoh%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/
 https://zjncs.github.io/2025/08/18/llm%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/
 https://zjncs.github.io/2025/08/14/llm-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/
@@ -16,5 +17,4 @@ https://zjncs.github.io/tags/GLCC/
 https://zjncs.github.io/categories/%E6%9D%82%E7%B1%BB/
 https://zjncs.github.io/categories/llm/
 https://zjncs.github.io/categories/leetcode/
-https://zjncs.github.io/categories/llm/%E6%9D%82%E7%B1%BB/
 https://zjncs.github.io/categories/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/
