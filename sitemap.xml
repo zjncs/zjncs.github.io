@@ -101,14 +101,14 @@
 
   
   <url>
-    <loc>https://zjncs.github.io/tags/2508/</loc>
+    <loc>https://zjncs.github.io/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</loc>
     <lastmod>2025-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zjncs.github.io/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</loc>
+    <loc>https://zjncs.github.io/tags/2508/</loc>
     <lastmod>2025-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -131,13 +131,6 @@
 
   
   <url>
-    <loc>https://zjncs.github.io/categories/llm/</loc>
-    <lastmod>2025-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zjncs.github.io/categories/%E6%9D%82%E7%B1%BB/</loc>
     <lastmod>2025-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -145,7 +138,7 @@
   </url>
   
   <url>
-    <loc>https://zjncs.github.io/categories/llm/%E6%9D%82%E7%B1%BB/</loc>
+    <loc>https://zjncs.github.io/categories/llm/</loc>
     <lastmod>2025-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -153,6 +146,13 @@
   
   <url>
     <loc>https://zjncs.github.io/categories/leetcode/</loc>
+    <lastmod>2025-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zjncs.github.io/categories/llm/%E6%9D%82%E7%B1%BB/</loc>
     <lastmod>2025-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
