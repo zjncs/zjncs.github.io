@@ -1,6 +1,6 @@
 /* =========================================================
-   🚀 Butterfly 主题增强 JavaScript v4.0 - 修复版
-   保留所有原功能，只修复性能和兼容性问题
+   🚀 Butterfly 主题增强 JavaScript v4.0
+   解决标签页/分类页问题并添加高级交互功能
 ========================================================= */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -35,7 +35,7 @@ function fixTagCategoryPages() {
             // 如果标签云为空，添加提示信息
             cloud.innerHTML = `
                 <div class="empty-state">
-                    <i class="fas fa-tags" style="font-size: 3rem; color: var(--primary-color, #6366f1); margin-bottom: 1rem;"></i>
+                    <i class="fas fa-tags" style="font-size: 3rem; color: var(--primary-magic); margin-bottom: 1rem;"></i>
                     <p>暂无标签或分类</p>
                     <p style="font-size: 0.9rem; opacity: 0.7;">继续创作，精彩即将呈现</p>
                 </div>
@@ -43,16 +43,16 @@ function fixTagCategoryPages() {
         }
     });
     
-    // 修复标签页面路由 - 使用事件委托优化性能
-    document.addEventListener('click', function(e) {
-        const link = e.target.closest('a[href*="/tags/"], a[href*="/categories/"]');
-        if (link) {
-            const href = link.getAttribute('href');
-            if (href && !href.startsWith('http') && !href.startsWith('#')) {
+    // 修复标签页面路由
+    const tagLinks = document.querySelectorAll('a[href*="/tags/"], a[href*="/categories/"]');
+    tagLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href && !href.startsWith('http')) {
                 // 确保链接正确
                 window.location.href = href;
             }
-        }
+        });
     });
     
     // 动态加载标签页内容
@@ -71,8 +71,8 @@ function loadTagCategoryContent() {
             <div class="loading-spinner" style="
                 width: 60px; 
                 height: 60px; 
-                border: 4px solid var(--glass-border, rgba(255,255,255,0.3)); 
-                border-top: 4px solid var(--primary-color, #6366f1); 
+                border: 4px solid var(--glass-border); 
+                border-top: 4px solid var(--primary-magic); 
                 border-radius: 50%; 
                 animation: spin 1s linear infinite;
                 margin: 0 auto 2rem;
@@ -97,7 +97,7 @@ function loadActualContent(container) {
             <h1 class="page-title" style="
                 font-size: 3rem; 
                 font-weight: 800; 
-                background: var(--gradient-cosmic, linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)); 
+                background: var(--gradient-cosmic); 
                 background-clip: text; 
                 -webkit-background-clip: text; 
                 -webkit-text-fill-color: transparent;
@@ -134,7 +134,7 @@ function generateSampleTags(isTagPage) {
             display: inline-flex;
             align-items: center;
             padding: 0.8rem 1.5rem;
-            background: var(--glass-medium, rgba(255,255,255,0.15));
+            background: var(--glass-medium);
             backdrop-filter: blur(20px);
             border: 2px solid transparent;
             border-radius: 2rem;
@@ -147,7 +147,7 @@ function generateSampleTags(isTagPage) {
             <span>${tag}</span>
             <span style="
                 margin-left: 0.5rem;
-                background: var(--primary-color, #6366f1);
+                background: var(--primary-magic);
                 color: white;
                 padding: 0.2rem 0.5rem;
                 border-radius: 1rem;
@@ -163,7 +163,7 @@ function addTagInteractions() {
         item.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-8px) scale(1.05)';
             this.style.boxShadow = '0 20px 40px rgba(99, 102, 241, 0.3)';
-            this.style.borderColor = 'var(--primary-color, #6366f1)';
+            this.style.borderColor = 'var(--primary-magic)';
         });
         
         item.addEventListener('mouseleave', function() {
@@ -208,7 +208,7 @@ function createBackToTopButton() {
             <i class="fas fa-arrow-up"></i>
             <div class="progress-ring">
                 <svg width="60" height="60">
-                    <circle cx="30" cy="30" r="26" stroke="var(--primary-color, #6366f1)" 
+                    <circle cx="30" cy="30" r="26" stroke="var(--primary-magic)" 
                             stroke-width="3" fill="transparent" 
                             stroke-dasharray="163.28" stroke-dashoffset="163.28"
                             class="progress-circle"/>
@@ -224,9 +224,9 @@ function createBackToTopButton() {
         width: '60px',
         height: '60px',
         borderRadius: '50%',
-        background: 'var(--glass-light, rgba(255,255,255,0.25))',
+        background: 'var(--glass-light)',
         backdropFilter: 'blur(20px)',
-        border: '3px solid var(--glass-border, rgba(255,255,255,0.3))',
+        border: '3px solid var(--glass-border)',
         cursor: 'pointer',
         zIndex: '9999',
         display: 'flex',
@@ -239,21 +239,17 @@ function createBackToTopButton() {
     
     document.body.appendChild(backToTop);
     
-    // 滚动监听 - 使用节流优化性能
+    // 滚动监听
     let isVisible = false;
-    let ticking = false;
-    
-    function updateScrollProgress() {
+    window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
         const rate = scrolled / (document.body.scrollHeight - window.innerHeight);
         
         // 更新进度环
         const circle = backToTop.querySelector('.progress-circle');
-        if (circle) {
-            const circumference = 163.28;
-            const strokeDashoffset = circumference - (rate * circumference);
-            circle.style.strokeDashoffset = strokeDashoffset;
-        }
+        const circumference = 163.28;
+        const strokeDashoffset = circumference - (rate * circumference);
+        circle.style.strokeDashoffset = strokeDashoffset;
         
         // 显示/隐藏按钮
         if (scrolled > 300 && !isVisible) {
@@ -265,18 +261,7 @@ function createBackToTopButton() {
             backToTop.style.transform = 'translateY(100px)';
             backToTop.style.opacity = '0';
         }
-        
-        ticking = false;
-    }
-    
-    function requestTick() {
-        if (!ticking) {
-            requestAnimationFrame(updateScrollProgress);
-            ticking = true;
-        }
-    }
-    
-    window.addEventListener('scroll', requestTick, { passive: true });
+    });
     
     // 点击返回顶部
     backToTop.addEventListener('click', () => {
@@ -288,17 +273,13 @@ function createBackToTopButton() {
     
     // 悬浮效果
     backToTop.addEventListener('mouseenter', () => {
-        if (isVisible) {
-            backToTop.style.transform = 'translateY(-5px) scale(1.1)';
-            backToTop.style.boxShadow = '0 20px 40px rgba(99, 102, 241, 0.3)';
-        }
+        backToTop.style.transform = isVisible ? 'translateY(-5px) scale(1.1)' : 'translateY(100px)';
+        backToTop.style.boxShadow = '0 20px 40px rgba(99, 102, 241, 0.3)';
     });
     
     backToTop.addEventListener('mouseleave', () => {
-        if (isVisible) {
-            backToTop.style.transform = 'translateY(0) scale(1)';
-            backToTop.style.boxShadow = 'none';
-        }
+        backToTop.style.transform = isVisible ? 'translateY(0) scale(1)' : 'translateY(100px)';
+        backToTop.style.boxShadow = 'none';
     });
 }
 
@@ -324,16 +305,14 @@ function enhanceReadingProgress() {
     `;
     progressBar.appendChild(particles);
     
-    // 创建粒子 - 减少频率避免性能问题
+    // 创建粒子
     function createProgressParticle() {
-        if (particles.children.length > 10) return; // 限制粒子数量
-        
         const particle = document.createElement('div');
         particle.style.cssText = `
             position: absolute;
             width: 4px;
             height: 4px;
-            background: var(--gradient-holographic, linear-gradient(45deg, #ff0080, #ff8c00, #40e0d0));
+            background: var(--gradient-holographic);
             border-radius: 50%;
             top: 2px;
             left: ${Math.random() * 100}%;
@@ -341,29 +320,15 @@ function enhanceReadingProgress() {
         `;
         particles.appendChild(particle);
         
-        setTimeout(() => {
-            if (particle.parentNode) {
-                particle.remove();
-            }
-        }, 2000);
+        setTimeout(() => particle.remove(), 2000);
     }
     
-    // 滚动时创建粒子 - 使用节流
+    // 滚动时创建粒子
     let particleTimer;
-    let scrollTicking = false;
-    
-    function handleScroll() {
-        if (!scrollTicking) {
-            requestAnimationFrame(() => {
-                clearTimeout(particleTimer);
-                particleTimer = setTimeout(createProgressParticle, 100);
-                scrollTicking = false;
-            });
-            scrollTicking = true;
-        }
-    }
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', () => {
+        clearTimeout(particleTimer);
+        particleTimer = setTimeout(createProgressParticle, 100);
+    });
 }
 
 function enhanceCardHoverEffects() {
@@ -376,11 +341,8 @@ function enhanceCardHoverEffects() {
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             
-            // 创建光效 - 限制数量避免性能问题
-            if (this.querySelectorAll('.mouse-light').length > 0) return;
-            
+            // 创建光效
             const light = document.createElement('div');
-            light.className = 'mouse-light';
             light.style.cssText = `
                 position: absolute;
                 width: 200px;
@@ -397,17 +359,11 @@ function enhanceCardHoverEffects() {
             this.style.position = 'relative';
             this.appendChild(light);
             
-            setTimeout(() => {
-                if (light.parentNode) {
-                    light.remove();
-                }
-            }, 300);
+            setTimeout(() => light.remove(), 300);
         });
         
         // 3D倾斜效果
         card.addEventListener('mousemove', function(e) {
-            if (window.innerWidth <= 768) return; // 移动端禁用
-            
             const rect = this.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
@@ -438,11 +394,11 @@ function enhanceTagCloudInteractions() {
     tags.forEach(tag => {
         // 随机颜色
         const colors = [
-            'var(--gradient-aurora, linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%))',
-            'var(--gradient-sunset, linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%))',
-            'var(--gradient-ocean, linear-gradient(135deg, #667eea 0%, #764ba2 100%))',
-            'var(--gradient-forest, linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%))',
-            'var(--gradient-fire, linear-gradient(135deg, #ff9a56 0%, #ff6b95 100%))'
+            'var(--gradient-aurora)',
+            'var(--gradient-sunset)',
+            'var(--gradient-ocean)',
+            'var(--gradient-forest)',
+            'var(--gradient-fire)'
         ];
         
         tag.addEventListener('mouseenter', function() {
@@ -450,10 +406,7 @@ function enhanceTagCloudInteractions() {
             this.style.background = randomColor;
             
             // 创建涟漪效果
-            if (this.querySelector('.ripple-effect')) return; // 避免重复创建
-            
             const ripple = document.createElement('div');
-            ripple.className = 'ripple-effect';
             ripple.style.cssText = `
                 position: absolute;
                 width: 0;
@@ -471,11 +424,7 @@ function enhanceTagCloudInteractions() {
             this.style.position = 'relative';
             this.appendChild(ripple);
             
-            setTimeout(() => {
-                if (ripple.parentNode) {
-                    ripple.remove();
-                }
-            }, 600);
+            setTimeout(() => ripple.remove(), 600);
         });
     });
 }
@@ -484,21 +433,15 @@ function enhanceLikeButton() {
     const likeButtons = document.querySelectorAll('.post-like-btn, .like-btn');
     
     likeButtons.forEach(btn => {
-        // 从localStorage读取状态
-        const pageKey = window.location.pathname;
-        let isLiked = localStorage.getItem(`liked_${pageKey}`) === 'true';
-        let likeCount = parseInt(localStorage.getItem(`likeCount_${pageKey}`)) || Math.floor(Math.random() * 50) + 10;
+        let isLiked = false;
+        let likeCount = Math.floor(Math.random() * 50) + 10;
         
         // 初始化显示
         if (!btn.querySelector('.like-count')) {
             btn.innerHTML = `
-                <i class="fas fa-heart like-icon ${isLiked ? 'liked' : ''}"></i>
+                <i class="fas fa-heart like-icon"></i>
                 <span class="like-count">${likeCount}</span>
             `;
-        }
-        
-        if (isLiked) {
-            btn.classList.add('liked');
         }
         
         btn.addEventListener('click', function(e) {
@@ -521,15 +464,7 @@ function enhanceLikeButton() {
                 this.classList.remove('liked');
             }
             
-            // 保存到localStorage
-            localStorage.setItem(`liked_${pageKey}`, isLiked);
-            localStorage.setItem(`likeCount_${pageKey}`, likeCount);
-            
             this.querySelector('.like-count').textContent = likeCount;
-            const icon = this.querySelector('.like-icon');
-            if (icon) {
-                icon.className = `fas fa-heart like-icon ${isLiked ? 'liked' : ''}`;
-            }
         });
     });
 }
@@ -550,11 +485,7 @@ function createHeartExplosion(x, y) {
         `;
         
         document.body.appendChild(heart);
-        setTimeout(() => {
-            if (heart.parentNode) {
-                heart.remove();
-            }
-        }, 1500);
+        setTimeout(() => heart.remove(), 1500);
     }
 }
 
@@ -572,7 +503,7 @@ function enhanceShareButtons() {
                 width: 100%;
                 height: 100%;
                 border-radius: inherit;
-                background: var(--gradient-neon, linear-gradient(45deg, #ff006e, #8338ec, #3a86ff, #06ffa5));
+                background: var(--gradient-neon);
                 left: 0;
                 top: 0;
                 transform: scale(0);
@@ -584,33 +515,10 @@ function enhanceShareButtons() {
             this.style.position = 'relative';
             this.appendChild(ripple);
             
-            setTimeout(() => {
-                if (ripple.parentNode) {
-                    ripple.remove();
-                }
-            }, 800);
+            setTimeout(() => ripple.remove(), 800);
             
-            // 分享功能
-            const url = window.location.href;
-            const title = document.title;
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: title,
-                    url: url
-                }).catch(console.error);
-            } else {
-                // 复制到剪贴板
-                if (navigator.clipboard) {
-                    navigator.clipboard.writeText(url).then(() => {
-                        showToast('链接已复制到剪贴板！', 'success');
-                    }).catch(() => {
-                        showToast('复制失败，请手动复制链接', 'error');
-                    });
-                } else {
-                    showToast('链接已复制到剪贴板！', 'success');
-                }
-            }
+            // 显示分享提示
+            showToast('链接已复制到剪贴板！', 'success');
         });
     });
 }
@@ -628,7 +536,7 @@ function enhanceThemeToggle() {
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--gradient-cosmic, linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%));
+            background: var(--gradient-cosmic);
             z-index: 10000;
             opacity: 0;
             animation: themeSwitch 0.6s ease-in-out;
@@ -636,11 +544,7 @@ function enhanceThemeToggle() {
         `;
         
         document.body.appendChild(overlay);
-        setTimeout(() => {
-            if (overlay.parentNode) {
-                overlay.remove();
-            }
-        }, 600);
+        setTimeout(() => overlay.remove(), 600);
     });
 }
 
@@ -674,13 +578,10 @@ function animateOnLoad() {
 }
 
 function initScrollAnimations() {
-    if (!window.IntersectionObserver) return;
-    
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('animate-in');
-                observer.unobserve(entry.target); // 优化性能
             }
         });
     }, { threshold: 0.1 });
@@ -712,11 +613,6 @@ function enhanceTypingEffect() {
    🎨 粒子系统
 ========================================================= */
 function initParticleSystem() {
-    // 检查是否为移动设备，如果是则不加载粒子系统
-    if (window.innerWidth <= 768 || 'ontouchstart' in window) {
-        return;
-    }
-    
     // 创建粒子容器
     const particleContainer = document.createElement('div');
     particleContainer.className = 'particle-container';
@@ -733,17 +629,12 @@ function initParticleSystem() {
     
     // 创建粒子
     function createParticle() {
-        // 限制粒子数量
-        if (particleContainer.children.length > 50) {
-            return;
-        }
-        
         const particle = document.createElement('div');
         particle.style.cssText = `
             position: absolute;
             width: ${Math.random() * 6 + 2}px;
             height: ${Math.random() * 6 + 2}px;
-            background: var(--primary-color, #6366f1);
+            background: var(--primary-magic);
             border-radius: 50%;
             left: ${Math.random() * 100}%;
             top: 100%;
@@ -754,21 +645,12 @@ function initParticleSystem() {
         particleContainer.appendChild(particle);
         
         setTimeout(() => {
-            if (particle.parentNode) {
-                particle.remove();
-            }
+            particle.remove();
         }, 20000);
     }
     
     // 定期创建粒子
-    const particleInterval = setInterval(createParticle, 2000);
-    
-    // 页面隐藏时停止创建粒子
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-            clearInterval(particleInterval);
-        }
-    });
+    setInterval(createParticle, 2000);
 }
 
 /* =========================================================
@@ -777,29 +659,26 @@ function initParticleSystem() {
 function initResponsiveFeatures() {
     let isMobile = window.innerWidth <= 768;
     
-    function handleResponsiveChange() {
+    window.addEventListener('resize', () => {
         const wasMobile = isMobile;
         isMobile = window.innerWidth <= 768;
         
         if (wasMobile !== isMobile) {
             // 响应式状态改变时的处理
-            const effects = document.querySelectorAll('.particle-container, .background-effects');
-            
-            effects.forEach(effect => {
-                if (isMobile) {
-                    effect.style.display = 'none';
-                } else {
-                    effect.style.display = 'block';
-                }
-            });
+            handleResponsiveChange(isMobile);
         }
-    }
+    });
+}
+
+function handleResponsiveChange(isMobile) {
+    const effects = document.querySelectorAll('.particle-container, .background-effects');
     
-    // 使用防抖优化resize事件
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(handleResponsiveChange, 250);
+    effects.forEach(effect => {
+        if (isMobile) {
+            effect.style.display = 'none';
+        } else {
+            effect.style.display = 'block';
+        }
     });
 }
 
@@ -807,12 +686,6 @@ function initResponsiveFeatures() {
    🛠️ 工具函数
 ========================================================= */
 function showToast(message, type = 'info') {
-    // 移除已存在的toast
-    const existingToast = document.querySelector('.toast');
-    if (existingToast) {
-        existingToast.remove();
-    }
-    
     const toast = document.createElement('div');
     toast.className = `toast toast-${type}`;
     toast.style.cssText = `
@@ -820,16 +693,16 @@ function showToast(message, type = 'info') {
         top: 20px;
         right: 20px;
         padding: 1rem 1.5rem;
-        background: var(--glass-light, rgba(255,255,255,0.25));
+        background: var(--glass-light);
         backdrop-filter: blur(20px);
-        border: 2px solid var(--glass-border, rgba(255,255,255,0.3));
-        border-radius: var(--radius-lg, 16px);
+        border: 2px solid var(--glass-border);
+        border-radius: var(--radius-lg);
         color: white;
         font-weight: 600;
         z-index: 10000;
         transform: translateX(400px);
         transition: transform 0.3s ease;
-        box-shadow: var(--shadow-glow-md, 0 0 40px rgba(99, 102, 241, 0.4));
+        box-shadow: var(--shadow-glow-md);
     `;
     
     toast.textContent = message;
@@ -841,11 +714,7 @@ function showToast(message, type = 'info') {
     
     setTimeout(() => {
         toast.style.transform = 'translateX(400px)';
-        setTimeout(() => {
-            if (toast.parentNode) {
-                toast.remove();
-            }
-        }, 300);
+        setTimeout(() => toast.remove(), 300);
     }, 3000);
 }
 
@@ -894,55 +763,8 @@ styleSheet.textContent = `
     @keyframes spin {
         to { transform: rotate(360deg); }
     }
-    
-    .like-icon.liked {
-        color: #ec4899 !important;
-        animation: likeAnimation 0.5s ease;
-    }
-    
-    @keyframes likeAnimation {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.3); }
-    }
 `;
 
 document.head.appendChild(styleSheet);
 
 console.log('🎉 Butterfly Enhanced JavaScript v4.0 Ready!');
-// 修复卡片点击问题
-document.addEventListener('DOMContentLoaded', function() {
-    // 也要在PJAX完成后执行
-    function fixCardClicks() {
-        const cards = document.querySelectorAll('.recent-post-item, .card-widget');
-        
-        cards.forEach(card => {
-            // 找到卡片内的主要链接
-            const titleLink = card.querySelector('.article-title');
-            
-            if (titleLink) {
-                // 确保标题链接本身可以点击
-                titleLink.style.position = 'relative';
-                titleLink.style.zIndex = '999';
-                titleLink.style.pointerEvents = 'auto';
-                
-                // 让整个卡片可以点击
-                card.style.cursor = 'pointer';
-                card.addEventListener('click', function(e) {
-                    // 如果点击的不是已经存在的链接
-                    if (!e.target.closest('a')) {
-                        e.preventDefault();
-                        titleLink.click();
-                    }
-                });
-            }
-        });
-    }
-    
-    // 立即执行
-    fixCardClicks();
-    
-    // PJAX支持
-    if (typeof window.pjax !== 'undefined') {
-        document.addEventListener('pjax:complete', fixCardClicks);
-    }
-});
