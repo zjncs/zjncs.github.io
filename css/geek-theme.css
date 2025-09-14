@@ -377,3 +377,45 @@ table tr:hover td {
   z-index: -1 !important;
   pointer-events: none !important;
 }
+/* 在 geek-theme.css 中添加以下内容 */
+/* 增强玻璃态效果 */
+.glass-effect {
+  background: rgba(30, 30, 30, 0.7) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(0, 255, 127, 0.1) !important;
+}
+
+/* 为卡片添加微妙的霓虹边框 */
+.card-neon {
+  box-shadow: 0 0 15px rgba(0, 255, 127, 0.15) !important;
+  position: relative;
+}
+
+.card-neon::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #00ff7f, transparent);
+}
+
+/* 终端风格滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00ff7f;
+}
