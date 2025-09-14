@@ -5,18 +5,18 @@
 <meta property="og:site_name" content="Johnny-Zhao&#39;s TechBlog">
 <meta property="og:description" content="源码及文章：EoH&#x2F;README_CN.md at main · FeiLiu36&#x2F;EoH Evolution of Heuristic 启发式进化： Evolutionary Computation 进化计算： Automatic Heuristic Design 自动启发式设计 EoH 将自然语言中的启发式思维转化为可执行代码，通过优化搜索框架对思维与代码的持续演化，显著提">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://zjncs.github.io/img/avatar-geek.jpg">
+<meta property="og:image" content="https://zjncs.github.io/img/avatar.png">
 <meta property="article:published_time" content="2025-08-13T02:07:21.000Z">
 <meta property="article:modified_time" content="2025-08-13T02:08:24.536Z">
 <meta property="article:author" content="Johnny-Zhao">
 <meta property="article:tag" content="论文">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjncs.github.io/img/avatar-geek.jpg"><script type="application/ld+json">{
+<meta name="twitter:image" content="https://zjncs.github.io/img/avatar.png"><script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": "EoH文章阅读",
   "url": "https://zjncs.github.io/2025/08/13/EoH%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB/",
-  "image": "https://zjncs.github.io/img/avatar-geek.jpg",
+  "image": "https://zjncs.github.io/img/avatar.png",
   "datePublished": "2025-08-13T02:07:21.000Z",
   "dateModified": "2025-08-13T02:08:24.536Z",
   "author": [
@@ -26,7 +26,7 @@
       "url": "https://github.com/zjncs"
     }
   ]
-}</script><link rel="shortcut icon" href="/img/favicon-dark.ico"><link rel="canonical" href="https://zjncs.github.io/2025/08/13/EoH%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="manifest" href="/manifest.json"/><meta name="msapplication-TileColor" content="#000000"/><link rel="apple-touch-icon" sizes="180x180" href="/img/pwa/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/img/pwa/32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/img/pwa/16.png"/><link rel="mask-icon" href="/img/pwa/safari-pinned-tab.svg" color="#5bbad5"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://zjncs.github.io/2025/08/13/EoH%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><meta/><meta/><meta/><link rel="manifest" href="/manifest.json"/><meta name="msapplication-TileColor" content="#6366f1"/><link rel="apple-touch-icon" sizes="180x180" href="/img/pwa/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/img/pwa/32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/img/pwa/16.png"/><link rel="mask-icon" href="/img/pwa/safari-pinned-tab.svg" color="#5bbad5"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
     (() => {
       
     const saveToLocal = {
@@ -99,7 +99,25 @@
 
       const theme = saveToLocal.get('theme')
     
-          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+          const mediaQueryDark = window.matchMedia('(prefers-color-scheme: dark)')
+          const mediaQueryLight = window.matchMedia('(prefers-color-scheme: light)')
+
+          if (theme === undefined) {
+            if (mediaQueryLight.matches) activateLightMode()
+            else if (mediaQueryDark.matches) activateDarkMode()
+            else {
+              const hour = new Date().getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            mediaQueryDark.addEventListener('change', () => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else {
+            theme === 'light' ? activateLightMode() : activateDarkMode()
+          }
         
       
       const asideStatus = saveToLocal.get('aside-status')
@@ -128,8 +146,8 @@
     noSupport: '浏览器不支持'
   },
   relativeDate: {
-    homepage: false,
-    post: false
+    homepage: true,
+    post: true
   },
   runtime: '',
   dateSuffix: {
@@ -153,38 +171,49 @@
     toc: true,
     rightside: false,
   },
-  autoDarkmode: false
+  autoDarkmode: true
 }</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
   title: 'EoH文章阅读',
   isHighlightShrink: false,
   isToc: true,
   pageType: 'post'
-}</script><link rel="stylesheet" href="/css/geek-theme.css"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><style>
-  :root {
-    --geek-primary: #00ff7f;
-    --geek-secondary: #1a1a1a;
-    --geek-accent: #ff6b6b;
-    --geek-bg: #0a0a0a;
-    --geek-card: #1e1e1e;
-    --geek-text: #e0e0e0;
-    --geek-muted: #666666;
+}</script><link rel="stylesheet" href="/css/custom.css"><script async src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="apple-touch-icon" sizes="180x180" href="/img/pwa/apple-touch-icon.png"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Johnny-Zhao's TechBlog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
   }
-</style>
-<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Johnny-Zhao's TechBlog" type="application/atom+xml">
-</head><body><script>window.paceOptions = {
-  restartOnPushState: false
-}
 
-btf.addGlobalFn('pjaxSend', () => {
-  Pace.restart()
-}, 'pace_restart')
+  preloader.initLoading()
 
-</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Johnny-Zhao's TechBlog</span></a><a class="nav-page-title" href="/"><span class="site-name">EoH文章阅读</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">EoH文章阅读</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-08-13T02:07:21.000Z" title="发表于 2025-08-13 10:07:21">2025-08-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-08-13T02:08:24.536Z" title="更新于 2025-08-13 10:08:24">2025-08-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/llm/">llm+</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">5.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>16分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:365,&quot;messagePrev&quot;:&quot;[DEPRECATED] This post was last updated&quot;,&quot;messageNext&quot;:&quot;days ago. Content may be outdated.&quot;,&quot;postUpdate&quot;:&quot;2025-08-13 10:08:24&quot;}" hidden></div><p>源码及文章：<a target="_blank" rel="noopener" href="https://github.com/FeiLiu36/EoH/blob/main/README_CN.md">EoH&#x2F;README_CN.md at main · FeiLiu36&#x2F;EoH</a></p>
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(/img/bg.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/%E9%9F%B3%E4%B9%90"><i class="fa-fw /music/"></i><span> 0</span></a></li><li><a class="site-page child" href="/%E7%94%B5%E5%BD%B1"><i class="fa-fw /movies/"></i><span> 1</span></a></li><li><a class="site-page child" href="/%E5%8F%8B%E9%93%BE"><i class="fa-fw /link/"></i><span> 2</span></a></li><li><a class="site-page child" href="/%E5%85%B3%E4%BA%8E"><i class="fa-fw /about/"></i><span> 3</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src= "/img/loading.gif" data-lazy-src="/img/logo.png" alt="Logo"><span class="site-name">Johnny-Zhao's TechBlog</span></a><a class="nav-page-title" href="/"><span class="site-name">EoH文章阅读</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/%E9%9F%B3%E4%B9%90"><i class="fa-fw /music/"></i><span> 0</span></a></li><li><a class="site-page child" href="/%E7%94%B5%E5%BD%B1"><i class="fa-fw /movies/"></i><span> 1</span></a></li><li><a class="site-page child" href="/%E5%8F%8B%E9%93%BE"><i class="fa-fw /link/"></i><span> 2</span></a></li><li><a class="site-page child" href="/%E5%85%B3%E4%BA%8E"><i class="fa-fw /about/"></i><span> 3</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">EoH文章阅读</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-08-13T02:07:21.000Z" title="发表于 2025-08-13 10:07:21">2025-08-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-08-13T02:08:24.536Z" title="更新于 2025-08-13 10:08:24">2025-08-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/llm/">llm+</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">5.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>16分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;本文最后更新于&quot;,&quot;messageNext&quot;:&quot;天前，文中内容可能已过时，请谨慎参考。&quot;,&quot;postUpdate&quot;:&quot;2025-08-13 10:08:24&quot;}" hidden></div><p>源码及文章：<a target="_blank" rel="noopener" href="https://github.com/FeiLiu36/EoH/blob/main/README_CN.md">EoH&#x2F;README_CN.md at main · FeiLiu36&#x2F;EoH</a></p>
 <p><strong>Evolution of Heuristic 启发式进化：</strong></p>
 <p><strong>Evolutionary Computation 进化计算：</strong></p>
 <p><strong>Automatic Heuristic Design 自动启发式设计</strong></p>
 <p><strong>EoH 将自然语言中的启发式思维转化为可执行代码，通过优化搜索框架对思维与代码的持续演化，显著提升了高性能启发式算法的生成效率。</strong></p>
-<p><img src= "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PC9zdmc+" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250811094659600.png" alt="image-20250811094659600"></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250811094659600.png" alt="image-20250811094659600"></p>
 <p><strong>创新点</strong>：</p>
 <p><strong>双重演进</strong>：EoH 利用 LLM 不仅演进代码，更重要的是它还演进“思想”。LLM 首先根据现有的优秀启发式（包含思想和代码），生成一个改进的或全新的“思想” 。</p>
 <p><strong>思想指导代码</strong>：随后，LLM 再将这个新生成的“思想”作为指导，翻译成具体的“代码” 。</p>
@@ -321,7 +350,7 @@ btf.addGlobalFn('pjaxSend', () => {
 <li><strong>其中，</strong> lb ** 代表理论上最优解（即最少箱子数）的下限 。比如直接总容量除以单个容量**</li>
 <li><strong>n 是被评估的启发式算法完成所有物品装箱后，实际使用的箱子总数 。</strong><br><strong>这个比率越高，说明算法使用的箱子数越接近理论最优值，性能也就越好。</strong></li>
 </ul>
-<p><img src= "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PC9zdmc+" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250813091735990.png" alt="image-20250813091735990"></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250813091735990.png" alt="image-20250813091735990"></p>
 <p><strong>比较方法即 人工 +funsearch</strong></p>
 <p><strong>tsp</strong></p>
 <h3 id="目标-Objective"><a href="#目标-Objective" class="headerlink" title="目标 (Objective)"></a>目标 (Objective)</h3><p><strong>旅行商问题（TSP）的目标是找到一条最短的路线，这条路线需要访问所有给定的地点各一次，并最终返回到出发点 。它是一个被广泛研究的组合优化问题，也是一个常用的启发式算法测试平台 。</strong></p>
@@ -333,12 +362,12 @@ btf.addGlobalFn('pjaxSend', () => {
 <p><strong>平均差距 (Average Gap)</strong>: 算法会在全部 64 个实例上运行，得到 64 个“差距”值。最后，计算这 64 个值的<strong>平均数</strong>。</p>
 <p><strong>适应度值 (Fitness Value)</strong>: 这个最终的<strong>平均差距</strong>就被用作该算法的适应度值。这个值越小，说明算法的解越接近最优解，性能就越好。</p>
 <p><strong>比较方法是最近插入法和最远插入法，加上 ORtools</strong></p>
-<p><strong>AI 方面</strong><img src= "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PC9zdmc+" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250813092505786.png" alt="image-20250813092505786"></p>
+<p><strong>AI 方面</strong><img src= "/img/loading.gif" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250813092505786.png" alt="image-20250813092505786"></p>
 <p><strong>实验细节</strong></p>
-<p><img src= "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PC9zdmc+" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250813092653598.png" alt="image-20250813092653598"></p>
-<p><img src= "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PC9zdmc+" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250813093043080.png" alt="image-20250813093043080"></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250813092653598.png" alt="image-20250813092653598"></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250813093043080.png" alt="image-20250813093043080"></p>
 <p><strong>感觉就是人类定了大方向与框架，然后 llm 负责实现与迭代</strong></p>
-<p><img src= "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PC9zdmc+" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250813090211212.png" alt="image-20250813090211212"></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250813090211212.png" alt="image-20250813090211212"></p>
 <p><strong>结果：</strong></p>
 <p><strong>X 轴</strong> 代表“进化代数”（Number of generations），从第 1 代到第 20 代。</p>
 <p><strong>Y 轴</strong> 代表“性能”（Performance），这个值越高，说明算法的效果越好。</p>
@@ -346,27 +375,27 @@ btf.addGlobalFn('pjaxSend', () => {
 <p><strong>折线上的每个红点都代表一个性能上的“飞跃”，即发现了一个更好的启发式算法。</strong></p>
 <p>**旁边的标注（如 **<strong>E1, E2, M1</strong>）指明了这是由哪一种“提示策略”实现的突破。</p>
 <p>**标注的文字（如 **<code>E2, utilization of cubic root</code>）则是对这个新算法核心思想的简要描述，也就是“思想”（Thought）。</p>
-<p><img src= "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PC9zdmc+" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250813094028517.png" alt="image-20250813094028517"></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250813094028517.png" alt="image-20250813094028517"></p>
 <p><strong>人类想到的，算出一个物品大小和容量，然后做差，差最大的说明放完东西后，箱子剩下的空间最小</strong></p>
-<p><img src= "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PC9zdmc+" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250813094351634.png" alt="image-20250813094351634"></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250813094351634.png" alt="image-20250813094351634"></p>
 <p><strong>AI 想到的，</strong><code>comb1</code> 项通过 <code>(bins - max_bin)**2</code> 惩罚那些容量较大（较空）的箱子，鼓励利用已部分填充的箱子。</p>
 <p><code>comb2</code> 和 <code>comb3</code> 项则包含了物品大小和箱子容量的二次方和三次方关系。</p>
 <p><strong>但是物理意义不直观</strong></p>
-<p><img src= "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PC9zdmc+" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250813094544302.png" alt="image-20250813094544302"></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250813094544302.png" alt="image-20250813094544302"></p>
 <p><strong>EoH，显式地融合了多种启发式思想：</strong></p>
 <ol>
 <li><strong>利用率 (<code>ulti</code>)</strong>: 衡量放入物品后箱子有多满。</li>
 <li><strong>动态调整 (<code>adjust</code>)</strong>: 使用 <code>where</code> 条件语句，根据剩余空间和物品大小的关系，采取不同的策略，实现了“惩罚大箱子”的逻辑。</li>
 <li><strong>混合分数 (<code>hybrid_exp</code>, <code>adjust</code>)</strong>: 将多个不同来源的启发式思想（如指数衰减、利用率、条件惩罚）组合成最终的得分。</li>
 </ol>
-<p><img src= "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PC9zdmc+" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250813094817807.png" alt="image-20250813094817807"></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250813094817807.png" alt="image-20250813094817807"></p>
 <p><strong>消融研究指的是，为了理解一个复杂模型或系统的各个组成部分的重要性，而系统性地“移除”或“简化”其中一个或多个组件，然后观察整个系统性能变化的一种实验方法。</strong></p>
 <p><strong>根据论文 4.3 节的描述，作者进行消融研究的目的是“为了更好地理解 EoH 中主要组成部分的贡献” 。</strong></p>
 <p><strong>具体做法是，他们创建了几个“被削弱”的 EoH 版本，并与完整的 EoH 模型进行性能比较：</strong></p>
 <p><strong>移除了“思想”部分</strong>: 他们创建了一个名为 <code>EoC</code> (Evolution of Codes) 的版本。这个版本只进化代码，完全没有自然语言的“思想”部分，以此来验证“思想”这个组件的价值 。</p>
 <p><strong>移除了部分“提示策略”</strong>: 他们还创建了 <code>EoH-e1</code> 和 <code>EoH-e2</code> 版本。这些版本虽然保留了“思想”，但只使用了五种提示策略中的一种或两种 。</p>
-<p><img src= "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PC9zdmc+" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250813095229016.png" alt="image-20250813095229016"></p>
-<p><img src= "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PC9zdmc+" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250813095444591.png" alt="image-20250813095444591"></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250813095229016.png" alt="image-20250813095229016"></p>
+<p><img src= "/img/loading.gif" data-lazy-src="https://raw.githubusercontent.com/zjncs/TyporaPic/main/imaimage-20250813095444591.png" alt="image-20250813095444591"></p>
 <h1 id="讨论"><a href="#讨论" class="headerlink" title="讨论"></a>讨论</h1><p><strong>为了证明 EoH 中“思想”（自然语言描述）和“代码”共同进化是其核心优势，研究者进行了对比实验 。</strong></p>
 <p><strong>实验设置</strong>: 他们将完整的 EoH 与几个变体进行了比较 ：</p>
 <p><code>C2C</code>: 只进化代码，没有“思想”部分 。</p>
@@ -385,7 +414,7 @@ btf.addGlobalFn('pjaxSend', () => {
 <h4 id="利用专家启发式算法-Use-of-Expert-Heuristic"><a href="#利用专家启发式算法-Use-of-Expert-Heuristic" class="headerlink" title="利用专家启发式算法 (Use of Expert Heuristic)"></a><strong>利用专家启发式算法 (Use of Expert Heuristic)</strong></h4><p><strong>研究者探究了将一个已知的、由人类专家或其它 AI 系统设计的优秀算法（专家启发式算法）放入 EoH 的初始种群中会产生什么影响 。</strong></p>
 <p><strong>实验设置</strong>: 他们将 FunSearch 论文中提供的优秀启发式算法放入 EoH 的初始种群，并将这个版本称为 <code>EoH expert</code> 。</p>
 <p><strong>结论</strong>: 结果显示，<code>EoH expert</code> 的性能明显超过了原始的 EoH 和 FunSearch 。这表明，<strong>EoH 框架可以有效地继承和进化已有的专家知识，从而产生更优秀的下一代算法</strong> 。</p>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/zjncs">Johnny-Zhao</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://zjncs.github.io/2025/08/13/EoH%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB/">https://zjncs.github.io/2025/08/13/EoH%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a> 许可协议。转载请注明来源 <a href="https://zjncs.github.io" target="_blank">Johnny-Zhao's TechBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AE%BA%E6%96%87/">论文</a></div><div class="post-share"><div class="social-share" data-image="/img/avatar-geek.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/08/13/eoh%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="eoh环境配置"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">eoh环境配置</div></div><div class="info-2"><div class="info-item-1">by zjn 1.克隆一下源码 1git clone https://github.com/FeiLiu36/EOH/  2.进入源码目录，创建虚拟环境 我家里的电脑没有装conda，所以我用的是Python自带的venv，如果你有conda，可以用conda创建虚拟环境。 1python -...</div></div></div></a><a class="pagination-related" href="/2025/08/08/%E9%93%BE%E8%A1%A8%E5%8F%8C%E6%8C%87%E9%92%880808/" title="链表双指针0808"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">链表双指针0808</div></div><div class="info-2"><div class="info-item-1">3.0019. 删除链表的倒数第 N 个结点3.1 题目大意描述：给定一个链表的头节点 head。 要求：删除链表的倒数第 n 个节点，并且返回链表的头节点。 说明：  要求使用一次遍历实现。 **链表中结点的数目为 **sz。  示例：  123456 输入：head = [1,2,3,4,...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/08/18/llm%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86-RNN/" title="llm前置知识-RNN"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-18</div><div class="info-item-2">llm前置知识-RNN</div></div><div class="info-2"><div class="info-item-1">循环神经网络（Rerrent Neural Network, RNN） **是神经网络的一种，****RNN 对具有序列特性的数据非常有效，它能挖掘数据中的时序信息以及语义信息，**利用了 RNN 的这种能力，使深度学习模型在解决语音识别、语言模型、机器翻译以及时序分析等 NLP 领域的问题时...</div></div></div></a><a class="pagination-related" href="/2025/08/18/llm%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" title="llm神经网络深度学习"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-18</div><div class="info-item-2">llm神经网络深度学习</div></div><div class="info-2"><div class="info-item-1">下面来讨论一下隐藏层的节点数设计。在设计一个神经网络时，输入层的节点数需要与特征的维度匹配，输出层的节点数要与目标的维度匹配。而中间层的节点数，却是由设计者指定的。因此，“自由”把握在设计者的手中。但是，节点数设置的多少，却会影响到整个模型的效果。如何决定这个自由层的节点数呢？目前业界没有完善...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzMzIi8+PC9zdmc+" data-lazy-src="/img/avatar-geek.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Johnny-Zhao</div><div class="author-info-description">技术博客，记录学习与生活点滴</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zjncs"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/zjncs" target="_blank" title="GitHub"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://twitter.com/" target="_blank" title="Twitter"><i class="fab fa-twitter" style="color: #1da1f2;"></i></a><a class="social-icon" href="https://stackoverflow.com" target="_blank" title="Stack Overflow"><i class="fab fa-stack-overflow" style="color: #f48024;"></i></a><a class="social-icon" href="mailto:zhaojianing@tju.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #00ff7f;"></i></a><a class="social-icon" href="https://linkedin.com/in/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a><a class="social-icon" href="https://dev.to/" target="_blank" title="Dev.to"><i class="fab fa-dev" style="color: #0a0a0a;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-0-%E5%88%9D%E5%A7%8B%E5%8C%96-Initialization"><span class="toc-number">1.</span> <span class="toc-text">步骤 0: 初始化 (Initialization)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-1-%E6%96%B0%E5%90%AF%E5%8F%91%E5%BC%8F%E7%AE%97%E6%B3%95%E7%9A%84%E7%94%9F%E6%88%90-Generation-of-Heuristics"><span class="toc-number">2.</span> <span class="toc-text">步骤 1: 新启发式算法的生成 (Generation of Heuristics)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-2-%E7%A7%8D%E7%BE%A4%E7%AE%A1%E7%90%86-Population-Management"><span class="toc-number">3.</span> <span class="toc-text">步骤 2: 种群管理 (Population Management)</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA%E8%AF%8D"><span class="toc-number"></span> <span class="toc-text">提示词</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A2%E7%B4%A2%E7%AD%96%E7%95%A5-Exploration-Strategies"><span class="toc-number"></span> <span class="toc-text">探索策略 (Exploration Strategies)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E7%AD%96%E7%95%A5-Modification-Strategies"><span class="toc-number"></span> <span class="toc-text">修改策略 (Modification Strategies)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E4%B8%8E%E6%8E%92%E5%90%8D"><span class="toc-number"></span> <span class="toc-text">排序与排名</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number"></span> <span class="toc-text">实验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87-Objective"><span class="toc-number"></span> <span class="toc-text">目标 (Objective)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%84%E4%BC%B0%E8%AE%BE%E7%BD%AE-Evaluation-Setup"><span class="toc-number"></span> <span class="toc-text">评估设置 (Evaluation Setup)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%A8%E8%AE%BA"><span class="toc-number"></span> <span class="toc-text">讨论</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E5%A4%A7%E5%9E%8B%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%BD%B1%E5%93%8D-Different-LLMs"><span class="toc-number">1.</span> <span class="toc-text">不同大型语言模型的影响 (Different LLMs)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E4%B8%93%E5%AE%B6%E5%90%AF%E5%8F%91%E5%BC%8F%E7%AE%97%E6%B3%95-Use-of-Expert-Heuristic"><span class="toc-number">2.</span> <span class="toc-text">利用专家启发式算法 (Use of Expert Heuristic)</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/28/%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0/" title="量子计算学习">量子计算学习</a><time datetime="2025-08-28T10:06:07.000Z" title="发表于 2025-08-28 18:06:07">2025-08-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/18/llm%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86-RNN/" title="llm前置知识-RNN">llm前置知识-RNN</a><time datetime="2025-08-18T08:44:31.000Z" title="发表于 2025-08-18 16:44:31">2025-08-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/18/llm%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" title="llm神经网络深度学习">llm神经网络深度学习</a><time datetime="2025-08-18T07:21:41.000Z" title="发表于 2025-08-18 15:21:41">2025-08-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/14/llm-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="llm-神经网络">llm-神经网络</a><time datetime="2025-08-14T05:47:33.000Z" title="发表于 2025-08-14 13:47:33">2025-08-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/14/%E8%8A%AF%E7%89%87%E9%AA%8C%E8%AF%81%EF%BC%88%E4%B8%80%EF%BC%89/" title="芯片验证（一）">芯片验证（一）</a><time datetime="2025-08-14T02:10:06.000Z" title="发表于 2025-08-14 10:10:06">2025-08-14</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By Johnny-Zhao</span></div><div class="footer_custom_text"><code style="color: #00ff7f;">while(alive) { eat(); sleep(); code(); repeat(); }</code></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/zjncs">Johnny-Zhao</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://zjncs.github.io/2025/08/13/EoH%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB/">https://zjncs.github.io/2025/08/13/EoH%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://zjncs.github.io" target="_blank">Johnny-Zhao's TechBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AE%BA%E6%96%87/">论文</a></div><div class="post-share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/08/13/eoh%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="eoh环境配置"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">eoh环境配置</div></div><div class="info-2"><div class="info-item-1">by zjn 1.克隆一下源码 1git clone https://github.com/FeiLiu36/EOH/  2.进入源码目录，创建虚拟环境 我家里的电脑没有装conda，所以我用的是Python自带的venv，如果你有conda，可以用conda创建虚拟环境。 1python -m venv eoh_env  然后激活虚拟环境: 1source eoh_env/Scripts/activate  记得虚拟环境的Python版本要&gt;3.10 可以确定一下： 1python --version  3.安装依赖 12#基础依赖pip install numpy numba joblib   在这个目录下，直接 1pip install -r requirements.txt  也可以 4.配置llm参数  按照官网的指示，我选择了 示例1：旅行商问题的构造算法123cd examples/tsp_constructpython runEoH.py  但是需要先去买api DeepSeek 开放平台  在runEoH里面改一下参数 理论上就可以跑 但是，可能会遇到ti...</div></div></div></a><a class="pagination-related" href="/2025/08/08/%E9%93%BE%E8%A1%A8%E5%8F%8C%E6%8C%87%E9%92%880808/" title="链表双指针0808"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">链表双指针0808</div></div><div class="info-2"><div class="info-item-1">3.0019. 删除链表的倒数第 N 个结点3.1 题目大意描述：给定一个链表的头节点 head。 要求：删除链表的倒数第 n 个节点，并且返回链表的头节点。 说明：  要求使用一次遍历实现。 **链表中结点的数目为 **sz。  示例：  123456 输入：head = [1,2,3,4,5], n = 2 输出：[1,2,3,5]   输入：head = [1], n = 1 输出：[]  题解： 123456789101112131415161718192021 class Solution:     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -&gt; Optional[ListNode]:         slow, fast = head, head                  # fast 先走 n 步         for _ in range(n):             fast = fast.next                  # 如果 fast 走到 Non...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/08/18/llm%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86-RNN/" title="llm前置知识-RNN"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-18</div><div class="info-item-2">llm前置知识-RNN</div></div><div class="info-2"><div class="info-item-1">循环神经网络（Rerrent Neural Network, RNN） **是神经网络的一种，****RNN 对具有序列特性的数据非常有效，它能挖掘数据中的时序信息以及语义信息，**利用了 RNN 的这种能力，使深度学习模型在解决语音识别、语言模型、机器翻译以及时序分析等 NLP 领域的问题时有所突破。 A. 挖掘“时序信息” (Mining Temporal Information)这指的是 RNN 处理数据****顺序的能力。传统的神经网络（如全连接网络）在处理输入时，通常不考虑元素的顺序。例如，对于句子“我打你”和“你打我”，传统网络可能会得到相似的表示，因为它忽略了词序。 RNN 通过其独特的****循环结构解决了这个问题：  链式处理：RNN 像人阅读一样，一个词一个词地处理序列。隐藏状态（记忆）：RNN 的核心是一个“隐藏状态”（Hidden State），可以看作是网络的记忆。在处理序列的每一步，RNN 都会将当前的输入信息和上一步的记忆结合起来，形成新的记忆，然后传递给下一步 。  简单来说，当 RNN 处理到“你”这个词时，它的记忆里已经包含了“我”和“打”的信...</div></div></div></a><a class="pagination-related" href="/2025/08/18/llm%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" title="llm神经网络深度学习"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-18</div><div class="info-item-2">llm神经网络深度学习</div></div><div class="info-2"><div class="info-item-1">下面来讨论一下隐藏层的节点数设计。在设计一个神经网络时，输入层的节点数需要与特征的维度匹配，输出层的节点数要与目标的维度匹配。而中间层的节点数，却是由设计者指定的。因此，“自由”把握在设计者的手中。但是，节点数设置的多少，却会影响到整个模型的效果。如何决定这个自由层的节点数呢？目前业界没有完善的理论来指导这个决策。一般是根据经验来设置。较好的方法就是预先设定几个可选值，通过切换这几个值来看整个模型的预测效果，选择效果最好的值作为最终选择。这种方法又叫做 Grid Search（网格搜索）。 **　　了解了两层神经网络的结构以后，我们就可以看懂其它类似的结构图。例如 EasyPR 字符识别网络架构（下图）。** 下面简单介绍一下两层神经网络的训练。 **　　在 Rosenblat 提出的感知器模型中，模型中的参数可以被训练，但是使用的方法较为简单，并没有使用目前机器学习中通用的方法，这导致其扩展性与适用性非常有限。从两层神经网络开始，神经网络的研究人员开始使用机器学习相关的技术进行神经网络的训练。例如用大量的数据（1000-10000 左右），使用算法进行优化等等，从而使得模型训练...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-0-%E5%88%9D%E5%A7%8B%E5%8C%96-Initialization"><span class="toc-number">1.</span> <span class="toc-text">步骤 0: 初始化 (Initialization)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-1-%E6%96%B0%E5%90%AF%E5%8F%91%E5%BC%8F%E7%AE%97%E6%B3%95%E7%9A%84%E7%94%9F%E6%88%90-Generation-of-Heuristics"><span class="toc-number">2.</span> <span class="toc-text">步骤 1: 新启发式算法的生成 (Generation of Heuristics)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4-2-%E7%A7%8D%E7%BE%A4%E7%AE%A1%E7%90%86-Population-Management"><span class="toc-number">3.</span> <span class="toc-text">步骤 2: 种群管理 (Population Management)</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA%E8%AF%8D"><span class="toc-number"></span> <span class="toc-text">提示词</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A2%E7%B4%A2%E7%AD%96%E7%95%A5-Exploration-Strategies"><span class="toc-number"></span> <span class="toc-text">探索策略 (Exploration Strategies)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E7%AD%96%E7%95%A5-Modification-Strategies"><span class="toc-number"></span> <span class="toc-text">修改策略 (Modification Strategies)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E4%B8%8E%E6%8E%92%E5%90%8D"><span class="toc-number"></span> <span class="toc-text">排序与排名</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C"><span class="toc-number"></span> <span class="toc-text">实验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87-Objective"><span class="toc-number"></span> <span class="toc-text">目标 (Objective)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%84%E4%BC%B0%E8%AE%BE%E7%BD%AE-Evaluation-Setup"><span class="toc-number"></span> <span class="toc-text">评估设置 (Evaluation Setup)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%A8%E8%AE%BA"><span class="toc-number"></span> <span class="toc-text">讨论</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E5%A4%A7%E5%9E%8B%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%BD%B1%E5%93%8D-Different-LLMs"><span class="toc-number">1.</span> <span class="toc-text">不同大型语言模型的影响 (Different LLMs)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E4%B8%93%E5%AE%B6%E5%90%AF%E5%8F%91%E5%BC%8F%E7%AE%97%E6%B3%95-Use-of-Expert-Heuristic"><span class="toc-number">2.</span> <span class="toc-text">利用专家启发式算法 (Use of Expert Heuristic)</span></a></li></ol></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By Johnny-Zhao</span></div><div class="footer_custom_text"><i class="fas fa-heart"></i> 愿你的代码永远没有 Bug <i class="fas fa-heart"></i></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
   const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
   const option = null
 
@@ -460,103 +489,28 @@ btf.addGlobalFn('pjaxSend', () => {
   } else {
     window.loadOtherComment = loadGiscus
   }
-})()</script></div><script src="/js/matrix-rain.js"></script><script src="/js/geek-enhancements.js"></script><script>
-// 添加终端风格的打字声音效果
-document.addEventListener('DOMContentLoaded', () => {
-  // 代码块展开/折叠动画
-  document.querySelectorAll('.code-header .toggle').forEach(btn => {
-    btn.addEventListener('click', function() {
-      const codeBlock = this.closest('.highlight').querySelector('pre');
-      codeBlock.style.transition = 'max-height 0.3s ease';
-    });
-  });
-
-  // 为链接添加终端点击效果
-  document.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', function(e) {
-      if (!this.href.startsWith('#') && !e.ctrlKey && !e.metaKey) {
-        const clickEffect = document.createElement('span');
-        clickEffect.style.position = 'absolute';
-        clickEffect.style.width = '20px';
-        clickEffect.style.height = '20px';
-        clickEffect.style.border = '2px solid #00ff7f';
-        clickEffect.style.borderRadius = '50%';
-        clickEffect.style.pointerEvents = 'none';
-        clickEffect.style.transform = 'translate(-50%, -50%)';
-        clickEffect.style.animation = 'pulse 0.6s ease-out forwards';
-        clickEffect.style.zIndex = '9999';
-        
-        const rect = this.getBoundingClientRect();
-        const x = rect.left + rect.width / 2;
-        const y = rect.top + rect.height / 2;
-        
-        clickEffect.style.left = `${x}px`;
-        clickEffect.style.top = `${y}px`;
-        
-        document.body.appendChild(clickEffect);
-        
-        setTimeout(() => {
-          clickEffect.remove();
-        }, 600);
+})()</script></div><script src="/js/custom.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script><script src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/dist/sakura.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script id="canvas_nest" defer="defer" color="64,158,255" opacity="0.6" zIndex="-1" count="120" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
       }
-    });
-  });
-
-  // 添加终端风格的加载提示
-  window.addEventListener('pjax:send', () => {
-    const loader = document.createElement('div');
-    loader.id = 'terminal-loader';
-    loader.style.position = 'fixed';
-    loader.style.top = '50%';
-    loader.style.left = '50%';
-    loader.style.transform = 'translate(-50%, -50%)';
-    loader.style.zIndex = '9999';
-    loader.style.backgroundColor = 'rgba(10, 10, 10, 0.8)';
-    loader.style.padding = '20px';
-    loader.style.borderRadius = '8px';
-    loader.style.border = '1px solid #333';
-    loader.style.fontFamily = '"JetBrains Mono", monospace';
-    loader.style.color = '#00ff7f';
-    loader.innerHTML = 'Loading... <span class="terminal-cursor">█</span>';
-    document.body.appendChild(loader);
-  });
-
-  window.addEventListener('pjax:complete', () => {
-    document.getElementById('terminal-loader')?.remove();
-  });
-});
-
-// 添加CSS动画
-const style = document.createElement('style');
-style.textContent = `
-  @keyframes pulse {
-    0% {
-      transform: translate(-50%, -50%) scale(0.5);
-      opacity: 1;
-    }
-    100% {
-      transform: translate(-50%, -50%) scale(2);
-      opacity: 0;
     }
   }
-  
-  .terminal-cursor::after {
-    content: '█';
-    animation: blink 1s infinite;
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
   }
-  
-  @keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
-  }
-`;
-document.head.appendChild(style);
-</script>
-<script id="canvas_nest" defer="defer" color="0,255,127" opacity="0.3" zIndex="-1" count="80" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
   const pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","meta[property=\"og:description\"]","link[rel=\"canonical\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
 
   window.pjax = new Pjax({
-    elements: 'a:not([target="_blank"]):not([href="/tools/"]):not([href="/admin/"])',
+    elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
     selectors: pjaxSelectors,
     cacheBust: false,
     analytics: false,
@@ -601,4 +555,4 @@ document.head.appendChild(style);
         : window.location.href = e.request.responseURL
     }
   })
-})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script src="/js/matrix-rain.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
