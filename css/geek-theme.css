@@ -258,12 +258,11 @@ button:hover {
 
 /* 引用块样式 */
 blockquote {
-  background: var(--geek-card) !important;
-  border-left: 4px solid var(--geek-primary) !important;
-  color: var(--geek-text) !important;
-  margin: 20px 0 !important;
-  padding: 15px 20px !important;
-  position: relative !important;
+  border-left: 3px solid var(--geek-primary) !important;
+  background: var(--geek-hover) !important;
+  padding: 1rem 1.5rem !important;
+  margin: 1.5rem 0 !important;
+  border-radius: 0 4px 4px 0 !important;
 }
 
 blockquote::before {
