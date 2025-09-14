@@ -264,7 +264,10 @@ blockquote {
   margin: 1.5rem 0 !important;
   border-radius: 0 4px 4px 0 !important;
 }
-
+blockquote p {
+  color: var(--geek-text-light) !important;
+  margin: 0 !important;
+}
 blockquote::before {
   content: '💡' !important;
   position: absolute !important;
