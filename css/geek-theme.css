@@ -697,5 +697,62 @@ article {
   pre[class*="language-"]::-webkit-scrollbar-track {
     background: #1e1e1e !important;
   }
+  /* 移除或美化外层白框 */
+.container-wrapper {
+  /* 移除默认白色背景 */
+  background: transparent !important;
+  /* 可选：添加轻微阴影替代边框 */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+  /* 移除不必要的边框 */
+  border: none !important;
+  /* 优化圆角 */
+  border-radius: 8px !important;
+  padding: 1.5rem !important;
+}
+
+/* 改进代码块样式 */
+.code-block {
+  /* 深色背景更适合代码展示 */
+  background-color: #1e1e1e !important;
+  /* 鲜明的边框突出代码块 */
+  border: 1px solid #333 !important;
+  /* 优化圆角与代码块匹配 */
+  border-radius: 6px !important;
+  /* 增加内边距，让代码有呼吸空间 */
+  padding: 1rem !important;
+  /* 改进字体显示 */
+  font-family: "Fira Code", "Consolas", monospace !important;
+  font-size: 0.95rem !important;
+  line-height: 1.6 !important;
+}
+
+/* 优化代码块标题栏（BASH部分） */
+.code-header {
+  background-color: #2d2d2d !important;
+  color: #ccc !important;
+  padding: 0.5rem 1rem !important;
+  border-bottom: 1px solid #333 !important;
+  border-radius: 6px 6px 0 0 !important;
+}
+
+/* 美化代码高亮 */
+.code-block .keyword {
+  color: #569cd6 !important;
+}
+.code-block .string {
+  color: #ce9178 !important;
+}
+.code-block .url {
+  color: #9cdcfe !important;
+  text-decoration: underline !important;
+}
+
+/* 优化整体容器的文字样式 */
+.container-wrapper p {
+  color: #333 !important;
+  font-size: 1.1rem !important;
+  margin-bottom: 1rem !important;
+}
+
   
 }
