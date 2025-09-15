@@ -288,7 +288,44 @@ pre code {
     font-size: 14px;
     border: none !important;
   }
-  
+  /* 1. 修复代码块顶部栏的白底问题 */
+.plaintext-header {
+  background-color: #1e1e1e !important; /* 改成极客主题的深色背景 */
+  border: 1px solid #333 !important; /* 深色边框，替代白边 */
+  color: #e0e0e0 !important; /* 文字颜色改为浅色 */
+}
+
+/* 2. 修复代码块内容显示不全问题 */
+.plaintext-content pre {
+  white-space: pre !important; /* 保持代码换行逻辑 */
+  overflow-x: auto !important; /* 开启横向滚动，替代截断 */
+  max-width: 100% !important; /* 限制宽度为父容器 100% */
+  border: 1px solid #333 !important; /* 统一代码块边框 */
+}
+
+/* 3. 优化代码块整体样式（可选，让风格更统一） */
+.plaintext-content code {
+  font-family: 'JetBrains Mono', monospace !important; /* 极客风字体 */
+  font-size: 14px !important; /* 匹配主题代码字体大小 */
+  line-height: 1.6 !important; /* 优化行高 */
+}
+/* 优化代码块与其他元素的间距 */
+.plaintext-box {
+  margin: 1.5rem 0 !important; /* 上下间距 */
+}
+
+/* 美化滚动条（仅支持 Chrome/Edge 等webkit浏览器） */
+.plaintext-content pre::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+}
+.plaintext-content pre::-webkit-scrollbar-thumb {
+  background: #444 !important;
+  border-radius: 4px !important;
+}
+.plaintext-content pre::-webkit-scrollbar-track {
+  background: #1e1e1e !important;
+}
   .tag-cloud a:hover {
     background: var(--geek-primary);
     color: var(--geek-bg) !important;
