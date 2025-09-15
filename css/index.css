@@ -1645,8 +1645,7 @@ figure.highlight pre .javascript .function {
   padding-left: 10px;
   width: 100%;
 }
-.container pre,
-.container figure.highlight {
+.container pre {
   overflow: auto;
   margin: 0 0 20px;
   padding: 0;
@@ -1675,43 +1674,36 @@ figure.highlight pre .javascript .function {
   text-shadow: none;
 }
 .container figure.highlight {
-  position: relative;
-  border-radius: 6px;
+  background: #121212;
+  border: 1px solid var(--geek-border);
+  border-radius: 8px;
+  padding: 0;
+  margin: 1.5em 0;
+  line-height: 1.5;
+  overflow: hidden;
 }
 .container figure.highlight pre {
-  margin: 0;
-  padding: 8px 0;
+  background: none;
   border: none;
+  padding: 1.2rem;
+  margin: 0;
+  overflow-x: auto;
+  white-space: pre;
 }
-.container figure.highlight figcaption,
-.container figure.highlight .caption {
-  padding: 6px 0 2px 14px;
-  font-size: var(--global-font-size);
-  line-height: 1em;
+.container figure.highlight pre::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
-.container figure.highlight figcaption a,
-.container figure.highlight .caption a {
-  float: right;
-  padding-right: 10px;
-  color: var(--hl-color);
+.container figure.highlight pre::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 4px;
 }
-.container figure.highlight figcaption a:hover,
-.container figure.highlight .caption a:hover {
-  border-bottom-color: var(--hl-color);
+.container figure.highlight pre::-webkit-scrollbar-track {
+  background: #1e1e1e;
 }
-.container figure.highlight.copy-true {
-  -webkit-user-select: all;
-  -moz-user-select: all;
-  -ms-user-select: all;
-  user-select: all;
-  -webkit-user-select: all;
-}
-.container figure.highlight.copy-true > table,
-.container figure.highlight.copy-true > pre {
-  display: block !important;
-  opacity: 0;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-  filter: alpha(opacity=0);
+.container figure.highlight .code-header {
+  background: var(--geek-hover);
+  border-bottom: 1px solid var(--geek-border);
 }
 .container .highlight-tools {
   display: -webkit-box;
