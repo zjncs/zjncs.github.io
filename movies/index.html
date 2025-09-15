@@ -157,7 +157,40 @@
     --geek-border: #333;
     --geek-hover: #2a2a2a;
   }
-  
+  /* 移除页面外层容器的默认白框/白色背景 */
+
+/* 彻底清除代码框的白边/白背景 */
+.highlight-wrap, .highlight {
+  background: #121212 !important; /* 继承你配置的代码框深色背景 */
+  border: 1px solid var(--geek-border) !important; /* 深色边框，替代白框 */
+  border-radius: 8px !important; /* 可选：加大圆角更美观 */
+  padding: 0 !important; /* 移除外层多余内边距，避免白边 */
+}
+
+/* 修复代码框标题栏（如BASH/Python标识栏）的白框 */
+.highlight-wrap .code-header {
+  background: var(--geek-hover) !important; /* 深色标题栏 */
+  border-bottom: 1px solid var(--geek-border) !important;
+  border-radius: 8px 8px 0 0 !important; /* 与代码框圆角对齐 */
+}
+/* 确保侧边栏卡片无白框 */
+#aside-content .card {
+  background: var(--geek-card) !important;
+  border: 1px solid var(--geek-border) !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2) !important; /* 弱化阴影，更简洁 */
+}
+/* 优化代码可读性 */
+pre code {
+  font-size: 14px !important; /* 匹配你配置的 code-font-size */
+  line-height: 1.7 !important; /* 加大行高，避免代码拥挤 */
+  padding: 1.2rem !important; /* 代码内边距，避免太贴边 */
+}
+
+/* 修复代码换行问题（如果代码超出框不换行） */
+.code_word_wrap pre {
+  white-space: pre-wrap !important; /* 自动换行 */
+  word-break: break-all !important;
+}
   /* 全局背景 */
   body {
     background-color: var(--geek-bg) !important;
@@ -397,7 +430,7 @@ btf.addGlobalFn('pjaxSend', () => {
           </div>
           <ul class="card-category-list" id="aside-cat-list">
             <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/leetcode/"><span class="card-category-list-name">leetcode</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/llm/"><span class="card-category-list-name">llm+</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/"><span class="card-category-list-name">开源项目</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%9D%82%E7%B1%BB/"><span class="card-category-list-name">杂类</span><span class="card-category-list-count">1</span></a></li>
-          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/GLCC/" style="font-size: 1.1em; color: #999">GLCC</a> <a href="/tags/2508/" style="font-size: 1.5em; color: #99a9bf">2508</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 1.23em; color: #999ea6">环境配置</a> <a href="/tags/%E8%AE%BA%E6%96%87/" style="font-size: 1.37em; color: #99a4b2">论文</a></div></div><div class="card-widget card-archives">
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/GLCC/" style="font-size: 1.1em; color: #999">GLCC</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 1.23em; color: #999ea6">环境配置</a> <a href="/tags/%E8%AE%BA%E6%96%87/" style="font-size: 1.37em; color: #99a4b2">论文</a> <a href="/tags/2508/" style="font-size: 1.5em; color: #99a9bf">2508</a></div></div><div class="card-widget card-archives">
     <div class="item-headline">
       <i class="fas fa-archive"></i>
       <span>归档</span>
@@ -416,7 +449,7 @@ btf.addGlobalFn('pjaxSend', () => {
         </li>
       
     </ul>
-  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">12</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">30.3k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-09-15T12:06:15.951Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By Johnny-Zhao</span></div><div class="footer_custom_text"><code style="color: #00ff7f;">while(alive) { eat(); sleep(); code(); repeat(); }</code></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script src="/js/matrix-rain.js"></script><script src="/js/geek-enhancements.js"></script><script id="canvas_nest" defer="defer" color="0,255,127" opacity="0.3" zIndex="-1" count="80" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">12</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">30.3k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-09-15T12:14:03.686Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By Johnny-Zhao</span></div><div class="footer_custom_text"><code style="color: #00ff7f;">while(alive) { eat(); sleep(); code(); repeat(); }</code></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script src="/js/matrix-rain.js"></script><script src="/js/geek-enhancements.js"></script><script id="canvas_nest" defer="defer" color="0,255,127" opacity="0.3" zIndex="-1" count="80" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
   const pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","meta[property=\"og:description\"]","link[rel=\"canonical\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
 
   window.pjax = new Pjax({

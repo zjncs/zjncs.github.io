@@ -173,7 +173,40 @@
     --geek-border: #333;
     --geek-hover: #2a2a2a;
   }
-  
+  /* 移除页面外层容器的默认白框/白色背景 */
+
+/* 彻底清除代码框的白边/白背景 */
+.highlight-wrap, .highlight {
+  background: #121212 !important; /* 继承你配置的代码框深色背景 */
+  border: 1px solid var(--geek-border) !important; /* 深色边框，替代白框 */
+  border-radius: 8px !important; /* 可选：加大圆角更美观 */
+  padding: 0 !important; /* 移除外层多余内边距，避免白边 */
+}
+
+/* 修复代码框标题栏（如BASH/Python标识栏）的白框 */
+.highlight-wrap .code-header {
+  background: var(--geek-hover) !important; /* 深色标题栏 */
+  border-bottom: 1px solid var(--geek-border) !important;
+  border-radius: 8px 8px 0 0 !important; /* 与代码框圆角对齐 */
+}
+/* 确保侧边栏卡片无白框 */
+#aside-content .card {
+  background: var(--geek-card) !important;
+  border: 1px solid var(--geek-border) !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2) !important; /* 弱化阴影，更简洁 */
+}
+/* 优化代码可读性 */
+pre code {
+  font-size: 14px !important; /* 匹配你配置的 code-font-size */
+  line-height: 1.7 !important; /* 加大行高，避免代码拥挤 */
+  padding: 1.2rem !important; /* 代码内边距，避免太贴边 */
+}
+
+/* 修复代码换行问题（如果代码超出框不换行） */
+.code_word_wrap pre {
+  white-space: pre-wrap !important; /* 自动换行 */
+  word-break: break-all !important;
+}
   /* 全局背景 */
   body {
     background-color: var(--geek-bg) !important;
