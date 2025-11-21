@@ -2,6 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zjncs.github.io/wiki/index.html</loc>
+    
+    <lastmod>2025-11-21</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zjncs.github.io/gallery/index.html</loc>
+    
+    <lastmod>2025-11-21</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://zjncs.github.io/essay/index.html</loc>
+    
+    <lastmod>2025-11-21</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://zjncs.github.io/2025/09/16/git%E5%AD%A6%E4%B9%A0/</loc>
     
     <lastmod>2025-09-16</lastmod>
@@ -191,13 +218,6 @@
 
   
   <url>
-    <loc>https://zjncs.github.io/tags/%E8%AE%BA%E6%96%87/</loc>
-    <lastmod>2025-11-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zjncs.github.io/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</loc>
     <lastmod>2025-11-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -206,6 +226,13 @@
   
   <url>
     <loc>https://zjncs.github.io/tags/2508/</loc>
+    <lastmod>2025-11-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zjncs.github.io/tags/%E8%AE%BA%E6%96%87/</loc>
     <lastmod>2025-11-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -221,14 +248,14 @@
 
   
   <url>
-    <loc>https://zjncs.github.io/categories/llm/</loc>
+    <loc>https://zjncs.github.io/categories/%E6%9D%82%E7%B1%BB/</loc>
     <lastmod>2025-11-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zjncs.github.io/categories/%E6%9D%82%E7%B1%BB/</loc>
+    <loc>https://zjncs.github.io/categories/llm/</loc>
     <lastmod>2025-11-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
