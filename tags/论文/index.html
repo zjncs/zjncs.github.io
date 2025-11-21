@@ -9,7 +9,7 @@
 <meta property="article:author" content="Johnny-Zhao">
 <meta property="article:tag" content="Hexo, Blog, Johnny-Zhao">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zjncs.github.io/img/avatar.png"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://zjncs.github.io/tags/%E8%AE%BA%E6%96%87/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><link rel="manifest" href="/manifest.json"/><meta name="msapplication-TileColor" content="#000000"/><link rel="apple-touch-icon" sizes="180x180" href="/img/pwa/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/img/pwa/32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/img/pwa/16.png"/><link rel="mask-icon" href="/img/pwa/safari-pinned-tab.svg" color="#5bbad5"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+<meta name="twitter:image" content="https://zjncs.github.io/img/avatar.png"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://zjncs.github.io/tags/%E8%AE%BA%E6%96%87/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
     (() => {
       
     const saveToLocal = {
@@ -55,7 +55,7 @@
         document.head.appendChild(link)
       }),
       addGlobalFn: (key, fn, name = false, parent = window) => {
-        if (!true && key.startsWith('pjax')) return
+        if (!false && key.startsWith('pjax')) return
         const globalFn = parent.globalFn || {}
         globalFn[key] = globalFn[key] || {}
         globalFn[key][name || Object.keys(globalFn[key]).length] = fn
@@ -123,7 +123,7 @@
     month: '个月前'
   },
   copyright: undefined,
-  lightbox: 'fancybox',
+  lightbox: 'null',
   Snackbar: undefined,
   infinitegrid: {
     js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
@@ -131,7 +131,7 @@
   },
   isPhotoFigcaption: false,
   islazyloadPlugin: true,
-  isAnchor: true,
+  isAnchor: false,
   percent: {
     toc: true,
     rightside: false,
@@ -142,323 +142,8 @@
   isHighlightShrink: false,
   isToc: false,
   pageType: 'tag'
-}</script><link rel="stylesheet" href="/css/geek-theme.css"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><style>
-  :root {
-    --geek-primary: #00ff7f;
-    --geek-secondary: #1a1a1a;
-    --geek-accent: #64b5f6;
-    --geek-bg: #0a0a0a;
-    --geek-card: #1e1e1e;
-    --geek-text: #e0e0e0;
-    --geek-text-light: #b0b0b0;
-    --geek-muted: #666666;
-    --geek-border: #333;
-    --geek-hover: #2a2a2a;
-  }
-  /* 移除页面外层容器的默认白框/白色背景 */
-
-/* 彻底清除代码框的白边/白背景 */
-.highlight-wrap, .highlight {
-  background: #121212 !important; /* 继承你配置的代码框深色背景 */
-  border: 1px solid var(--geek-border) !important; /* 深色边框，替代白框 */
-  border-radius: 8px !important; /* 可选：加大圆角更美观 */
-  padding: 0 !important; /* 移除外层多余内边距，避免白边 */
-}
-
-/* 修复代码框标题栏（如BASH/Python标识栏）的白框 */
-.highlight-wrap .code-header {
-  background: var(--geek-hover) !important; /* 深色标题栏 */
-  border-bottom: 1px solid var(--geek-border) !important;
-  border-radius: 8px 8px 0 0 !important; /* 与代码框圆角对齐 */
-}
-/* 确保侧边栏卡片无白框 */
-#aside-content .card {
-  background: var(--geek-card) !important;
-  border: 1px solid var(--geek-border) !important;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2) !important; /* 弱化阴影，更简洁 */
-}
-/* 优化代码可读性 */
-pre code {
-  font-size: 14px !important; /* 匹配你配置的 code-font-size */
-  line-height: 1.7 !important; /* 加大行高，避免代码拥挤 */
-  padding: 1.2rem !important; /* 代码内边距，避免太贴边 */
-}
-
-/* 修复代码换行问题（如果代码超出框不换行） */
-.code_word_wrap pre {
-  white-space: pre-wrap !important; /* 自动换行 */
-  word-break: break-all !important;
-}
-  /* 全局背景 */
-  body {
-    background-color: var(--geek-bg) !important;
-    color: var(--geek-text) !important;
-  }
-  
-  /* 顶部横幅样式优化 */
-  .page-header {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%) !important;
-    position: relative;
-    overflow: hidden;
-    padding: 3rem 0 !important;
-  }
-  
-  /* 添加极客风格网格背景 */
-  .page-header::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(rgba(0, 255, 127, 0.1) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(0, 255, 127, 0.1) 1px, transparent 1px);
-    background-size: 20px 20px;
-    z-index: 0;
-  }
-  
-  /* 标题文字样式 */
-  .page-header .page-title {
-    position: relative;
-    z-index: 1;
-    color: #ffffff !important;
-    text-shadow: 0 0 10px rgba(0, 255, 127, 0.3);
-    font-size: 2.5rem !important;
-  }
-  
-  /* 文章内容区域样式 */
-  .post-content, .archive-page, .tag-page, .category-page {
-    background: var(--geek-card) !important;
-    color: var(--geek-text) !important;
-    border: none !important;
-    border-radius: 8px;
-    padding: 2rem !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    margin-top: 2rem !important;
-  }
-  
-  /* 修复文章内容中的文字颜色问题 */
-  .post-content p, .archive-page p, .tag-page p, .category-page p {
-    color: var(--geek-text) !important;
-    line-height: 1.8 !important;
-    font-size: 16px !important;
-  }
-  
-  /* 链接样式优化 */
-  .post-content a, .tag-cloud a, .category-list a, .archive-page a {
-    color: var(--geek-accent) !important;
-    text-decoration: none !important;
-    transition: all 0.2s ease;
-    border-bottom: 1px dotted var(--geek-accent);
-  }
-  
-  .post-content a:hover, .tag-cloud a:hover, .category-list a:hover, .archive-page a:hover {
-    color: var(--geek-primary) !important;
-    border-bottom: 1px solid var(--geek-primary);
-  }
-  
-  /* 标签云样式优化 */
-  .tag-cloud {
-    padding: 1rem 0;
-  }
-  
-  .tag-cloud a {
-    display: inline-block;
-    background: var(--geek-hover);
-    padding: 5px 12px;
-    border-radius: 20px;
-    margin: 0 5px 8px 0;
-    font-size: 14px;
-    border: none !important;
-  }
-  /* 1. 修复代码块顶部栏的白底问题 */
-.plaintext-header {
-  background-color: #1e1e1e !important; /* 改成极客主题的深色背景 */
-  border: 1px solid #333 !important; /* 深色边框，替代白边 */
-  color: #e0e0e0 !important; /* 文字颜色改为浅色 */
-}
-
-/* 2. 修复代码块内容显示不全问题 */
-.plaintext-content pre {
-  white-space: pre !important; /* 保持代码换行逻辑 */
-  overflow-x: auto !important; /* 开启横向滚动，替代截断 */
-  max-width: 100% !important; /* 限制宽度为父容器 100% */
-  border: 1px solid #333 !important; /* 统一代码块边框 */
-}
-
-/* 3. 优化代码块整体样式（可选，让风格更统一） */
-.plaintext-content code {
-  font-family: 'JetBrains Mono', monospace !important; /* 极客风字体 */
-  font-size: 14px !important; /* 匹配主题代码字体大小 */
-  line-height: 1.6 !important; /* 优化行高 */
-}
-/* 优化代码块与其他元素的间距 */
-.plaintext-box {
-  margin: 1.5rem 0 !important; /* 上下间距 */
-}
-
-/* 美化滚动条（仅支持 Chrome/Edge 等webkit浏览器） */
-.plaintext-content pre::-webkit-scrollbar {
-  width: 8px !important;
-  height: 8px !important;
-}
-.plaintext-content pre::-webkit-scrollbar-thumb {
-  background: #444 !important;
-  border-radius: 4px !important;
-}
-.plaintext-content pre::-webkit-scrollbar-track {
-  background: #1e1e1e !important;
-}
-  .tag-cloud a:hover {
-    background: var(--geek-primary);
-    color: var(--geek-bg) !important;
-    transform: translateY(-2px);
-    box-shadow: 0 3px 10px rgba(0, 255, 127, 0.3);
-  }
-  
-  /* 侧边栏卡片样式 */
-  #card-info, #card-announcement, #card-recent-post, #card-categories, #card-tags, #card-archives {
-    background: var(--geek-card) !important;
-    border: none !important;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    margin-bottom: 1.5rem !important;
-  }
-  
-  #card-info .author-info__name {
-    color: var(--geek-primary) !important;
-  }
-  
-  #card-info .author-info__description {
-    color: var(--geek-text-light) !important;
-  }
-  
-  /* 头像样式优化 */
-  #card-info .avatar-img {
-    border: 2px solid var(--geek-primary) !important;
-    box-shadow: 0 0 15px rgba(0, 255, 127, 0.5);
-  }
-  
-  /* 代码块样式优化 */
-  pre, code {
-    font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
-  }
-  
-  .highlight, pre {
-    background: #121212 !important;
-    border-radius: 6px !important;
-    border: 1px solid var(--geek-border) !important;
-  }
-  
-  /* 引用块样式 */
-  blockquote {
-    border-left: 3px solid var(--geek-primary) !important;
-    background: var(--geek-hover) !important;
-    color: var(--geek-text-light) !important;
-    padding: 1rem 1.5rem !important;
-    border-radius: 0 4px 4px 0 !important;
-    margin: 1.5rem 0 !important;
-  }
-  
-  /* 文章底部信息区域 */
-  .post-copyright {
-    background: var(--geek-hover) !important;
-    border: 1px solid var(--geek-border) !important;
-    color: var(--geek-text-light) !important;
-    border-radius: 6px !important;
-    padding: 1rem !important;
-    margin-top: 2rem !important;
-  }
-  
-  .post-copyright a {
-    color: var(--geek-primary) !important;
-  }
-  
-  /* 归档页面样式 */
-  .archive-page .timeline {
-    border-left: 2px solid var(--geek-border) !important;
-    padding-left: 1.5rem !important;
-  }
-  
-  .archive-page .timeline-item::before {
-    background: var(--geek-primary) !important;
-    border: 2px solid var(--geek-card) !important;
-    width: 12px !important;
-    height: 12px !important;
-    top: 5px !important;
-    left: -31px !important;
-  }
-  
-  .archive-page .timeline-item .timeline-content .post-title a {
-    color: var(--geek-text) !important;
-    font-size: 1.1rem !important;
-  }
-  
-  .archive-page .timeline-item .timeline-content .post-title a:hover {
-    color: var(--geek-primary) !important;
-  }
-  
-  .archive-page .timeline-item .timeline-content .post-meta {
-    color: var(--geek-muted) !important;
-    font-size: 0.9rem !important;
-  }
-  
-  /* 分类页面样式 */
-  .category-list {
-    padding: 0.5rem 0 !important;
-  }
-  
-  .category-list li {
-    border-bottom: 1px solid var(--geek-border) !important;
-    padding: 10px 0 !important;
-  }
-  
-  .category-list a {
-    color: var(--geek-text) !important;
-    font-size: 1.05rem !important;
-  }
-  
-  .category-list .category-list-count {
-    background: var(--geek-hover) !important;
-    color: var(--geek-primary) !important;
-    border-radius: 10px !important;
-    padding: 2px 8px !important;
-    font-size: 0.8rem !important;
-  }
-  
-  /* 导航栏样式 */
-  #navbar {
-    background-color: rgba(10, 10, 10, 0.95) !important;
-    border-bottom: 1px solid var(--geek-border) !important;
-  }
-  
-  #navbar .site-name {
-    color: var(--geek-primary) !important;
-  }
-  
-  #navbar .menus_items .menus_item a {
-    color: var(--geek-text) !important;
-  }
-  
-  #navbar .menus_items .menus_item a:hover {
-    color: var(--geek-primary) !important;
-  }
-  
-  /* 阅读进度条 */
-  #reading-progress {
-    background-color: var(--geek-primary) !important;
-  }
-</style>
-<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Johnny-Zhao's TechBlog" type="application/atom+xml">
-</head><body><script>window.paceOptions = {
-  restartOnPushState: false
-}
-
-btf.addGlobalFn('pjaxSend', () => {
-  Pace.restart()
-}, 'pace_restart')
-
-</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-terminal"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-folder"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-hashtag"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-code-branch"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-tools"></i><span> Tools</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Docs"><i class="fa-fw /docs/"></i><span> 0</span></a></li><li><a class="site-page child" href="/Projects"><i class="fa-fw /projects/"></i><span> 1</span></a></li><li><a class="site-page child" href="/Links"><i class="fa-fw /links/"></i><span> 2</span></a></li><li><a class="site-page child" href="/About"><i class="fa-fw /about/"></i><span> 3</span></a></li></ul></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Johnny-Zhao's TechBlog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-terminal"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-folder"></i><span> Archive</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-hashtag"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-code-branch"></i><span> Categories</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-tools"></i><span> Tools</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/Docs"><i class="fa-fw /docs/"></i><span> 0</span></a></li><li><a class="site-page child" href="/Projects"><i class="fa-fw /projects/"></i><span> 1</span></a></li><li><a class="site-page child" href="/Links"><i class="fa-fw /links/"></i><span> 2</span></a></li><li><a class="site-page child" href="/About"><i class="fa-fw /about/"></i><span> 3</span></a></li></ul></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title">论文</h1></div></header><main class="layout" id="content-inner"><div id="tag"><div class="article-sort-title">标签 - 论文</div><div class="article-sort"><div class="article-sort-item year">2025</div><div class="article-sort-item no-article-cover"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2025-08-18T08:44:31.000Z" title="发表于 2025-08-18 16:44:31">2025-08-18</time></div><a class="article-sort-item-title" href="/2025/08/18/llm%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86-RNN/" title="llm前置知识-RNN">llm前置知识-RNN</a></div></div><div class="article-sort-item no-article-cover"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2025-08-18T07:21:41.000Z" title="发表于 2025-08-18 15:21:41">2025-08-18</time></div><a class="article-sort-item-title" href="/2025/08/18/llm%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" title="llm神经网络深度学习">llm神经网络深度学习</a></div></div><div class="article-sort-item no-article-cover"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2025-08-13T02:07:21.000Z" title="发表于 2025-08-13 10:07:21">2025-08-13</time></div><a class="article-sort-item-title" href="/2025/08/13/EoH%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB/" title="EoH文章阅读">EoH文章阅读</a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Johnny-Zhao</div><div class="author-info-description">技术博客，记录学习与生活点滴</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zjncs"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://twitter.com/" target="_blank" title="Twitter"><i class="fab fa-twitter" style="color: #1da1f2;"></i></a><a class="social-icon" href="mailto:zhaojianing@tju.edu.cn" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #00ff7f;"></i></a><a class="social-icon" href="https://linkedin.com/in/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin" style="color: #0077b5;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/16/git%E5%AD%A6%E4%B9%A0/" title="git学习">git学习</a><time datetime="2025-09-16T13:00:40.000Z" title="发表于 2025-09-16 21:00:40">2025-09-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/28/%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0/" title="量子计算学习">量子计算学习</a><time datetime="2025-08-28T10:06:07.000Z" title="发表于 2025-08-28 18:06:07">2025-08-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/18/llm%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86-RNN/" title="llm前置知识-RNN">llm前置知识-RNN</a><time datetime="2025-08-18T08:44:31.000Z" title="发表于 2025-08-18 16:44:31">2025-08-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/18/llm%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" title="llm神经网络深度学习">llm神经网络深度学习</a><time datetime="2025-08-18T07:21:41.000Z" title="发表于 2025-08-18 15:21:41">2025-08-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/14/llm-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="llm-神经网络">llm-神经网络</a><time datetime="2025-08-14T05:47:33.000Z" title="发表于 2025-08-14 13:47:33">2025-08-14</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+}</script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="/css/geek-theme.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Johnny-Zhao's TechBlog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-terminal"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-history"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user-secret"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Johnny-Zhao's TechBlog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-terminal"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-history"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user-secret"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title">论文</h1></div></header><main class="layout" id="content-inner"><div id="tag"><div class="article-sort-title">标签 - 论文</div><div class="article-sort"><div class="article-sort-item year">2025</div><div class="article-sort-item no-article-cover"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2025-08-18T08:44:31.000Z" title="发表于 2025-08-18 16:44:31">2025-08-18</time></div><a class="article-sort-item-title" href="/2025/08/18/llm%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86-RNN/" title="llm前置知识-RNN">llm前置知识-RNN</a></div></div><div class="article-sort-item no-article-cover"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2025-08-18T07:21:41.000Z" title="发表于 2025-08-18 15:21:41">2025-08-18</time></div><a class="article-sort-item-title" href="/2025/08/18/llm%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" title="llm神经网络深度学习">llm神经网络深度学习</a></div></div><div class="article-sort-item no-article-cover"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2025-08-13T02:07:21.000Z" title="发表于 2025-08-13 10:07:21">2025-08-13</time></div><a class="article-sort-item-title" href="/2025/08/13/EoH%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB/" title="EoH文章阅读">EoH文章阅读</a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Johnny-Zhao</div><div class="author-info-description">Systems Analyst <br/> Cybersecurity Enthusiast</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zjncs"><i class="fab fa-github"></i><span>Github</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/09/16/git%E5%AD%A6%E4%B9%A0/" title="git学习">git学习</a><time datetime="2025-09-16T13:00:40.000Z" title="发表于 2025-09-16 21:00:40">2025-09-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/28/%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0/" title="量子计算学习">量子计算学习</a><time datetime="2025-08-28T10:06:07.000Z" title="发表于 2025-08-28 18:06:07">2025-08-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/18/llm%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86-RNN/" title="llm前置知识-RNN">llm前置知识-RNN</a><time datetime="2025-08-18T08:44:31.000Z" title="发表于 2025-08-18 16:44:31">2025-08-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/18/llm%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" title="llm神经网络深度学习">llm神经网络深度学习</a><time datetime="2025-08-18T07:21:41.000Z" title="发表于 2025-08-18 15:21:41">2025-08-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/14/llm-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="llm-神经网络">llm-神经网络</a><time datetime="2025-08-14T05:47:33.000Z" title="发表于 2025-08-14 13:47:33">2025-08-14</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
             <i class="fas fa-folder-open"></i>
             <span>分类</span>
             
@@ -493,53 +178,4 @@ btf.addGlobalFn('pjaxSend', () => {
         </li>
       
     </ul>
-  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">13</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">33k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-09-16T13:01:19.858Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By Johnny-Zhao</span></div><div class="footer_custom_text"><code style="color: #00ff7f;">while(alive) { eat(); sleep(); code(); repeat(); }</code></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script src="/js/matrix-rain.js"></script><script src="/js/geek-enhancements.js"></script><script id="canvas_nest" defer="defer" color="0,255,127" opacity="0.3" zIndex="-1" count="80" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
-  const pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","meta[property=\"og:description\"]","link[rel=\"canonical\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
-
-  window.pjax = new Pjax({
-    elements: 'a:not([target="_blank"]):not([href="/tools/"]):not([href="/admin/"])',
-    selectors: pjaxSelectors,
-    cacheBust: false,
-    analytics: false,
-    scrollRestoration: false
-  })
-
-  const triggerPjaxFn = (val) => {
-    if (!val) return
-    Object.values(val).forEach(fn => fn())
-  }
-
-  document.addEventListener('pjax:send', () => {
-    // removeEventListener
-    btf.removeGlobalFnEvent('pjaxSendOnce')
-    btf.removeGlobalFnEvent('themeChange')
-
-    // reset readmode
-    const $bodyClassList = document.body.classList
-    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
-
-    triggerPjaxFn(window.globalFn.pjaxSend)
-  })
-
-  document.addEventListener('pjax:complete', () => {
-    btf.removeGlobalFnEvent('pjaxCompleteOnce')
-    document.querySelectorAll('script[data-pjax]').forEach(item => {
-      const newScript = document.createElement('script')
-      const content = item.text || item.textContent || item.innerHTML || ""
-      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
-      newScript.appendChild(document.createTextNode(content))
-      item.parentNode.replaceChild(newScript, item)
-    })
-
-    triggerPjaxFn(window.globalFn.pjaxComplete)
-  })
-
-  document.addEventListener('pjax:error', e => {
-    if (e.request.status === 404) {
-      const usePjax = true
-      false
-        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
-        : window.location.href = e.request.responseURL
-    }
-  })
-})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">13</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-11-21T14:24:29.338Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By Johnny-Zhao</span></div><div class="footer_custom_text"><span style="color:#00ff7f">while(alive) { code(); }</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script src="/js/matrix-rain.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

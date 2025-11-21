@@ -1,758 +1,163 @@
-/* ========================================================
- * 现代极客风格主题 CSS
- * 文件路径: /source/css/geek-theme.css
- ======================================================== */
-
-/* 全局变量 */
+/* ==========================================================================
+   Geek Theme System Variables - 定义全局变量，方便后期微调
+   ========================================================================== */
 :root {
-  --geek-primary: #00ff7f;
-  --geek-secondary: #1a1a1a;
-  --geek-accent: #ff6b6b;
-  --geek-bg: #0a0a0a;
-  --geek-card: #1e1e1e;
-  --geek-text: #e0e0e0;
-  --geek-muted: #666666;
-  --geek-border: #333333;
-  --geek-hover: #2a2a2a;
+  --geek-primary: #00ff7f;        /* 极客绿 */
+  --geek-bg: #0a0a0a;             /* 全局极深背景 */
+  --geek-card: #121212;           /* 卡片背景 */
+  --geek-border: #333333;         /* 边框颜色 */
+  --geek-text: #e0e0e0;           /* 主文本 */
+  --geek-text-dim: #858585;       /* 次要文本 */
+  --geek-code-bg: #1a1a1a;        /* 代码块背景 */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
-/* 强制暗色主题 */
-html {
-  background: var(--geek-bg) !important;
-  color: var(--geek-text) !important;
-}
-
+/* ==========================================================================
+   Global Reset & Layout - 全局重置与布局修复
+   ========================================================================== */
 body {
-  background: var(--geek-bg) !important;
+  background-color: var(--geek-bg) !important;
   color: var(--geek-text) !important;
-  font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-family: var(--font-sans);
 }
 
-/* 导航栏样式 */
+/* 滚动条美化 - 极简细条 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-track {
+  background: var(--geek-bg);
+}
+
+/* 选中文本颜色 */
+::selection {
+  background: var(--geek-primary);
+  color: #000;
+}
+
+/* ==========================================================================
+   Background Fixes (Critical) - 核心修复：强制覆盖白色背景
+   ========================================================================== */
+/* 覆盖首页文章卡片、归档页、标签页、分类页的背景 */
+#recent-posts > .recent-post-item,
+.layout_page,
+.layout_post,
+.layout_archive,
+.layout_tag,
+.layout_category,
+#aside-content .card-widget,
+.post-content {
+  background: var(--geek-card) !important;
+  border: 1px solid var(--geek-border);
+  box-shadow: none !important; /* 去除所有阴影，实现扁平化 */
+  border-radius: 4px; /* 稍微减小圆角 */
+  color: var(--geek-text) !important;
+}
+
+/* 修复顶部导航栏 */
 #nav {
-  background: rgba(26, 26, 26, 0.95) !important;
-  backdrop-filter: blur(10px);
+  background: rgba(10, 10, 10, 0.9) !important;
+  backdrop-filter: blur(5px);
   border-bottom: 1px solid var(--geek-border);
-}
-
-#nav .nav-fixed #nav {
-  background: rgba(10, 10, 10, 0.98) !important;
-}
-
-/* 主要内容区域 */
-#main {
-  background: transparent !important;
-}
-
-/* 卡片样式重写 */
-.card-widget {
-  background: var(--geek-card) !important;
-  border: 1px solid var(--geek-border) !important;
-  border-radius: 8px !important;
   box-shadow: none !important;
-  transition: all 0.3s ease !important;
 }
 
-.card-widget:hover {
+/* 修复页面标题区域 (Page Header) 的背景 */
+#page-header {
+  background-color: var(--geek-bg);
+  /* 如果你想保留顶图，可以删掉上面这行，但建议用纯色或渐变 */
+}
+
+/* 归档页面时间轴线 */
+.article-sort-item:before,
+.article-sort-title:before,
+.article-sort-title:after {
   border-color: var(--geek-primary) !important;
-  transform: translateY(-2px) !important;
 }
 
-/* 文章卡片 */
-.recent-post-item {
-  background: var(--geek-card) !important;
+/* ==========================================================================
+   Code Blocks - 代码块彻底修复
+   ========================================================================== */
+/* 代码块容器 */
+.highlight-wrap {
+  background: var(--geek-code-bg) !important;
   border: 1px solid var(--geek-border) !important;
-  border-radius: 8px !important;
+  border-radius: 6px;
+  margin: 1rem 0;
 }
 
-.recent-post-item:hover {
-  border-color: var(--geek-primary) !important;
-  box-shadow: 0 0 20px rgba(0, 255, 127, 0.1) !important;
+/* 代码块头部 (显示语言的地方) */
+.highlight-tools {
+  background: #252525 !important;
+  border-bottom: 1px solid var(--geek-border);
+  color: var(--geek-text-dim) !important;
 }
 
-/* 文章标题 */
-.post-title,
-.recent-post-item .post-title {
-  color: var(--geek-text) !important;
-  font-weight: 600 !important;
-}
-
-.post-title:hover,
-.recent-post-item .post-title:hover {
-  color: var(--geek-primary) !important;
-}
-
-/* 链接样式 */
-a {
-  color: var(--geek-primary) !important;
-  transition: all 0.3s ease !important;
-}
-
-a:hover {
-  color: #33ff99 !important;
-  text-shadow: 0 0 5px rgba(0, 255, 127, 0.3) !important;
-}
-
-/* 代码块样式 */
-pre,
-code {
-  background: #1a1a1a !important;
-  border: 1px solid var(--geek-border) !important;
-  font-family: 'JetBrains Mono', 'Fira Code', monospace !important;
-}
-
-pre {
-  border-radius: 8px !important;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.974) !important;
-}
-
-/* 行内代码 */
-p code,
-li code,
-td code {
-  background: var(--geek-hover) !important;
-  color: var(--geek-primary) !important;
-  padding: 2px 6px !important;
-  border-radius: 4px !important;
-  border: 1px solid var(--geek-border) !important;
-  font-size: 0.9em !important;
-}
-
-/* 代码高亮调整 */
+/* 代码块内部 */
 .highlight {
-  border: 1px solid var(--geek-border) !important;
-  border-radius: 8px !important;
-  overflow: hidden !important;
-}
-
-.highlight .gutter {
-  background: #1a1a1a !important;
-  border-right: 1px solid var(--geek-border) !important;
-}
-
-/* 按钮样式 */
-.btn,
-button {
   background: transparent !important;
-  border: 1px solid var(--geek-primary) !important;
-  color: var(--geek-primary) !important;
-  border-radius: 4px !important;
-  transition: all 0.3s ease !important;
-}
-
-.btn:hover,
-button:hover {
-  background: var(--geek-primary) !important;
-  color: var(--geek-bg) !important;
-  box-shadow: 0 0 15px rgba(0, 255, 127, 0.3) !important;
-}
-
-/* 标签样式 */
-.tag-cloud a,
-.tags a {
-  background: transparent !important;
-  border: 1px solid var(--geek-border) !important;
-  color: var(--geek-text) !important;
-  border-radius: 20px !important;
-  padding: 4px 12px !important;
-  margin: 4px !important;
-  display: inline-block !important;
-  transition: all 0.3s ease !important;
-}
-
-.tag-cloud a:hover,
-.tags a:hover {
-  border-color: var(--geek-primary) !important;
-  color: var(--geek-primary) !important;
-  box-shadow: 0 0 10px rgba(0, 255, 127, 0.2) !important;
-}
-
-/* 分页样式 */
-.pagination .page-number,
-.pagination .prev,
-.pagination .next {
-  background: var(--geek-card) !important;
-  border: 1px solid var(--geek-border) !important;
-  color: var(--geek-text) !important;
-}
-
-.pagination .page-number:hover,
-.pagination .prev:hover,
-.pagination .next:hover {
-  border-color: var(--geek-primary) !important;
-  color: var(--geek-primary) !important;
-}
-
-.pagination .current {
-  background: var(--geek-primary) !important;
-  color: var(--geek-bg) !important;
-  border-color: var(--geek-primary) !important;
-}
-
-/* 搜索框样式 */
-.search-input {
-  background: var(--geek-card) !important;
-  border: 1px solid var(--geek-border) !important;
-  color: var(--geek-text) !important;
-  border-radius: 25px !important;
-}
-
-.search-input:focus {
-  border-color: var(--geek-primary) !important;
-  box-shadow: 0 0 10px rgba(0, 255, 127, 0.2) !important;
-}
-
-/* 侧边栏样式 */
-#aside-content .card-widget {
-  margin-bottom: 20px !important;
-}
-
-/* 头像样式 */
-.avatar-img {
-  border: 2px solid var(--geek-primary) !important;
-  box-shadow: 0 0 15px rgba(0, 255, 127, 0.2) !important;
-}
-
-/* 社交图标 */
-.social-icon {
-  color: var(--geek-muted) !important;
-  font-size: 1.2em !important;
-  transition: all 0.3s ease !important;
-}
-
-.social-icon:hover {
-  color: var(--geek-primary) !important;
-  transform: scale(1.1) !important;
-}
-
-/* 文章元信息 */
-.post-meta {
-  color: var(--geek-muted) !important;
-  font-family: 'JetBrains Mono', monospace !important;
-  font-size: 0.9em !important;
-}
-
-.post-meta i {
-  color: var(--geek-primary) !important;
-}
-
-/* 文章目录 */
-.toc-content {
-  background: var(--geek-card) !important;
-  border: 1px solid var(--geek-border) !important;
-  border-radius: 8px !important;
-}
-
-.toc-content .toc-link {
-  color: var(--geek-text) !important;
-}
-
-.toc-content .toc-link:hover {
-  color: var(--geek-primary) !important;
-}
-
-.toc-content .is-active-link {
-  color: var(--geek-primary) !important;
-  border-left: 2px solid var(--geek-primary) !important;
-}
-
-/* 引用块样式 */
-blockquote {
-  border-left: 3px solid var(--geek-primary) !important;
-  background: var(--geek-hover) !important;
-  padding: 1rem 1.5rem !important;
-  margin: 1.5rem 0 !important;
-  border-radius: 0 4px 4px 0 !important;
-}
-blockquote p {
-  color: var(--geek-text-light) !important;
   margin: 0 !important;
 }
-blockquote::before {
-  content: '💡' !important;
-  position: absolute !important;
-  top: 10px !important;
-  left: -15px !important;
-  background: var(--geek-card) !important;
-  padding: 5px !important;
-  border-radius: 50% !important;
+
+/* 代码字体强制 */
+code, pre, .highlight-tools, .code-header {
+  font-family: var(--font-mono) !important;
 }
 
-/* 表格样式 */
-table {
-  border: 1px solid var(--geek-border) !important;
-  border-radius: 8px !important;
-  overflow: hidden !important;
+/* 行号颜色变暗 */
+.gutter pre {
+  color: #444 !important;
 }
 
-table th {
-  background: var(--geek-secondary) !important;
+/* ==========================================================================
+   Typography & Elements - 文字与组件
+   ========================================================================== */
+/* 链接样式 - 极客绿 */
+a {
+  color: var(--geek-text);
+  transition: color 0.2s;
+}
+a:hover {
   color: var(--geek-primary) !important;
-  border-bottom: 1px solid var(--geek-border) !important;
-}
-
-table td {
-  background: var(--geek-card) !important;
-  border-bottom: 1px solid var(--geek-border) !important;
-}
-
-table tr:hover td {
-  background: var(--geek-hover) !important;
-}
-
-/* 滚动条样式 */
-::-webkit-scrollbar {
-  width: 8px !important;
-  height: 8px !important;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--geek-bg) !important;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--geek-border) !important;
-  border-radius: 4px !important;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--geek-primary) !important;
-}
-
-/* 选中文本样式 */
-::selection {
-  background: var(--geek-primary) !important;
-  color: var(--geek-bg) !important;
-}
-
-/* 终端光标效果 */
-.terminal-cursor::after {
-  content: '█' !important;
-  color: var(--geek-primary) !important;
-  animation: blink 1s infinite !important;
-}
-
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
-}
-
-/* 加载动画 */
-.loading-terminal {
-  font-family: 'JetBrains Mono', monospace !important;
-  color: var(--geek-primary) !important;
-}
-
-/* 页脚样式 */
-#footer {
-  background: var(--geek-secondary) !important;
-  border-top: 1px solid var(--geek-border) !important;
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-  .card-widget {
-    margin: 10px !important;
-    border-radius: 8px !important;
-  }
-  
-  .recent-post-item {
-    margin: 10px 0 !important;
-  }
-}
-
-/* 特殊效果 */
-.glow-text {
-  text-shadow: 0 0 10px var(--geek-primary) !important;
-}
-
-.matrix-bg::before {
-  content: '' !important;
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  background: 
-    radial-gradient(circle at 25% 25%, rgba(0, 255, 127, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 75% 75%, rgba(0, 255, 127, 0.05) 0%, transparent 50%) !important;
-  z-index: -1 !important;
-  pointer-events: none !important;
-}
-/* 文章内容区域极客风格优化 */
-/* 添加到 source/css/geek-theme.css */
-
-/* 文章主体容器 */
-.post-content, 
-.post-body,
-article {
-  background: var(--geek-card) !important;
-  color: var(--geek-text) !important;
-  border: 1px solid var(--geek-border) !important;
-  border-radius: 8px !important;
-  padding: 25px !important;
-  line-height: 1.8 !important;
-}
-
-/* 文章标题 */
-.post-content h1,
-.post-content h2,
-.post-content h3,
-.post-content h4,
-.post-content h5,
-.post-content h6 {
-  color: var(--geek-primary) !important;
-  border-left: 4px solid var(--geek-primary) !important;
-  padding-left: 15px !important;
-  margin: 25px 0 15px 0 !important;
-  font-family: 'JetBrains Mono', 'Inter', sans-serif !important;
-}
-
-/* 段落样式 */
-.post-content p {
-  color: var(--geek-text) !important;
-  margin-bottom: 18px !important;
-  font-size: 15px !important;
-}
-
-/* 强调文本 */
-.post-content strong, 
-.post-content b {
-  color: var(--geek-primary) !important;
-  font-weight: 600 !important;
-}
-
-/* 斜体文本 */
-.post-content em, 
-.post-content i {
-  color: var(--geek-accent) !important;
-  font-style: italic !important;
-}
-
-/* 列表样式 */
-.post-content ul, 
-.post-content ol {
-  color: var(--geek-text) !important;
-  padding-left: 25px !important;
-}
-
-.post-content li {
-  margin-bottom: 8px !important;
-  position: relative !important;
-}
-
-.post-content ul li::before {
-  content: '▸' !important;
-  color: var(--geek-primary) !important;
-  position: absolute !important;
-  left: -20px !important;
-}
-
-/* 代码相关样式增强 */
-.post-content pre {
-  background: #1a1a1a !important;
-  border: 1px solid var(--geek-primary) !important;
-  border-radius: 8px !important;
-  padding: 20px !important;
-  overflow-x: auto !important;
-  position: relative !important;
-  margin: 20px 0 !important;
-}
-
-.post-content pre::before {
-  content: '> Terminal' !important;
-  position: absolute !important;
-  top: -12px !important;
-  left: 15px !important;
-  background: var(--geek-card) !important;
-  color: var(--geek-primary) !important;
-  padding: 2px 8px !important;
-  font-size: 11px !important;
-  font-family: 'JetBrains Mono', monospace !important;
-  border: 1px solid var(--geek-primary) !important;
-  border-radius: 4px !important;
-}
-
-/* 行内代码 */
-.post-content code:not(pre code) {
-  background: var(--geek-hover) !important;
-  color: var(--geek-primary) !important;
-  padding: 3px 6px !important;
-  border-radius: 4px !important;
-  border: 1px solid var(--geek-border) !important;
-  font-family: 'JetBrains Mono', monospace !important;
-  font-size: 0.9em !important;
-}
-
-/* 引用块样式 */
-.post-content blockquote {
-  background: var(--geek-hover) !important;
-  border-left: 4px solid var(--geek-primary) !important;
-  margin: 20px 0 !important;
-  padding: 15px 20px !important;
-  color: var(--geek-text) !important;
-  position: relative !important;
-  border-radius: 0 8px 8px 0 !important;
-}
-
-.post-content blockquote::before {
-  content: '💡' !important;
-  position: absolute !important;
-  left: -15px !important;
-  top: 15px !important;
-  background: var(--geek-card) !important;
-  padding: 5px !important;
-  border-radius: 50% !important;
-  font-size: 14px !important;
-}
-
-/* 链接样式增强 */
-.post-content a {
-  color: var(--geek-primary) !important;
-  text-decoration: underline !important;
-  text-decoration-color: transparent !important;
-  transition: all 0.3s ease !important;
-  position: relative !important;
-}
-
-.post-content a:hover {
-  color: #33ff99 !important;
-  text-decoration-color: var(--geek-primary) !important;
-  text-shadow: 0 0 8px rgba(0, 255, 127, 0.3) !important;
-}
-
-.post-content a::before {
-  content: '🔗' !important;
-  margin-right: 4px !important;
-  opacity: 0 !important;
-  transition: opacity 0.3s ease !important;
-}
-
-.post-content a:hover::before {
-  opacity: 1 !important;
-}
-
-/* 图片样式 */
-.post-content img {
-  border: 2px solid var(--geek-border) !important;
-  border-radius: 8px !important;
-  max-width: 100% !important;
-  height: auto !important;
-  margin: 20px 0 !important;
-  transition: all 0.3s ease !important;
-}
-
-.post-content img:hover {
-  border-color: var(--geek-primary) !important;
-  box-shadow: 0 0 20px rgba(0, 255, 127, 0.2) !important;
-}
-
-/* 表格样式 */
-.post-content table {
-  width: 100% !important;
-  border-collapse: collapse !important;
-  margin: 20px 0 !important;
-  background: var(--geek-card) !important;
-  border: 1px solid var(--geek-border) !important;
-  border-radius: 8px !important;
-  overflow: hidden !important;
-}
-
-.post-content table th {
-  background: var(--geek-secondary) !important;
-  color: var(--geek-primary) !important;
-  padding: 12px !important;
-  text-align: left !important;
-  font-family: 'JetBrains Mono', monospace !important;
-  font-weight: 600 !important;
-  border-bottom: 2px solid var(--geek-primary) !important;
-}
-
-.post-content table td {
-  padding: 10px 12px !important;
-  border-bottom: 1px solid var(--geek-border) !important;
-  color: var(--geek-text) !important;
-}
-
-.post-content table tr:hover {
-  background: var(--geek-hover) !important;
-}
-
-/* 分隔线 */
-.post-content hr {
-  border: none !important;
-  height: 2px !important;
-  background: linear-gradient(
-    to right, 
-    transparent, 
-    var(--geek-primary), 
-    transparent
-  ) !important;
-  margin: 30px 0 !important;
-}
-
-/* 文章元信息样式 */
-.post-meta {
-  background: var(--geek-secondary) !important;
-  border: 1px solid var(--geek-border) !important;
-  border-radius: 8px !important;
-  padding: 15px !important;
-  margin-bottom: 20px !important;
-  font-family: 'JetBrains Mono', monospace !important;
-  font-size: 13px !important;
-}
-
-.post-meta i {
-  color: var(--geek-primary) !important;
-  margin-right: 6px !important;
-}
-
-/* 文章导航 */
-.post-nav {
-  background: var(--geek-card) !important;
-  border: 1px solid var(--geek-border) !important;
-  border-radius: 8px !important;
-  padding: 20px !important;
-  margin-top: 30px !important;
-}
-
-.post-nav a {
-  color: var(--geek-primary) !important;
-  padding: 10px 15px !important;
-  border: 1px solid var(--geek-border) !important;
-  border-radius: 6px !important;
   text-decoration: none !important;
-  transition: all 0.3s ease !important;
-  display: inline-block !important;
 }
 
-.post-nav a:hover {
+/* 标题 */
+h1, h2, h3, h4, h5, h6 {
+  color: #fff !important;
+}
+
+/* 引用块 (Blockquote) - 终端风格 */
+blockquote {
+  border-left: 4px solid var(--geek-primary) !important;
+  background-color: #181818 !important;
+  color: var(--geek-text-dim);
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+}
+
+/* 标签云 (Tags) 胶囊样式 */
+.tag-cloud-list a {
+  background: #181818 !important;
+  border: 1px solid var(--geek-border) !important;
+  color: var(--geek-text) !important;
+  border-radius: 4px !important;
+}
+.tag-cloud-list a:hover {
   background: var(--geek-primary) !important;
-  color: var(--geek-bg) !important;
+  color: #000 !important;
   border-color: var(--geek-primary) !important;
 }
 
-/* 阅读进度指示器增强 */
-.reading-progress-bar {
-  background: var(--geek-primary) !important;
-  height: 3px !important;
-  box-shadow: 0 0 10px rgba(0, 255, 127, 0.5) !important;
-}
-
-/* 响应式调整 */
-@media (max-width: 768px) {
-  .post-content,
-  .post-body,
-  article {
-    padding: 20px 15px !important;
-    margin: 10px !important;
-  }
-  
-  .post-content h1,
-  .post-content h2,
-  .post-content h3,
-  .post-content h4,
-  .post-content h5,
-  .post-content h6 {
-    font-size: 1.3em !important;
-    margin: 20px 0 10px 0 !important;
-  }
-  
-  .post-content pre {
-    padding: 15px !important;
-    font-size: 13px !important;
-  }
-  /* --- 修复：移除页面外层白底容器 --- */
-  .layout > div:first-child:not(.nc) {
-    background: transparent !important;
-    box-shadow: none !important;
-    padding: 0 !important; /* 移除内边距以避免产生多余的空白 */
-  }
-    /* --- 修复：代码块内容显示不全，增加水平滚动条 --- */
-  figure.highlight pre,
-  pre[class*="language-"] {
-    white-space: pre !important;      /* 强制不换行，尊重您的配置 */
-    overflow-x: auto !important;     /* 当内容溢出时，显示水平滚动条 */
-  }
-
-  /* 美化滚动条，与您的极客风格更搭 */
-  figure.highlight pre::-webkit-scrollbar,
-  pre[class*="language-"]::-webkit-scrollbar {
-    width: 8px !important;
-    height: 8px !important;
-  }
-
-  figure.highlight pre::-webkit-scrollbar-thumb,
-  pre[class*="language-"]::-webkit-scrollbar-thumb {
-    background: #444 !important;
-    border-radius: 4px !important;
-  }
-
-  figure.highlight pre::-webkit-scrollbar-thumb:hover,
-  pre[class*="language-"]::-webkit-scrollbar-thumb:hover {
-    background: var(--geek-primary) !important;
-  }
-
-  figure.highlight pre::-webkit-scrollbar-track,
-  pre[class*="language-"]::-webkit-scrollbar-track {
-    background: #1e1e1e !important;
-  }
-  /* 移除或美化外层白框 */
-.container-wrapper {
-  /* 移除默认白色背景 */
-  background: transparent !important;
-  /* 可选：添加轻微阴影替代边框 */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
-  /* 移除不必要的边框 */
-  border: none !important;
-  /* 优化圆角 */
-  border-radius: 8px !important;
-  padding: 1.5rem !important;
-}
-
-/* 改进代码块样式 */
-.code-block {
-  /* 深色背景更适合代码展示 */
-  background-color: #1e1e1e !important;
-  /* 鲜明的边框突出代码块 */
-  border: 1px solid #333 !important;
-  /* 优化圆角与代码块匹配 */
-  border-radius: 6px !important;
-  /* 增加内边距，让代码有呼吸空间 */
-  padding: 1rem !important;
-  /* 改进字体显示 */
-  font-family: "Fira Code", "Consolas", monospace !important;
-  font-size: 0.95rem !important;
-  line-height: 1.6 !important;
-}
-
-/* 优化代码块标题栏（BASH部分） */
-.code-header {
-  background-color: #2d2d2d !important;
-  color: #ccc !important;
-  padding: 0.5rem 1rem !important;
-  border-bottom: 1px solid #333 !important;
-  border-radius: 6px 6px 0 0 !important;
-}
-
-/* 美化代码高亮 */
-.code-block .keyword {
-  color: #569cd6 !important;
-}
-.code-block .string {
-  color: #ce9178 !important;
-}
-.code-block .url {
-  color: #9cdcfe !important;
-  text-decoration: underline !important;
-}
-
-/* 优化整体容器的文字样式 */
-.container-wrapper p {
-  color: #333 !important;
-  font-size: 1.1rem !important;
-  margin-bottom: 1rem !important;
-}
-
-  
+/* 底部 Footer */
+#footer {
+  background: var(--geek-bg) !important;
+  border-top: 1px solid var(--geek-border);
+  margin-top: 0 !important;
 }
