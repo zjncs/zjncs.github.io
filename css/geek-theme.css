@@ -1,291 +1,426 @@
 /* ==========================================================================
-   System: Academic Glass OS
-   Version: 6.1.0 (Patch for Wiki Board)
-   Architect: Johnny-Zhao
+   Geek Theme Custom CSS (Cyber Aesthetic, no green)
+   Designed for: Academic OS Ultimate
    ========================================================================== */
 
+/* --------------------------------------------------------------------------
+   1. Global Typography & Colors
+   -------------------------------------------------------------------------- */
 :root {
-  /* --- 🌌 核心视觉变量 (Visual Core) --- */
-  /* 玻璃基底：极深色 + 高通透 */
-  --glass-base: rgba(20, 20, 22, 0.72);
-  --glass-hover: rgba(35, 35, 40, 0.85);
-  
-  /* 边框与高光：模拟物理材质的边缘反光 */
-  --border-light: rgba(255, 255, 255, 0.08);
-  --border-highlight: rgba(255, 255, 255, 0.12);
-  
-  /* 阴影系统：层级感的核心 */
-  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.3);
-  --shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.5);
-  
-  /* 品牌色：学术蓝 */
-  --accent-primary: #0a84ff;
-  --accent-sub: #5e5ce6;
-  --accent-glow: rgba(10, 132, 255, 0.2);
+    --font-sans: 'Times New Roman', 'Noto Serif SC', serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-  /* 字体栈 */
-  --font-ui: "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
-  --font-reading: "Noto Serif SC", "Times New Roman", "Songti SC", serif;
-  --font-code: "JetBrains Mono", "Fira Code", monospace;
-}
+    /* Neon cyan + magenta keeps a geek vibe without green */
+    --primary-color: #00eaff;
+    --secondary-color: #ff3cac;
+    --text-highlight-color: #9be8ff;
+    --link-hover-color: #7cf5ff;
+    --btn-hover-color: #00d1ff;
+    --btn-bg: #05060a;
 
-/* ==========================================================================
-   1. 全局环境 (Environment)
-   ========================================================================== */
-
-/* 背景引擎 */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -999;
-  background: url('/img/archive-bg.png') no-repeat center center / cover;
-}
-
-/* 环境光遮罩 */
-body::after {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -998;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5));
-  pointer-events: none;
+    --card-radius: 12px;
+    --card-shadow: 0 6px 30px rgba(0, 234, 255, 0.08);
+    --card-hover-shadow: 0 10px 40px rgba(255, 60, 172, 0.18);
+    --card-bg: rgba(6, 8, 18, 0.75);
+    --card-border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 body {
-  background: transparent !important;
-  color: #ffffff !important;
-  font-family: var(--font-ui);
-  -webkit-font-smoothing: antialiased;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(0, 234, 255, 0.08), transparent 35%),
+        radial-gradient(circle at 80% 35%, rgba(255, 60, 172, 0.06), transparent 30%),
+        linear-gradient(135deg, #050814 0%, #0a0f25 40%, #0d001e 100%),
+        url('/img/bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #e6edf7;
 }
 
-/* ==========================================================================
-   2. 容器系统 (Container System)
-   ========================================================================== */
+/* Cosmic starfield overlay */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.6), transparent 40%),
+      radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,0.5), transparent 45%),
+      radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.45), transparent 40%),
+      radial-gradient(1px 1px at 30% 80%, rgba(255,255,255,0.4), transparent 35%),
+      radial-gradient(1px 1px at 50% 50%, rgba(255,255,255,0.35), transparent 30%);
+    opacity: 0.7;
+    animation: star-drift 80s linear infinite;
+    pointer-events: none;
+  }
 
-/* 通用玻璃卡片 */
-#recent-posts > .recent-post-item,
-.layout_post, .layout_page, .layout_archive, 
-.layout_tag, .layout_category,
-#aside-content .card-widget {
-  background: var(--glass-base) !important;
-  backdrop-filter: blur(25px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(25px) saturate(180%);
-  border: 1px solid var(--border-light);
-  border-top: 1px solid var(--border-highlight);
-  border-radius: 16px;
-  box-shadow: var(--shadow-card);
-  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-/* 悬停交互 */
-#recent-posts > .recent-post-item:hover,
-#aside-content .card-widget:hover {
-  transform: translateY(-6px);
-  background: var(--glass-hover) !important;
-  box-shadow: var(--shadow-hover);
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-/* ==========================================================================
-   3. 首页排版 (Homepage)
-   ========================================================================== */
-
-#recent-posts > .recent-post-item { padding: 24px 30px; }
-
-/* 标题 */
-#recent-posts > .recent-post-item >.recent-post-info > .article-title {
-  font-family: var(--font-ui);
-  font-weight: 800;
-  font-size: 1.8rem;
-  color: #fff !important;
-  margin-bottom: 12px;
-  letter-spacing: -0.02em;
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background: radial-gradient(circle at 50% 20%, rgba(0, 234, 255, 0.12), transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(255, 60, 172, 0.08), transparent 45%);
+    pointer-events: none;
 }
 
-/* 摘要 */
-#recent-posts > .recent-post-item >.recent-post-info > .content {
-  font-family: var(--font-reading) !important;
-  font-size: 1.15rem;
-  line-height: 1.8;
-  color: #e0e0e0;
-  text-align: justify;
-  margin-top: 16px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+@keyframes star-drift {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-120px); }
 }
 
-/* 元信息 */
-#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap {
-  font-family: var(--font-code);
-  font-size: 0.85rem;
-  color: #999;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-.article-meta-wrap i { color: var(--accent-primary); margin-right: 4px; }
-
-/* ==========================================================================
-   4. Wiki Board (NEW DASHBOARD SYSTEM)
-   ========================================================================== */
-
-.wiki-dashboard {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
-  margin-top: 20px;
+a:hover {
+    color: var(--link-hover-color);
 }
 
-.wiki-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 12px;
-  padding: 20px;
-  transition: transform 0.3s ease;
-}
-.wiki-card:hover {
-  transform: translateY(-4px);
-  background: rgba(255, 255, 255, 0.05);
-  border-color: var(--accent-primary);
-}
-
-.wiki-card-header {
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
-}
-.wiki-card-title {
-  font-family: var(--font-ui);
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #fff;
-}
-.wiki-card-subtitle {
-  font-family: var(--font-reading);
-  font-size: 0.9rem;
-  color: #888;
-  margin-top: 4px;
+/* --------------------------------------------------------------------------
+   2. Homepage Card Optimization
+   -------------------------------------------------------------------------- */
+#recent-posts>.recent-post-item {
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+    border: var(--card-border);
+    background: var(--card-bg);
+    backdrop-filter: blur(5px);
 }
 
-/* 列表样式 (Category/Archive) */
-.wiki-list-container {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.wiki-list-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 14px;
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.2);
-  color: #ccc;
-  text-decoration: none;
-  transition: all 0.2s;
-}
-.wiki-list-item:hover {
-  background: var(--accent-primary);
-  color: #fff;
-}
-.wiki-item-count {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 2px 8px;
-  border-radius: 10px;
-  font-size: 0.8rem;
+#recent-posts>.recent-post-item:hover {
+    box-shadow: var(--card-hover-shadow);
+    transform: translateY(-4px);
+    border-image: linear-gradient(120deg, var(--primary-color), var(--secondary-color)) 1;
 }
 
-/* 标签云 (Chip Style) */
-.wiki-chips-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.wiki-chip {
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 12px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 6px;
-  color: #ddd;
-  font-size: 0.9rem;
-  text-decoration: none;
-  transition: all 0.3s;
-}
-.wiki-chip:hover {
-  background: #fff;
-  color: #000;
-  transform: scale(1.05);
-}
-.wiki-chip .hash {
-  color: var(--accent-primary);
-  margin-right: 4px;
-  font-family: var(--font-code);
+#recent-posts>.recent-post-item>.recent-post-info>.article-title {
+    color: #fff !important;
+    font-family: var(--font-mono);
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    text-shadow: none !important;
 }
 
-/* ==========================================================================
-   5. 导航与页脚 (Navigation)
-   ========================================================================== */
+#recent-posts>.recent-post-item:hover>.recent-post-info>.article-title {
+    color: var(--text-highlight-color) !important;
+    text-shadow: 0 0 10px rgba(0, 234, 255, 0.35) !important;
+}
 
+#recent-posts>.recent-post-item>.recent-post-info>.content {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    line-height: 1.6;
+    margin-top: 10px;
+    opacity: 0.9;
+    color: #cfd8e3 !important;
+}
+
+#recent-posts>.recent-post-item>.recent-post-info>.article-meta-wrap {
+    font-size: 0.9em;
+    margin-bottom: 8px;
+    color: #8a92a6 !important;
+}
+
+#recent-posts>.recent-post-item>.recent-post-info>.article-meta-wrap a {
+    color: #c2cee0 !important;
+    transition: color 0.3s;
+}
+
+#recent-posts>.recent-post-item:hover>.recent-post-info>.article-meta-wrap a {
+    color: var(--link-hover-color) !important;
+}
+
+/* --------------------------------------------------------------------------
+   3. Navigation & Header
+   -------------------------------------------------------------------------- */
 #nav {
-  background: rgba(18, 18, 20, 0.8) !important;
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  box-shadow: none;
-}
-#nav a { color: #fff !important; font-weight: 600; }
-
-#page-header { background: transparent !important; }
-#page-header::before {
-  background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6)) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: rgba(5, 6, 10, 0.9);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
+#nav a {
+    color: #fff !important;
+    font-family: var(--font-mono);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+#nav a:hover {
+    color: var(--link-hover-color) !important;
+    text-shadow: 0 0 10px rgba(124, 245, 255, 0.5), 0 0 18px rgba(255, 60, 172, 0.25);
+}
+
+#nav.nav-scrolled {
+    background: rgba(5, 6, 10, 0.97);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+/* --------------------------------------------------------------------------
+   4. Footer
+   -------------------------------------------------------------------------- */
 #footer {
-  background: transparent !important;
-  margin-top: 60px;
-  color: #888;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    color: #888;
 }
 
-/* ==========================================================================
-   6. 文章阅读 (Reading) & 代码 (Code)
-   ========================================================================== */
-
-#article-container {
-  font-family: var(--font-reading) !important;
-  font-size: 19px;
-  line-height: 2.1;
-  color: #eeeeee !important;
-  padding: 10px 20px;
+#footer a {
+    color: #fff;
 }
 
-#article-container h1, h2, h3 {
-  font-family: var(--font-ui) !important;
-  color: #fff !important;
-  margin-top: 2.5em;
-  font-weight: 700;
+#footer a:hover {
+    color: var(--primary-color);
 }
 
-.highlight-wrap {
-  border-radius: 12px;
-  background: #1a1b26 !important; /* Tokyo Night Dark */
-  border: 1px solid rgba(255,255,255,0.1);
-  margin: 2em 0;
-}
-figure.highlight { background: transparent !important; }
-.highlight-tools {
-  background: #24283b !important;
-  border-bottom: 1px solid #414868;
-  height: 36px;
+/* --------------------------------------------------------------------------
+   5. Widgets, Buttons & Dock
+   -------------------------------------------------------------------------- */
+.button,
+button,
+input[type='submit'] {
+    background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
+    color: #05060a !important;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-family: var(--font-mono);
+    letter-spacing: 0.5px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* 隐藏开关 */
-#rightside #darkmode_navswitch { display: none !important; }
+.button:hover,
+button:hover,
+input[type='submit']:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(0, 234, 255, 0.25);
+}
+
+pre,
+code {
+    font-family: var(--font-mono);
+}
+
+/* Floating dock alignment */
+#rightside {
+    right: 20px;
+    gap: 10px;
+}
+
+#rightside .rightside-item {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(150deg, var(--primary-color), var(--secondary-color));
+    border-radius: 12px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #0b1020;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+#rightside .rightside-item i {
+    font-size: 20px;
+    line-height: 1;
+    width: 22px;
+    text-align: center;
+    transform: translateY(1px);
+}
+
+/* Force override theme defaults to center icons */
+#rightside > div > button,
+#rightside > div > a {
+    width: 48px !important;
+    height: 48px !important;
+    margin-bottom: 10px !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: linear-gradient(150deg, var(--primary-color), var(--secondary-color)) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    line-height: 1 !important;
+    color: #0b1020 !important;
+}
+
+#rightside > div > button i,
+#rightside > div > a i {
+    font-size: 20px !important;
+    line-height: 1 !important;
+    width: 22px !important;
+    text-align: center !important;
+    margin: 0 !important;
+    transform: translateY(0) !important;
+}
+
+#rightside .rightside-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
+    filter: saturate(1.1);
+}
+
+/* --------------------------------------------------------------------------
+   6. Light Mode Overrides
+   -------------------------------------------------------------------------- */
+[data-theme='light'] {
+    --primary-color: #0066ff;
+    --secondary-color: #ff6fb1;
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --font-color: #1f2937;
+}
+
+[data-theme='light'] body {
+    color: #1f2937;
+    background: linear-gradient(135deg, #eef2ff, #f7f9ff);
+}
+
+[data-theme='light'] #recent-posts>.recent-post-item {
+    border-color: rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+[data-theme='light'] #recent-posts>.recent-post-item:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 30px rgba(0, 102, 255, 0.15);
+}
+
+[data-theme='light'] #recent-posts>.recent-post-item>.recent-post-info>.article-title {
+    color: #000 !important;
+    text-shadow: none !important;
+}
+
+[data-theme='light'] #recent-posts>.recent-post-item:hover>.recent-post-info>.article-title {
+    color: #0b4fff !important;
+    text-shadow: none !important;
+}
+
+[data-theme='light'] #recent-posts>.recent-post-item>.recent-post-info>.content {
+    color: #333 !important;
+}
+
+[data-theme='light'] #recent-posts>.recent-post-item>.recent-post-info>.article-meta-wrap {
+    color: #666 !important;
+}
+
+[data-theme='light'] #recent-posts>.recent-post-item>.recent-post-info>.article-meta-wrap a {
+    color: #555 !important;
+}
+
+[data-theme='light'] #recent-posts>.recent-post-item:hover>.recent-post-info>.article-meta-wrap a {
+    color: #0b4fff !important;
+}
+
+/* --------------------------------------------------------------------------
+   7. Post Header & Hero
+   -------------------------------------------------------------------------- */
+#page-header {
+    position: relative;
+    overflow: hidden;
+}
+
+#page-header.post-bg {
+    background:
+        linear-gradient(135deg, rgba(5, 6, 10, 0.85), rgba(8, 19, 38, 0.75), rgba(12, 0, 40, 0.7)),
+        url('/img/index.jpg') center / cover no-repeat fixed;
+}
+
+#page-header.post-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 20%, rgba(0, 234, 255, 0.18), transparent 35%),
+                radial-gradient(circle at 80% 40%, rgba(255, 60, 172, 0.12), transparent 30%);
+    pointer-events: none;
+}
+
+#page-header .post-info {
+    backdrop-filter: blur(6px);
+    padding: 24px 32px;
+    border-radius: 14px;
+    background: rgba(0, 0, 0, 0.25);
+    display: inline-flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   8. Knowledge Graph Page
+   -------------------------------------------------------------------------- */
+.wiki-intro {
+    color: #cfd8e3;
+}
+
+.wiki-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+    margin: 28px 0;
+}
+
+.wiki-showcase .card {
+    border-radius: 14px;
+    padding: 18px 20px;
+    background: rgba(6, 8, 18, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+}
+
+.wiki-showcase .card h3 {
+    margin: 0 0 8px;
+    font-family: var(--font-mono);
+    color: var(--text-highlight-color);
+}
+
+.wiki-showcase .card p {
+    margin: 0;
+    color: #b8c3d6;
+    line-height: 1.6;
+}
+
+.wiki-quickgrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin: 16px 0 28px;
+}
+
+.wiki-quickgrid .pill {
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #d8e4f2;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.wiki-quickgrid .pill i {
+    color: var(--primary-color);
+}
+
+/* --------------------------------------------------------------------------
+   9. Post Card Summary Badge
+   -------------------------------------------------------------------------- */
+#recent-posts>.recent-post-item>.recent-post-info>.content {
+    position: relative;
+    padding-top: 12px;
+}
+
+#recent-posts>.recent-post-item>.recent-post-info>.content::before {
+    content: "摘要";
+    position: absolute;
+    top: -4px;
+    left: 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-highlight-color);
+}

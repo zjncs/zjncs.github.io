@@ -5,6 +5,12 @@
 
 class GeekEnhancements {
   constructor() {
+    const styles = getComputedStyle(document.documentElement);
+    this.colors = {
+      accent: (styles.getPropertyValue('--primary-color') || '#00eaff').trim(),
+      glow: (styles.getPropertyValue('--secondary-color') || '#ff3cac').trim(),
+      dim: '#8a92a6'
+    };
     this.init();
   }
 
@@ -60,7 +66,7 @@ class GeekEnhancements {
           align-items: center;
           font-family: 'JetBrains Mono', monospace;
           font-size: 12px;
-          color: #00ff7f;
+          color: ${this.colors.accent};
           border-radius: 8px 8px 0 0;
         `;
         
@@ -93,7 +99,7 @@ class GeekEnhancements {
     
     typewriterElements.forEach(element => {
       element.addEventListener('animationend', () => {
-        element.style.borderRight = '2px solid #00ff7f';
+        element.style.borderRight = `2px solid ${this.colors.accent}`;
         element.style.animation = 'blink 1s infinite';
       });
     });
@@ -105,7 +111,7 @@ class GeekEnhancements {
     const links = document.querySelectorAll('a');
     links.forEach(link => {
       link.addEventListener('mouseenter', () => {
-        link.style.textShadow = '0 0 10px #00ff7f';
+        link.style.textShadow = `0 0 10px ${this.colors.accent}`;
         link.style.transition = 'all 0.3s ease';
       });
       
@@ -118,7 +124,7 @@ class GeekEnhancements {
     const buttons = document.querySelectorAll('.btn, button');
     buttons.forEach(button => {
       button.addEventListener('mouseenter', () => {
-        button.style.boxShadow = '0 0 20px rgba(0, 255, 127, 0.3)';
+        button.style.boxShadow = `0 0 20px ${this.hexToRgba(this.colors.accent, 0.25)}`;
       });
       
       button.addEventListener('mouseleave', () => {
@@ -132,7 +138,7 @@ class GeekEnhancements {
     const style = document.createElement('style');
     style.textContent = `
       ::-webkit-scrollbar-thumb:hover {
-        box-shadow: inset 0 0 5px rgba(0, 255, 127, 0.5);
+        box-shadow: inset 0 0 5px ${this.hexToRgba(this.colors.accent, 0.35)};
       }
     `;
     document.head.appendChild(style);
@@ -206,7 +212,7 @@ class GeekEnhancements {
       padding: 8px 12px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 10px;
-      color: #666;
+      color: ${this.colors.dim};
       display: flex;
       gap: 15px;
       z-index: 1000;
@@ -315,6 +321,16 @@ class GeekEnhancements {
       if (e.target === terminal) terminal.remove();
     });
   }
+
+  // Utility: convert hex to rgba with opacity
+  hexToRgba(hex, alpha) {
+    const sanitized = hex.replace('#', '');
+    const bigint = parseInt(sanitized, 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
 }
 
 // 页面加载完成后初始化
@@ -354,7 +370,7 @@ if (window.performance && window.performance.timing) {
   window.addEventListener('load', () => {
     setTimeout(() => {
       const loadTime = window.performance.timing.loadEventEnd - window.performance.timing.navigationStart;
-      console.log(`%cPage Load Time: ${loadTime}ms`, 'color: #00ff7f;');
+      console.log(`%cPage Load Time: ${loadTime}ms`, 'color: #00eaff;');
     }, 0);
   });
 }

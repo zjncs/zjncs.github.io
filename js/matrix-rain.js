@@ -11,6 +11,11 @@ class MatrixRain {
     this.chars = '01ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=[]{}|;:,.<>?`~';
     this.fontSize = 14;
     this.isActive = false;
+    const styles = getComputedStyle(document.documentElement);
+    this.colors = {
+      matrix: (styles.getPropertyValue('--primary-color') || '#00eaff').trim(),
+      accent: (styles.getPropertyValue('--secondary-color') || '#ff3cac').trim()
+    };
     
     this.init();
   }
@@ -66,7 +71,7 @@ class MatrixRain {
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     
     // 设置字符颜色
-    this.ctx.fillStyle = '#00ff7f';
+    this.ctx.fillStyle = this.colors.matrix;
     this.ctx.font = `${this.fontSize}px 'JetBrains Mono', monospace`;
 
     for (let i = 0; i < this.drops.length; i++) {
@@ -137,9 +142,9 @@ console.log(`
 ║     System Status: Online           ║
 ║     Author: Johnny-Zhao            ║
 ╚══════════════════════════════════════╝`, 
-'color: #00ff7f; font-family: "JetBrains Mono", monospace; font-size: 12px;'
+'color: #00eaff; font-family: "JetBrains Mono", monospace; font-size: 12px;'
 );
 
-console.log('%cconst blog = new GeekBlog();', 'color: #00ff7f; font-weight: bold;');
-console.log('%cblog.init();', 'color: #00ff7f; font-weight: bold;');
+console.log('%cconst blog = new GeekBlog();', 'color: #ff3cac; font-weight: bold;');
+console.log('%cblog.init();', 'color: #00eaff; font-weight: bold;');
 console.log('%c// Ready to explore the digital world', 'color: #666; font-style: italic;');
