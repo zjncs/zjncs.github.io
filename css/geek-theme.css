@@ -29,11 +29,11 @@ body {
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     background:
-        radial-gradient(circle at 20% 20%, rgba(0, 234, 255, 0.08), transparent 35%),
-        radial-gradient(circle at 80% 35%, rgba(255, 60, 172, 0.06), transparent 30%),
-        linear-gradient(135deg, #050814 0%, #0a0f25 40%, #0d001e 100%),
-        url('/img/bg.jpg') no-repeat center center fixed;
-    background-size: cover;
+        radial-gradient(120% 80% at 18% 20%, rgba(0, 234, 255, 0.10), transparent 55%),
+        radial-gradient(120% 80% at 82% 25%, rgba(255, 60, 172, 0.08), transparent 55%),
+        linear-gradient(135deg, #030611 0%, #071527 45%, #0c0122 100%);
+    background-size: 200% 200%;
+    animation: hacker-flow 38s ease-in-out infinite;
     color: #e6edf7;
 }
 
@@ -67,6 +67,12 @@ body::after {
 @keyframes star-drift {
   from { transform: translateY(0); }
   to   { transform: translateY(-120px); }
+}
+
+@keyframes hacker-flow {
+  0% { background-position: 0% 40%; }
+  50% { background-position: 100% 60%; }
+  100% { background-position: 0% 40%; }
 }
 
 a:hover {
@@ -265,55 +271,132 @@ code {
     filter: saturate(1.1);
 }
 
+/* Pace progress bar */
+.pace {
+    pointer-events: none;
+}
+
+.pace .pace-progress {
+    position: fixed;
+    top: 0;
+    right: 100%;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
+    box-shadow: 0 0 18px rgba(0, 234, 255, 0.38);
+    border-radius: 999px;
+    overflow: hidden;
+    animation: pace-flow 3s ease-in-out infinite;
+    z-index: 2000;
+}
+
+.pace .pace-progress::after {
+    content: "";
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff 0%, var(--primary-color) 55%, transparent 70%);
+    filter: blur(1px);
+    transform: translateY(-50%);
+    opacity: 0.85;
+}
+
+.pace .pace-activity {
+    display: none !important;
+}
+
+@keyframes pace-flow {
+    0% { filter: saturate(1) brightness(1); }
+    50% { filter: saturate(1.3) brightness(1.1); }
+    100% { filter: saturate(1) brightness(1); }
+}
+
+@media (max-width: 768px) {
+    .pace .pace-progress {
+        height: 2px;
+        box-shadow: 0 0 12px rgba(0, 234, 255, 0.32);
+    }
+
+    .pace .pace-progress::after {
+        width: 10px;
+        height: 10px;
+        right: -6px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pace .pace-progress {
+        animation: none;
+    }
+}
+
 /* --------------------------------------------------------------------------
    6. Light Mode Overrides
    -------------------------------------------------------------------------- */
 [data-theme='light'] {
-    --primary-color: #0066ff;
-    --secondary-color: #ff6fb1;
-    --card-bg: rgba(255, 255, 255, 0.9);
-    --font-color: #1f2937;
+    --primary-color: #2fb3ff;
+    --secondary-color: #ff70c3;
+    --card-bg: rgba(10, 13, 24, 0.9);
+    --font-color: #e8eef7;
 }
 
 [data-theme='light'] body {
-    color: #1f2937;
-    background: linear-gradient(135deg, #eef2ff, #f7f9ff);
+    color: #e8eef7;
+    background:
+        radial-gradient(120% 80% at 18% 20%, rgba(0, 234, 255, 0.10), transparent 55%),
+        radial-gradient(120% 80% at 82% 25%, rgba(255, 60, 172, 0.08), transparent 55%),
+        linear-gradient(135deg, #030611 0%, #071527 45%, #0c0122 100%);
+    background-size: 200% 200%;
 }
 
 [data-theme='light'] #recent-posts>.recent-post-item {
-    border-color: rgba(0, 0, 0, 0.1);
-    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(255, 255, 255, 0.06);
+    background: rgba(12, 16, 28, 0.92);
 }
 
 [data-theme='light'] #recent-posts>.recent-post-item:hover {
     border-color: var(--primary-color);
-    box-shadow: 0 8px 30px rgba(0, 102, 255, 0.15);
+    box-shadow: 0 8px 30px rgba(0, 144, 255, 0.22);
 }
 
 [data-theme='light'] #recent-posts>.recent-post-item>.recent-post-info>.article-title {
-    color: #000 !important;
+    color: #f6fbff !important;
     text-shadow: none !important;
 }
 
 [data-theme='light'] #recent-posts>.recent-post-item:hover>.recent-post-info>.article-title {
-    color: #0b4fff !important;
+    color: var(--text-highlight-color) !important;
     text-shadow: none !important;
 }
 
 [data-theme='light'] #recent-posts>.recent-post-item>.recent-post-info>.content {
-    color: #333 !important;
+    color: #cfd8e3 !important;
 }
 
 [data-theme='light'] #recent-posts>.recent-post-item>.recent-post-info>.article-meta-wrap {
-    color: #666 !important;
+    color: #9aa5b8 !important;
 }
 
 [data-theme='light'] #recent-posts>.recent-post-item>.recent-post-info>.article-meta-wrap a {
-    color: #555 !important;
+    color: #c5d0e2 !important;
 }
 
 [data-theme='light'] #recent-posts>.recent-post-item:hover>.recent-post-info>.article-meta-wrap a {
-    color: #0b4fff !important;
+    color: var(--link-hover-color) !important;
+}
+
+[data-theme='light'] #post .post-title,
+[data-theme='light'] #post-info .post-title {
+    color: #f4f7ff !important;
+    text-shadow: none !important;
+}
+
+[data-theme='light'] #post-meta,
+[data-theme='light'] #post-meta a {
+    color: #c1cad8 !important;
 }
 
 /* --------------------------------------------------------------------------
