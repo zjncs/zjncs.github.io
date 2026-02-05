@@ -1,0 +1,343 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Life | Johnny-Zhao's TechBlog</title><meta name="author" content="Johnny-Zhao"><meta name="copyright" content="Johnny-Zhao"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="最近在做         每周更新一篇「日常拾遗」：记录做了什么、学到了什么、想改进什么。补充照片&#x2F;随笔，提醒自己保持节奏但不过度内耗。                        灵感碎片         把复杂拆成可操作的小块，再组合。用可复制的流程减少重复劳动。                        关注方向">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Life">
+<meta property="og:url" content="https://zjncs.github.io/life/index.html">
+<meta property="og:site_name" content="Johnny-Zhao&#39;s TechBlog">
+<meta property="og:description" content="最近在做         每周更新一篇「日常拾遗」：记录做了什么、学到了什么、想改进什么。补充照片&#x2F;随笔，提醒自己保持节奏但不过度内耗。                        灵感碎片         把复杂拆成可操作的小块，再组合。用可复制的流程减少重复劳动。                        关注方向">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zjncs.github.io/img/avatar.png">
+<meta property="article:published_time" content="2025-08-25T04:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-05T12:37:02.900Z">
+<meta property="article:author" content="Johnny-Zhao">
+<meta property="article:tag" content="Hexo, Blog, Johnny-Zhao">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zjncs.github.io/img/avatar.png"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://zjncs.github.io/life/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Life',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'page'
+}</script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/css/geek-theme.css"><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Johnny-Zhao's TechBlog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/wiki/"><i class="fa-fw fas fa-compass"></i><span> Wiki</span></a></div><div class="menus_item"><a class="site-page" href="/life/"><i class="fa-fw fas fa-coffee"></i><span> Life</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user-astronaut"></i><span> About</span></a></div></div></div></div><div class="page type-page" id="body-wrap"><header class="not-home-page fixed" id="page-header" style="background-image: url(/img/carousel.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Johnny-Zhao's TechBlog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/wiki/"><i class="fa-fw fas fa-compass"></i><span> Wiki</span></a></div><div class="menus_item"><a class="site-page" href="/life/"><i class="fa-fw fas fa-coffee"></i><span> Life</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user-astronaut"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title">Life</h1></div></header><main class="layout" id="content-inner"><div id="page"><div class="container" id="article-container">
+    <div class="life-grid">
+      <section class="life-card">
+        <div class="life-card-title">最近在做</div>
+        <ul class="life-list"><li>每周更新一篇「日常拾遗」：记录做了什么、学到了什么、想改进什么。</li><li>补充照片/随笔，提醒自己保持节奏但不过度内耗。</li></ul>
+      </section>
+
+      <section class="life-card">
+        <div class="life-card-title">灵感碎片</div>
+        <ul class="life-list"><li>把复杂拆成可操作的小块，再组合。</li><li>用可复制的流程减少重复劳动。</li></ul>
+      </section>
+
+      <section class="life-card">
+        <div class="life-card-title">关注方向</div>
+        <div class="life-focus">
+              <div class="life-focus-item">
+                <div class="life-focus-title">空间智能 &amp; 世界模型</div>
+                <div class="life-focus-desc">想把「场景理解 + 记忆」做成个人实验手册。</div>
+              </div>
+            
+              <div class="life-focus-item">
+                <div class="life-focus-title">区块链 + Rust</div>
+                <div class="life-focus-desc">练习从共识到合约的小型链路，顺便提升低层性能手感。</div>
+              </div>
+            
+              <div class="life-focus-item">
+                <div class="life-focus-title">AI to B</div>
+                <div class="life-focus-desc">把 LLM 与业务流程结合，做可靠、可观测的自动化小工具。</div>
+              </div>
+            </div>
+      </section>
+
+      <section class="life-card">
+        <div class="life-card-title">清单</div>
+        <ul class="life-checklist"><li><span class="life-check-icon">📖</span>每周至少读完一篇技术/设计长文</li><li><span class="life-check-icon">🏃</span>跑步 3 次，30 分钟节奏</li><li><span class="life-check-icon">🛠️</span>每月完成一个小实验（空间智能 / 链 / AI to B 三选一）</li><li><span class="life-check-icon">📸</span>每月整理一组照片，附上当月感受</li></ul>
+      </section>
+
+      <section class="life-card life-card--recent">
+        <div class="life-card-title">最近文章</div>
+        <div class="life-recent-list">
+            <a class="life-recent-item" href="/2025/12/01/1201-%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%89%8D%E4%B8%89%E7%AB%A0%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/">
+              <span class="life-recent-title">1201 数据挖掘前三章知识点整理</span>
+              <span class="life-recent-meta">2025-12-01</span>
+            </a>
+          
+            <a class="life-recent-item" href="/2025/12/01/12-1-Z-image%E7%9A%84mac%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">
+              <span class="life-recent-title">12.1 Z-image的mac使用指南</span>
+              <span class="life-recent-meta">2025-12-01</span>
+            </a>
+          
+            <a class="life-recent-item" href="/2025/11/24/11.24%20%E4%BF%A1%E6%81%AF%E7%BB%8F%E6%B5%8E%E5%AD%A6%EF%BC%88%E4%B8%80%EF%BC%89/">
+              <span class="life-recent-title">11.24 信息经济学（一）</span>
+              <span class="life-recent-meta">2025-11-24</span>
+            </a>
+          
+            <a class="life-recent-item" href="/2025/08/05/Blog%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/">
+              <span class="life-recent-title">Blog搭建指南</span>
+              <span class="life-recent-meta">2025-08-05</span>
+            </a>
+          </div>
+      </section>
+
+      <section class="life-card life-card--note">
+               <div class="life-note">生活页会持续补充，作为个人节奏的仪表盘。如果有好玩的活动/地点推荐，欢迎留言。</div>
+             </section>
+    </div>
+  
+</div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "/img/loading.gif" data-lazy-src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Johnny-Zhao</div><div class="author-info-description">Full Stack Developer <br> Architecture Enthusiast</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zjncs"><i class="fab fa-github"></i><span>Github</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/01/1201-%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%89%8D%E4%B8%89%E7%AB%A0%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/" title="1201 数据挖掘前三章知识点整理">1201 数据挖掘前三章知识点整理</a><time datetime="2025-12-01T12:09:03.000Z" title="发表于 2025-12-01 20:09:03">2025-12-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/01/12-1-Z-image%E7%9A%84mac%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" title="12.1 Z-image的mac使用指南">12.1 Z-image的mac使用指南</a><time datetime="2025-12-01T09:32:41.000Z" title="发表于 2025-12-01 17:32:41">2025-12-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/25/%E4%BF%A1%E6%81%AF%E7%BB%8F%E6%B5%8E%E5%AD%A6%E8%80%83%E8%AF%95%E6%8A%BC%E9%A2%98/" title="信息经济学考试押题">信息经济学考试押题</a><time datetime="2025-11-24T16:46:57.000Z" title="发表于 2025-11-25 00:46:57">2025-11-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/24/11.24%20%E4%BF%A1%E6%81%AF%E7%BB%8F%E6%B5%8E%E5%AD%A6%EF%BC%88%E4%B8%80%EF%BC%89/" title="11.24 信息经济学（一）">11.24 信息经济学（一）</a><time datetime="2025-11-23T16:14:41.000Z" title="发表于 2025-11-24 00:14:41">2025-11-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/24/%E5%A4%8D%E4%B9%A0/" title="复习">复习</a><time datetime="2025-11-23T16:14:41.000Z" title="发表于 2025-11-24 00:14:41">2025-11-24</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/leetcode/"><span class="card-category-list-name">leetcode</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/llm/"><span class="card-category-list-name">llm+</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/"><span class="card-category-list-name">开源项目</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%9D%82%E7%B1%BB/"><span class="card-category-list-name">杂类</span><span class="card-category-list-count">1</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/2508/" style="font-size: 1.5em; color: #99a9bf">2508</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 1.23em; color: #999ea6">环境配置</a> <a href="/tags/%E8%AE%BA%E6%96%87/" style="font-size: 1.37em; color: #99a4b2">论文</a> <a href="/tags/GLCC/" style="font-size: 1.1em; color: #999">GLCC</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/12/">
+            <span class="card-archive-list-date">
+              十二月 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/11/">
+            <span class="card-archive-list-date">
+              十一月 2025
+            </span>
+            <span class="card-archive-list-count">3</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/09/">
+            <span class="card-archive-list-date">
+              九月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/08/">
+            <span class="card-archive-list-date">
+              八月 2025
+            </span>
+            <span class="card-archive-list-count">12</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">18</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-02-05T13:26:11.339Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Johnny-Zhao</span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"data-mapping":"pathname","data-reactions-enabled":1,"data-emit-metadata":0,"data-input-position":"bottom"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'purple_dark' : 'purple_dark'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'zjncs/zjn-blog-comments',
+      'data-repo-id': 'R_kgDOPVdIdg',
+      'data-category-id': 'DIC_kwDOPVdIds4CtlzW',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="/js/custom.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
