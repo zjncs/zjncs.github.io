@@ -6,6 +6,11 @@
     <title>Decap CMS</title>
   </head>
   <body>
+    <script>
+      if (window.location.hostname === "zjncs.github.io") {
+        window.location.replace("https://dapper-quokka-35d133.netlify.app/admin/");
+      }
+    </script>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
