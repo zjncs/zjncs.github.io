@@ -2,9 +2,7 @@ backend:
   name: github
   repo: zjncs/zjncs.github.io
   branch: main
-  client_id: Ov23lidjNE3gKm9QMBln
-  auth_type: implicit
-  auth_scope: repo
+  site_domain: dapper-quokka-35d133.netlify.app
 
 local_backend: true
 site_url: https://zjncs.github.io
