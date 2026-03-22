@@ -50,35 +50,8 @@ const hackerUI = (() => {
   };
 
   const setupScrollIndicator = () => {
-    let bar = document.querySelector('#scroll-indicator');
-    if (!bar) {
-      bar = document.createElement('div');
-      bar.id = 'scroll-indicator';
-      bar.innerHTML = '<div class="scroll-indicator__bar"></div>';
-      document.body.appendChild(bar);
-    }
-
-    const innerBar = bar.querySelector('.scroll-indicator__bar');
-    let ticking = false;
-
-    const update = () => {
-      const scrollTop = window.scrollY || 0;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      bar.style.setProperty('--scroll-progress', `${progress}%`);
-      innerBar.style.backgroundPosition = `${progress}% 0`;
-      ticking = false;
-    };
-
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
+    const bar = document.querySelector('#scroll-indicator');
+    if (bar) bar.remove();
   };
 
   const setupCardTilt = () => {
