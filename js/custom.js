@@ -1,10 +1,10 @@
 /* ==========================================================================
    Custom JS Interactions
-   Focused on lightweight, desktop-first enhancements.
+   Desktop-first, animated, but rate-limited.
    ========================================================================== */
 
 console.log(
-  '%c Hacker OS %c Optimized ',
+  '%c Hacker OS %c Cinematic ',
   'background: #05060a; padding: 1px; border-radius: 3px 0 0 3px; color: #00eaff',
   'background: linear-gradient(90deg, #00eaff, #ff3cac); padding: 1px; border-radius: 0 3px 3px 0; color: #05060a'
 );
@@ -15,6 +15,27 @@ const hackerUI = (() => {
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
 
   const allowEnhancedMotion = () => !reducedMotion.matches && finePointer.matches && window.innerWidth >= 1100;
+  const allowAmbientMotion = () => !reducedMotion.matches && window.innerWidth >= 993;
+
+  const ensureCardLayers = card => {
+    if (!card.querySelector('.card-grid-overlay')) {
+      const grid = document.createElement('div');
+      grid.className = 'card-grid-overlay';
+      card.appendChild(grid);
+    }
+
+    if (!card.querySelector('.card-neon')) {
+      const neon = document.createElement('div');
+      neon.className = 'card-neon';
+      card.appendChild(neon);
+    }
+
+    if (!card.querySelector('.card-glow')) {
+      const glow = document.createElement('div');
+      glow.className = 'card-glow';
+      card.appendChild(glow);
+    }
+  };
 
   const setupNavScroll = () => {
     const nav = document.getElementById('nav');
@@ -61,10 +82,11 @@ const hackerUI = (() => {
   };
 
   const setupCardTilt = () => {
-    if (!allowEnhancedMotion()) return;
-
     const cards = document.querySelectorAll('#recent-posts > .recent-post-items > .recent-post-item, #recent-posts > .recent-post-item');
     if (!cards.length) return;
+
+    cards.forEach(ensureCardLayers);
+    if (!allowEnhancedMotion()) return;
 
     const maxTilt = 5;
 
@@ -113,6 +135,56 @@ const hackerUI = (() => {
     });
   };
 
+  const setupCursorPulse = () => {
+    if (!allowEnhancedMotion()) return;
+
+    let lastPulse = 0;
+    window.addEventListener('pointermove', event => {
+      const now = performance.now();
+      if (now - lastPulse < 120) return;
+      lastPulse = now;
+
+      const pulse = document.createElement('span');
+      pulse.className = 'cursor-pulse';
+      pulse.style.left = `${event.clientX}px`;
+      pulse.style.top = `${event.clientY}px`;
+      document.body.appendChild(pulse);
+      window.setTimeout(() => pulse.remove(), 700);
+    }, { passive: true });
+  };
+
+  const setupParallaxHeader = () => {
+    if (!allowEnhancedMotion()) return;
+
+    const layers = document.querySelectorAll('.parallax-layer');
+    if (!layers.length) return;
+
+    let rafId = 0;
+    let lastEvent = null;
+
+    const render = () => {
+      if (!lastEvent) return;
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      const dx = (lastEvent.clientX - centerX) / centerX;
+      const dy = (lastEvent.clientY - centerY) / centerY;
+
+      layers.forEach(layer => {
+        const depth = parseFloat(layer.dataset.depth || '0.2');
+        layer.style.setProperty('--parallax-x', `${-dx * depth * 18}px`);
+        layer.style.setProperty('--parallax-y', `${-dy * depth * 18}px`);
+      });
+
+      rafId = 0;
+    };
+
+    window.addEventListener('pointermove', event => {
+      lastEvent = event;
+      if (rafId) return;
+      rafId = requestAnimationFrame(render);
+    }, { passive: true });
+  };
+
   const setupLiveTime = () => {
     const target = document.querySelector('[data-live-time]');
     if (!target) return;
@@ -141,12 +213,70 @@ const hackerUI = (() => {
     });
   };
 
+  const setupRipples = () => {
+    if (!allowEnhancedMotion()) return;
+
+    const targets = document.querySelectorAll('.btn-ripple, .button, button');
+    if (!targets.length) return;
+
+    const spawn = (event, target) => {
+      const wave = document.createElement('span');
+      wave.className = 'ripple-wave';
+      const rect = target.getBoundingClientRect();
+      wave.style.left = `${event.clientX - rect.left}px`;
+      wave.style.top = `${event.clientY - rect.top}px`;
+      target.appendChild(wave);
+      window.setTimeout(() => wave.remove(), 750);
+    };
+
+    targets.forEach(target => {
+      target.classList.add('btn-ripple');
+      target.addEventListener('pointerdown', event => spawn(event, target), { passive: true });
+    });
+  };
+
+  const setupAutoGlow = () => {
+    const cards = document.querySelectorAll('#recent-posts > .recent-post-items > .recent-post-item, #recent-posts > .recent-post-item');
+    if (!cards.length) return;
+
+    cards.forEach(ensureCardLayers);
+    if (!allowEnhancedMotion()) return;
+
+    let index = 0;
+    window.setInterval(() => {
+      const card = cards[index % cards.length];
+      const glow = card.querySelector('.card-glow');
+      if (!glow) return;
+
+      glow.style.left = `${18 + Math.random() * 64}%`;
+      glow.style.top = `${14 + Math.random() * 68}%`;
+      glow.style.transform = 'translate(-50%, -50%)';
+      glow.classList.add('is-active');
+      window.setTimeout(() => glow.classList.remove('is-active'), 850);
+      index += 1;
+    }, 2600);
+  };
+
+  const setupNoiseOverlay = () => {
+    if (!allowAmbientMotion()) return;
+    if (document.querySelector('.noise-overlay')) return;
+
+    const noise = document.createElement('div');
+    noise.className = 'noise-overlay';
+    document.body.appendChild(noise);
+  };
+
   const init = () => {
     setupNavScroll();
     setupScrollIndicator();
     setupCardTilt();
+    setupCursorPulse();
+    setupParallaxHeader();
     setupLiveTime();
     setupFloatingChips();
+    setupRipples();
+    setupAutoGlow();
+    setupNoiseOverlay();
   };
 
   return { init };

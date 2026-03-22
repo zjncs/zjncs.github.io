@@ -302,57 +302,43 @@ a:hover {
 /* --------------------------------------------------------------------------
    10. Performance Guardrails
    -------------------------------------------------------------------------- */
-body {
-    background-attachment: scroll;
-    animation: none;
-}
+@media (hover: hover) and (pointer: fine) and (min-width: 993px) {
+    body {
+        background-attachment: fixed;
+    }
 
-body::before,
-body::after,
-.noise-overlay,
-.cursor-pulse,
-.card-glow,
-.card-grid-overlay,
-.card-neon {
-    animation: none !important;
-}
+    #recent-posts>.recent-post-item {
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
 
-#recent-posts>.recent-post-item {
-    transform: none;
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
-    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-}
+    #recent-posts>.recent-post-item:hover {
+        transform:
+          perspective(1200px)
+          rotateX(calc(var(--tilt-x) - 1deg))
+          rotateY(calc(var(--tilt-y) + 2deg))
+          translateY(-4px)
+          scale(1.01);
+    }
 
-#recent-posts>.recent-post-item:hover {
-    transform: translateY(-4px);
-}
-
-#recent-posts>.recent-post-item::after,
-.chip-ghost::after,
-.noise-overlay {
-    display: none;
-}
-
-#page-header.post-bg {
-    background:
-        linear-gradient(135deg, rgba(5, 6, 10, 0.82), rgba(8, 19, 38, 0.74), rgba(12, 0, 40, 0.68)),
-        url('/img/index.jpg') center / cover no-repeat;
-}
-
-.avatar-img,
-.scroll-down-effects {
-    animation: none !important;
-}
-
-.avatar-img img:hover {
-    transform: none;
+    #page-header.post-bg {
+        background:
+            linear-gradient(135deg, rgba(5, 6, 10, 0.85), rgba(8, 19, 38, 0.75), rgba(12, 0, 40, 0.7)),
+            url('/img/index.jpg') center / cover no-repeat fixed;
+    }
 }
 
 @media (hover: none), (pointer: coarse), (max-width: 992px) {
+    body {
+        background-attachment: scroll;
+        animation: none;
+    }
+
     body::before,
     body::after {
         opacity: 0.45;
+        animation: none !important;
     }
 
     #recent-posts>.recent-post-item,
@@ -365,6 +351,25 @@ body::after,
     #page-header,
     #page-header.post-bg {
         background-attachment: scroll !important;
+    }
+
+    #recent-posts>.recent-post-item::after,
+    .chip-ghost::after,
+    .noise-overlay,
+    .cursor-pulse,
+    .card-glow,
+    .card-grid-overlay,
+    .card-neon {
+        display: none !important;
+    }
+
+    .avatar-img,
+    .scroll-down-effects {
+        animation: none !important;
+    }
+
+    .avatar-img img:hover {
+        transform: none;
     }
 }
 

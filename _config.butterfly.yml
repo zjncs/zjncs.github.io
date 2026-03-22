@@ -10,7 +10,7 @@ favicon: /img/favicon.png
 
 avatar:
   img: /img/avatar.png
-  effect: false
+  effect: true
 
 error_404:
   img: /img/404.jpg
@@ -45,7 +45,7 @@ index_img: /img/archive-bg.png
 
 subtitle:
   enable: true
-  effect: false
+  effect: true
   loop: true
   sub:
     - "Design is not just what it looks like and feels like."
