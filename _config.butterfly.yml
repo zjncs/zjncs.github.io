@@ -1,0 +1,155 @@
+# ==========================================================
+# Butterfly 配置文件 — Academic OS Ultimate (Fixed)
+# 架构师：Johnny-Zhao | 风格：深度学术毛玻璃
+# ==========================================================
+
+# ----------------------------------------------------------
+# 1. 站点核心 (Core)
+# ----------------------------------------------------------
+favicon: /img/favicon.png
+
+avatar:
+  img: /img/avatar.png
+  effect: true
+
+error_404:
+  img: /img/404.jpg
+
+# ----------------------------------------------------------
+# 2. 导航交互 (Navigation UX)
+# ----------------------------------------------------------
+nav:
+  logo:
+  display_title: true
+  fixed: true
+
+menu:
+  Home: / || fas fa-home
+  Wiki: /wiki/ || fas fa-compass
+  Life: /life/ || fas fa-coffee
+  Link: /link/ || fas fa-link
+  About: /about/ || fas fa-user-astronaut
+
+# ----------------------------------------------------------
+# 3. 视觉表现 (Visual Presentation)
+# ----------------------------------------------------------
+darkmode:
+  enable: true
+  button: true
+  autoChangeMode: false
+
+readmode:
+  enable: true
+
+index_img: /img/archive-bg.png
+
+subtitle:
+  enable: true
+  effect: true
+  loop: true
+  sub:
+    - "Design is not just what it looks like and feels like."
+    - "Design is how it works."
+    - "Thinking in Systems & Algorithms."
+# ----------------------------------------------------------
+post:
+  default_top_img: /img/index.jpg
+  archive_top_img: /img/archive-bg.png
+  tag_top_img: /img/tag-bg.png
+  category_top_img: /img/index.jpg
+font:
+  global-font-size: 16px
+  code-font-size: 14px
+  # 使用双引号包裹整个字符串，避免特殊字符引起解析错误
+  font-family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Lato, Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif"
+  code-font-family: "'JetBrains Mono', 'Fira Code', 'Consolas', monospace"
+
+highlight_theme: mac
+highlight_copy: true
+highlight_lang: true
+highlight_shrink: false
+code_word_wrap: true
+
+# ----------------------------------------------------------
+# 5. 侧边栏布局 (Aside Layout)
+# ----------------------------------------------------------
+aside:
+  enable: true
+  hide: false
+  button: true
+  position: right
+  mobile: false
+  card_author:
+    enable: true
+    description: 'Full Stack Developer <br> Architecture Enthusiast'
+    button:
+      enable: true
+      icon: fab fa-github
+      text: Github
+      link: https://github.com/zjncs
+
+# ----------------------------------------------------------
+# 6. 组件功能 (Components)
+# ----------------------------------------------------------
+toc:
+  post: true
+  number: true
+  expand: true
+  style_simple: true
+
+post_copyright:
+  enable: true
+  decode: false
+  author_href: https://github.com/zjncs
+  license: 'CC BY-NC-SA 4.0'
+
+math:
+  use: katex
+  per_page: false
+  hide_scrollbar: true
+  katex:
+    copy_tex: true
+
+# ----------------------------------------------------------
+# 7. 性能与加载 (Performance)
+# ----------------------------------------------------------
+preloader:
+  enable: false
+
+local_search:
+  enable: true
+  preload: false
+
+lazyload:
+  enable: true
+  placeholder: /img/loading.gif
+
+minify:
+  html:
+    enable: true
+  css:
+    enable: true
+  js:
+    enable: true
+
+# ----------------------------------------------------------
+# 8. 资源注入 (Injection)
+# ----------------------------------------------------------
+inject:
+  head:
+    - <link rel="preconnect" href="https://fonts.googleapis.com">
+    - <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    - <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    - <link rel="stylesheet" href="/css/geek-theme.css">
+
+  bottom:
+    - <script src="/js/custom.js"></script>
+
+# ----------------------------------------------------------
+# 9. 页脚 (Footer)
+# ----------------------------------------------------------
+footer:
+  owner:
+    enable: true
+    since: 2025
+  copyright: true
