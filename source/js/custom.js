@@ -131,7 +131,9 @@ const hackerUI = (() => {
 
       spawnPulse(event.clientX, event.clientY);
       if (pulseCount % 2 === 0) {
-        spawnPulse(event.clientX, event.clientY, 'cursor-pulse--echo');
+        window.setTimeout(() => {
+          spawnPulse(event.clientX - 10, event.clientY - 6, 'cursor-pulse--echo');
+        }, 22);
       }
     }, { passive: true });
   };
