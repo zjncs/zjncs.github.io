@@ -87,6 +87,9 @@ aside:
       icon: fab fa-github
       text: Github
       link: https://github.com/zjncs
+  card_announcement:
+    enable: true
+    content: '<span class="badge-glitch" data-text="LAB">LAB</span><br>这里记录 Agent、系统设计和一些有意思的折腾。<br>最近在做 GUI 自动化、RAG 和记忆系统。'
 
 # ----------------------------------------------------------
 # 6. 组件功能 (Components)

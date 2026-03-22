@@ -139,17 +139,27 @@ const hackerUI = (() => {
     if (!allowEnhancedMotion()) return;
 
     let lastPulse = 0;
+    let pulseCount = 0;
+
+    const spawnPulse = (x, y, className = '') => {
+      const pulse = document.createElement('span');
+      pulse.className = className ? `cursor-pulse ${className}` : 'cursor-pulse';
+      pulse.style.left = `${x}px`;
+      pulse.style.top = `${y}px`;
+      document.body.appendChild(pulse);
+      window.setTimeout(() => pulse.remove(), className ? 1400 : 1100);
+    };
+
     window.addEventListener('pointermove', event => {
       const now = performance.now();
-      if (now - lastPulse < 120) return;
+      if (now - lastPulse < 78) return;
       lastPulse = now;
+      pulseCount += 1;
 
-      const pulse = document.createElement('span');
-      pulse.className = 'cursor-pulse';
-      pulse.style.left = `${event.clientX}px`;
-      pulse.style.top = `${event.clientY}px`;
-      document.body.appendChild(pulse);
-      window.setTimeout(() => pulse.remove(), 700);
+      spawnPulse(event.clientX, event.clientY);
+      if (pulseCount % 2 === 0) {
+        spawnPulse(event.clientX, event.clientY, 'cursor-pulse--echo');
+      }
     }, { passive: true });
   };
 
