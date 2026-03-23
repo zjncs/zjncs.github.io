@@ -151,7 +151,8 @@ a:hover {
 /* --------------------------------------------------------------------------
    2. Homepage Card Optimization
    -------------------------------------------------------------------------- */
-#recent-posts>.recent-post-item {
+#recent-posts > .recent-post-item,
+#recent-posts > .recent-post-items > .recent-post-item {
     --tilt-x: 0deg;
     --tilt-y: 0deg;
     --mouse-x: 50%;
@@ -168,7 +169,8 @@ a:hover {
     transform: perspective(1200px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
 }
 
-#recent-posts>.recent-post-item:hover {
+#recent-posts > .recent-post-item:hover,
+#recent-posts > .recent-post-items > .recent-post-item:hover {
     box-shadow: var(--card-hover-shadow);
     transform:
       perspective(1200px)
@@ -177,6 +179,17 @@ a:hover {
       translateY(-4px)
       scale(1.01);
     border-image: linear-gradient(120deg, var(--primary-color), var(--secondary-color)) 1;
+}
+
+#recent-posts > .recent-post-item.recent-post-item--clickable,
+#recent-posts > .recent-post-items > .recent-post-item.recent-post-item--clickable {
+    cursor: pointer;
+}
+
+#recent-posts > .recent-post-item.recent-post-item--clickable:focus-visible,
+#recent-posts > .recent-post-items > .recent-post-item.recent-post-item--clickable:focus-visible {
+    outline: 2px solid rgba(155, 232, 255, 0.9);
+    outline-offset: 4px;
 }
 
 #recent-posts>.recent-post-item::before,

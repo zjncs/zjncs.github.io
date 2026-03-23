@@ -13,6 +13,8 @@ const hackerUI = (() => {
   const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const recentPostCardSelector = '#recent-posts > .recent-post-item, #recent-posts > .recent-post-items > .recent-post-item';
+  let recentPostLinksBound = false;
 
   const allowEnhancedMotion = () => !reducedMotion.matches && finePointer.matches && window.innerWidth >= 1100;
   const allowAmbientMotion = () => !reducedMotion.matches && window.innerWidth >= 993;
@@ -55,7 +57,7 @@ const hackerUI = (() => {
   };
 
   const setupCardTilt = () => {
-    const cards = document.querySelectorAll('#recent-posts > .recent-post-items > .recent-post-item, #recent-posts > .recent-post-item');
+    const cards = document.querySelectorAll(recentPostCardSelector);
     if (!cards.length) return;
 
     cards.forEach(ensureCardLayers);
@@ -105,6 +107,51 @@ const hackerUI = (() => {
 
       card.addEventListener('pointermove', onMove, { passive: true });
       card.addEventListener('pointerleave', reset, { passive: true });
+    });
+  };
+
+  const setupRecentPostLinks = () => {
+    const cards = document.querySelectorAll(recentPostCardSelector);
+
+    cards.forEach(card => {
+      if (card.classList.contains('ads-wrap')) return;
+
+      const link = card.querySelector('.article-title[href]');
+      if (!link) return;
+
+      card.dataset.cardLinkReady = 'true';
+      card.classList.add('recent-post-item--clickable');
+      card.setAttribute('role', 'link');
+      card.setAttribute('tabindex', '0');
+    });
+
+    if (recentPostLinksBound) return;
+    recentPostLinksBound = true;
+
+    const shouldIgnoreTarget = target => target.closest('a, button, input, textarea, select, summary, label');
+
+    document.addEventListener('click', event => {
+      if (event.defaultPrevented || event.button !== 0) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+      const card = event.target.closest(recentPostCardSelector);
+      if (!card || card.dataset.cardLinkReady !== 'true') return;
+      if (shouldIgnoreTarget(event.target)) return;
+      if (window.getSelection && window.getSelection().toString()) return;
+
+      const link = card.querySelector('.article-title[href]');
+      if (link) link.click();
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+
+      const card = event.target.closest(recentPostCardSelector);
+      if (!card || card.dataset.cardLinkReady !== 'true') return;
+
+      event.preventDefault();
+      const link = card.querySelector('.article-title[href]');
+      if (link) link.click();
     });
   };
 
@@ -221,7 +268,7 @@ const hackerUI = (() => {
   };
 
   const setupAutoGlow = () => {
-    const cards = document.querySelectorAll('#recent-posts > .recent-post-items > .recent-post-item, #recent-posts > .recent-post-item');
+    const cards = document.querySelectorAll(recentPostCardSelector);
     if (!cards.length) return;
 
     cards.forEach(ensureCardLayers);
@@ -254,6 +301,7 @@ const hackerUI = (() => {
   const init = () => {
     setupNavScroll();
     setupScrollIndicator();
+    setupRecentPostLinks();
     setupCardTilt();
     setupCursorPulse();
     setupParallaxHeader();
