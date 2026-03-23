@@ -106,7 +106,7 @@ post_copyright:
 
 math:
   use: katex
-  per_page: false
+  per_page: true
   hide_scrollbar: true
   katex:
     copy_tex: true
