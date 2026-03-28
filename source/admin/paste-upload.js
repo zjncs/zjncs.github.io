@@ -408,6 +408,24 @@
     return document.querySelector('textarea');
   };
 
+  const findRawEditorMount = textarea => {
+    if (!(textarea instanceof HTMLTextAreaElement)) return null;
+
+    let node = textarea.parentElement;
+    while (node && node !== document.body) {
+      const nativeToolbar = node.querySelector(':scope > [role="toolbar"]');
+      if (nativeToolbar instanceof HTMLElement && node.contains(textarea)) {
+        return {
+          container: node,
+          nativeToolbar
+        };
+      }
+      node = node.parentElement;
+    }
+
+    return null;
+  };
+
   const togglePrefixOnLines = (textarea, buildPrefix, pattern) => {
     const start = textarea.selectionStart ?? textarea.value.length;
     const end = textarea.selectionEnd ?? textarea.value.length;
@@ -788,20 +806,23 @@
     decorateEditorImages();
     decorateAdminButtons();
 
+    document.querySelectorAll(`.${RAW_TOOLBAR_CLASS}`).forEach(toolbar => {
+      const textarea = toolbar.__codexTextarea;
+      const mount = findRawEditorMount(textarea);
+      if (!(textarea instanceof HTMLTextAreaElement) || !mount || mount.container !== toolbar.parentElement) {
+        toolbar.remove();
+      }
+    });
+
     document.querySelectorAll(EDITOR_SELECTOR).forEach(editor => {
-      const host = editor.parentElement;
-      if (!(host instanceof HTMLElement) || !host.contains(editor)) return;
-
-      const rect = editor.getBoundingClientRect();
-      if (rect.height < 160) return;
-
       if (editor instanceof HTMLTextAreaElement) {
-        const nativeToolbar = host.querySelector(':scope > [role="toolbar"]');
-        if (nativeToolbar instanceof HTMLElement) {
-          nativeToolbar.setAttribute('data-admin-toolbar', 'native');
-        }
+        const mount = findRawEditorMount(editor);
+        if (!mount) return;
 
-        const rawToolbar = host.querySelector(`:scope > .${RAW_TOOLBAR_CLASS}`);
+        const { container, nativeToolbar } = mount;
+        nativeToolbar.setAttribute('data-admin-toolbar', 'native');
+
+        const rawToolbar = container.querySelector(`:scope > .${RAW_TOOLBAR_CLASS}`);
         const needsRawToolbar = !(rawToolbar instanceof HTMLElement) || rawToolbar.__codexTextarea !== editor;
         if (needsRawToolbar) {
           if (rawToolbar instanceof HTMLElement) {
@@ -810,21 +831,23 @@
 
           const customToolbar = buildRawToolbar(editor);
           if (customToolbar) {
-            if (nativeToolbar instanceof HTMLElement && nativeToolbar.parentElement === host) {
-              host.insertBefore(customToolbar, nativeToolbar);
-            } else {
-              host.insertBefore(customToolbar, editor);
-            }
+            container.insertBefore(customToolbar, nativeToolbar);
           }
         }
+
+        return;
       }
+
+      const host = editor.parentElement;
+      if (!(host instanceof HTMLElement) || !host.contains(editor)) return;
+
+      const rect = editor.getBoundingClientRect();
+      if (rect.height < 160) return;
 
       if (!host.querySelector(`:scope > .${HELPER_CLASS}`)) {
         const helper = document.createElement('div');
         helper.className = HELPER_CLASS;
-        helper.innerHTML = editor instanceof HTMLTextAreaElement
-          ? '<strong>Markdown 编辑已启用</strong>：直接粘贴或拖拽图片会优先上传到 <code>zjncs/TyporaPic</code>；失败时自动转内联图片。删除图片时直接删掉对应的 Markdown 图片语法即可。'
-          : '<strong>截图直传已启用</strong>：直接粘贴或拖拽图片会优先上传到 <code>zjncs/TyporaPic</code>；失败时自动转内联图片。富文本模式下可单击图片后按 <code>Delete</code>/<code>Backspace</code> 删除。';
+        helper.innerHTML = '<strong>截图直传已启用</strong>：直接粘贴或拖拽图片会优先上传到 <code>zjncs/TyporaPic</code>；失败时自动转内联图片。富文本模式下可单击图片后按 <code>Delete</code>/<code>Backspace</code> 删除。';
 
         try {
           host.insertBefore(helper, editor);
