@@ -441,7 +441,9 @@
 
       const helper = document.createElement('div');
       helper.className = HELPER_CLASS;
-      helper.innerHTML = '<strong>截图直传已启用</strong>：直接粘贴或拖拽图片会优先上传到 <code>zjncs/TyporaPic</code>；失败时自动转内联图片。富文本模式下可单击图片后按 <code>Delete</code>/<code>Backspace</code> 删除。';
+      helper.innerHTML = editor instanceof HTMLTextAreaElement
+        ? '<strong>Markdown 编辑已启用</strong>：直接粘贴或拖拽图片会优先上传到 <code>zjncs/TyporaPic</code>；失败时自动转内联图片。删除图片时直接删掉对应的 Markdown 图片语法即可。'
+        : '<strong>截图直传已启用</strong>：直接粘贴或拖拽图片会优先上传到 <code>zjncs/TyporaPic</code>；失败时自动转内联图片。富文本模式下可单击图片后按 <code>Delete</code>/<code>Backspace</code> 删除。';
 
       host.insertBefore(helper, editor);
     });
