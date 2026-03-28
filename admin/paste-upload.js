@@ -5,6 +5,18 @@
   const RAW_TOOLBAR_CLASS = 'codex-raw-toolbar';
   const SELECTED_IMAGE_CLASS = 'decap-editor-image-selected';
   const DECORATED_BUTTON_ATTR = 'data-admin-button';
+  const RAW_TOOLBAR_ACTIONS = [
+    { action: 'bold', aria: 'Bold', html: '<strong>B</strong>' },
+    { action: 'italic', aria: 'Italic', html: '<em>I</em>' },
+    { action: 'strikethrough', aria: 'Strikethrough', html: '<span>S</span>' },
+    { action: 'code', aria: 'Code', html: '<code>&lt;/&gt;</code>' },
+    { action: 'link', aria: 'Link', html: 'Link' },
+    { action: 'heading', aria: 'Heading', html: 'H2' },
+    { action: 'quote', aria: 'Quote', html: '"' },
+    { action: 'bulleted list', aria: 'Bulleted List', html: '• List' },
+    { action: 'numbered list', aria: 'Numbered List', html: '1. List' },
+    { action: 'image', aria: 'Image', html: 'Image' }
+  ];
   let lastFocusedEditor = null;
   let lastTextareaSelection = { start: 0, end: 0 };
 
@@ -504,6 +516,7 @@
     restoreTextareaSelection(textarea);
 
     const label = normalizeButtonText(
+      button.getAttribute('data-raw-action') ||
       button.getAttribute('aria-label') ||
       button.getAttribute('title') ||
       button.textContent
@@ -522,6 +535,30 @@
     if (label === 'image') return insertImagePlaceholderToTextarea(textarea);
 
     return false;
+  };
+
+  const decorateNativeRawToolbar = (toolbar, textarea) => {
+    if (!(toolbar instanceof HTMLElement) || !(textarea instanceof HTMLTextAreaElement)) return;
+
+    toolbar.setAttribute('data-admin-toolbar', 'native');
+    toolbar.__codexTextarea = textarea;
+
+    const buttons = Array.from(toolbar.querySelectorAll('button'));
+    buttons.forEach((button, index) => {
+      const config = RAW_TOOLBAR_ACTIONS[index];
+      if (!(button instanceof HTMLButtonElement)) return;
+
+      if (!config) {
+        button.style.display = 'none';
+        return;
+      }
+
+      button.style.display = '';
+      button.setAttribute('data-raw-action', config.action);
+      button.setAttribute('aria-label', config.aria);
+      button.removeAttribute('title');
+      button.innerHTML = config.html;
+    });
   };
 
   const buildRawToolbar = textarea => {
@@ -762,7 +799,40 @@
       void handleImageFiles(editor, files);
     }, true);
 
+    document.addEventListener('mousedown', event => {
+      const button = event.target instanceof Element
+        ? event.target.closest('[role="toolbar"][data-admin-toolbar="native"] button[data-raw-action]')
+        : null;
+
+      if (!(button instanceof HTMLButtonElement)) return;
+
+      const toolbar = button.closest('[role="toolbar"]');
+      const textarea = toolbar?.__codexTextarea instanceof HTMLTextAreaElement
+        ? toolbar.__codexTextarea
+        : getCurrentRawEditor();
+
+      if (!(textarea instanceof HTMLTextAreaElement)) return;
+      rememberTextareaSelection(textarea);
+      event.preventDefault();
+    }, true);
+
     document.addEventListener('click', event => {
+      const button = event.target instanceof Element
+        ? event.target.closest('[role="toolbar"][data-admin-toolbar="native"] button[data-raw-action]')
+        : null;
+
+      if (button instanceof HTMLButtonElement) {
+        const toolbar = button.closest('[role="toolbar"]');
+        const textarea = toolbar?.__codexTextarea instanceof HTMLTextAreaElement
+          ? toolbar.__codexTextarea
+          : getCurrentRawEditor();
+
+        if (textarea && handleRawToolbarAction(button, textarea)) {
+          stopNativeHandling(event);
+          return;
+        }
+      }
+
       const image = event.target instanceof Element
         ? event.target.closest('[data-slate-editor="true"] img')
         : null;
@@ -809,54 +879,17 @@
     decorateEditorImages();
     decorateAdminButtons();
 
-    document.querySelectorAll(`.${RAW_TOOLBAR_CLASS}`).forEach(toolbar => {
-      const textarea = toolbar.__codexTextarea;
-      const mount = findRawEditorMount(textarea);
-      if (!(textarea instanceof HTMLTextAreaElement) || !mount || mount.container !== toolbar.parentElement) {
-        toolbar.remove();
-      }
-    });
+    document.querySelectorAll(`.${RAW_TOOLBAR_CLASS}, .${HELPER_CLASS}`).forEach(node => node.remove());
 
     document.querySelectorAll(EDITOR_SELECTOR).forEach(editor => {
       if (editor instanceof HTMLTextAreaElement) {
         const mount = findRawEditorMount(editor);
         if (!mount) return;
 
-        const { container, nativeToolbar } = mount;
-        nativeToolbar.setAttribute('data-admin-toolbar', 'native');
-
-        const rawToolbar = container.querySelector(`:scope > .${RAW_TOOLBAR_CLASS}`);
-        const needsRawToolbar = !(rawToolbar instanceof HTMLElement) || rawToolbar.__codexTextarea !== editor;
-        if (needsRawToolbar) {
-          if (rawToolbar instanceof HTMLElement) {
-            rawToolbar.remove();
-          }
-
-          const customToolbar = buildRawToolbar(editor);
-          if (customToolbar) {
-            container.insertBefore(customToolbar, nativeToolbar);
-          }
-        }
+        const { nativeToolbar } = mount;
+        decorateNativeRawToolbar(nativeToolbar, editor);
 
         return;
-      }
-
-      const host = editor.parentElement;
-      if (!(host instanceof HTMLElement) || !host.contains(editor)) return;
-
-      const rect = editor.getBoundingClientRect();
-      if (rect.height < 160) return;
-
-      if (!host.querySelector(`:scope > .${HELPER_CLASS}`)) {
-        const helper = document.createElement('div');
-        helper.className = HELPER_CLASS;
-        helper.innerHTML = '<strong>截图直传已启用</strong>：直接粘贴或拖拽图片会优先上传到 <code>zjncs/TyporaPic</code>；失败时自动转内联图片。富文本模式下可单击图片后按 <code>Delete</code>/<code>Backspace</code> 删除。';
-
-        try {
-          host.insertBefore(helper, editor);
-        } catch (error) {
-          console.warn('decorateEditors: failed to mount helper', error);
-        }
       }
     });
   };

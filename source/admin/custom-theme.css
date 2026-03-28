@@ -257,10 +257,6 @@ body.decap-enhanced [role="toolbar"] svg {
   height: 19px;
 }
 
-body.decap-enhanced [data-admin-toolbar="native"] {
-  display: none !important;
-}
-
 body.decap-enhanced .codex-raw-toolbar {
   display: flex;
   flex-wrap: wrap;
@@ -293,6 +289,27 @@ body.decap-enhanced .codex-raw-toolbar button:hover {
 }
 
 body.decap-enhanced .codex-raw-toolbar button code {
+  font-size: 13px;
+}
+
+body.decap-enhanced [role="toolbar"][data-admin-toolbar="native"] button[data-raw-action] {
+  min-width: 64px;
+  height: 42px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(46, 83, 128, 0.12);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--admin-accent-deep);
+  box-shadow: none;
+}
+
+body.decap-enhanced [role="toolbar"][data-admin-toolbar="native"] button[data-raw-action]:hover {
+  background: rgba(239, 245, 252, 0.98);
+  border-color: rgba(42, 95, 151, 0.18);
+  color: var(--admin-accent);
+}
+
+body.decap-enhanced [role="toolbar"][data-admin-toolbar="native"] button[data-raw-action] code {
   font-size: 13px;
 }
 
