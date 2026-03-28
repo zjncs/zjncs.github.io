@@ -207,25 +207,25 @@ body.decap-enhanced [data-admin-button="tab"][aria-current="page"] {
 }
 
 body.decap-enhanced [data-admin-button="tool"] {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 250, 255, 0.96)) !important;
+  background: rgba(255, 255, 255, 0.88) !important;
   color: var(--admin-accent-deep) !important;
-  border-color: rgba(46, 83, 128, 0.14) !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
+  border-color: rgba(46, 83, 128, 0.12) !important;
+  box-shadow: none !important;
   text-decoration: none !important;
 }
 
 body.decap-enhanced [data-admin-button="tool"]:hover {
-  background: linear-gradient(180deg, #f3f8fd, #eaf1fa) !important;
+  background: rgba(239, 245, 252, 0.98) !important;
   color: var(--admin-accent) !important;
-  border-color: rgba(42, 95, 151, 0.2) !important;
+  border-color: rgba(42, 95, 151, 0.18) !important;
 }
 
 body.decap-enhanced [role="toolbar"] {
   display: flex !important;
   flex-wrap: wrap;
   align-items: center;
-  gap: 6px;
-  padding: 10px 12px !important;
+  gap: 8px;
+  padding: 12px 14px !important;
   background: linear-gradient(180deg, #f8fbfe, #eff5fb) !important;
   border: 1px solid var(--admin-line) !important;
   border-bottom: 0 !important;
@@ -238,14 +238,18 @@ body.decap-enhanced [role="toolbar"] > * {
 }
 
 body.decap-enhanced [role="toolbar"] button {
-  width: 44px;
-  min-width: 44px;
-  height: 44px;
-  padding: 0;
+  width: auto;
+  min-width: 42px;
+  height: 42px;
+  padding: 0 12px;
   border-radius: 10px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 1;
 }
 
 body.decap-enhanced [role="toolbar"] svg {
