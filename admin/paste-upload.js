@@ -413,10 +413,13 @@
 
     let node = textarea.parentElement;
     while (node && node !== document.body) {
-      const nativeToolbar = node.querySelector(':scope > [role="toolbar"]');
+      const nativeToolbar = node.querySelector('[role="toolbar"]');
       if (nativeToolbar instanceof HTMLElement && node.contains(textarea)) {
+        const toolbarHost = nativeToolbar.parentElement instanceof HTMLElement
+          ? nativeToolbar.parentElement
+          : node;
         return {
-          container: node,
+          container: toolbarHost,
           nativeToolbar
         };
       }
