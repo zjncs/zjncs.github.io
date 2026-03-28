@@ -257,6 +257,45 @@ body.decap-enhanced [role="toolbar"] svg {
   height: 19px;
 }
 
+body.decap-enhanced [data-admin-toolbar="native"] {
+  display: none !important;
+}
+
+body.decap-enhanced .codex-raw-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 14px;
+  background: linear-gradient(180deg, #f8fbfe, #eff5fb);
+  border: 1px solid var(--admin-line);
+  border-bottom: 0;
+  border-radius: 18px 18px 0 0;
+  box-shadow: 0 6px 14px rgba(41, 72, 116, 0.035);
+}
+
+body.decap-enhanced .codex-raw-toolbar button {
+  min-width: 42px;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(46, 83, 128, 0.12);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--admin-accent-deep);
+  box-shadow: none;
+  cursor: pointer;
+}
+
+body.decap-enhanced .codex-raw-toolbar button:hover {
+  background: rgba(239, 245, 252, 0.98);
+  border-color: rgba(42, 95, 151, 0.18);
+  color: var(--admin-accent);
+}
+
+body.decap-enhanced .codex-raw-toolbar button code {
+  font-size: 13px;
+}
+
 body.decap-enhanced [role="tablist"] {
   display: flex !important;
   align-items: center;

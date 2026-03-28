@@ -2,9 +2,11 @@
   const EDITOR_SELECTOR = '[data-slate-editor="true"], textarea';
   const TOAST_ID = 'paste-upload-toast';
   const HELPER_CLASS = 'paste-upload-helper';
+  const RAW_TOOLBAR_CLASS = 'codex-raw-toolbar';
   const SELECTED_IMAGE_CLASS = 'decap-editor-image-selected';
   const DECORATED_BUTTON_ATTR = 'data-admin-button';
   let lastFocusedEditor = null;
+  let lastTextareaSelection = { start: 0, end: 0 };
 
   const extByType = {
     'image/png': 'png',
@@ -103,8 +105,30 @@
 
   const rememberEditor = target => {
     const editor = isEditableTarget(target);
-    if (editor) lastFocusedEditor = editor;
+    if (editor) {
+      lastFocusedEditor = editor;
+      if (editor instanceof HTMLTextAreaElement) {
+        lastTextareaSelection = {
+          start: editor.selectionStart ?? 0,
+          end: editor.selectionEnd ?? 0
+        };
+      }
+    }
     return editor;
+  };
+
+  const rememberTextareaSelection = textarea => {
+    if (!(textarea instanceof HTMLTextAreaElement)) return;
+    lastTextareaSelection = {
+      start: textarea.selectionStart ?? 0,
+      end: textarea.selectionEnd ?? 0
+    };
+  };
+
+  const restoreTextareaSelection = textarea => {
+    if (!(textarea instanceof HTMLTextAreaElement)) return;
+    textarea.focus();
+    textarea.setSelectionRange(lastTextareaSelection.start ?? 0, lastTextareaSelection.end ?? 0);
   };
 
   const insertTextIntoTextarea = (textarea, text) => {
@@ -367,14 +391,96 @@
       .sort((a, b) => b.score - a.score)[0]?.button || null;
   };
 
+  const saveCurrentEntry = () => {
+    const button = findSaveActionButton();
+    if (!button) {
+      showToast('没有找到可用的保存按钮', 'error');
+      return false;
+    }
+
+    button.click();
+    return true;
+  };
+
   const getCurrentRawEditor = () => {
     if (lastFocusedEditor instanceof HTMLTextAreaElement) return lastFocusedEditor;
     if (document.activeElement instanceof HTMLTextAreaElement) return document.activeElement;
     return document.querySelector('textarea');
   };
 
+  const togglePrefixOnLines = (textarea, buildPrefix, pattern) => {
+    const start = textarea.selectionStart ?? textarea.value.length;
+    const end = textarea.selectionEnd ?? textarea.value.length;
+    const value = textarea.value;
+    const lineStart = value.lastIndexOf('\n', Math.max(0, start - 1)) + 1;
+    const lineEndIdx = value.indexOf('\n', end);
+    const lineEnd = lineEndIdx === -1 ? value.length : lineEndIdx;
+    const block = value.slice(lineStart, lineEnd);
+    const lines = block.split('\n');
+    const allHavePrefix = lines.every(line => pattern.test(line));
+
+    let index = 0;
+    const next = lines.map(line => {
+      index += 1;
+      if (allHavePrefix) return line.replace(pattern, '');
+      return `${buildPrefix(index)}${line.replace(pattern, '')}`;
+    }).join('\n');
+
+    textarea.setRangeText(next, lineStart, lineEnd, 'end');
+    textarea.setSelectionRange(lineStart, lineStart + next.length);
+    textarea.dispatchEvent(new Event('input', { bubbles: true }));
+    textarea.dispatchEvent(new Event('change', { bubbles: true }));
+    textarea.focus();
+    rememberTextareaSelection(textarea);
+    return true;
+  };
+
+  const applyHeadingToTextarea = (textarea, level = 2) =>
+    togglePrefixOnLines(textarea, () => `${'#'.repeat(level)} `, /^#{1,6}\s+/);
+
+  const toggleQuoteOnTextarea = textarea =>
+    togglePrefixOnLines(textarea, () => '> ', /^>\s?/);
+
+  const toggleBulletedListOnTextarea = textarea =>
+    togglePrefixOnLines(textarea, () => '- ', /^[-*+]\s+/);
+
+  const toggleNumberedListOnTextarea = textarea =>
+    togglePrefixOnLines(textarea, index => `${index}. `, /^\d+\.\s+/);
+
+  const insertCodeBlockToTextarea = textarea => {
+    const start = textarea.selectionStart ?? textarea.value.length;
+    const end = textarea.selectionEnd ?? textarea.value.length;
+    const selected = textarea.value.slice(start, end);
+    const content = selected || 'code';
+    const insert = `\n\`\`\`text\n${content}\n\`\`\`\n`;
+
+    textarea.setRangeText(insert, start, end, 'end');
+    textarea.setSelectionRange(start + insert.length, start + insert.length);
+    textarea.dispatchEvent(new Event('input', { bubbles: true }));
+    textarea.dispatchEvent(new Event('change', { bubbles: true }));
+    textarea.focus();
+    rememberTextareaSelection(textarea);
+    return true;
+  };
+
+  const insertImagePlaceholderToTextarea = textarea => {
+    const insert = '\n\n![](https://)\n\n';
+    const start = textarea.selectionStart ?? textarea.value.length;
+    const end = textarea.selectionEnd ?? textarea.value.length;
+    textarea.setRangeText(insert, start, end, 'end');
+    const cursor = start + 6;
+    textarea.setSelectionRange(cursor, cursor);
+    textarea.dispatchEvent(new Event('input', { bubbles: true }));
+    textarea.dispatchEvent(new Event('change', { bubbles: true }));
+    textarea.focus();
+    rememberTextareaSelection(textarea);
+    return true;
+  };
+
   const handleRawToolbarAction = (button, textarea) => {
     if (!(button instanceof HTMLElement) || !(textarea instanceof HTMLTextAreaElement)) return false;
+
+    restoreTextareaSelection(textarea);
 
     const label = normalizeButtonText(
       button.getAttribute('aria-label') ||
@@ -387,17 +493,67 @@
     if (label === 'strikethrough') return wrapTextareaSelection(textarea, '~~', '~~', 'text');
     if (label === 'code') return wrapTextareaSelection(textarea, '`', '`', 'code');
     if (label === 'link') return insertTextareaLink(textarea);
-    if (label === 'quote') return transformTextareaLines(textarea, line => `> ${line.replace(/^>\s?/, '')}`);
-    if (label === 'bulleted list') return transformTextareaLines(textarea, line => `- ${line.replace(/^[-*+]\s+/, '')}`);
-    if (label === 'numbered list') {
-      let index = 0;
-      return transformTextareaLines(textarea, line => {
-        index += 1;
-        return `${index}. ${line.replace(/^\d+\.\s+/, '')}`;
-      });
-    }
+    if (label === 'quote') return toggleQuoteOnTextarea(textarea);
+    if (label === 'bulleted list') return toggleBulletedListOnTextarea(textarea);
+    if (label === 'numbered list') return toggleNumberedListOnTextarea(textarea);
+    if (label === 'heading') return applyHeadingToTextarea(textarea, 2);
+    if (label === 'code block') return insertCodeBlockToTextarea(textarea);
+    if (label === 'image') return insertImagePlaceholderToTextarea(textarea);
 
     return false;
+  };
+
+  const buildRawToolbar = textarea => {
+    if (!(textarea instanceof HTMLTextAreaElement)) return null;
+
+    const toolbar = document.createElement('div');
+    toolbar.className = RAW_TOOLBAR_CLASS;
+    toolbar.__codexTextarea = textarea;
+    toolbar.innerHTML = `
+      <button type="button" data-raw-action="bold" aria-label="Bold"><strong>B</strong></button>
+      <button type="button" data-raw-action="italic" aria-label="Italic"><em>I</em></button>
+      <button type="button" data-raw-action="strikethrough" aria-label="Strikethrough"><span>S</span></button>
+      <button type="button" data-raw-action="code" aria-label="Code"><code>&lt;/&gt;</code></button>
+      <button type="button" data-raw-action="link" aria-label="Link">Link</button>
+      <button type="button" data-raw-action="heading" aria-label="Heading">H2</button>
+      <button type="button" data-raw-action="quote" aria-label="Quote">"</button>
+      <button type="button" data-raw-action="bulleted list" aria-label="Bulleted List">• List</button>
+      <button type="button" data-raw-action="numbered list" aria-label="Numbered List">1. List</button>
+      <button type="button" data-raw-action="code block" aria-label="Code Block">{ }</button>
+      <button type="button" data-raw-action="image" aria-label="Image">Image</button>
+      <button type="button" data-raw-action="save" aria-label="Save">Save</button>
+    `;
+
+    toolbar.addEventListener('mousedown', event => {
+      event.preventDefault();
+      rememberTextareaSelection(textarea);
+    });
+
+    toolbar.addEventListener('click', event => {
+      const button = event.target instanceof Element
+        ? event.target.closest('button[data-raw-action]')
+        : null;
+
+      if (!(button instanceof HTMLButtonElement)) return;
+
+      event.preventDefault();
+      textarea.focus();
+      restoreTextareaSelection(textarea);
+
+      const action = button.getAttribute('data-raw-action');
+      if (action === 'save') {
+        if (saveCurrentEntry()) {
+          showToast('已触发保存', 'success');
+        }
+        return;
+      }
+
+      if (handleRawToolbarAction(button, textarea)) {
+        rememberTextareaSelection(textarea);
+      }
+    });
+
+    return toolbar;
   };
 
   const bindSaveShortcut = () => {
@@ -586,18 +742,6 @@
     }, true);
 
     document.addEventListener('click', event => {
-      const toolbarButton = event.target instanceof Element
-        ? event.target.closest('[role="toolbar"] button')
-        : null;
-
-      if (toolbarButton instanceof HTMLButtonElement) {
-        const textarea = getCurrentRawEditor();
-        if (textarea && handleRawToolbarAction(toolbarButton, textarea)) {
-          stopNativeHandling(event);
-          return;
-        }
-      }
-
       const image = event.target instanceof Element
         ? event.target.closest('[data-slate-editor="true"] img')
         : null;
@@ -631,6 +775,12 @@
     document.addEventListener('focusin', event => {
       rememberEditor(event.target);
     }, true);
+
+    document.addEventListener('selectionchange', () => {
+      if (document.activeElement instanceof HTMLTextAreaElement) {
+        rememberTextareaSelection(document.activeElement);
+      }
+    }, true);
   };
 
   const decorateEditors = () => {
@@ -641,21 +791,46 @@
     document.querySelectorAll(EDITOR_SELECTOR).forEach(editor => {
       const host = editor.parentElement;
       if (!(host instanceof HTMLElement) || !host.contains(editor)) return;
-      if (host.querySelector(`:scope > .${HELPER_CLASS}`)) return;
 
       const rect = editor.getBoundingClientRect();
       if (rect.height < 160) return;
 
-      const helper = document.createElement('div');
-      helper.className = HELPER_CLASS;
-      helper.innerHTML = editor instanceof HTMLTextAreaElement
-        ? '<strong>Markdown 编辑已启用</strong>：直接粘贴或拖拽图片会优先上传到 <code>zjncs/TyporaPic</code>；失败时自动转内联图片。删除图片时直接删掉对应的 Markdown 图片语法即可。'
-        : '<strong>截图直传已启用</strong>：直接粘贴或拖拽图片会优先上传到 <code>zjncs/TyporaPic</code>；失败时自动转内联图片。富文本模式下可单击图片后按 <code>Delete</code>/<code>Backspace</code> 删除。';
+      if (editor instanceof HTMLTextAreaElement) {
+        const nativeToolbar = host.querySelector(':scope > [role="toolbar"]');
+        if (nativeToolbar instanceof HTMLElement) {
+          nativeToolbar.setAttribute('data-admin-toolbar', 'native');
+        }
 
-      try {
-        host.insertBefore(helper, editor);
-      } catch (error) {
-        console.warn('decorateEditors: failed to mount helper', error);
+        const rawToolbar = host.querySelector(`:scope > .${RAW_TOOLBAR_CLASS}`);
+        const needsRawToolbar = !(rawToolbar instanceof HTMLElement) || rawToolbar.__codexTextarea !== editor;
+        if (needsRawToolbar) {
+          if (rawToolbar instanceof HTMLElement) {
+            rawToolbar.remove();
+          }
+
+          const customToolbar = buildRawToolbar(editor);
+          if (customToolbar) {
+            if (nativeToolbar instanceof HTMLElement && nativeToolbar.parentElement === host) {
+              host.insertBefore(customToolbar, nativeToolbar);
+            } else {
+              host.insertBefore(customToolbar, editor);
+            }
+          }
+        }
+      }
+
+      if (!host.querySelector(`:scope > .${HELPER_CLASS}`)) {
+        const helper = document.createElement('div');
+        helper.className = HELPER_CLASS;
+        helper.innerHTML = editor instanceof HTMLTextAreaElement
+          ? '<strong>Markdown 编辑已启用</strong>：直接粘贴或拖拽图片会优先上传到 <code>zjncs/TyporaPic</code>；失败时自动转内联图片。删除图片时直接删掉对应的 Markdown 图片语法即可。'
+          : '<strong>截图直传已启用</strong>：直接粘贴或拖拽图片会优先上传到 <code>zjncs/TyporaPic</code>；失败时自动转内联图片。富文本模式下可单击图片后按 <code>Delete</code>/<code>Backspace</code> 删除。';
+
+        try {
+          host.insertBefore(helper, editor);
+        } catch (error) {
+          console.warn('decorateEditors: failed to mount helper', error);
+        }
       }
     });
   };
