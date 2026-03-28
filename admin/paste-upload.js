@@ -67,6 +67,20 @@
     return base || `paste-${Date.now()}.${fallbackExt}`;
   };
 
+  const formatBytes = size => {
+    if (!Number.isFinite(size) || size <= 0) return '0 B';
+    const units = ['B', 'KB', 'MB'];
+    let value = size;
+    let index = 0;
+
+    while (value >= 1024 && index < units.length - 1) {
+      value /= 1024;
+      index += 1;
+    }
+
+    return `${value.toFixed(value >= 10 || index === 0 ? 0 : 1)} ${units[index]}`;
+  };
+
   const isEditableTarget = target => {
     if (!(target instanceof Element)) return null;
     return target.closest(EDITOR_SELECTOR);
@@ -184,6 +198,21 @@
     return result;
   };
 
+  const inlineImage = async (editor, file) => {
+    const dataUrl = await toDataUrl(file);
+    const inserted = insertUploadedImage(editor, dataUrl);
+
+    if (!inserted) {
+      throw new Error('图片已转为内联数据，但没有插入成功，请手动重试。');
+    }
+
+    return {
+      ok: true,
+      mode: 'inline',
+      url: dataUrl
+    };
+  };
+
   const handleImageFiles = async (editor, files) => {
     const image = files.find(file => file && file.type && file.type.startsWith('image/'));
     if (!image) return;
@@ -201,7 +230,21 @@
 
       showToast('图片已上传并插入正文', 'success');
     } catch (error) {
-      showToast(normalizeErrorMessage(error.message), 'error', true);
+      const size = image.size || 0;
+
+      if (size > 5 * 1024 * 1024) {
+        showToast(`${normalizeErrorMessage(error.message)} 当前图片 ${formatBytes(size)}，不适合转成内联图片。请压缩后重试。`, 'error', true);
+        return;
+      }
+
+      showToast('图床不可用，正在改为内联图片插入正文...', 'info', true);
+
+      try {
+        await inlineImage(editor, image);
+        showToast(`图床不可用，已以内联图片写入正文 (${formatBytes(size)})`, 'success', true);
+      } catch (fallbackError) {
+        showToast(normalizeErrorMessage(fallbackError.message || error.message), 'error', true);
+      }
     }
   };
 
@@ -282,7 +325,7 @@
 
       const helper = document.createElement('div');
       helper.className = HELPER_CLASS;
-      helper.innerHTML = '<strong>截图直传已启用</strong>：在正文编辑区里直接粘贴或拖拽图片，会自动上传到 <code>zjncs/TyporaPic</code> 并插入正文。';
+      helper.innerHTML = '<strong>截图直传已启用</strong>：在正文编辑区里直接粘贴或拖拽图片，会优先上传到 <code>zjncs/TyporaPic</code>；如果图床不可用，会自动以内联图片写入正文。';
 
       host.insertBefore(helper, editor);
     });
