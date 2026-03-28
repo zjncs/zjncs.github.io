@@ -186,29 +186,30 @@ body.decap-enhanced [data-admin-button="tab"][aria-current="page"] {
 }
 
 body.decap-enhanced [data-admin-button="tool"] {
-  background: transparent !important;
-  color: var(--admin-ink-soft) !important;
-  border-color: transparent !important;
-  box-shadow: none !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 250, 255, 0.96)) !important;
+  color: var(--admin-accent-deep) !important;
+  border-color: rgba(46, 83, 128, 0.14) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
   text-decoration: none !important;
 }
 
 body.decap-enhanced [data-admin-button="tool"]:hover {
-  background: var(--admin-accent-soft) !important;
+  background: linear-gradient(180deg, #f3f8fd, #eaf1fa) !important;
   color: var(--admin-accent) !important;
+  border-color: rgba(42, 95, 151, 0.2) !important;
 }
 
 body.decap-enhanced [role="toolbar"] {
   display: flex !important;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
-  padding: 12px 14px !important;
-  background: linear-gradient(180deg, #fcfdff, #f3f7fc) !important;
+  gap: 6px;
+  padding: 10px 12px !important;
+  background: linear-gradient(180deg, #f8fbfe, #eff5fb) !important;
   border: 1px solid var(--admin-line) !important;
   border-bottom: 0 !important;
   border-radius: 18px 18px 0 0 !important;
-  box-shadow: 0 8px 18px rgba(41, 72, 116, 0.04);
+  box-shadow: 0 6px 14px rgba(41, 72, 116, 0.035);
 }
 
 body.decap-enhanced [role="toolbar"] > * {
@@ -216,19 +217,19 @@ body.decap-enhanced [role="toolbar"] > * {
 }
 
 body.decap-enhanced [role="toolbar"] button {
-  width: 40px;
-  min-width: 40px;
-  height: 40px;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
   padding: 0;
-  border-radius: 12px;
+  border-radius: 10px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
 body.decap-enhanced [role="toolbar"] svg {
-  width: 18px;
-  height: 18px;
+  width: 19px;
+  height: 19px;
 }
 
 body.decap-enhanced [role="tablist"] {
