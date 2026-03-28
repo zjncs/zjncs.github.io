@@ -420,22 +420,21 @@
     return document.querySelector('textarea');
   };
 
-  const findRawEditorMount = textarea => {
-    if (!(textarea instanceof HTMLTextAreaElement)) return null;
+  const findTextareaForToolbar = toolbar => {
+    if (!(toolbar instanceof HTMLElement)) return null;
 
-    let node = textarea.parentElement;
-    while (node && node !== document.body) {
-      const nativeToolbar = node.querySelector('[role="toolbar"]');
-      if (nativeToolbar instanceof HTMLElement && node.contains(textarea)) {
-        const toolbarHost = nativeToolbar.parentElement instanceof HTMLElement
-          ? nativeToolbar.parentElement
-          : node;
-        return {
-          container: toolbarHost,
-          nativeToolbar
-        };
-      }
-      node = node.parentElement;
+    const parent = toolbar.parentElement;
+    if (parent instanceof HTMLElement) {
+      const direct = parent.querySelector('textarea');
+      if (direct instanceof HTMLTextAreaElement) return direct;
+    }
+
+    let sibling = toolbar.nextElementSibling;
+    while (sibling) {
+      if (sibling instanceof HTMLTextAreaElement) return sibling;
+      const nested = sibling.querySelector?.('textarea');
+      if (nested instanceof HTMLTextAreaElement) return nested;
+      sibling = sibling.nextElementSibling;
     }
 
     return null;
@@ -881,16 +880,10 @@
 
     document.querySelectorAll(`.${RAW_TOOLBAR_CLASS}, .${HELPER_CLASS}`).forEach(node => node.remove());
 
-    document.querySelectorAll(EDITOR_SELECTOR).forEach(editor => {
-      if (editor instanceof HTMLTextAreaElement) {
-        const mount = findRawEditorMount(editor);
-        if (!mount) return;
-
-        const { nativeToolbar } = mount;
-        decorateNativeRawToolbar(nativeToolbar, editor);
-
-        return;
-      }
+    document.querySelectorAll('[role="toolbar"]').forEach(toolbar => {
+      const textarea = findTextareaForToolbar(toolbar);
+      if (!(textarea instanceof HTMLTextAreaElement)) return;
+      decorateNativeRawToolbar(toolbar, textarea);
     });
   };
 
