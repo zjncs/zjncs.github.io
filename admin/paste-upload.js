@@ -4,6 +4,7 @@
   const HELPER_CLASS = 'paste-upload-helper';
   const SELECTED_IMAGE_CLASS = 'decap-editor-image-selected';
   const DECORATED_BUTTON_ATTR = 'data-admin-button';
+  let lastFocusedEditor = null;
 
   const extByType = {
     'image/png': 'png',
@@ -100,11 +101,70 @@
     return target.closest(EDITOR_SELECTOR);
   };
 
+  const rememberEditor = target => {
+    const editor = isEditableTarget(target);
+    if (editor) lastFocusedEditor = editor;
+    return editor;
+  };
+
   const insertTextIntoTextarea = (textarea, text) => {
     const start = textarea.selectionStart ?? textarea.value.length;
     const end = textarea.selectionEnd ?? textarea.value.length;
     textarea.setRangeText(text, start, end, 'end');
     textarea.dispatchEvent(new Event('input', { bubbles: true }));
+    textarea.dispatchEvent(new Event('change', { bubbles: true }));
+    textarea.focus();
+    return true;
+  };
+
+  const wrapTextareaSelection = (textarea, before, after = before, placeholder = '') => {
+    const start = textarea.selectionStart ?? textarea.value.length;
+    const end = textarea.selectionEnd ?? textarea.value.length;
+    const selected = textarea.value.slice(start, end);
+    const content = selected || placeholder;
+    const insert = `${before}${content}${after}`;
+
+    textarea.setRangeText(insert, start, end, 'end');
+    const cursor = selected ? start + insert.length : start + before.length + content.length;
+    textarea.setSelectionRange(cursor, cursor);
+    textarea.dispatchEvent(new Event('input', { bubbles: true }));
+    textarea.dispatchEvent(new Event('change', { bubbles: true }));
+    textarea.focus();
+    return true;
+  };
+
+  const transformTextareaLines = (textarea, transformer) => {
+    const start = textarea.selectionStart ?? textarea.value.length;
+    const end = textarea.selectionEnd ?? textarea.value.length;
+    const value = textarea.value;
+    const lineStart = value.lastIndexOf('\n', Math.max(0, start - 1)) + 1;
+    const lineEndIdx = value.indexOf('\n', end);
+    const lineEnd = lineEndIdx === -1 ? value.length : lineEndIdx;
+    const block = value.slice(lineStart, lineEnd);
+    const lines = block.split('\n');
+    const next = lines.map(transformer).join('\n');
+
+    textarea.setRangeText(next, lineStart, lineEnd, 'end');
+    textarea.setSelectionRange(lineStart, lineStart + next.length);
+    textarea.dispatchEvent(new Event('input', { bubbles: true }));
+    textarea.dispatchEvent(new Event('change', { bubbles: true }));
+    textarea.focus();
+    return true;
+  };
+
+  const insertTextareaLink = textarea => {
+    const href = window.prompt('输入链接 URL');
+    if (!href) return false;
+
+    const start = textarea.selectionStart ?? textarea.value.length;
+    const end = textarea.selectionEnd ?? textarea.value.length;
+    const selected = textarea.value.slice(start, end) || 'link';
+    const insert = `[${selected}](${href})`;
+
+    textarea.setRangeText(insert, start, end, 'end');
+    textarea.setSelectionRange(start + insert.length, start + insert.length);
+    textarea.dispatchEvent(new Event('input', { bubbles: true }));
+    textarea.dispatchEvent(new Event('change', { bubbles: true }));
     textarea.focus();
     return true;
   };
@@ -307,6 +367,39 @@
       .sort((a, b) => b.score - a.score)[0]?.button || null;
   };
 
+  const getCurrentRawEditor = () => {
+    if (lastFocusedEditor instanceof HTMLTextAreaElement) return lastFocusedEditor;
+    if (document.activeElement instanceof HTMLTextAreaElement) return document.activeElement;
+    return document.querySelector('textarea');
+  };
+
+  const handleRawToolbarAction = (button, textarea) => {
+    if (!(button instanceof HTMLElement) || !(textarea instanceof HTMLTextAreaElement)) return false;
+
+    const label = normalizeButtonText(
+      button.getAttribute('aria-label') ||
+      button.getAttribute('title') ||
+      button.textContent
+    );
+
+    if (label === 'bold') return wrapTextareaSelection(textarea, '**', '**', 'bold');
+    if (label === 'italic') return wrapTextareaSelection(textarea, '*', '*', 'italic');
+    if (label === 'strikethrough') return wrapTextareaSelection(textarea, '~~', '~~', 'text');
+    if (label === 'code') return wrapTextareaSelection(textarea, '`', '`', 'code');
+    if (label === 'link') return insertTextareaLink(textarea);
+    if (label === 'quote') return transformTextareaLines(textarea, line => `> ${line.replace(/^>\s?/, '')}`);
+    if (label === 'bulleted list') return transformTextareaLines(textarea, line => `- ${line.replace(/^[-*+]\s+/, '')}`);
+    if (label === 'numbered list') {
+      let index = 0;
+      return transformTextareaLines(textarea, line => {
+        index += 1;
+        return `${index}. ${line.replace(/^\d+\.\s+/, '')}`;
+      });
+    }
+
+    return false;
+  };
+
   const bindSaveShortcut = () => {
     if (document.body.dataset.saveShortcutBound === 'true') return;
     document.body.dataset.saveShortcutBound = 'true';
@@ -433,7 +526,7 @@
     document.body.dataset.pasteUploadBound = 'true';
 
     document.addEventListener('paste', event => {
-      const editor = isEditableTarget(event.target);
+      const editor = rememberEditor(event.target);
       if (!editor) return;
 
       const items = Array.from(event.clipboardData?.items || []);
@@ -454,7 +547,7 @@
     }, true);
 
     document.addEventListener('dragover', event => {
-      const editor = isEditableTarget(event.target);
+      const editor = rememberEditor(event.target);
       if (!editor) return;
 
       const hasImage = Array.from(event.dataTransfer?.items || []).some(
@@ -473,7 +566,7 @@
     }, true);
 
     document.addEventListener('drop', event => {
-      const editor = isEditableTarget(event.target);
+      const editor = rememberEditor(event.target);
       if (!editor) return;
 
       const files = Array.from(event.dataTransfer?.files || []).filter(
@@ -493,6 +586,18 @@
     }, true);
 
     document.addEventListener('click', event => {
+      const toolbarButton = event.target instanceof Element
+        ? event.target.closest('[role="toolbar"] button')
+        : null;
+
+      if (toolbarButton instanceof HTMLButtonElement) {
+        const textarea = getCurrentRawEditor();
+        if (textarea && handleRawToolbarAction(toolbarButton, textarea)) {
+          stopNativeHandling(event);
+          return;
+        }
+      }
+
       const image = event.target instanceof Element
         ? event.target.closest('[data-slate-editor="true"] img')
         : null;
@@ -505,6 +610,7 @@
       }
 
       if (!(event.target instanceof Element)) return;
+      rememberEditor(event.target);
       const editor = event.target.closest('[data-slate-editor="true"]');
       clearSelectedEditorImages(editor || document);
     }, true);
@@ -520,6 +626,10 @@
       if (!removed) return;
 
       stopNativeHandling(event);
+    }, true);
+
+    document.addEventListener('focusin', event => {
+      rememberEditor(event.target);
     }, true);
   };
 
