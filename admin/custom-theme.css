@@ -328,14 +328,42 @@ body.decap-enhanced [aria-haspopup="menu"] {
   min-width: 0 !important;
 }
 
-body.decap-enhanced [role="switch"] {
-  background: transparent !important;
-  border: 0 !important;
+body.decap-enhanced button[role="switch"] {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  width: 48px !important;
+  min-width: 48px !important;
+  height: 28px !important;
+  min-height: 28px !important;
+  padding: 3px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(46, 83, 128, 0.16) !important;
+  background: #d7e4f3 !important;
   box-shadow: none !important;
+  overflow: hidden !important;
+  vertical-align: middle !important;
 }
 
-body.decap-enhanced [role="switch"] > * {
-  border-radius: 999px !important;
+body.decap-enhanced button[role="switch"][aria-checked="true"] {
+  background: linear-gradient(180deg, #3c73b4, #2a5f97) !important;
+  border-color: rgba(42, 95, 151, 0.24) !important;
+}
+
+body.decap-enhanced button[role="switch"] > *:first-child {
+  width: 20px !important;
+  height: 20px !important;
+  margin: 0 !important;
+  border-radius: 50% !important;
+  background: #ffffff !important;
+  box-shadow: 0 3px 8px rgba(31, 53, 84, 0.18) !important;
+  transform: translateX(0) !important;
+  transition: transform 0.18s ease !important;
+  flex: 0 0 auto !important;
+}
+
+body.decap-enhanced button[role="switch"][aria-checked="true"] > *:first-child {
+  transform: translateX(18px) !important;
 }
 
 body.decap-enhanced input,
