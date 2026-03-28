@@ -258,7 +258,8 @@
     const text = (button.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
 
     if (/delete|remove|discard|unpublish/.test(text)) return 'danger';
-    if (/new post|save|publish|create|quick add/.test(text)) return 'primary';
+    if (/^publish$|^published$|^draft$/.test(text)) return 'status';
+    if (/new post|save|create|quick add/.test(text)) return 'primary';
     if (/choose an image|insert from url|sort by/.test(text)) return 'ghost';
     if (/media|contents|posts/.test(text)) return 'tab';
 
@@ -272,6 +273,13 @@
       const kind = classifyButton(button);
       if (!kind) return;
       button.setAttribute(DECORATED_BUTTON_ATTR, kind);
+
+      if (kind === 'tool' && button.hasAttribute('title')) {
+        if (!button.getAttribute('aria-label')) {
+          button.setAttribute('aria-label', button.getAttribute('title'));
+        }
+        button.removeAttribute('title');
+      }
     });
   };
 

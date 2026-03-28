@@ -144,14 +144,27 @@ body.decap-enhanced [data-admin-button="ghost"]:hover {
   color: var(--admin-accent) !important;
 }
 
+body.decap-enhanced [data-admin-button="status"] {
+  background: linear-gradient(180deg, #eef7fb, #e5f1f8) !important;
+  color: #2a6f86 !important;
+  border-color: rgba(64, 132, 156, 0.18) !important;
+  box-shadow: none !important;
+}
+
+body.decap-enhanced [data-admin-button="status"]:hover {
+  background: linear-gradient(180deg, #e7f3f9, #ddecf5) !important;
+  color: #215b6e !important;
+}
+
 body.decap-enhanced [data-admin-button="danger"] {
-  background: linear-gradient(180deg, #fff7f6, #fef1ef) !important;
+  background: rgba(255, 251, 250, 0.96) !important;
   color: #8f3a31 !important;
   border-color: rgba(163, 83, 71, 0.18) !important;
+  box-shadow: none !important;
 }
 
 body.decap-enhanced [data-admin-button="danger"]:hover {
-  background: linear-gradient(180deg, #fff1ef, #fee8e5) !important;
+  background: rgba(255, 244, 241, 0.98) !important;
   color: #7f3028 !important;
 }
 
@@ -177,6 +190,7 @@ body.decap-enhanced [data-admin-button="tool"] {
   color: var(--admin-ink-soft) !important;
   border-color: transparent !important;
   box-shadow: none !important;
+  text-decoration: none !important;
 }
 
 body.decap-enhanced [data-admin-button="tool"]:hover {
