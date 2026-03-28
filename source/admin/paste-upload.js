@@ -83,6 +83,18 @@
     return `${value.toFixed(value >= 10 || index === 0 ? 0 : 1)} ${units[index]}`;
   };
 
+  const normalizeButtonText = value =>
+    String(value || '')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .toLowerCase();
+
+  const isVisibleElement = element => {
+    if (!(element instanceof HTMLElement)) return false;
+    const style = window.getComputedStyle(element);
+    return style.display !== 'none' && style.visibility !== 'hidden' && element.offsetParent !== null;
+  };
+
   const isEditableTarget = target => {
     if (!(target instanceof Element)) return null;
     return target.closest(EDITOR_SELECTOR);
@@ -255,7 +267,7 @@
     if (button.closest('[role="toolbar"]')) return 'tool';
     if (button.matches('[role="tab"]')) return 'tab';
 
-    const text = (button.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
+    const text = normalizeButtonText(button.textContent);
 
     if (/delete|remove|discard|unpublish/.test(text)) return 'danger';
     if (/^publish$|^published$|^draft$/.test(text)) return 'status';
@@ -264,6 +276,54 @@
     if (/media|contents|posts/.test(text)) return 'tab';
 
     return 'ghost';
+  };
+
+  const findSaveActionButton = () => {
+    const candidates = Array.from(document.querySelectorAll('button, a[role="button"]'))
+      .filter(isVisibleElement)
+      .filter(button => !button.closest('[role="toolbar"]'));
+
+    const scoreButton = button => {
+      const text = normalizeButtonText(button.textContent);
+      const kind = button.getAttribute(DECORATED_BUTTON_ATTR) || classifyButton(button);
+      const route = window.location.hash || '';
+
+      let score = 0;
+      if (/save/.test(text)) score += 100;
+      if (/publish|published|draft/.test(text)) score += 80;
+      if (/create|new post/.test(text)) score += 60;
+      if (kind === 'primary') score += 40;
+      if (kind === 'status') score += 30;
+      if (/entries\//.test(route)) score += 20;
+      if (button.closest('header') || button.closest('main')) score += 10;
+      if (/delete|remove|discard/.test(text)) score = -1;
+
+      return score;
+    };
+
+    return candidates
+      .map(button => ({ button, score: scoreButton(button) }))
+      .filter(item => item.score > 0)
+      .sort((a, b) => b.score - a.score)[0]?.button || null;
+  };
+
+  const bindSaveShortcut = () => {
+    if (document.body.dataset.saveShortcutBound === 'true') return;
+    document.body.dataset.saveShortcutBound = 'true';
+
+    document.addEventListener('keydown', event => {
+      const key = String(event.key || '').toLowerCase();
+      if (key !== 's') return;
+      if (!event.metaKey && !event.ctrlKey) return;
+      if (event.altKey) return;
+
+      const button = findSaveActionButton();
+      if (!button) return;
+
+      stopNativeHandling(event);
+      button.click();
+      showToast('已触发保存快捷键', 'success');
+    }, true);
   };
 
   const decorateAdminButtons = scope => {
@@ -487,6 +547,7 @@
 
   const boot = () => {
     bindPasteUpload();
+    bindSaveShortcut();
     decorateEditors();
 
     const observer = new MutationObserver(mutations => {
