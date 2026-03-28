@@ -136,6 +136,19 @@
     return false;
   };
 
+  const stopNativeHandling = event => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (typeof event.stopImmediatePropagation === 'function') {
+      event.stopImmediatePropagation();
+    }
+  };
+
+  const isRichTextEditor = editor =>
+    editor instanceof HTMLElement &&
+    editor.matches('[data-slate-editor="true"]');
+
   const getIdentityToken = async () => {
     if (!window.netlifyIdentity) throw new Error('Netlify Identity 未就绪');
     const user = window.netlifyIdentity.currentUser();
@@ -208,9 +221,14 @@
       const file = imageItem.getAsFile();
       if (!file) return;
 
-      event.preventDefault();
+      stopNativeHandling(event);
+
+      if (isRichTextEditor(editor)) {
+        showToast('检测到 Rich Text 模式，已接管图片粘贴并改为直传 TyporaPic。', 'info');
+      }
+
       void handleImageFiles(editor, [file]);
-    });
+    }, true);
 
     document.addEventListener('dragover', event => {
       const editor = isEditableTarget(event.target);
@@ -222,14 +240,14 @@
 
       if (!hasImage) return;
 
-      event.preventDefault();
+      stopNativeHandling(event);
       editor.classList.add('paste-upload-dropzone');
-    });
+    }, true);
 
     document.addEventListener('dragleave', event => {
       const editor = isEditableTarget(event.target);
       if (editor) editor.classList.remove('paste-upload-dropzone');
-    });
+    }, true);
 
     document.addEventListener('drop', event => {
       const editor = isEditableTarget(event.target);
@@ -242,9 +260,14 @@
       editor.classList.remove('paste-upload-dropzone');
       if (!files.length) return;
 
-      event.preventDefault();
+      stopNativeHandling(event);
+
+      if (isRichTextEditor(editor)) {
+        showToast('检测到 Rich Text 模式，已接管图片拖拽并改为直传 TyporaPic。', 'info');
+      }
+
       void handleImageFiles(editor, files);
-    });
+    }, true);
   };
 
   const decorateEditors = () => {
