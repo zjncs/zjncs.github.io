@@ -3,6 +3,7 @@
   const TOAST_ID = 'paste-upload-toast';
   const HELPER_CLASS = 'paste-upload-helper';
   const SELECTED_IMAGE_CLASS = 'decap-editor-image-selected';
+  const DECORATED_BUTTON_ATTR = 'data-admin-button';
 
   const extByType = {
     'image/png': 'png',
@@ -248,6 +249,32 @@
     });
   };
 
+  const classifyButton = button => {
+    if (!(button instanceof HTMLButtonElement || button instanceof HTMLAnchorElement)) return null;
+
+    if (button.closest('[role="toolbar"]')) return 'tool';
+    if (button.matches('[role="tab"]')) return 'tab';
+
+    const text = (button.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
+
+    if (/delete|remove|discard|unpublish/.test(text)) return 'danger';
+    if (/new post|save|publish|create|quick add/.test(text)) return 'primary';
+    if (/choose an image|insert from url|sort by/.test(text)) return 'ghost';
+    if (/media|contents|posts/.test(text)) return 'tab';
+
+    return 'ghost';
+  };
+
+  const decorateAdminButtons = scope => {
+    const root = scope instanceof Element ? scope : document;
+
+    root.querySelectorAll('button, a[role="button"]').forEach(button => {
+      const kind = classifyButton(button);
+      if (!kind) return;
+      button.setAttribute(DECORATED_BUTTON_ATTR, kind);
+    });
+  };
+
   const getIdentityToken = async () => {
     if (!window.netlifyIdentity) throw new Error('Netlify Identity 未就绪');
     const user = window.netlifyIdentity.currentUser();
@@ -431,6 +458,7 @@
   const decorateEditors = () => {
     document.body.classList.add('decap-enhanced');
     decorateEditorImages();
+    decorateAdminButtons();
 
     document.querySelectorAll(EDITOR_SELECTOR).forEach(editor => {
       const host = editor.closest('div');
@@ -453,7 +481,15 @@
     bindPasteUpload();
     decorateEditors();
 
-    const observer = new MutationObserver(() => {
+    const observer = new MutationObserver(mutations => {
+      for (const mutation of mutations) {
+        mutation.addedNodes.forEach(node => {
+          if (!(node instanceof Element)) return;
+          decorateEditorImages(node);
+          decorateAdminButtons(node);
+        });
+      }
+
       decorateEditors();
     });
 

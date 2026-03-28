@@ -108,32 +108,80 @@ body.decap-enhanced label {
 
 body.decap-enhanced button {
   margin: 0 !important;
-  padding: 0.72rem 1rem;
+  padding: 0.68rem 0.96rem;
   border: 1px solid var(--admin-line-strong);
-  background: linear-gradient(180deg, #2d639d, #244f81);
-  color: #fff;
-  box-shadow: var(--admin-shadow-soft);
-  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--admin-ink);
+  box-shadow: none;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
 }
 
 body.decap-enhanced button:hover {
+  background: rgba(244, 248, 253, 0.98);
+  border-color: rgba(42, 95, 151, 0.26);
   transform: translateY(-1px);
-  background: linear-gradient(180deg, #356ca8, #275687);
-  box-shadow: 0 12px 24px rgba(41, 72, 116, 0.12);
 }
 
-body.decap-enhanced :is([role="tab"], button[aria-selected="false"], [role="toolbar"] button) {
-  background: rgba(255, 255, 255, 0.7) !important;
-  color: var(--admin-ink-soft) !important;
-  border: 1px solid transparent !important;
-  box-shadow: none !important;
-}
-
-body.decap-enhanced :is([role="tab"][aria-selected="true"], button[aria-selected="true"], [aria-current="page"]) {
+body.decap-enhanced [data-admin-button="primary"] {
   background: linear-gradient(180deg, #2d639d, #244f81) !important;
   color: #fff !important;
   border-color: transparent !important;
-  box-shadow: 0 10px 20px rgba(41, 72, 116, 0.12) !important;
+  box-shadow: 0 10px 22px rgba(41, 72, 116, 0.12) !important;
+}
+
+body.decap-enhanced [data-admin-button="primary"]:hover {
+  background: linear-gradient(180deg, #3670ab, #285889) !important;
+}
+
+body.decap-enhanced [data-admin-button="ghost"] {
+  background: rgba(255, 255, 255, 0.94) !important;
+  color: var(--admin-accent-deep) !important;
+  border-color: rgba(46, 83, 128, 0.18) !important;
+}
+
+body.decap-enhanced [data-admin-button="ghost"]:hover {
+  background: rgba(239, 245, 252, 0.98) !important;
+  color: var(--admin-accent) !important;
+}
+
+body.decap-enhanced [data-admin-button="danger"] {
+  background: linear-gradient(180deg, #fff7f6, #fef1ef) !important;
+  color: #8f3a31 !important;
+  border-color: rgba(163, 83, 71, 0.18) !important;
+}
+
+body.decap-enhanced [data-admin-button="danger"]:hover {
+  background: linear-gradient(180deg, #fff1ef, #fee8e5) !important;
+  color: #7f3028 !important;
+}
+
+body.decap-enhanced [data-admin-button="tab"] {
+  min-width: 0 !important;
+  padding: 0.72rem 1.1rem !important;
+  border-radius: 14px !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  color: var(--admin-ink-soft) !important;
+  border-color: rgba(46, 83, 128, 0.14) !important;
+}
+
+body.decap-enhanced [data-admin-button="tab"][aria-selected="true"],
+body.decap-enhanced [data-admin-button="tab"][aria-current="page"] {
+  background: linear-gradient(180deg, #edf4fb, #e4eef9) !important;
+  color: var(--admin-accent-deep) !important;
+  border-color: rgba(42, 95, 151, 0.18) !important;
+  box-shadow: inset 0 -2px 0 rgba(42, 95, 151, 0.18) !important;
+}
+
+body.decap-enhanced [data-admin-button="tool"] {
+  background: transparent !important;
+  color: var(--admin-ink-soft) !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+body.decap-enhanced [data-admin-button="tool"]:hover {
+  background: var(--admin-accent-soft) !important;
+  color: var(--admin-accent) !important;
 }
 
 body.decap-enhanced [role="toolbar"] {
@@ -164,12 +212,6 @@ body.decap-enhanced [role="toolbar"] button {
   justify-content: center;
 }
 
-body.decap-enhanced [role="toolbar"] button:hover {
-  background: var(--admin-accent-soft) !important;
-  color: var(--admin-accent) !important;
-  transform: none;
-}
-
 body.decap-enhanced [role="toolbar"] svg {
   width: 18px;
   height: 18px;
@@ -182,8 +224,22 @@ body.decap-enhanced [role="tablist"] {
 }
 
 body.decap-enhanced [role="tab"] {
-  padding: 0.72rem 1.1rem !important;
-  border-radius: 14px !important;
+  flex: 0 0 auto !important;
+}
+
+body.decap-enhanced [aria-haspopup="listbox"],
+body.decap-enhanced [aria-haspopup="menu"] {
+  min-width: 0 !important;
+}
+
+body.decap-enhanced [role="switch"] {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+body.decap-enhanced [role="switch"] > * {
+  border-radius: 999px !important;
 }
 
 body.decap-enhanced input,
