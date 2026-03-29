@@ -254,6 +254,29 @@
     return false;
   };
 
+  const waitForTextarea = (root, timeout = 1500) => new Promise(resolve => {
+    const start = Date.now();
+
+    const tick = () => {
+      const textarea = Array.from(root.querySelectorAll('textarea'))
+        .find(node => node instanceof HTMLTextAreaElement && isVisibleElement(node));
+
+      if (textarea instanceof HTMLTextAreaElement) {
+        resolve(textarea);
+        return;
+      }
+
+      if (Date.now() - start >= timeout) {
+        resolve(null);
+        return;
+      }
+
+      window.setTimeout(tick, 50);
+    };
+
+    tick();
+  });
+
   const stopNativeHandling = event => {
     event.preventDefault();
     event.stopPropagation();
@@ -400,6 +423,27 @@
 
     toggle.click();
     return true;
+  };
+
+  const insertUploadedImageReliably = async (editor, url) => {
+    if (editor instanceof HTMLTextAreaElement || editor instanceof HTMLInputElement) {
+      return insertUploadedImage(editor, url);
+    }
+
+    if (!isRichTextEditor(editor)) {
+      return insertUploadedImage(editor, url);
+    }
+
+    const root = editor.closest('main, [data-testid="editor"], form') || document;
+    const switched = switchRichTextEditorToMarkdown(editor);
+    if (!switched) return false;
+
+    const textarea = await waitForTextarea(root);
+    if (!(textarea instanceof HTMLTextAreaElement)) return false;
+
+    rememberEditor(textarea);
+    restoreTextareaSelection(textarea);
+    return insertUploadedImage(textarea, url);
   };
 
   const guardDangerousRichTextDelete = event => {
@@ -794,14 +838,19 @@
 
     try {
       const result = await uploadImage(image);
-      const inserted = insertUploadedImage(editor, result.url);
+      const inserted = await insertUploadedImageReliably(editor, result.url);
 
       if (!inserted) {
         showToast('图片已上传，但没有插入成功，请手动粘贴链接', 'error', true);
         return;
       }
 
-      showToast(`图片已上传并插入正文：${result.path}`, 'success');
+      showToast(
+        richTextMode
+          ? `图片已上传，已切到 Markdown 并插入正文：${result.path}`
+          : `图片已上传并插入正文：${result.path}`,
+        'success'
+      );
     } catch (error) {
       if (richTextMode) {
         showToast(`Rich Text 模式上传失败：${normalizeErrorMessage(error.message)}。当前不会再伪装成已上传图片。`, 'error', true);
