@@ -1,0 +1,449 @@
+media:
+  input: source/images/uploads
+  output: /images/uploads
+  categories: [image]
+
+settings:
+  hide: true
+  content:
+    merge: true
+
+content:
+  - name: posts
+    label: Posts
+    type: collection
+    path: source/_posts
+    format: yaml-frontmatter
+    view:
+      fields: [title, date, tags, categories]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: date
+        label: Date
+        type: date
+        required: true
+        options:
+          time: true
+          format: yyyy-MM-dd HH:mm:ss
+      - name: updated
+        label: Updated
+        type: date
+        options:
+          time: true
+          format: yyyy-MM-dd HH:mm:ss
+      - name: author
+        label: Author
+        type: string
+        default: Johnny-Zhao
+      - name: description
+        label: Description
+        type: text
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: categories
+        label: Categories
+        type: string
+        list: true
+      - name: cover
+        label: Cover
+        type: image
+        options:
+          path: source/images/uploads
+      - name: draft
+        label: Draft
+        type: boolean
+        default: false
+      - name: wiki
+        label: Wiki Post
+        type: boolean
+        default: false
+      - name: body
+        label: Body
+        type: rich-text
+        options:
+          path: source/images/uploads
+          extensions: [jpg, jpeg, png, webp, gif]
+
+  - name: drafts
+    label: Drafts
+    type: collection
+    path: source/_drafts
+    format: yaml-frontmatter
+    view:
+      fields: [title, date, tags]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: date
+        label: Date
+        type: date
+        options:
+          time: true
+          format: yyyy-MM-dd HH:mm:ss
+      - name: author
+        label: Author
+        type: string
+        default: Johnny-Zhao
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: categories
+        label: Categories
+        type: string
+        list: true
+      - name: cover
+        label: Cover
+        type: image
+        options:
+          path: source/images/uploads
+      - name: draft
+        label: Draft
+        type: boolean
+        default: true
+      - name: body
+        label: Body
+        type: rich-text
+        options:
+          path: source/images/uploads
+          extensions: [jpg, jpeg, png, webp, gif]
+
+  - name: about
+    label: About
+    type: file
+    path: source/about/index.md
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: date
+        label: Date
+        type: date
+        options:
+          time: true
+          format: yyyy-MM-dd HH:mm:ss
+      - name: type
+        type: string
+        hidden: true
+        default: about
+      - name: top_img
+        label: Top Image
+        type: image
+        options:
+          path: source/images/uploads
+      - name: body
+        label: Body
+        type: rich-text
+        options:
+          path: source/images/uploads
+          extensions: [jpg, jpeg, png, webp, gif]
+
+  - name: essay
+    label: Essay
+    type: file
+    path: source/essay/index.md
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: date
+        label: Date
+        type: date
+        options:
+          time: true
+          format: yyyy-MM-dd HH:mm:ss
+      - name: type
+        type: string
+        hidden: true
+        default: essay
+      - name: layout
+        type: string
+        hidden: true
+        default: page
+      - name: comments
+        label: Comments
+        type: boolean
+        default: true
+      - name: top_img
+        label: Top Image
+        type: image
+        options:
+          path: source/images/uploads
+      - name: body
+        label: Body
+        type: rich-text
+        options:
+          path: source/images/uploads
+          extensions: [jpg, jpeg, png, webp, gif]
+
+  - name: gallery
+    label: Gallery
+    type: file
+    path: source/gallery/index.md
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: date
+        label: Date
+        type: date
+        options:
+          time: true
+          format: yyyy-MM-dd HH:mm:ss
+      - name: type
+        type: string
+        hidden: true
+        default: gallery
+      - name: layout
+        type: string
+        hidden: true
+        default: page
+      - name: comments
+        label: Comments
+        type: boolean
+        default: false
+      - name: top_img
+        label: Top Image
+        type: string
+      - name: body
+        label: Body
+        type: code
+        options:
+          language: markdown
+
+  - name: wiki_page
+    label: Wiki Page
+    type: file
+    path: source/wiki/index.md
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: date
+        label: Date
+        type: date
+        options:
+          time: true
+          format: yyyy-MM-dd HH:mm:ss
+      - name: type
+        type: string
+        hidden: true
+        default: wiki
+      - name: layout
+        type: string
+        hidden: true
+        default: page
+      - name: comments
+        label: Comments
+        type: boolean
+        default: false
+      - name: top_img
+        label: Top Image
+        type: string
+      - name: body
+        type: code
+        hidden: true
+        options:
+          language: markdown
+
+  - name: link_page
+    label: Link Page
+    type: file
+    path: source/link/index.md
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: date
+        label: Date
+        type: date
+        options:
+          time: true
+          format: yyyy-MM-dd HH:mm:ss
+      - name: layout
+        type: string
+        hidden: true
+        default: page
+      - name: top_img
+        label: Top Image
+        type: string
+      - name: body
+        type: code
+        hidden: true
+        options:
+          language: markdown
+
+  - name: life_page
+    label: Life Page
+    type: file
+    path: source/life/index.md
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: date
+        label: Date
+        type: date
+        options:
+          time: true
+          format: yyyy-MM-dd HH:mm:ss
+      - name: type
+        type: string
+        hidden: true
+        default: page
+      - name: top_img
+        label: Top Image
+        type: image
+        options:
+          path: source/images/uploads
+      - name: body
+        type: code
+        hidden: true
+        options:
+          language: markdown
+
+  - name: wiki_data
+    label: Wiki Data
+    type: file
+    path: source/_data/wiki.yml
+    format: yaml
+    fields:
+      - name: intro
+        label: Intro
+        type: object
+        fields:
+          - name: quote
+            label: Quote
+            type: text
+      - name: showcase
+        label: Showcase
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: Title
+            type: string
+          - name: desc
+            label: Description
+            type: text
+      - name: quickgrid
+        label: Quick Grid
+        type: object
+        list: true
+        fields:
+          - name: icon
+            label: Icon
+            type: string
+          - name: text
+            label: Text
+            type: string
+
+  - name: link_data
+    label: Link Data
+    type: file
+    path: source/_data/link.yml
+    format: yaml
+    fields:
+      - name: intro
+        label: Intro
+        type: text
+      - name: sections
+        label: Sections
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: Title
+            type: string
+          - name: items
+            label: Items
+            type: object
+            list: true
+            fields:
+              - name: name
+                label: Name
+                type: string
+              - name: url
+                label: URL
+                type: string
+              - name: desc
+                label: Description
+                type: text
+      - name: closing
+        label: Closing
+        type: text
+
+  - name: life_data
+    label: Life Data
+    type: file
+    path: source/_data/life.yml
+    format: yaml
+    fields:
+      - name: now
+        label: Now
+        type: object
+        list: true
+        fields:
+          - name: text
+            label: Text
+            type: text
+      - name: ideas
+        label: Ideas
+        type: object
+        list: true
+        fields:
+          - name: text
+            label: Text
+            type: text
+      - name: focus
+        label: Focus
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: Title
+            type: string
+          - name: desc
+            label: Description
+            type: text
+      - name: checklist
+        label: Checklist
+        type: object
+        list: true
+        fields:
+          - name: icon
+            label: Icon
+            type: string
+          - name: text
+            label: Text
+            type: text
+      - name: note
+        label: Note
+        type: object
+        fields:
+          - name: text
+            label: Text
+            type: text
