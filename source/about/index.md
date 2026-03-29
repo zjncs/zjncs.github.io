@@ -1,12 +1,12 @@
 ---
 title: About
 date: 2025-11-22 10:00:00
-type: "about"
+type: about
 top_img: /img/index.jpg
 ---
 ## 你好，我是赵嘉宁
 
-天津大学信息管理与信息系统专业本科在读（2023.08 - 2027.06），加权成绩 90.07 / 100。现在主要关注 Agent、GUI 自动化、vLLM 推理优化、RAG / Memory 系统，以及能够真正落地到业务场景里的 AI 应用工程。
+天津大学信息管理与信息系统专业本科在读（2023.08 - 2027.06），加权成绩 90+/ 100。现在主要关注 Agent、GUI 自动化、vLLM 推理优化、RAG / Memory 系统，以及能够真正落地到业务场景里的 AI 应用工程。
 
 ## 最近在做的事
 
@@ -39,3 +39,5 @@ top_img: /img/index.jpg
 - GitHub: [@zjncs](https://github.com/zjncs)
 - Email: [zhaojianing@tju.edu.cn](mailto:zhaojianing@tju.edu.cn)
 - 如果想交流技术、项目或实习相关话题，直接在仓库开 issue 也可以
+
+&nbsp;
