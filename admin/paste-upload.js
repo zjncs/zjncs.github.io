@@ -254,6 +254,76 @@
     return false;
   };
 
+  const getEditorFieldScope = editor => {
+    if (!(editor instanceof HTMLElement)) return document;
+
+    let node = editor.parentElement;
+    while (node && node !== document.body) {
+      const toggles = Array.from(node.querySelectorAll('button[role="switch"]'))
+        .filter(button => isVisibleElement(button));
+
+      if (toggles.length > 0 && node.contains(editor)) {
+        return node;
+      }
+
+      node = node.parentElement;
+    }
+
+    return editor.closest('main, [data-testid="editor"], form') || document;
+  };
+
+  const snapshotTextareaVisibility = root => new Map(
+    Array.from(root.querySelectorAll('textarea'))
+      .filter(node => node instanceof HTMLTextAreaElement)
+      .map(textarea => [textarea, isVisibleElement(textarea)])
+  );
+
+  const pickNearestTextarea = (root, anchorBox, beforeVisibility = null) => {
+    const textareas = Array.from(root.querySelectorAll('textarea'))
+      .filter(node => node instanceof HTMLTextAreaElement && isVisibleElement(node));
+
+    if (textareas.length === 0) return null;
+
+    const newlyVisible = beforeVisibility instanceof Map
+      ? textareas.filter(textarea => beforeVisibility.get(textarea) !== true)
+      : [];
+    const candidates = newlyVisible.length ? newlyVisible : textareas;
+
+    if (!anchorBox) return candidates[0];
+
+    return candidates
+      .map(textarea => {
+        const box = textarea.getBoundingClientRect();
+        const dx = Math.abs(box.left - anchorBox.left);
+        const dy = Math.abs(box.top - anchorBox.top);
+        const dw = Math.abs(box.width - anchorBox.width) / 4;
+        return { textarea, score: dx + dy * 2 + dw };
+      })
+      .sort((a, b) => a.score - b.score)[0]?.textarea || null;
+  };
+
+  const waitForTextarea = (root, anchorBox, beforeVisibility, timeout = 1500) => new Promise(resolve => {
+    const start = Date.now();
+
+    const tick = () => {
+      const textarea = pickNearestTextarea(root, anchorBox, beforeVisibility);
+
+      if (textarea instanceof HTMLTextAreaElement) {
+        resolve(textarea);
+        return;
+      }
+
+      if (Date.now() - start >= timeout) {
+        resolve(null);
+        return;
+      }
+
+      window.setTimeout(tick, 50);
+    };
+
+    tick();
+  });
+
   const stopNativeHandling = event => {
     event.preventDefault();
     event.stopPropagation();
@@ -380,7 +450,7 @@
   const switchRichTextEditorToMarkdown = editor => {
     if (!(editor instanceof HTMLElement)) return false;
 
-    const root = editor.closest('main, [data-testid="editor"], form') || document;
+    const root = getEditorFieldScope(editor);
     const editorBox = editor.getBoundingClientRect();
     const toggles = Array.from(root.querySelectorAll('button[role="switch"]'))
       .filter(button => isVisibleElement(button))
@@ -408,8 +478,18 @@
     }
 
     if (isRichTextEditor(editor)) {
-      editor.focus();
-      return insertUploadedImage(editor, url);
+      const scope = getEditorFieldScope(editor);
+      const anchorBox = editor.getBoundingClientRect();
+      const beforeVisibility = snapshotTextareaVisibility(scope);
+      const switched = switchRichTextEditorToMarkdown(editor);
+      if (!switched) return false;
+
+      const textarea = await waitForTextarea(scope, anchorBox, beforeVisibility);
+      if (!(textarea instanceof HTMLTextAreaElement)) return false;
+
+      rememberEditor(textarea);
+      restoreTextareaSelection(textarea);
+      return insertUploadedImage(textarea, url);
     }
 
     return insertUploadedImage(editor, url);
@@ -816,7 +896,9 @@
 
       const storageLabel = result.storage === 'catbox' ? '外部图床' : '站内图床';
       showToast(
-        `图片已上传到${storageLabel}并插入正文：${result.path}`,
+        richTextMode
+          ? `图片已上传到${storageLabel}，已切到 Markdown 并插入正文：${result.path}`
+          : `图片已上传到${storageLabel}并插入正文：${result.path}`,
         'success'
       );
     } catch (error) {
