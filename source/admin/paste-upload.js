@@ -349,6 +349,53 @@
     return true;
   };
 
+  const getSelectionElement = () => {
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0) return null;
+
+    const node = selection.anchorNode || selection.getRangeAt(0).startContainer;
+    if (node instanceof Element) return node;
+    return node?.parentElement || null;
+  };
+
+  const isRiskyRichTextDelete = editor => {
+    if (!(editor instanceof HTMLElement) || !isRichTextEditor(editor)) return false;
+
+    const element = getSelectionElement();
+    if (!(element instanceof Element)) return false;
+    if (!editor.contains(element)) return false;
+
+    const listItem = element.closest('li');
+    if (!(listItem instanceof HTMLElement)) return false;
+
+    return Boolean(listItem.querySelector('br'));
+  };
+
+  const switchRichTextEditorToMarkdown = editor => {
+    if (!(editor instanceof HTMLElement)) return false;
+
+    const root = editor.closest('main, [data-testid="editor"], form') || document;
+    const editorBox = editor.getBoundingClientRect();
+    const toggles = Array.from(root.querySelectorAll('button[role="switch"]'))
+      .filter(button => isVisibleElement(button))
+      .map(button => {
+        const box = button.getBoundingClientRect();
+        const dx = Math.abs(box.left - editorBox.left);
+        const dy = Math.abs(box.top - editorBox.top);
+        return { button, score: dx + dy * 2 };
+      })
+      .sort((a, b) => a.score - b.score);
+
+    const toggle = toggles[0]?.button;
+    if (!(toggle instanceof HTMLButtonElement)) return false;
+
+    const checked = toggle.getAttribute('aria-checked');
+    if (checked === 'false') return true;
+
+    toggle.click();
+    return true;
+  };
+
   const decorateEditorImages = scope => {
     const root = scope instanceof Element ? scope : document;
     root.querySelectorAll('[data-slate-editor="true"] img').forEach(image => {
@@ -863,9 +910,22 @@
       if (!(editor instanceof HTMLElement) || !isRichTextEditor(editor)) return;
 
       const removed = removeSelectedEditorImage(editor, event.key === 'Delete' ? 'forward' : 'backward');
-      if (!removed) return;
+      if (removed) {
+        stopNativeHandling(event);
+        return;
+      }
+
+      if (!isRiskyRichTextDelete(editor)) return;
 
       stopNativeHandling(event);
+      const switched = switchRichTextEditorToMarkdown(editor);
+      showToast(
+        switched
+          ? 'Rich Text 在多行列表里按 Backspace 有已知崩溃问题，已切到 Markdown，请继续编辑。'
+          : 'Rich Text 在多行列表里按 Backspace 有已知崩溃问题，请切到 Markdown 再删除。',
+        'error',
+        true
+      );
     }, true);
 
     document.addEventListener('focusin', event => {
