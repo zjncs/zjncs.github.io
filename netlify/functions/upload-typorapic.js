@@ -52,6 +52,30 @@ const buildSiteOrigin = event => {
   return `${proto}://${host}`
 }
 
+const uploadViaCatbox = async ({ buffer, originalName }) => {
+  const form = new FormData()
+  form.append('reqtype', 'fileupload')
+  form.append('fileToUpload', new Blob([buffer]), originalName)
+
+  const response = await fetch('https://catbox.moe/user/api.php', {
+    method: 'POST',
+    body: form
+  })
+
+  const text = (await response.text()).trim()
+  if (!response.ok || !/^https?:\/\//.test(text)) {
+    throw new Error(`Catbox upload failed: ${text || response.status}`)
+  }
+
+  return {
+    ok: true,
+    storage: 'catbox',
+    path: text,
+    url: text,
+    markdown: `![](${text})`
+  }
+}
+
 const verifyIdentity = async event => {
   const auth = event.headers.authorization || event.headers.Authorization
   if (!auth) return false
@@ -188,8 +212,15 @@ exports.handler = async event => {
       markdown: `![](${url})`
     })
   } catch (error) {
-    return json(500, {
-      error: `Netlify 图片存储写入失败：${String(error?.message || error)}`
-    })
+    try {
+      const originalName = sanitizeFileName(payload.originalName, ext)
+      const buffer = Buffer.from(source, 'base64')
+      const fallback = await uploadViaCatbox({ buffer, originalName })
+      return json(200, fallback)
+    } catch (fallbackError) {
+      return json(500, {
+        error: `图片上传失败。Netlify 存储错误：${String(error?.message || error)}；Catbox 错误：${String(fallbackError?.message || fallbackError)}`
+      })
+    }
   }
 }
