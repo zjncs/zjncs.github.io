@@ -31,6 +31,6 @@ collections:
       - label: "Body"
         name: "body"
         widget: "markdown"
-        modes: ["rich_text", "raw"]
+        modes: ["raw"]
         editor_components: ["image", "code-block", "quote"]
-        hint: "支持 Rich Text / Markdown 切换；粘贴截图会优先上传到后台图床，失败时可用 + -> image 手动插入。"
+        hint: "正文固定使用 Markdown。请把光标放在 BODY 文本框里直接粘贴截图，系统会上传图片并写入 ![](url)。"
