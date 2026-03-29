@@ -1,0 +1,14 @@
+{
+  "$schema": "https://raw.githubusercontent.com/CloudCannon/configuration-types/main/dist/cloudcannon-initial-site-settings.schema.json",
+  "ssg": "other",
+  "mode": "hosted",
+  "build": {
+    "install_command": "git submodule sync --recursive && git submodule update --init --recursive && npm ci",
+    "build_command": "npm run build",
+    "output_path": "public",
+    "preserve_output": false,
+    "include_git": true,
+    "manually_configure_urls": false,
+    "node_version": "18"
+  }
+}

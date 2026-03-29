@@ -1,0 +1,180 @@
+source: /
+base_url: /
+timezone: Asia/Shanghai
+
+paths:
+  uploads: /source/images/uploads/
+  static: /source/
+
+markdown:
+  engine: commonmark
+
+collection_groups:
+  - heading: Writing
+    collections:
+      - posts
+      - drafts
+      - about
+      - essay
+      - gallery
+  - heading: Structured Data
+    collections:
+      - wiki_data
+      - link_data
+      - life_data
+  - heading: Wrapper Pages
+    collections:
+      - wiki_page
+      - link_page
+      - life_page
+
+collections_config:
+  posts:
+    path: source/_posts
+    glob:
+      - '*.md'
+      - '!._*'
+    icon: article
+    description: Hexo blog posts.
+    _enabled_editors:
+      - content
+      - source
+    create:
+      path: '{title|slugify}.md'
+    schemas:
+      default:
+        path: .cloudcannon/schemas/post.md
+        name: Post
+        icon: article
+
+  drafts:
+    path: source/_drafts
+    glob:
+      - '*.md'
+      - '!._*'
+    icon: draft
+    description: Unpublished drafts.
+    _enabled_editors:
+      - content
+      - source
+    create:
+      path: '{title|slugify}.md'
+    schemas:
+      default:
+        path: .cloudcannon/schemas/draft.md
+        name: Draft
+        icon: draft
+
+  about:
+    path: source/about
+    glob: index.md
+    icon: account_circle
+    description: About page.
+    _enabled_editors:
+      - content
+      - source
+
+  essay:
+    path: source/essay
+    glob: index.md
+    icon: auto_stories
+    description: Essay page.
+    _enabled_editors:
+      - content
+      - source
+
+  gallery:
+    path: source/gallery
+    glob: index.md
+    icon: photo_library
+    description: Gallery page with Hexo tags. Edit in Source.
+    _enabled_editors:
+      - source
+
+  wiki_page:
+    path: source/wiki
+    glob: index.md
+    icon: hub
+    description: Wiki landing page wrapper. Usually no need to edit body.
+    _enabled_editors:
+      - data
+      - source
+
+  link_page:
+    path: source/link
+    glob: index.md
+    icon: link
+    description: Links landing page wrapper. Usually no need to edit body.
+    _enabled_editors:
+      - data
+      - source
+
+  life_page:
+    path: source/life
+    glob: index.md
+    icon: favorite
+    description: Life landing page wrapper. Usually no need to edit body.
+    _enabled_editors:
+      - data
+      - source
+
+  wiki_data:
+    path: source/_data
+    glob: wiki.yml
+    icon: dashboard
+    description: Structured data for the wiki landing page.
+    _enabled_editors:
+      - data
+      - source
+
+  link_data:
+    path: source/_data
+    glob: link.yml
+    icon: format_list_bulleted
+    description: Structured data for the links page.
+    _enabled_editors:
+      - data
+      - source
+
+  life_data:
+    path: source/_data
+    glob: life.yml
+    icon: checklist
+    description: Structured data for the life page.
+    _enabled_editors:
+      - data
+      - source
+
+_inputs:
+  title:
+    type: text
+  date:
+    type: datetime
+    options:
+      timezone: Asia/Shanghai
+      format: yyyy-MM-dd HH:mm:ss
+  updated:
+    type: datetime
+    options:
+      timezone: Asia/Shanghai
+      format: yyyy-MM-dd HH:mm:ss
+  description:
+    type: textarea
+  cover:
+    type: image
+    options:
+      paths:
+        uploads: /source/images/uploads/
+        static: /source/
+  top_img:
+    type: image
+    options:
+      paths:
+        uploads: /source/images/uploads/
+        static: /source/
+  type:
+    hidden: true
+  layout:
+    hidden: true
+  author:
+    hidden: true
