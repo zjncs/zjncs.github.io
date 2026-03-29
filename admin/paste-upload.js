@@ -702,6 +702,7 @@
   const handleImageFiles = async (editor, files) => {
     const image = files.find(file => file && file.type && file.type.startsWith('image/'));
     if (!image) return;
+    const richTextMode = isRichTextEditor(editor);
 
     showToast('正在上传图片到 TyporaPic...', 'info', true);
 
@@ -714,8 +715,13 @@
         return;
       }
 
-      showToast('图片已上传并插入正文', 'success');
+      showToast(`图片已上传并插入正文：${result.path}`, 'success');
     } catch (error) {
+      if (richTextMode) {
+        showToast(`Rich Text 模式上传失败：${normalizeErrorMessage(error.message)}。当前不会再伪装成已上传图片。`, 'error', true);
+        return;
+      }
+
       const size = image.size || 0;
 
       if (size > 5 * 1024 * 1024) {
