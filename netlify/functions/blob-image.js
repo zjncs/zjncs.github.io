@@ -1,6 +1,6 @@
 'use strict'
 
-const { getStore } = require('@netlify/blobs')
+const { getStore, setEnvironmentContext } = require('@netlify/blobs')
 
 const STORE_NAME = 'cms-images'
 
@@ -14,6 +14,25 @@ const withCacheHeaders = extra => ({
   'Cache-Control': 'public, max-age=31536000, immutable',
   ...extra
 })
+
+const parseBlobsContext = event => {
+  const raw = String(event.blobs || '').trim()
+  if (!raw) return null
+
+  const decoded = Buffer.from(raw, 'base64').toString('utf8')
+  const data = JSON.parse(decoded)
+  const siteID = event.headers['x-nf-site-id'] || event.headers['X-Nf-Site-Id']
+  const deployID = event.headers['x-nf-deploy-id'] || event.headers['X-Nf-Deploy-Id']
+
+  if (!siteID || !data?.token || !data?.url) return null
+
+  return {
+    deployID,
+    edgeURL: data.url,
+    siteID,
+    token: data.token
+  }
+}
 
 exports.handler = async event => {
   if (event.httpMethod === 'OPTIONS') {
@@ -38,6 +57,12 @@ exports.handler = async event => {
   }
 
   try {
+    const context = parseBlobsContext(event)
+    if (!context) {
+      throw new Error('Netlify Blobs 上下文缺失。')
+    }
+
+    setEnvironmentContext(context)
     const store = getStore(STORE_NAME)
     const blob = await store.getWithMetadata(key, { type: 'arrayBuffer' })
 
