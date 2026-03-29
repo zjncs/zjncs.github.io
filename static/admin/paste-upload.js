@@ -352,6 +352,12 @@
     return node?.parentElement || null;
   };
 
+  const getCurrentRichTextEditor = target => {
+    const active = document.activeElement instanceof Element ? document.activeElement : null;
+    const direct = isEditableTarget(target) || active?.closest?.('[data-slate-editor="true"]') || lastFocusedEditor;
+    return direct instanceof HTMLElement && isRichTextEditor(direct) ? direct : null;
+  };
+
   const isRiskyRichTextDelete = editor => {
     if (!(editor instanceof HTMLElement) || !isRichTextEditor(editor)) return false;
 
@@ -359,10 +365,16 @@
     if (!(element instanceof Element)) return false;
     if (!editor.contains(element)) return false;
 
-    const listItem = element.closest('li');
-    if (!(listItem instanceof HTMLElement)) return false;
+    const listItem = element.closest('li, ul, ol');
+    if (listItem instanceof HTMLElement) return true;
 
-    return Boolean(listItem.querySelector('br'));
+    const slateElement = element.closest('[data-slate-node="element"]');
+    if (slateElement instanceof HTMLElement) {
+      if (slateElement.querySelector('br')) return true;
+      if (slateElement.previousElementSibling || slateElement.nextElementSibling) return true;
+    }
+
+    return false;
   };
 
   const switchRichTextEditorToMarkdown = editor => {
@@ -387,6 +399,39 @@
     if (checked === 'false') return true;
 
     toggle.click();
+    return true;
+  };
+
+  const guardDangerousRichTextDelete = event => {
+    const inputType = event.inputType || '';
+    const isDeleteKey = event.key === 'Backspace' || event.key === 'Delete';
+    const isDeleteInput = inputType === 'deleteContentBackward' || inputType === 'deleteContentForward';
+
+    if (!isDeleteKey && !isDeleteInput) return false;
+
+    const editor = getCurrentRichTextEditor(event.target);
+    if (!(editor instanceof HTMLElement)) return false;
+
+    const removed = isDeleteKey
+      ? removeSelectedEditorImage(editor, event.key === 'Delete' ? 'forward' : 'backward')
+      : false;
+
+    if (removed) {
+      stopNativeHandling(event);
+      return true;
+    }
+
+    if (!isRiskyRichTextDelete(editor)) return false;
+
+    stopNativeHandling(event);
+    const switched = switchRichTextEditorToMarkdown(editor);
+    showToast(
+      switched
+        ? 'Rich Text 在列表里按删除键会触发编辑器崩溃，已自动切到 Markdown。'
+        : 'Rich Text 在列表里按删除键会触发编辑器崩溃，请切到 Markdown 后再删除。',
+      'error',
+      true
+    );
     return true;
   };
 
@@ -897,29 +942,11 @@
     }, true);
 
     document.addEventListener('keydown', event => {
-      if (event.key !== 'Backspace' && event.key !== 'Delete') return;
+      guardDangerousRichTextDelete(event);
+    }, true);
 
-      const active = document.activeElement instanceof Element ? document.activeElement : null;
-      const editor = isEditableTarget(event.target) || active?.closest?.('[data-slate-editor="true"]');
-      if (!(editor instanceof HTMLElement) || !isRichTextEditor(editor)) return;
-
-      const removed = removeSelectedEditorImage(editor, event.key === 'Delete' ? 'forward' : 'backward');
-      if (removed) {
-        stopNativeHandling(event);
-        return;
-      }
-
-      if (!isRiskyRichTextDelete(editor)) return;
-
-      stopNativeHandling(event);
-      const switched = switchRichTextEditorToMarkdown(editor);
-      showToast(
-        switched
-          ? 'Rich Text 在多行列表里按 Backspace 有已知崩溃问题，已切到 Markdown，请继续编辑。'
-          : 'Rich Text 在多行列表里按 Backspace 有已知崩溃问题，请切到 Markdown 再删除。',
-        'error',
-        true
-      );
+    document.addEventListener('beforeinput', event => {
+      guardDangerousRichTextDelete(event);
     }, true);
 
     document.addEventListener('focusin', event => {
