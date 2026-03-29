@@ -1,7 +1,7 @@
 'use strict'
 
 const crypto = require('node:crypto')
-const { connectLambda, getStore } = require('@netlify/blobs')
+const { getStore } = require('@netlify/blobs')
 
 const STORE_NAME = 'cms-images'
 
@@ -110,7 +110,6 @@ exports.handler = async event => {
   const filePath = `${year}/${month}/${day}/${stamp}-${originalName}`
 
   try {
-    connectLambda(event)
     const store = getStore(STORE_NAME)
     const buffer = Buffer.from(source, 'base64')
 

@@ -1,6 +1,6 @@
 'use strict'
 
-const { connectLambda, getStore } = require('@netlify/blobs')
+const { getStore } = require('@netlify/blobs')
 
 const STORE_NAME = 'cms-images'
 
@@ -38,7 +38,6 @@ exports.handler = async event => {
   }
 
   try {
-    connectLambda(event)
     const store = getStore(STORE_NAME)
     const blob = await store.getWithMetadata(key, { type: 'arrayBuffer' })
 

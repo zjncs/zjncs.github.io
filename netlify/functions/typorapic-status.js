@@ -1,7 +1,7 @@
 'use strict'
 
 const crypto = require('node:crypto')
-const { connectLambda, getStore } = require('@netlify/blobs')
+const { getStore } = require('@netlify/blobs')
 
 const headers = {
   'Access-Control-Allow-Origin': '*',
@@ -18,7 +18,6 @@ exports.handler = async event => {
   }
 
   try {
-    connectLambda(event)
     const store = getStore(STORE_NAME)
     const key = `_health/${Date.now()}-${crypto.randomBytes(4).toString('hex')}.txt`
     const value = `ok:${new Date().toISOString()}`
