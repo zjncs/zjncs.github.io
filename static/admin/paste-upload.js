@@ -465,9 +465,6 @@
     const toggle = toggles[0]?.button;
     if (!(toggle instanceof HTMLButtonElement)) return false;
 
-    const checked = toggle.getAttribute('aria-checked');
-    if (checked === 'false') return true;
-
     toggle.click();
     return true;
   };
