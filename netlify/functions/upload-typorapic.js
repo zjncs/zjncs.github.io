@@ -1,6 +1,9 @@
 'use strict'
 
 const crypto = require('node:crypto')
+const { connectLambda, getStore } = require('@netlify/blobs')
+
+const STORE_NAME = 'cms-images'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -74,38 +77,28 @@ exports.handler = async event => {
     return json(401, { error: '登录状态已失效，请刷新后台后重新登录。' })
   }
 
-  const token = process.env.TYPORAPIC_TOKEN || process.env.GITHUB_TOKEN
-  if (!token) {
-    return json(500, { error: '图床还没有完成密钥配置，请在 Netlify 环境变量中添加 TYPORAPIC_TOKEN。' })
-  }
-
   let payload
   try {
     payload = JSON.parse(event.body || '{}')
   } catch (error) {
-    return json(400, { error: 'Invalid JSON body' })
+    return json(400, { error: '请求体不是合法 JSON。' })
   }
 
   const contentType = payload.contentType || 'image/png'
   if (!contentType.startsWith('image/')) {
-    return json(400, { error: 'Only image uploads are supported' })
+    return json(400, { error: '只支持图片上传。' })
   }
-
-  const owner = process.env.TYPORAPIC_OWNER || 'zjncs'
-  const repo = process.env.TYPORAPIC_REPO || 'TyporaPic'
-  const branch = process.env.TYPORAPIC_BRANCH || 'main'
-  const cdnBase = (process.env.TYPORAPIC_CDN_BASE || `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${branch}`).replace(/\/$/, '')
 
   const ext = extByType[contentType] || 'png'
   const source = normalizeBase64(payload.imageBase64)
 
   if (!source) {
-    return json(400, { error: 'Missing imageBase64 payload' })
+    return json(400, { error: '缺少图片数据。' })
   }
 
   const sizeInBytes = Math.floor((source.length * 3) / 4)
   if (sizeInBytes > 10 * 1024 * 1024) {
-    return json(413, { error: 'Image is too large. Keep it under 10MB.' })
+    return json(413, { error: '图片过大，请控制在 10MB 以内。' })
   }
 
   const originalName = sanitizeFileName(payload.originalName, ext)
@@ -116,45 +109,34 @@ exports.handler = async event => {
   const day = String(now.getUTCDate()).padStart(2, '0')
   const filePath = `${year}/${month}/${day}/${stamp}-${originalName}`
 
-  const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`
-  const commitMessage = `upload: ${filePath}`
+  try {
+    connectLambda(event)
+    const store = getStore(STORE_NAME)
+    const buffer = Buffer.from(source, 'base64')
 
-  const response = await fetch(apiUrl, {
-    method: 'PUT',
-    headers: {
-      Accept: 'application/vnd.github+json',
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json; charset=utf-8',
-      'User-Agent': 'decap-typorapic-upload'
-    },
-    body: JSON.stringify({
-      message: commitMessage,
-      branch,
-      content: source
+    await store.set(filePath, buffer, {
+      metadata: {
+        contentType,
+        originalName,
+        size: sizeInBytes,
+        uploadedAt: new Date().toISOString()
+      }
     })
-  })
 
-  const result = await response.json().catch(() => ({}))
-  if (!response.ok) {
-    let message = result.message || 'GitHub upload failed'
+    const siteOrigin = buildSiteOrigin(event)
+    const encodedKey = encodeURIComponent(filePath)
+    const url = `${siteOrigin}/.netlify/functions/blob-image?key=${encodedKey}`
 
-    if (response.status === 401 || response.status === 403) {
-      message = '图床授权失败，请检查 TYPORAPIC_TOKEN 是否具备 TyporaPic 仓库的 Contents 读写权限。'
-    } else if (response.status === 404) {
-      message = '找不到 TyporaPic 仓库或目标路径，请检查仓库名和分支配置。'
-    }
-
-    return json(response.status, {
-      error: message
+    return json(200, {
+      ok: true,
+      storage: 'netlify-blobs',
+      path: filePath,
+      url,
+      markdown: `![](${url})`
+    })
+  } catch (error) {
+    return json(500, {
+      error: `Netlify 图片存储写入失败：${String(error?.message || error)}`
     })
   }
-
-  const url = `${cdnBase}/${filePath}`
-
-  return json(200, {
-    ok: true,
-    path: filePath,
-    url,
-    markdown: `![](${url})`
-  })
 }

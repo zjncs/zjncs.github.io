@@ -33,14 +33,8 @@
     const text = String(message || '').trim();
 
     if (!text) return '图片上传失败';
-    if (/TYPORAPIC_TOKEN/i.test(text)) {
-      return '图床还没有完成密钥配置，请先在 Netlify 环境变量里添加 TYPORAPIC_TOKEN。';
-    }
     if (/Unauthorized/i.test(text)) {
       return '登录状态已失效，请刷新后台后重新登录。';
-    }
-    if (/GitHub upload failed/i.test(text)) {
-      return '图床上传失败，请检查 TyporaPic 仓库权限和 Token 配置。';
     }
 
     return text;
@@ -751,7 +745,7 @@
     if (!image) return;
     const richTextMode = isRichTextEditor(editor);
 
-    showToast('正在上传图片到 TyporaPic...', 'info', true);
+    showToast('正在上传图片到 Netlify 图库...', 'info', true);
 
     try {
       const result = await uploadImage(image);
@@ -776,11 +770,11 @@
         return;
       }
 
-      showToast('图床不可用，正在改为内联图片插入正文...', 'info', true);
+      showToast('图片存储不可用，正在改为内联图片插入正文...', 'info', true);
 
       try {
         await inlineImage(editor, image);
-        showToast(`图床不可用，已以内联图片写入正文 (${formatBytes(size)})`, 'success', true);
+        showToast(`图片存储不可用，已以内联图片写入正文 (${formatBytes(size)})`, 'success', true);
       } catch (fallbackError) {
         showToast(normalizeErrorMessage(fallbackError.message || error.message), 'error', true);
       }
@@ -806,7 +800,7 @@
       stopNativeHandling(event);
 
       if (isRichTextEditor(editor)) {
-        showToast('检测到 Rich Text 模式，已接管图片粘贴并改为直传 TyporaPic。', 'info');
+        showToast('检测到 Rich Text 模式，已接管图片粘贴并上传到 Netlify 图库。', 'info');
       }
 
       void handleImageFiles(editor, [file]);
@@ -845,7 +839,7 @@
       stopNativeHandling(event);
 
       if (isRichTextEditor(editor)) {
-        showToast('检测到 Rich Text 模式，已接管图片拖拽并改为直传 TyporaPic。', 'info');
+        showToast('检测到 Rich Text 模式，已接管图片拖拽并上传到 Netlify 图库。', 'info');
       }
 
       void handleImageFiles(editor, files);
