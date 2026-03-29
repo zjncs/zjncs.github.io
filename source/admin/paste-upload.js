@@ -1,8 +1,9 @@
 (() => {
-  const EDITOR_SELECTOR = '[data-slate-editor="true"], textarea';
+  const EDITOR_SELECTOR = 'textarea';
   const TOAST_ID = 'paste-upload-toast';
   const HELPER_CLASS = 'paste-upload-helper';
   const RAW_TOOLBAR_CLASS = 'codex-raw-toolbar';
+  const BODY_FIELD_ATTR = 'data-admin-body-field';
   const SELECTED_IMAGE_CLASS = 'decap-editor-image-selected';
   const DECORATED_BUTTON_ATTR = 'data-admin-button';
   const RAW_TOOLBAR_ACTIONS = [
@@ -108,6 +109,10 @@
     if (!(target instanceof Element)) return null;
     return target.closest(EDITOR_SELECTOR);
   };
+
+  const isBodyTextarea = textarea =>
+    textarea instanceof HTMLTextAreaElement &&
+    textarea.getAttribute(BODY_FIELD_ATTR) === 'true';
 
   const rememberEditor = target => {
     const editor = isEditableTarget(target);
@@ -601,9 +606,9 @@
   };
 
   const getCurrentRawEditor = () => {
-    if (lastFocusedEditor instanceof HTMLTextAreaElement) return lastFocusedEditor;
-    if (document.activeElement instanceof HTMLTextAreaElement) return document.activeElement;
-    return document.querySelector('textarea');
+    if (isBodyTextarea(lastFocusedEditor)) return lastFocusedEditor;
+    if (isBodyTextarea(document.activeElement)) return document.activeElement;
+    return document.querySelector(`textarea[${BODY_FIELD_ATTR}="true"]`);
   };
 
   const findTextareaForToolbar = toolbar => {
@@ -727,6 +732,7 @@
 
     toolbar.setAttribute('data-admin-toolbar', 'native');
     toolbar.__codexTextarea = textarea;
+    textarea.setAttribute(BODY_FIELD_ATTR, 'true');
 
     const buttons = Array.from(toolbar.querySelectorAll('button'));
     buttons.forEach((button, index) => {
@@ -886,15 +892,16 @@
   };
 
   const handleImageFiles = async (editor, files) => {
+    if (!(editor instanceof HTMLTextAreaElement) || !isBodyTextarea(editor)) return;
+
     const image = files.find(file => file && file.type && file.type.startsWith('image/'));
     if (!image) return;
-    const richTextMode = isRichTextEditor(editor);
 
     showToast('正在上传图片到后台图床...', 'info', true);
 
     try {
       const result = await uploadImage(image);
-      const inserted = await insertUploadedImageReliably(editor, result.url);
+      const inserted = insertUploadedImage(editor, result.url);
 
       if (!inserted) {
         showToast('图片已上传，但没有插入成功，请手动粘贴链接', 'error', true);
@@ -902,18 +909,8 @@
       }
 
       const storageLabel = result.storage === 'catbox' ? '外部图床' : '站内图床';
-      showToast(
-        richTextMode
-          ? `图片已上传到${storageLabel}，已切到 Markdown 并插入正文：${result.path}`
-          : `图片已上传到${storageLabel}并插入正文：${result.path}`,
-        'success'
-      );
+      showToast(`图片已上传到${storageLabel}并插入 BODY：${result.path}`, 'success');
     } catch (error) {
-      if (richTextMode) {
-        showToast(`Rich Text 模式上传失败：${normalizeErrorMessage(error.message)}。当前不会再伪装成已上传图片。`, 'error', true);
-        return;
-      }
-
       const size = image.size || 0;
 
       if (size > 5 * 1024 * 1024) {
@@ -938,7 +935,7 @@
 
     document.addEventListener('paste', event => {
       const editor = rememberEditor(event.target);
-      if (!editor) return;
+      if (!(editor instanceof HTMLTextAreaElement) || !isBodyTextarea(editor)) return;
 
       const items = Array.from(event.clipboardData?.items || []);
       const imageItem = items.find(item => item.type && item.type.startsWith('image/'));
@@ -949,17 +946,12 @@
       if (!file) return;
 
       stopNativeHandling(event);
-
-      if (isRichTextEditor(editor)) {
-        showToast('检测到 Rich Text 模式，已接管图片粘贴并上传到后台图床。', 'info');
-      }
-
       void handleImageFiles(editor, [file]);
     }, true);
 
     document.addEventListener('dragover', event => {
       const editor = rememberEditor(event.target);
-      if (!editor) return;
+      if (!(editor instanceof HTMLTextAreaElement) || !isBodyTextarea(editor)) return;
 
       const hasImage = Array.from(event.dataTransfer?.items || []).some(
         item => item.kind === 'file' && item.type.startsWith('image/')
@@ -978,7 +970,7 @@
 
     document.addEventListener('drop', event => {
       const editor = rememberEditor(event.target);
-      if (!editor) return;
+      if (!(editor instanceof HTMLTextAreaElement) || !isBodyTextarea(editor)) return;
 
       const files = Array.from(event.dataTransfer?.files || []).filter(
         file => file.type && file.type.startsWith('image/')
@@ -988,11 +980,6 @@
       if (!files.length) return;
 
       stopNativeHandling(event);
-
-      if (isRichTextEditor(editor)) {
-        showToast('检测到 Rich Text 模式，已接管图片拖拽并上传到后台图床。', 'info');
-      }
-
       void handleImageFiles(editor, files);
     }, true);
 
