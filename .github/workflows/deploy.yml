@@ -6,8 +6,7 @@ on:
   push:
     branches:
       - main
-      - source
-      - newstar
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -35,13 +34,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'yarn'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Build Hexo site
-        run: npx hexo clean && npx hexo generate
+        run: npm run clean && npm run build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
