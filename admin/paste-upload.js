@@ -254,14 +254,26 @@
     return false;
   };
 
-  const pickNearestTextarea = (root, anchorBox) => {
+  const snapshotTextareaVisibility = root => new Map(
+    Array.from(root.querySelectorAll('textarea'))
+      .filter(node => node instanceof HTMLTextAreaElement)
+      .map(textarea => [textarea, isVisibleElement(textarea)])
+  );
+
+  const pickNearestTextarea = (root, anchorBox, beforeVisibility = null) => {
     const textareas = Array.from(root.querySelectorAll('textarea'))
       .filter(node => node instanceof HTMLTextAreaElement && isVisibleElement(node));
 
     if (textareas.length === 0) return null;
-    if (!anchorBox) return textareas[0];
 
-    return textareas
+    const newlyVisible = beforeVisibility instanceof Map
+      ? textareas.filter(textarea => beforeVisibility.get(textarea) !== true)
+      : [];
+    const candidates = newlyVisible.length ? newlyVisible : textareas;
+
+    if (!anchorBox) return candidates[0];
+
+    return candidates
       .map(textarea => {
         const box = textarea.getBoundingClientRect();
         const dx = Math.abs(box.left - anchorBox.left);
@@ -272,11 +284,11 @@
       .sort((a, b) => a.score - b.score)[0]?.textarea || null;
   };
 
-  const waitForTextarea = (root, anchorBox, timeout = 1500) => new Promise(resolve => {
+  const waitForTextarea = (root, anchorBox, beforeVisibility, timeout = 1500) => new Promise(resolve => {
     const start = Date.now();
 
     const tick = () => {
-      const textarea = pickNearestTextarea(root, anchorBox);
+      const textarea = pickNearestTextarea(root, anchorBox, beforeVisibility);
 
       if (textarea instanceof HTMLTextAreaElement) {
         resolve(textarea);
@@ -453,10 +465,11 @@
 
     const root = editor.closest('main, [data-testid="editor"], form') || document;
     const anchorBox = editor.getBoundingClientRect();
+    const beforeVisibility = snapshotTextareaVisibility(root);
     const switched = switchRichTextEditorToMarkdown(editor);
     if (!switched) return false;
 
-    const textarea = await waitForTextarea(root, anchorBox);
+    const textarea = await waitForTextarea(root, anchorBox, beforeVisibility);
     if (!(textarea instanceof HTMLTextAreaElement)) return false;
 
     rememberEditor(textarea);
