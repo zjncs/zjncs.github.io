@@ -254,12 +254,29 @@
     return false;
   };
 
-  const waitForTextarea = (root, timeout = 1500) => new Promise(resolve => {
+  const pickNearestTextarea = (root, anchorBox) => {
+    const textareas = Array.from(root.querySelectorAll('textarea'))
+      .filter(node => node instanceof HTMLTextAreaElement && isVisibleElement(node));
+
+    if (textareas.length === 0) return null;
+    if (!anchorBox) return textareas[0];
+
+    return textareas
+      .map(textarea => {
+        const box = textarea.getBoundingClientRect();
+        const dx = Math.abs(box.left - anchorBox.left);
+        const dy = Math.abs(box.top - anchorBox.top);
+        const dw = Math.abs(box.width - anchorBox.width) / 4;
+        return { textarea, score: dx + dy * 2 + dw };
+      })
+      .sort((a, b) => a.score - b.score)[0]?.textarea || null;
+  };
+
+  const waitForTextarea = (root, anchorBox, timeout = 1500) => new Promise(resolve => {
     const start = Date.now();
 
     const tick = () => {
-      const textarea = Array.from(root.querySelectorAll('textarea'))
-        .find(node => node instanceof HTMLTextAreaElement && isVisibleElement(node));
+      const textarea = pickNearestTextarea(root, anchorBox);
 
       if (textarea instanceof HTMLTextAreaElement) {
         resolve(textarea);
@@ -435,10 +452,11 @@
     }
 
     const root = editor.closest('main, [data-testid="editor"], form') || document;
+    const anchorBox = editor.getBoundingClientRect();
     const switched = switchRichTextEditorToMarkdown(editor);
     if (!switched) return false;
 
-    const textarea = await waitForTextarea(root);
+    const textarea = await waitForTextarea(root, anchorBox);
     if (!(textarea instanceof HTMLTextAreaElement)) return false;
 
     rememberEditor(textarea);
@@ -834,7 +852,7 @@
     if (!image) return;
     const richTextMode = isRichTextEditor(editor);
 
-    showToast('正在上传图片到 Netlify 图库...', 'info', true);
+    showToast('正在上传图片到后台图床...', 'info', true);
 
     try {
       const result = await uploadImage(image);
@@ -845,10 +863,11 @@
         return;
       }
 
+      const storageLabel = result.storage === 'catbox' ? '外部图床' : '站内图床';
       showToast(
         richTextMode
-          ? `图片已上传，已切到 Markdown 并插入正文：${result.path}`
-          : `图片已上传并插入正文：${result.path}`,
+          ? `图片已上传到${storageLabel}，已切到 Markdown 并插入正文：${result.path}`
+          : `图片已上传到${storageLabel}并插入正文：${result.path}`,
         'success'
       );
     } catch (error) {
@@ -894,7 +913,7 @@
       stopNativeHandling(event);
 
       if (isRichTextEditor(editor)) {
-        showToast('检测到 Rich Text 模式，已接管图片粘贴并上传到 Netlify 图库。', 'info');
+        showToast('检测到 Rich Text 模式，已接管图片粘贴并上传到后台图床。', 'info');
       }
 
       void handleImageFiles(editor, [file]);
@@ -933,7 +952,7 @@
       stopNativeHandling(event);
 
       if (isRichTextEditor(editor)) {
-        showToast('检测到 Rich Text 模式，已接管图片拖拽并上传到 Netlify 图库。', 'info');
+        showToast('检测到 Rich Text 模式，已接管图片拖拽并上传到后台图床。', 'info');
       }
 
       void handleImageFiles(editor, files);
