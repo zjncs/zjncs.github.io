@@ -1,7 +1,7 @@
 'use strict'
 
 const crypto = require('node:crypto')
-const { getStore, setEnvironmentContext } = require('@netlify/blobs')
+const { connectLambda, getStore } = require('@netlify/blobs')
 
 const STORE_NAME = 'cms-images'
 
@@ -88,58 +88,13 @@ const verifyIdentity = async event => {
   return response.ok
 }
 
-const parseBlobsContext = event => {
-  const raw = String(event.blobs || '').trim()
-  if (!raw) return null
-
-  const decoded = Buffer.from(raw, 'base64').toString('utf8')
-  const data = JSON.parse(decoded)
-  const siteID = event.headers['x-nf-site-id'] || event.headers['X-Nf-Site-Id']
-  const deployID = event.headers['x-nf-deploy-id'] || event.headers['X-Nf-Deploy-Id']
-
-  if (!siteID || !data?.token || !data?.url) return null
-
-  return {
-    deployID,
-    edgeURL: data.url,
-    siteID,
-    token: data.token
-  }
-}
-
 const getBlobsStore = async event => {
-  let context = null
-
   try {
-    context = parseBlobsContext(event)
+    connectLambda(event)
+    return getStore(STORE_NAME)
   } catch (error) {
-    context = null
+    throw new Error(`无法初始化 Netlify Blobs：${String(error?.message || error)}`)
   }
-
-  if (!context) {
-    const siteOrigin = buildSiteOrigin(event)
-    const auth = event.headers.authorization || event.headers.Authorization
-    const response = await fetch(`${siteOrigin}/.netlify/functions/blobs-context`, {
-      headers: {
-        Authorization: auth
-      }
-    })
-
-    if (!response.ok) {
-      const result = await response.json().catch(() => ({}))
-      throw new Error(result.error || '无法获取 Netlify Blobs 上下文。')
-    }
-
-    const result = await response.json().catch(() => ({}))
-    context = result.context || null
-  }
-
-  if (!context) {
-    throw new Error('Netlify Blobs 上下文缺失。')
-  }
-
-  setEnvironmentContext(context)
-  return getStore(STORE_NAME)
 }
 
 exports.handler = async event => {
