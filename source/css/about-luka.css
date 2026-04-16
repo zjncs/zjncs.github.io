@@ -314,11 +314,16 @@ html[data-theme="dark"] #body-wrap.type-about .luka-map-dot circle {
   letter-spacing: 0.01em;
 }
 
-#body-wrap.type-about .luka-plain-entry,
-#body-wrap.type-about .luka-timeline-item {
+#body-wrap.type-about .luka-plain-entry {
   display: grid;
   grid-template-columns: 60px minmax(0, 1fr);
   gap: 18px;
+}
+
+#body-wrap.type-about .luka-timeline-item {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 22px;
 }
 
 #body-wrap.type-about .luka-entry-badge {
@@ -381,7 +386,7 @@ html[data-theme="dark"] #body-wrap.type-about .luka-map-dot circle {
   position: absolute;
   top: 12px;
   bottom: 12px;
-  left: 27px;
+  left: 61px;
   width: 1px;
   background: var(--luka-line);
 }
@@ -399,7 +404,7 @@ html[data-theme="dark"] #body-wrap.type-about .luka-map-dot circle {
   content: "";
   position: absolute;
   top: 20px;
-  left: 22px;
+  left: 56px;
   width: 11px;
   height: 11px;
   border: 3px solid var(--luka-bg);
@@ -496,6 +501,11 @@ html[data-theme="dark"] #body-wrap.type-about .luka-timeline-item::before {
     margin-bottom: 24px;
   }
 
+  #body-wrap.type-about .luka-section-title {
+    margin-bottom: 18px;
+    font-size: 16px;
+  }
+
   #body-wrap.type-about .luka-name {
     font-size: 32px;
   }
@@ -505,9 +515,15 @@ html[data-theme="dark"] #body-wrap.type-about .luka-timeline-item::before {
   }
 
   #body-wrap.type-about .luka-plain-entry,
-  #body-wrap.type-about .luka-timeline-item {
+  #body-wrap.type-about .luka-plain-entry {
     grid-template-columns: 48px minmax(0, 1fr);
     gap: 14px;
+  }
+
+  #body-wrap.type-about .luka-timeline-item {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding-bottom: 24px;
   }
 
   #body-wrap.type-about .luka-entry-badge {
@@ -515,14 +531,32 @@ html[data-theme="dark"] #body-wrap.type-about .luka-timeline-item::before {
     height: 44px;
     border-radius: 14px;
     font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  #body-wrap.type-about .luka-timeline-item .luka-entry-badge {
+    justify-self: start;
   }
 
   #body-wrap.type-about .luka-timeline::before {
-    left: 21px;
+    display: none;
   }
 
   #body-wrap.type-about .luka-timeline-item::before {
-    left: 16px;
+    display: none;
+  }
+
+  #body-wrap.type-about .luka-entry-main h3,
+  #body-wrap.type-about .luka-compact-item h3 {
+    font-size: 17px;
+  }
+
+  #body-wrap.type-about .luka-entry-role,
+  #body-wrap.type-about .luka-entry-date,
+  #body-wrap.type-about .luka-entry-note,
+  #body-wrap.type-about .luka-entry-desc,
+  #body-wrap.type-about .luka-awards-list li {
+    font-size: 13px;
   }
 
   #body-wrap.type-about .luka-awards-list {
