@@ -48,6 +48,37 @@ comments: false
           </a>
         </div>
 
+        <div class="luka-visitor-card">
+          <p class="luka-visitor-count" id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv">--</span>
+            Total Pageviews
+          </p>
+
+          <div class="luka-visitor-map" aria-hidden="true">
+            <svg viewBox="0 0 360 180" role="presentation">
+              <g class="luka-map-land">
+                <path d="M26 70c16-14 30-17 48-16 12 1 21 5 28 10 8 5 12 13 8 20l-10 8 4 10-10 6-12-6-18 4-10-10-12-3-6-11 6-12 14-10z"></path>
+                <path d="M103 112l18 9 10 19-8 20-10 16-11-5 3-16-7-14 5-29z"></path>
+                <path d="M166 60l24-12 40 1 22 6 29-2 36 17 7 15-11 16-17 2-14-5-15 8-18-4-11 10-20-2-12 7-8-10-14 4-9-8 4-16-15-8-1-13 13-6z"></path>
+                <path d="M230 111l16 10 8 20-11 25-19 3-8-17 4-19 10-22z"></path>
+                <path d="M298 136l20 1 14 10-4 13-21 7-16-10 7-21z"></path>
+              </g>
+              <g class="luka-map-dot">
+                <circle cx="84" cy="85" r="4"></circle>
+                <circle cx="121" cy="146" r="4"></circle>
+                <circle cx="203" cy="90" r="4"></circle>
+                <circle cx="255" cy="133" r="4"></circle>
+                <circle cx="308" cy="151" r="4"></circle>
+              </g>
+            </svg>
+          </div>
+
+          <p class="luka-visitor-mini" id="busuanzi_container_page_pv">
+            <span id="busuanzi_value_page_pv">--</span>
+            Views on this page
+          </p>
+        </div>
+
         <div class="luka-quick-facts">
           <p>Information Management and Information System</p>
           <p>Agent Systems · Inference · Product &amp; Open Source</p>
@@ -64,7 +95,7 @@ comments: false
           <div class="luka-entry-main">
             <h3>天津大学</h3>
             <p class="luka-entry-role">信息管理与信息系统 · 本科在读</p>
-            <p class="luka-entry-desc">主线兴趣是 Agent、推理系统与数据驱动 AI 应用工程，课程与实践长期围绕系统实现、模型落地和业务场景展开。</p>
+            <p class="luka-entry-desc">主线兴趣是 Agent、推理系统与数据驱动 AI 应用工程，核心课程包括数据结构、计算机网络、机器学习、数据库、人工智能模型与算法、数据挖掘。</p>
             <p class="luka-entry-date">2023.08 - 2027.06 · GPA 90.07 / 100</p>
           </div>
         </article>
@@ -146,20 +177,20 @@ comments: false
           <article class="luka-compact-item">
             <h3>车联网系统数据隐私保护与安全治理研究</h3>
             <p class="luka-entry-role">科研项目 · 2023.09 - 2024.06</p>
-            <p class="luka-entry-desc">独立使用 Mathematica 完成博弈建模、公式推导与关键验证，相关论文发表于 SSCI 二区。</p>
+            <p class="luka-entry-desc">聚焦智能网联汽车产业安全治理，独立使用 Mathematica 完成博弈建模、公式推导与关键验证，并完成论文建模部分撰写，相关论文发表于 SSCI 二区。</p>
             <p class="luka-entry-note"><a href="https://doi.org/10.1002/mde.4290" target="_blank" rel="noopener">DOI: 10.1002/mde.4290</a></p>
           </article>
 
           <article class="luka-compact-item">
             <h3>数智化餐饮服务系统下消费者行为与运营管理策略研究</h3>
             <p class="luka-entry-role">国家级大创 · 2024.04 - 2026.03</p>
-            <p class="luka-entry-desc">主导消费者行为数据分析，处理 9073 条交易记录与约 100 家企业运营数据，提炼 5 类关键行为模式，为餐饮企业精细化运营提供支撑。</p>
+            <p class="luka-entry-desc">结合运筹学与数据科学，主导消费者行为数据分析，处理 9073 条交易记录与约 100 家企业运营数据，提炼 5 类关键行为模式，为餐饮企业精细化运营与个性化服务提供支撑。</p>
           </article>
 
           <article class="luka-compact-item">
             <h3>灵犀健康 / OpenLinkage</h3>
             <p class="luka-entry-role">个人项目 · Open Source</p>
-            <p class="luka-entry-desc">面向智能健康管理场景的开源多 Agent 框架，围绕个性化健康咨询、长期状态理解与可扩展工具链设计，GitHub 已获 100+ stars。</p>
+            <p class="luka-entry-desc">面向智能健康管理场景的开源多 Agent 框架，围绕个性化健康咨询、长期状态理解与可扩展工具链设计，探索从 AI 助手到健康管理 workflow 的完整产品形态，GitHub 已获 100+ stars。</p>
             <p class="luka-entry-note"><a href="https://github.com/zjncs/OpenLinkage" target="_blank" rel="noopener">github.com/zjncs/OpenLinkage</a></p>
           </article>
         </div>
@@ -173,8 +204,37 @@ comments: false
           <li>Kaggle-NeurIPS 2024 Lux AI Season 3 铜奖</li>
           <li>能源经济学术创意大赛国家级特等奖</li>
           <li>量子信息技术与应用创新大赛一等奖</li>
-          <li>天津大学三好学生 / 优秀学生干部</li>
+          <li>外研社“国才杯”英语综合能力大赛二等奖</li>
+          <li>全国大学生软件创新大赛三等奖</li>
+          <li>节能减排社会实践与科技竞赛二等奖</li>
+          <li>五岳杯量子计算挑战赛三等奖</li>
+          <li>移动云“云智算杯”AI+应用创新大赛三等奖</li>
+          <li>天津大学三好学生</li>
+          <li>天津大学优秀学生干部</li>
         </ul>
+      </section>
+
+      <section class="luka-section">
+        <h2 class="luka-section-title">Leadership &amp; Open Source</h2>
+        <div class="luka-compact-list">
+          <article class="luka-compact-item">
+            <h3>天外天工作室 / 微北洋</h3>
+            <p class="luka-entry-role">校园产品与组织经历</p>
+            <p class="luka-entry-desc">作为天外天工作室部长，参与天津大学官方 APP “微北洋”的产品迭代与功能优化，持续关注校园产品在真实用户场景里的反馈闭环。</p>
+          </article>
+
+          <article class="luka-compact-item">
+            <h3>花火校园</h3>
+            <p class="luka-entry-role">产品营销与落地实践</p>
+            <p class="luka-entry-desc">担任产品营销官，推动校园社交小程序“花火校园”上线推广，补足了从产品设计、用户运营到增长验证的一线经验。</p>
+          </article>
+
+          <article class="luka-compact-item">
+            <h3>XiangShan / Kaiwu / Tencent Programs</h3>
+            <p class="luka-entry-role">Community &amp; Training</p>
+            <p class="luka-entry-desc">热衷于前沿技术开源，在 XiangShan、Kaiwu 等社区有过代码贡献，并参与腾讯未来产品经理 CSIG 定制班与腾讯大前端菁英班。</p>
+          </article>
+        </div>
       </section>
 
       <div class="luka-credit">

@@ -1,6 +1,31 @@
+body:has(#body-wrap.type-about) {
+  background: linear-gradient(180deg, #fffdfa 0%, #f7f1e8 100%) !important;
+  color: #373226;
+}
+
+body:has(#body-wrap.type-about)::before,
+body:has(#body-wrap.type-about)::after {
+  content: none !important;
+  display: none !important;
+}
+
+body:has(#body-wrap.type-about) #page-header,
+body:has(#body-wrap.type-about) #footer,
+body:has(#body-wrap.type-about) #rightside {
+  display: none !important;
+}
+
+body:has(#body-wrap.type-about) #body-wrap {
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 420px at 12% 4%, rgba(233, 189, 139, 0.12), transparent 55%),
+    radial-gradient(920px 360px at 90% 10%, rgba(205, 143, 115, 0.08), transparent 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(255, 250, 244, 0.96));
+}
+
 #body-wrap.type-about #content-inner.layout.hide-aside {
   max-width: 1200px;
-  padding: 28px 24px 64px;
+  padding: 26px 24px 64px;
 }
 
 #body-wrap.type-about #content-inner.layout.hide-aside > div:first-child,
@@ -31,14 +56,25 @@
   font-family: "Avenir Next", "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
+html[data-theme="dark"] body:has(#body-wrap.type-about) {
+  background: linear-gradient(180deg, #171513 0%, #231e19 100%) !important;
+}
+
+html[data-theme="dark"] body:has(#body-wrap.type-about) #body-wrap {
+  background:
+    radial-gradient(1200px 420px at 12% 4%, rgba(139, 96, 59, 0.18), transparent 55%),
+    radial-gradient(920px 360px at 90% 10%, rgba(122, 74, 58, 0.16), transparent 52%),
+    linear-gradient(180deg, rgba(28, 24, 21, 0.92), rgba(23, 20, 18, 0.98));
+}
+
 html[data-theme="dark"] #body-wrap.type-about .luka-about-shell {
-  --luka-bg: #171513;
+  --luka-bg: #211c18;
   --luka-text: #e3ddd2;
-  --luka-secondary: #aba293;
+  --luka-secondary: #b1a797;
   --luka-accent: #e3a07d;
-  --luka-border: rgba(227, 160, 125, 0.14);
-  --luka-line: rgba(227, 160, 125, 0.22);
-  --luka-icon-bg: rgba(35, 31, 28, 0.92);
+  --luka-border: rgba(227, 160, 125, 0.18);
+  --luka-line: rgba(227, 160, 125, 0.25);
+  --luka-icon-bg: rgba(42, 37, 33, 0.95);
   --luka-badge-bg: rgba(227, 160, 125, 0.12);
   --luka-shadow: rgba(0, 0, 0, 0.28);
 }
@@ -86,7 +122,7 @@ html[data-theme="dark"] #body-wrap.type-about .luka-about-shell {
 
 #body-wrap.type-about .luka-sidebar {
   position: sticky;
-  top: 90px;
+  top: 24px;
 }
 
 #body-wrap.type-about .luka-profile {
@@ -173,10 +209,60 @@ html[data-theme="dark"] #body-wrap.type-about .luka-avatar {
   transform: translateY(-2px);
 }
 
-#body-wrap.type-about .luka-quick-facts {
-  margin-top: 34px;
-  padding-top: 28px;
+#body-wrap.type-about .luka-visitor-card {
+  margin-top: 28px;
+  padding: 26px 0 22px;
   border-top: 1px solid var(--luka-border);
+  border-bottom: 1px solid var(--luka-border);
+}
+
+#body-wrap.type-about .luka-visitor-count,
+#body-wrap.type-about .luka-visitor-mini {
+  margin: 0;
+  color: var(--luka-secondary);
+  font-family: "JetBrains Mono", "SFMono-Regular", monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+#body-wrap.type-about .luka-visitor-count span,
+#body-wrap.type-about .luka-visitor-mini span {
+  color: var(--luka-accent);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+#body-wrap.type-about .luka-visitor-map {
+  margin: 18px auto 16px;
+  width: min(260px, 100%);
+  color: rgba(187, 109, 69, 0.82);
+}
+
+#body-wrap.type-about .luka-visitor-map svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+#body-wrap.type-about .luka-map-land path {
+  fill: currentColor;
+  opacity: 0.78;
+}
+
+#body-wrap.type-about .luka-map-dot circle {
+  fill: #fffaf2;
+  stroke: currentColor;
+  stroke-width: 2.5;
+}
+
+html[data-theme="dark"] #body-wrap.type-about .luka-map-dot circle {
+  fill: #211c18;
+}
+
+#body-wrap.type-about .luka-quick-facts {
+  margin-top: 28px;
 }
 
 #body-wrap.type-about .luka-quick-facts p {
@@ -341,7 +427,7 @@ html[data-theme="dark"] #body-wrap.type-about .luka-timeline-item::before {
 #body-wrap.type-about .luka-awards-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px 28px;
+  gap: 14px 32px;
   margin: 0;
   padding: 0;
   list-style: none;
