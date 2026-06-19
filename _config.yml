@@ -20,6 +20,7 @@ code_dir: downloads/code
 i18n_dir: ':lang'
 skip_render:
   - admin/**
+  - meeting/project-management/**
   - '**/._*'
   - '**/.DS_Store'
   - '**/Thumbs.db'

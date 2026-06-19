@@ -25,6 +25,7 @@ nav:
 
 menu:
   Home: / || fas fa-home
+  Project Management: /meeting/project-management/ || fas fa-project-diagram
   Wiki: /wiki/ || fas fa-compass
   Life: /life/ || fas fa-coffee
   Link: /link/ || fas fa-link
