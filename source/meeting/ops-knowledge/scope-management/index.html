@@ -1,0 +1,67 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第七章：范围管理 | 运维知识点</title><style>
+:root{color-scheme:light;--bg:#f7f8fb;--ink:#1d2433;--muted:#667085;--line:#e2e7f0;--panel:#fff;--accent:#1f7a6d;--accent-2:#a43f36;--soft:#e9f4f1;--shadow:0 18px 50px rgba(29,36,51,.10)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#eef5f3 0,#f7f8fb 280px);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.75}.progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--accent);z-index:20}.topbar{position:sticky;top:0;z-index:10;backdrop-filter:blur(18px);background:rgba(247,248,251,.82);border-bottom:1px solid rgba(226,231,240,.82)}.topbar-inner{max-width:1180px;margin:auto;padding:12px 20px;display:flex;align-items:center;gap:12px;justify-content:space-between}.brand{font-weight:750;color:var(--ink);text-decoration:none}.nav-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.icon-btn,.text-btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:8px;padding:8px 10px;text-decoration:none;font-size:14px;line-height:1;cursor:pointer}.text-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}.shell{max-width:1180px;margin:0 auto;padding:44px 20px 72px}.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;margin-bottom:28px}.eyebrow{margin:0 0 10px;color:var(--accent);font-weight:800;letter-spacing:0}.hero h1{margin:0;font-size:clamp(32px,5vw,58px);line-height:1.08;letter-spacing:0}.summary{max-width:780px;margin:16px 0 0;color:var(--muted);font-size:17px}.chapter-nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:26px;align-items:start}.toc{position:sticky;top:76px;padding:16px;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.78);box-shadow:var(--shadow)}.toc-title{font-size:13px;color:var(--muted);font-weight:800;margin-bottom:10px}.toc a{display:block;padding:7px 0;color:#344054;text-decoration:none;border-bottom:1px solid rgba(226,231,240,.72);font-size:14px}.toc a:last-child{border-bottom:0}.article{background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:34px;min-width:0}.article h2{margin:34px 0 12px;padding-top:4px;font-size:22px;line-height:1.3;color:#17202f}.article h2:first-child{margin-top:0}.article p{margin:11px 0}.article strong{color:#111827}.article ol,.article ul{padding-left:1.6em;margin:10px 0 18px}.article li{margin:6px 0}.article blockquote{margin:18px 0;padding:14px 18px;border-left:4px solid var(--accent);background:var(--soft);border-radius:0 8px 8px 0}.article code{background:#f0f2f5;border:1px solid #e1e5eb;border-radius:6px;padding:2px 5px}.pager{display:flex;justify-content:space-between;gap:14px;margin-top:18px}.pager a,.pager span{flex:1}.pager a{text-decoration:none;color:var(--ink);border:1px solid var(--line);background:#fff;border-radius:8px;padding:14px 16px}.pager a.next{text-align:right}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.chapter-card{display:block;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:#fff;border-radius:8px;padding:22px;box-shadow:var(--shadow);min-height:146px}.chapter-card:hover{border-color:rgba(31,122,109,.45);transform:translateY(-1px)}.chapter-card .num{color:var(--accent-2);font-weight:800;font-size:13px}.chapter-card h2{margin:12px 0 10px;font-size:24px}.chapter-card p{margin:0;color:var(--muted)}body.dark{color-scheme:dark;--bg:#101418;--ink:#edf2f7;--muted:#a8b3c2;--line:#2a3441;--panel:#151b22;--soft:#152923;--shadow:0 18px 50px rgba(0,0,0,.28);background:linear-gradient(180deg,#13241f 0,#101418 280px)}body.dark .topbar{background:rgba(16,20,24,.82)}body.dark .icon-btn,body.dark .text-btn,body.dark .article,body.dark .toc,body.dark .pager a,body.dark .chapter-card{background:#151b22}body.dark .article strong{color:#fff}body.dark .article h2{color:#fff}body.dark .toc a{color:#d7dee8}@media(max-width:860px){.shell{padding:30px 16px 52px}.hero{grid-template-columns:1fr}.chapter-nav{justify-content:flex-start}.layout{grid-template-columns:1fr}.toc{position:relative;top:auto}.article{padding:24px 18px}.grid{grid-template-columns:1fr}.pager{flex-direction:column}.pager a.next{text-align:left}.topbar-inner{padding-inline:14px}}
+</style></head><body><div class="progress"></div><header class="topbar"><div class="topbar-inner"><a class="brand" href="/meeting/ops-knowledge/">运维 2026 知识点</a><div class="nav-actions"><a class="icon-btn" href="/">首页</a><a class="icon-btn" href="/meeting/project-management/">第六讲</a><button class="icon-btn" data-theme type="button">明暗</button></div></div></header><main class="shell"><section class="hero"><div><p class="eyebrow">Chapter 07</p><h1>第七章：范围管理</h1><p class="summary">1. 项目范围 定义：项目范围是指为创建产品或服务所做的所有工作及过程。 范围的定义包括两个方面的含义： 1. 产品范围：产品或服务所包含的特征或功能。 2. 工作范围：未...</p></div><nav class="chapter-nav"><a class="text-btn" href="/meeting/ops-knowledge/scope-management/">第七章</a><a class="text-btn" href="/meeting/ops-knowledge/time-management/">第八章</a><a class="text-btn" href="/meeting/ops-knowledge/cost-management/">第九章</a><a class="text-btn" href="/meeting/ops-knowledge/quality-management/">第十章</a><a class="text-btn" href="/meeting/ops-knowledge/daily-maintenance/">第十一章</a></nav></section><section class="layout"><aside class="toc"><div class="toc-title">本页目录</div><div class="toc-links"></div></aside><article class="article"><ol type="1">
+<li><strong>项目范围</strong></li>
+</ol>
+<p>定义：项目范围是指为创建产品或服务所做的所有工作及过程。</p>
+<p>范围的定义包括两个方面的含义：</p>
+<ol type="1">
+<li><p>产品范围：产品或服务所包含的特征或功能。</p></li>
+<li><p>工作范围：未交付具有规定特征和功能的产品或服务所必须完成的工作。</p></li>
+</ol>
+<!-- -->
+<ol start="2" type="1">
+<li><strong>范围的管理：</strong></li>
+</ol>
+<p>范围的管理是一种管理职能，它能够确保所作的工作既充分且必要，这些工作可以实现项目的目标。包含三层含义：</p>
+<ol type="1">
+<li><p>所确定的工作范围是充分的。</p></li>
+<li><p>工作范围不包括那些不不要的工作</p></li>
+<li><p>工作范围规定要做的工作能够实现预想的商业目标</p></li>
+</ol>
+<!-- -->
+<ol start="3" type="1">
+<li><strong>创建工作分解结构（WBS）</strong></li>
+</ol>
+<p>工作分解的目的：工作分解结构(WBS)是面向可交付成果的项目元素的层次分解，组织并定义了整个项目范围。每细分一个层次表示对项目元素更细致的描述。</p>
+<p>工作分解的意义：WBS处于计划编制过程的中心，是制定进度计划、成本预算、人员需求、质量计划编制等的基础。</p>
+<ol start="4" type="1">
+<li><strong>工作分解原则</strong></li>
+</ol>
+<!-- -->
+<ol type="1">
+<li><p>在各层次上保持项目的完整性，避免遗漏必要的组成部分。</p></li>
+<li><p>一个工作单元只能从属于某个上层单元，避免交叉从属。</p></li>
+<li><p>相同层次的工作单元应用相同性质。</p></li>
+<li><p>工作单元应能分开不同的责任者和不同工作内容。</p></li>
+<li><p>便于项目管理计划、控制的管理需要。</p></li>
+<li><p>最底层工作应该具有可比性，是可管理的，可定量检查的。</p></li>
+<li><p>应包含项目管理工作，包括分包出去的工作。</p></li>
+</ol>
+<!-- -->
+<ol start="5" type="1">
+<li><strong>工作分解要点：</strong></li>
+</ol>
+<!-- -->
+<ol type="1">
+<li><p>过程识别和确认项目的主要部分，即主要可交付物。</p></li>
+<li><p>分解并确认每一组成部分是否分解的足够详细。</p></li>
+<li><p>确认主要交付成果的组成要素。</p></li>
+<li><p>核实分解的正确性。</p></li>
+</ol>
+<!-- -->
+<ol start="6" type="1">
+<li><strong>在信息系统项目中建立WBS的步骤</strong></li>
+</ol>
+<!-- -->
+<ol type="1">
+<li><p>识别信息系统项目中与产品相关的工作。</p></li>
+<li><p>寻找项目中其它更高层系统的工作分解。</p></li>
+<li><p>确定WBS构架标准。</p></li>
+<li><p>将信息系统WBS细项进行组合与合并。</p></li>
+<li><p>确定信息系统项目成本清单。</p></li>
+</ol>
+</article></section><div class="pager"><span></span><a class="next" href="/meeting/ops-knowledge/time-management/">下一讲<br><strong>第八章：时间管理</strong></a></div></main><script>
+const root=document.body;const saved=localStorage.getItem('ops-theme');if(saved==='dark')root.classList.add('dark');document.querySelector('[data-theme]')?.addEventListener('click',()=>{root.classList.toggle('dark');localStorage.setItem('ops-theme',root.classList.contains('dark')?'dark':'light')});const bar=document.querySelector('.progress');addEventListener('scroll',()=>{const h=document.documentElement;const pct=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;bar.style.width=(isFinite(pct)?pct:0)+'%'},{passive:true});document.querySelectorAll('.article strong').forEach((el,i)=>{const text=el.textContent.trim();if(/^\d+[\.．、]|^\（?\d+\）/.test(text)&&el.parentElement?.tagName==='P'){const h=document.createElement('h2');h.id='section-'+(i+1);h.textContent=text;el.parentElement.replaceWith(h)}});const toc=document.querySelector('.toc-links');if(toc){const heads=[...document.querySelectorAll('.article h2')];toc.innerHTML=heads.slice(0,18).map(h=>`<a href="#${h.id}">${h.textContent}</a>`).join('')||'<span>本页无小节</span>'}
+</script></body></html>

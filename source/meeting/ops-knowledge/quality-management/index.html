@@ -1,0 +1,86 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第十章：质量管理 | 运维知识点</title><style>
+:root{color-scheme:light;--bg:#f7f8fb;--ink:#1d2433;--muted:#667085;--line:#e2e7f0;--panel:#fff;--accent:#1f7a6d;--accent-2:#a43f36;--soft:#e9f4f1;--shadow:0 18px 50px rgba(29,36,51,.10)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#eef5f3 0,#f7f8fb 280px);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.75}.progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--accent);z-index:20}.topbar{position:sticky;top:0;z-index:10;backdrop-filter:blur(18px);background:rgba(247,248,251,.82);border-bottom:1px solid rgba(226,231,240,.82)}.topbar-inner{max-width:1180px;margin:auto;padding:12px 20px;display:flex;align-items:center;gap:12px;justify-content:space-between}.brand{font-weight:750;color:var(--ink);text-decoration:none}.nav-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.icon-btn,.text-btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:8px;padding:8px 10px;text-decoration:none;font-size:14px;line-height:1;cursor:pointer}.text-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}.shell{max-width:1180px;margin:0 auto;padding:44px 20px 72px}.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;margin-bottom:28px}.eyebrow{margin:0 0 10px;color:var(--accent);font-weight:800;letter-spacing:0}.hero h1{margin:0;font-size:clamp(32px,5vw,58px);line-height:1.08;letter-spacing:0}.summary{max-width:780px;margin:16px 0 0;color:var(--muted);font-size:17px}.chapter-nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:26px;align-items:start}.toc{position:sticky;top:76px;padding:16px;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.78);box-shadow:var(--shadow)}.toc-title{font-size:13px;color:var(--muted);font-weight:800;margin-bottom:10px}.toc a{display:block;padding:7px 0;color:#344054;text-decoration:none;border-bottom:1px solid rgba(226,231,240,.72);font-size:14px}.toc a:last-child{border-bottom:0}.article{background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:34px;min-width:0}.article h2{margin:34px 0 12px;padding-top:4px;font-size:22px;line-height:1.3;color:#17202f}.article h2:first-child{margin-top:0}.article p{margin:11px 0}.article strong{color:#111827}.article ol,.article ul{padding-left:1.6em;margin:10px 0 18px}.article li{margin:6px 0}.article blockquote{margin:18px 0;padding:14px 18px;border-left:4px solid var(--accent);background:var(--soft);border-radius:0 8px 8px 0}.article code{background:#f0f2f5;border:1px solid #e1e5eb;border-radius:6px;padding:2px 5px}.pager{display:flex;justify-content:space-between;gap:14px;margin-top:18px}.pager a,.pager span{flex:1}.pager a{text-decoration:none;color:var(--ink);border:1px solid var(--line);background:#fff;border-radius:8px;padding:14px 16px}.pager a.next{text-align:right}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.chapter-card{display:block;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:#fff;border-radius:8px;padding:22px;box-shadow:var(--shadow);min-height:146px}.chapter-card:hover{border-color:rgba(31,122,109,.45);transform:translateY(-1px)}.chapter-card .num{color:var(--accent-2);font-weight:800;font-size:13px}.chapter-card h2{margin:12px 0 10px;font-size:24px}.chapter-card p{margin:0;color:var(--muted)}body.dark{color-scheme:dark;--bg:#101418;--ink:#edf2f7;--muted:#a8b3c2;--line:#2a3441;--panel:#151b22;--soft:#152923;--shadow:0 18px 50px rgba(0,0,0,.28);background:linear-gradient(180deg,#13241f 0,#101418 280px)}body.dark .topbar{background:rgba(16,20,24,.82)}body.dark .icon-btn,body.dark .text-btn,body.dark .article,body.dark .toc,body.dark .pager a,body.dark .chapter-card{background:#151b22}body.dark .article strong{color:#fff}body.dark .article h2{color:#fff}body.dark .toc a{color:#d7dee8}@media(max-width:860px){.shell{padding:30px 16px 52px}.hero{grid-template-columns:1fr}.chapter-nav{justify-content:flex-start}.layout{grid-template-columns:1fr}.toc{position:relative;top:auto}.article{padding:24px 18px}.grid{grid-template-columns:1fr}.pager{flex-direction:column}.pager a.next{text-align:left}.topbar-inner{padding-inline:14px}}
+</style></head><body><div class="progress"></div><header class="topbar"><div class="topbar-inner"><a class="brand" href="/meeting/ops-knowledge/">运维 2026 知识点</a><div class="nav-actions"><a class="icon-btn" href="/">首页</a><a class="icon-btn" href="/meeting/project-management/">第六讲</a><button class="icon-btn" data-theme type="button">明暗</button></div></div></header><main class="shell"><section class="hero"><div><p class="eyebrow">Chapter 10</p><h1>第十章：质量管理</h1><p class="summary">1. 质量管理过程：\ （1）质量规划：确定适合于项目的质量标准并决定如何满足这些标准。 2. 质量保证：开展有计划、有系统的质量活动，确保项目的所有过程满足干系人的期望。...</p></div><nav class="chapter-nav"><a class="text-btn" href="/meeting/ops-knowledge/scope-management/">第七章</a><a class="text-btn" href="/meeting/ops-knowledge/time-management/">第八章</a><a class="text-btn" href="/meeting/ops-knowledge/cost-management/">第九章</a><a class="text-btn" href="/meeting/ops-knowledge/quality-management/">第十章</a><a class="text-btn" href="/meeting/ops-knowledge/daily-maintenance/">第十一章</a></nav></section><section class="layout"><aside class="toc"><div class="toc-title">本页目录</div><div class="toc-links"></div></aside><article class="article"><ol type="1">
+<li><strong>质量管理过程：</strong><br />
+（1）质量规划：确定适合于项目的质量标准并决定如何满足这些标准。</li>
+</ol>
+<!-- -->
+<ol start="2" type="1">
+<li><p>质量保证：开展有计划、有系统的质量活动，确保项目的所有过程满足干系人的期望。</p></li>
+<li><p>质量控制：监控具体项目过程于结果，以确定其是否符合相关质量标准。指定有效方案，以消除产生质量问题的原因。</p></li>
+</ol>
+<!-- -->
+<ol start="2" type="1">
+<li><strong>质量管理体系与方针</strong></li>
+</ol>
+<p>质量管理体系：质量管理体系是指在质量方面指挥和控制组织的管理体系，
+由建立质量方针和质量目标，并通过质量规划、质量保证和质量控制以及质量改进来实现这些目标的活动组成。</p>
+<p>质量方针：由组织的最高管理者正式发布的该组织总的质量宗旨和方向。</p>
+<ol start="3" type="1">
+<li><strong>ISO9000的八个原则</strong></li>
+</ol>
+<!-- -->
+<ol type="1">
+<li><p>原则一：以顾客为中心</p></li>
+<li><p>原则二：领导作用</p></li>
+<li><p>原则三：全员参与</p></li>
+<li><p>原则四：过程方法</p></li>
+<li><p>原则五：管理的系统方法</p></li>
+<li><p>原则六：持续改进</p></li>
+<li><p>原则七：基于事实的决策方法</p></li>
+<li><p>原则八：互利的供方关系</p></li>
+</ol>
+<!-- -->
+<ol start="4" type="1">
+<li><strong>软件能力成熟度模型</strong></li>
+</ol>
+<p>成熟度模型定义：改进软件开发项目管理质量的方法有很多，具有代表性的是用于帮助组织改进过程和系统的框架模型，即成熟度模型。目前在软件行业应用最为广泛的软件生产工程标
+准是软件能力成熟度模型（CMM）。</p>
+<p>CMM的五个等级（其中每一较低级别是达到较高级别的基础。除初始级别外，每个成熟度等级都指明为了改进其软件过程的机构应关注的关键过程域）：</p>
+<ol type="1">
+<li><p>初始级：表明软件项目开发过程无序，进度、预算、功能和质量等方面不可预测。</p></li>
+<li><p>可重复级：企业过程已制度化，有纪律，可重复；</p></li>
+<li><p>已定义级：企业过程已实现标准化；</p></li>
+<li><p>已管理级：企业已实现过程的定量化；</p></li>
+<li><p>优化级：企业过程可自发地不断改进，能够防止同类问题二次出现。</p></li>
+</ol>
+<p>5<strong>.质量控制的老七种</strong></p>
+<p>（1）调查表（检查表）</p>
+<p>调查表是一种用于收集、整理和统计质量数据的工具，通过预先设计好的表格记录质量问题发生情况，为后续分析提供依据。</p>
+<p>（2）因果分析图（鱼刺图）</p>
+<p>因果分析图是一种用于分析质量问题产生原因的工具，通过从人、机、料、法、环等方面寻找问题根源，帮助制定改进措施。</p>
+<p>（3）直方图（柱状图）</p>
+<p>直方图是一种反映质量数据分布状态的统计工具，通过观察数据集中程度、离散程度和分布规律，判断质量状况是否正常。</p>
+<p>（4）帕累托分析（排列图）</p>
+<p>排列图是一种按照问题发生频率大小进行排序的工具，依据二八原则找出影响质量的主要因素，确定改进重点。</p>
+<p>（5）散点图</p>
+<p>散点图是一种研究两个变量之间相关关系的工具，通过观察点的分布趋势判断变量之间是否存在正相关、负相关或无相关关系。</p>
+<p>（6）流程图</p>
+<p>流程图是一种用图形表示工作过程和活动顺序的工具，用于分析业务流程、发现流程中的瓶颈和问题。</p>
+<p>（7）层别法</p>
+<p>层别法是一种按照不同类别对数据进行分类统计的方法，通过分层分析找出质量问题产生的具体原因和规律。</p>
+<p>（8）控制图</p>
+<p>控制图是一种用于监控过程稳定性的统计工具，通过控制上限、中心线和控制下限判断生产或开发过程是否处于受控状态。</p>
+<p><strong>6.质量控制的新七种</strong></p>
+<p>（1）关联图</p>
+<p>关联图是一种用于分析复杂问题之间因果关系的工具，通过连接各因素之间的关系，找出关键原因和主要影响因素。</p>
+<p>（2）亲和图</p>
+<p>亲和图是一种对大量信息、意见或问题进行归纳整理的工具，通过分类汇总形成若干主题，帮助理清思路。</p>
+<p>（3）系统图</p>
+<p>系统图是一种将目标逐层分解为实现手段的工具，用于明确实现目标的方法和步骤，形成完整的解决方案。</p>
+<p>（4）矩阵图</p>
+<p>矩阵图是一种分析两个或多个因素之间对应关系的工具，通过矩阵形式表示各因素之间关系的强弱和重要程度。</p>
+<p>（5）矩阵数据分析法</p>
+<p>矩阵数据分析法是在矩阵图基础上进行定量分析的方法，用于评价多个方案、多项指标之间的关系并辅助决策。</p>
+<p>（6）PDPC法</p>
+<p>PDPC法（过程决策程序图法）是一种预测计划实施过程中可能出现的问题并制定应对措施的工具，用于风险预防和过程控制。</p>
+<p><strong>7.软件项目质量控制采用的主要方法</strong></p>
+<p>（1）技术评审：技术评审是指由相关技术专家对项目的技术成果进行系统检查和评价，以发现设计、需求或实现中的问题，保证产品质量。</p>
+<p>（2）代码走查：代码走查是由程序员向其他成员逐行讲解程序逻辑，由参与人员共同检查代码错误的方法。</p>
+<p>（3）代码会审：代码会审是由专门评审小组对程序代码进行正式检查和评审的方法。</p>
+<p>（4）软件测试：软件测试是通过执行程序发现软件缺陷并验证软件是否满足需求的过程。</p>
+<p>（5）缺陷跟踪：缺陷跟踪是对软件开发过程中发现的缺陷进行记录、分配、处理、验证和关闭的管理过程。</p>
+</article></section><div class="pager"><a href="/meeting/ops-knowledge/cost-management/">上一讲<br><strong>第九章：成本管理</strong></a><a class="next" href="/meeting/ops-knowledge/daily-maintenance/">下一讲<br><strong>第十一章：系统日常维护</strong></a></div></main><script>
+const root=document.body;const saved=localStorage.getItem('ops-theme');if(saved==='dark')root.classList.add('dark');document.querySelector('[data-theme]')?.addEventListener('click',()=>{root.classList.toggle('dark');localStorage.setItem('ops-theme',root.classList.contains('dark')?'dark':'light')});const bar=document.querySelector('.progress');addEventListener('scroll',()=>{const h=document.documentElement;const pct=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;bar.style.width=(isFinite(pct)?pct:0)+'%'},{passive:true});document.querySelectorAll('.article strong').forEach((el,i)=>{const text=el.textContent.trim();if(/^\d+[\.．、]|^\（?\d+\）/.test(text)&&el.parentElement?.tagName==='P'){const h=document.createElement('h2');h.id='section-'+(i+1);h.textContent=text;el.parentElement.replaceWith(h)}});const toc=document.querySelector('.toc-links');if(toc){const heads=[...document.querySelectorAll('.article h2')];toc.innerHTML=heads.slice(0,18).map(h=>`<a href="#${h.id}">${h.textContent}</a>`).join('')||'<span>本页无小节</span>'}
+</script></body></html>

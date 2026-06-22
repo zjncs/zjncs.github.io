@@ -1,0 +1,53 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第十一章：系统日常维护 | 运维知识点</title><style>
+:root{color-scheme:light;--bg:#f7f8fb;--ink:#1d2433;--muted:#667085;--line:#e2e7f0;--panel:#fff;--accent:#1f7a6d;--accent-2:#a43f36;--soft:#e9f4f1;--shadow:0 18px 50px rgba(29,36,51,.10)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#eef5f3 0,#f7f8fb 280px);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.75}.progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--accent);z-index:20}.topbar{position:sticky;top:0;z-index:10;backdrop-filter:blur(18px);background:rgba(247,248,251,.82);border-bottom:1px solid rgba(226,231,240,.82)}.topbar-inner{max-width:1180px;margin:auto;padding:12px 20px;display:flex;align-items:center;gap:12px;justify-content:space-between}.brand{font-weight:750;color:var(--ink);text-decoration:none}.nav-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.icon-btn,.text-btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:8px;padding:8px 10px;text-decoration:none;font-size:14px;line-height:1;cursor:pointer}.text-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}.shell{max-width:1180px;margin:0 auto;padding:44px 20px 72px}.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;margin-bottom:28px}.eyebrow{margin:0 0 10px;color:var(--accent);font-weight:800;letter-spacing:0}.hero h1{margin:0;font-size:clamp(32px,5vw,58px);line-height:1.08;letter-spacing:0}.summary{max-width:780px;margin:16px 0 0;color:var(--muted);font-size:17px}.chapter-nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:26px;align-items:start}.toc{position:sticky;top:76px;padding:16px;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.78);box-shadow:var(--shadow)}.toc-title{font-size:13px;color:var(--muted);font-weight:800;margin-bottom:10px}.toc a{display:block;padding:7px 0;color:#344054;text-decoration:none;border-bottom:1px solid rgba(226,231,240,.72);font-size:14px}.toc a:last-child{border-bottom:0}.article{background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:34px;min-width:0}.article h2{margin:34px 0 12px;padding-top:4px;font-size:22px;line-height:1.3;color:#17202f}.article h2:first-child{margin-top:0}.article p{margin:11px 0}.article strong{color:#111827}.article ol,.article ul{padding-left:1.6em;margin:10px 0 18px}.article li{margin:6px 0}.article blockquote{margin:18px 0;padding:14px 18px;border-left:4px solid var(--accent);background:var(--soft);border-radius:0 8px 8px 0}.article code{background:#f0f2f5;border:1px solid #e1e5eb;border-radius:6px;padding:2px 5px}.pager{display:flex;justify-content:space-between;gap:14px;margin-top:18px}.pager a,.pager span{flex:1}.pager a{text-decoration:none;color:var(--ink);border:1px solid var(--line);background:#fff;border-radius:8px;padding:14px 16px}.pager a.next{text-align:right}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.chapter-card{display:block;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:#fff;border-radius:8px;padding:22px;box-shadow:var(--shadow);min-height:146px}.chapter-card:hover{border-color:rgba(31,122,109,.45);transform:translateY(-1px)}.chapter-card .num{color:var(--accent-2);font-weight:800;font-size:13px}.chapter-card h2{margin:12px 0 10px;font-size:24px}.chapter-card p{margin:0;color:var(--muted)}body.dark{color-scheme:dark;--bg:#101418;--ink:#edf2f7;--muted:#a8b3c2;--line:#2a3441;--panel:#151b22;--soft:#152923;--shadow:0 18px 50px rgba(0,0,0,.28);background:linear-gradient(180deg,#13241f 0,#101418 280px)}body.dark .topbar{background:rgba(16,20,24,.82)}body.dark .icon-btn,body.dark .text-btn,body.dark .article,body.dark .toc,body.dark .pager a,body.dark .chapter-card{background:#151b22}body.dark .article strong{color:#fff}body.dark .article h2{color:#fff}body.dark .toc a{color:#d7dee8}@media(max-width:860px){.shell{padding:30px 16px 52px}.hero{grid-template-columns:1fr}.chapter-nav{justify-content:flex-start}.layout{grid-template-columns:1fr}.toc{position:relative;top:auto}.article{padding:24px 18px}.grid{grid-template-columns:1fr}.pager{flex-direction:column}.pager a.next{text-align:left}.topbar-inner{padding-inline:14px}}
+</style></head><body><div class="progress"></div><header class="topbar"><div class="topbar-inner"><a class="brand" href="/meeting/ops-knowledge/">运维 2026 知识点</a><div class="nav-actions"><a class="icon-btn" href="/">首页</a><a class="icon-btn" href="/meeting/project-management/">第六讲</a><button class="icon-btn" data-theme type="button">明暗</button></div></div></header><main class="shell"><section class="hero"><div><p class="eyebrow">Chapter 11</p><h1>第十一章：系统日常维护</h1><p class="summary">1. IS开发方式： IS开发方式分为商品软件和专门开发。专门开发分为自主开发、委托开发、合作开发。 2. 开发进度脱期的原因： 1. 环境变化、资金不到位、人员变动等； ...</p></div><nav class="chapter-nav"><a class="text-btn" href="/meeting/ops-knowledge/scope-management/">第七章</a><a class="text-btn" href="/meeting/ops-knowledge/time-management/">第八章</a><a class="text-btn" href="/meeting/ops-knowledge/cost-management/">第九章</a><a class="text-btn" href="/meeting/ops-knowledge/quality-management/">第十章</a><a class="text-btn" href="/meeting/ops-knowledge/daily-maintenance/">第十一章</a></nav></section><section class="layout"><aside class="toc"><div class="toc-title">本页目录</div><div class="toc-links"></div></aside><article class="article"><ol type="1">
+<li><strong>IS开发方式：</strong></li>
+</ol>
+<p>IS开发方式分为商品软件和专门开发。专门开发分为自主开发、委托开发、合作开发。</p>
+<ol start="2" type="1">
+<li><strong>开发进度脱期的原因：</strong></li>
+</ol>
+<!-- -->
+<ol type="1">
+<li><p>环境变化、资金不到位、人员变动等；</p></li>
+<li><p>工作量经验估计，实际与预计发生了较大差别；</p></li>
+<li><p>产生事先未估计到的活动，使工作量增加；</p></li>
+<li><p>需求等发生变化，需要局部修改返工。</p></li>
+</ol>
+<!-- -->
+<ol start="3" type="1">
+<li><strong>系统性能指标：</strong></li>
+</ol>
+<!-- -->
+<ol type="1">
+<li><p>系统可使用性，人机交互的灵活性与方便性。</p></li>
+<li><p>系统可靠性，输出信息的正确性与精确度。</p></li>
+<li><p>系统可拓展性，改进、扩展、集成的难易度。</p></li>
+<li><p>系统可维护性，故障诊断排除、系统恢复的难易程度。</p></li>
+<li><p>系统安全与保密性：措施完整、规范与有效性。</p></li>
+<li><p>系统文档完备性：文档规范、完备与正确度。</p></li>
+</ol>
+<!-- -->
+<ol start="4" type="1">
+<li><strong>信息系统的运行管理主要包括：</strong></li>
+</ol>
+<!-- -->
+<ol type="1">
+<li><p>系统的安全与保密管理；</p></li>
+<li><p>系统的日常管理和控制；</p></li>
+<li><p>系统的用户培训等。</p></li>
+</ol>
+<!-- -->
+<ol start="5" type="1">
+<li><strong>信息系统维护管理的几个方面：</strong></li>
+</ol>
+<!-- -->
+<ol type="1">
+<li><p>系统的日常维护；</p></li>
+<li><p>系统的应急维护；</p></li>
+<li><p>系统的适应性维护。</p></li>
+</ol>
+</article></section><div class="pager"><a href="/meeting/ops-knowledge/quality-management/">上一讲<br><strong>第十章：质量管理</strong></a><span></span></div></main><script>
+const root=document.body;const saved=localStorage.getItem('ops-theme');if(saved==='dark')root.classList.add('dark');document.querySelector('[data-theme]')?.addEventListener('click',()=>{root.classList.toggle('dark');localStorage.setItem('ops-theme',root.classList.contains('dark')?'dark':'light')});const bar=document.querySelector('.progress');addEventListener('scroll',()=>{const h=document.documentElement;const pct=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;bar.style.width=(isFinite(pct)?pct:0)+'%'},{passive:true});document.querySelectorAll('.article strong').forEach((el,i)=>{const text=el.textContent.trim();if(/^\d+[\.．、]|^\（?\d+\）/.test(text)&&el.parentElement?.tagName==='P'){const h=document.createElement('h2');h.id='section-'+(i+1);h.textContent=text;el.parentElement.replaceWith(h)}});const toc=document.querySelector('.toc-links');if(toc){const heads=[...document.querySelectorAll('.article h2')];toc.innerHTML=heads.slice(0,18).map(h=>`<a href="#${h.id}">${h.textContent}</a>`).join('')||'<span>本页无小节</span>'}
+</script></body></html>

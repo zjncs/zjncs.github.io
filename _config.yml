@@ -21,6 +21,7 @@ i18n_dir: ':lang'
 skip_render:
   - admin/**
   - meeting/project-management/**
+  - meeting/ops-knowledge/**
   - '**/._*'
   - '**/.DS_Store'
   - '**/Thumbs.db'
