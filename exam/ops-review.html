@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>运维项目管理考前背诵答案</title>
+<style>
+  :root{--bg:#f6f7fb;--card:#fff;--ink:#172033;--muted:#667085;--line:#d9e0ec;--blue:#2357d6;--red:#c92a2a;--green:#087f5b;--yellow:#fff8db}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.62}
+  .wrap{max-width:1120px;margin:0 auto;padding:24px}
+  header{background:#14213d;color:white;border-radius:16px;padding:24px;box-shadow:0 14px 32px rgba(20,33,61,.18)}
+  h1{margin:0 0 8px;font-size:30px}
+  header p{margin:0;color:#dbe5ff}
+  nav{position:sticky;top:0;z-index:5;margin:14px 0;background:rgba(246,247,251,.94);backdrop-filter:blur(8px);padding:10px 0}
+  nav a{display:inline-block;margin:4px 6px 4px 0;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:white;color:#1d3557;text-decoration:none;font-weight:700;font-size:14px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:16px;margin:14px 0;padding:18px;box-shadow:0 8px 22px rgba(16,24,40,.05)}
+  h2{font-size:22px;margin:0 0 12px;border-left:5px solid var(--blue);padding-left:10px}
+  h3{font-size:18px;margin:18px 0 8px;color:#0f2544}
+  .tag{display:inline-block;border-radius:999px;padding:3px 8px;font-size:12px;font-weight:800;background:#eef4ff;color:#1e40af;margin-left:6px}
+  .must{background:#fff1f3;color:#c01048}
+  ul{margin:8px 0 10px 22px;padding:0}
+  li{margin:4px 0}
+  .answer{background:#fbfcff;border:1px solid var(--line);border-radius:12px;padding:12px;margin:8px 0}
+  .memo{background:var(--yellow);border-left:4px solid #f59f00;padding:10px 12px;border-radius:8px;margin:8px 0}
+  .formula{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#f1f3f5;border:1px solid #dee2e6;border-radius:8px;padding:8px 10px;display:block;margin:6px 0;white-space:pre-wrap}
+  table{border-collapse:collapse;width:100%;margin:8px 0;border:1px solid var(--line)}
+  th,td{border:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}
+  th{background:#eef4ff}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+  .small{color:var(--muted);font-size:14px}
+  .ok{color:var(--green);font-weight:800}
+  .bad{color:var(--red);font-weight:800}
+  @media(max-width:720px){.wrap{padding:14px}h1{font-size:24px}section{padding:14px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>运维项目管理考前背诵答案</h1>
+  <p>按课件和重点整理：简答/论述、名词解释、填空题。目标是临考快速拿分。</p>
+</header>
+
+<nav>
+  <a href="#essay">简答论述</a>
+  <a href="#terms">名词解释</a>
+  <a href="#blank">填空题</a>
+  <a href="#calc">计算题公式</a>
+  <a href="#last">最后一小时</a>
+</nav>
+
+<section id="essay">
+<h2>一、简答题 / 论述题</h2>
+
+<h3>1. 进度失败 / 进度拖延的原因 <span class="tag must">必背</span></h3>
+<div class="memo">口诀：计划错，条件变，管理乱。</div>
+<div class="answer">
+项目进度失败或进度拖延的原因主要包括：工期及相关计划的失误、边界条件的变化以及管理过程中的失误。具体表现为工期估算不准确、进度计划不合理，需求、资源或外部环境发生变化，以及执行过程中协调、监控和变更管理不到位等。
+</div>
+
+<h3>2. 项目质量管理控制采用的主要方法 <span class="tag must">必背</span></h3>
+<div class="memo">口诀：评查审测跟。</div>
+<ul>
+  <li>技术评审：对技术方案、设计文档等进行评审。</li>
+  <li>代码走查：开发人员按代码逻辑逐步检查程序。</li>
+  <li>代码会审：由评审小组正式检查和评审代码。</li>
+  <li>软件测试：通过执行程序发现缺陷并验证需求。</li>
+  <li>缺陷跟踪：记录、分配、处理、验证和关闭缺陷。</li>
+</ul>
+
+<h3>3. 组织结构类型及优缺点和适用范围 <span class="tag must">必背</span></h3>
+<div class="memo">口诀：职能部门强，矩阵双领导，项目经理王。标准产品用职能，常见项目用矩阵，客户定制用项目。</div>
+<table>
+<tr><th>类型</th><th>优点</th><th>缺点</th><th>适用范围</th></tr>
+<tr><td>职能型</td><td>上下级关系清楚，专业技术强。</td><td>跨部门沟通困难，项目经理权力弱，反应慢。</td><td>生产、销售标准产品或服务的企业。</td></tr>
+<tr><td>矩阵型</td><td>跨专业团队易建立，资源流动灵活，职能部门提供专业支持。</td><td>两个老板，双重汇报，资源和优先级冲突。</td><td>目前较常用的项目组织形式。</td></tr>
+<tr><td>项目型</td><td>项目经理控制强，职责清楚，沟通容易，反应快。</td><td>组织稳定性差，可能重管理轻技术。</td><td>以客户定制产品或服务为主的企业。</td></tr>
+</table>
+
+<h3>4. 基于规模 FP 的成本估算方法步骤 <span class="tag must">必背</span></h3>
+<div class="memo">口诀：三点、权重、相加、调整、算成本。</div>
+<ol>
+  <li>根据 FP 三点估算法，计算 5 大功能点基本要素的估算值：输入、输出、查询、文件数、外部接口。</li>
+  <li>根据 5 个要素的功能复杂性选择简单、一般、复杂的复杂度系数。</li>
+  <li>对所有功能要素按数量乘权重并相加，得到功能总计数值。</li>
+  <li>估算 14 个复杂度调整因子 Fi，求和得到 ΣFi。</li>
+  <li>计算功能点数，并进一步估算项目总成本。</li>
+</ol>
+<span class="formula">三点估算：EV = (So + 4Sm + Sp) / 6
+FP = 功能总计数值 × [0.65 + 0.01 × ΣFi]
+项目总成本 = 劳动力成本 × FP / 平均生产率</span>
+<p class="small">注意：这里 EV 是期望估算值，不是挣值分析里的 Earned Value。</p>
+
+<h3>5. FP 估算法优缺点</h3>
+<div class="grid">
+<div class="answer"><b>优点：标客新无比</b><br>基于定义良好的计算标准；基于客户视角，容易理解和接受；可用于新项目、升级项目和维护项目；与技术和编程语言无关；可比较不同组织和技术。</div>
+<div class="answer"><b>缺点：看不全、分不准、太简单</b><br>只考虑可见复杂度，对系统内部复杂性考虑较少；功能复杂度三级划分比较武断；简单相加假设没有充分考虑系统集成带来的额外开销。</div>
+</div>
+
+<h3>6. LOC 类比估算法步骤及优缺点 <span class="tag must">必背</span></h3>
+<div class="memo">步骤口诀：范、分、行、成。优点：直准易。缺点：无标、依赖、早期难。</div>
+<ol>
+  <li>以系统规划为指导，建立初步的软件范围说明。</li>
+  <li>对范围说明进一步细化分解，得到主要软件功能。</li>
+  <li>根据经验估算各功能 LOC 期望值及项目总代码行数。</li>
+  <li>根据历史经验中的平均生产率和劳动力成本，估算基于代码行总量的总成本。</li>
+</ol>
+<p><b>优点：</b>直观；在已有代码情况下较准确；易于计算，可使用代码行统计工具。</p>
+<p><b>缺点：</b>代码行度量没有公认标准；代码行数量依赖编程语言和个人编程风格；项目早期需求不稳定、设计不成熟时很难准确估算。</p>
+
+<h3>7. 项目生命周期模型的特点 <span class="tag must">必背</span></h3>
+<div class="memo">口诀：明瀑，不明原；分批增，反复迭；风险大，螺旋转。</div>
+<table>
+<tr><th>模型</th><th>特点</th><th>适用</th></tr>
+<tr><td>瀑布模型</td><td>简单、分阶段、阶段间有因果关系，阶段后评审，需求预先确定。</td><td>需求明确且不易变更。</td></tr>
+<tr><td>快速原型模型</td><td>先做原型，支持用户参与，逐步确认需求。</td><td>需求复杂、难确定、动态变化。</td></tr>
+<tr><td>增量模型</td><td>软件产品一块块开发，分批交付，可并行和重叠。</td><td>技术风险较大、需求较稳定、资金可分批投入。</td></tr>
+<tr><td>迭代模型</td><td>反复改进，逐步获取需求并完善产品。</td><td>需求难确定、不断变化。</td></tr>
+<tr><td>螺旋模型</td><td>结合瀑布、原型、迭代思想，引入风险分析。</td><td>需求难获取、开发风险较大。</td></tr>
+</table>
+</section>
+
+<section id="terms">
+<h2>二、定义 / 名词解释</h2>
+
+<h3>1. 范围管理的定义</h3>
+<div class="answer">项目范围管理是为了确保项目包含成功完成项目所必需的全部工作，并且只包含这些必要工作而进行的管理过程。核心是明确项目边界，防止范围遗漏和范围蔓延。</div>
+
+<h3>2. WBS 的定义</h3>
+<div class="answer">WBS 即工作分解结构，是面向可交付成果对项目工作进行的层次分解，用于组织和定义项目范围。它把项目逐层分解为更小、更便于管理的工作单元，最底层通常是工作包。</div>
+
+<h3>3. 信息系统项目可行性研究的含义</h3>
+<div class="answer">信息系统项目可行性研究是在项目投资决策前，从技术、经济、运行环境等方面对项目进行调查、分析和论证，判断项目是否必要、可能和可行，为项目决策提供依据的工作。</div>
+
+<h3>4. 软件危机的定义</h3>
+<div class="answer">软件危机是指计算机软件在开发和维护过程中遇到的一系列严重问题，主要表现为开发费用和进度失控、软件可靠性差、软件难以维护等。</div>
+
+<h3>5. 软件工程的定义</h3>
+<div class="answer">软件工程是一门研究如何用系统化、规范化、数量化等工程原则和方法进行软件开发和维护的学科。它包括软件开发技术和软件项目管理两方面内容。</div>
+
+<h3>6. 里程碑</h3>
+<div class="answer">里程碑是在项目生命周期中标志项目进程或某个重要可交付成果完成的重大事件。它通常没有持续时间，主要用于检查和控制项目进展。</div>
+
+<h3>7. 干系人</h3>
+<div class="answer">项目干系人是积极参与项目，或其利益会受到项目执行和完成结果影响，并可能对项目及其结果施加影响的个人或组织，包括项目发起人、项目经理、项目团队、客户、用户、供应商等。</div>
+
+<h3>8. 项目生命周期的定义</h3>
+<div class="answer">项目生命周期是指项目从开始到结束所经历的各个阶段的总称，通常包括定义与决策、计划与设计、实施与控制、完工与交付等阶段。</div>
+</section>
+
+<section id="blank">
+<h2>三、填空题速记</h2>
+
+<h3>1. ISO9000 八项质量管理原则</h3>
+<div class="memo">口诀：顾领全过，系持事实供。</div>
+<p>以顾客为中心、领导作用、全员参与、过程方法、管理的系统方法、持续改进、基于事实的决策方法、互利的供方关系。</p>
+
+<h3>2. 质量控制老七种工具</h3>
+<div class="memo">口诀：调因直帕散流控。</div>
+<p>调查表、因果图、直方图、帕累托图、散点图、流程图、控制图。</p>
+
+<h3>3. 质量控制新七种工具</h3>
+<div class="memo">口诀：亲关树矩优箭 PD。</div>
+<p>亲和图、关联图、树形图、矩阵图、优先矩阵图、箭条图、过程决策程序图（PDPC）。</p>
+
+<h3>4. PDCA</h3>
+<p>Plan 计划、Do 执行、Check 检查、Act/Action 处理或行动。</p>
+
+<h3>5. 信息系统项目可行性研究内容</h3>
+<p>技术可行性分析、经济可行性分析、运行环境可行性分析和其他方面可行性分析。</p>
+
+<h3>6. 可行性研究步骤</h3>
+<p>机会研究、初步可行性研究、详细可行性研究、项目评估与决策。</p>
+
+<h3>7. 数字产品的物理特征</h3>
+<p>不易破坏性、可改变性、速度优势、可复制性、产品互补性。</p>
+
+<h3>8. 信息系统的组成成分</h3>
+<p>计算机软件、硬件、数据通信装置、数据存储设备、规章制度和有关人员的统一体。</p>
+
+<h3>9. 软件危机的表现</h3>
+<p>软件开发费用和进度失控、软件可靠性差、生产出来的软件难以维护。</p>
+
+<h3>10. 软件危机产生原因</h3>
+<p>软件本身特点、软件开发人员弱点、用户需求不明确、开发规模越来越大且复杂度越来越高。</p>
+
+<h3>11. 国际项目管理的两大组织</h3>
+<div class="memo">IPMA 配 ICB/IPMP；PMI 配 PMBOK/PMP。</div>
+<p>IPMA：国际项目管理协会。PMI：美国项目管理学会。</p>
+
+<h3>12. 项目与日常运营的异同</h3>
+<p>工作性质与内容、工作环境与方式、组织与管理、共同特征。日常运营持续重复，项目一次创新；日常运营确定封闭，项目开放不确定；日常运营职能部门管理，项目临时团队完成；二者都需要人员、资源、计划执行控制。</p>
+
+<h3>13. 项目生命周期的特点</h3>
+<p>不同阶段资源投入强度不同；项目不确定性或风险随项目进行呈反向变化；干系人对最终产品特征及费用的影响能力逐渐降低；项目总耗费不断增加。</p>
+
+<h3>14. 信息系统项目的特点</h3>
+<div class="memo">口诀：目需智外，命短维高。</div>
+<p>目标不明确、需求变化频繁、智力密集性、外包关系复杂、项目生命周期短、使用维护技术要求高。</p>
+
+<h3>15. 工作分解结构依据和表现形式</h3>
+<p><b>分解依据：</b>产品结构、项目阶段、项目过程。<br><b>表现形式：</b>分级树型结构、表格形式。</p>
+
+<h3>16. 信息系统维护具体包括</h3>
+<p>硬件维护、软件维护、数据维护、信息系统档案管理、日常管理工作。</p>
+
+<h3>17. 信息系统运行管理主要包括</h3>
+<p>系统安全与保密管理、系统日常管理与控制、用户培训。</p>
+
+<h3>18. IT 项目成本特点</h3>
+<div class="memo">口诀：人贵，直低间高，维护难，变动有风险。</div>
+<p>人工成本高；直接成本低、间接成本高；维护成本高且难确定；成本变动频繁、风险成本高。</p>
+
+<h3>19. PMBOK</h3>
+<p>PMBOK：Project Management Body of Knowledge，项目管理知识体系指南。五大过程组：启动、规划、执行、监控、收尾，口诀：启规执监收。</p>
+
+<h3>20. 老七种数据分析 / PCA 更正</h3>
+<p>课件中的新七种是 <b>PDPC</b>，过程决策程序图，不是 PCA。老七种按“调因直帕散流控”背。</p>
+</section>
+
+<section id="calc">
+<h2>四、计算题公式保底</h2>
+<div class="grid">
+<div class="answer">
+<h3>挣值分析</h3>
+<span class="formula">PV：计划值
+EV：挣值 = 预算 × 完成率
+AC：实际成本
+CV = EV - AC
+SV = EV - PV
+CPI = EV / AC
+SPI = EV / PV
+EAC/FAC = BAC / CPI
+ETC = (BAC - EV) / CPI
+非典型：EAC = AC + (BAC - EV)
+FT = T / SPI</span>
+</div>
+<div class="answer">
+<h3>关键路径 / 赶工</h3>
+<span class="formula">关键路径 = 总工期最长路径
+关键活动总时差 = 0
+总时差 ≥ 自由时差
+单位压缩成本 = (压缩成本 - 正常成本) / (正常工期 - 压缩工期)</span>
+<p>赶工：只压关键路径；多条关键路径要每条都压；同一路优先压单位成本低的活动。</p>
+</div>
+<div class="answer">
+<h3>PERT</h3>
+<span class="formula">期望时间 = (乐观 + 4×最可能 + 悲观) / 6
+方差 = ((悲观 - 乐观) / 6)^2
+路径期望 = 各活动期望相加
+路径方差 = 各活动方差相加
+标准差 = √总方差</span>
+</div>
+<div class="answer">
+<h3>FP / LOC</h3>
+<span class="formula">FP = 功能总计数值 × [0.65 + 0.01 × ΣFi]
+项目总成本 = 劳动力成本 × FP / 平均生产率
+LOC：先估总代码行数，再按生产率和人工成本估算总成本</span>
+</div>
+</div>
+</section>
+
+<section id="last">
+<h2>五、最后一小时只看这些</h2>
+<ol>
+  <li>简答：组织结构、FP、LOC、生命周期模型、进度拖延、质量控制方法。</li>
+  <li>名词：范围管理、WBS、可行性研究、软件危机、软件工程、里程碑、干系人、生命周期。</li>
+  <li>填空：ISO、老七种、新七种、PDCA、信息系统项目特点、IT 成本特点、WBS 依据和形式。</li>
+  <li>计算：挣值公式、关键路径、赶工、PERT、FP。</li>
+</ol>
+<p class="small">整理时间：2026-06-23。范围按当前课件和重点资料压缩。</p>
+</section>
+
+</div>
+</body>
+</html>
