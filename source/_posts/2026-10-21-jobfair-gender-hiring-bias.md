@@ -1,5 +1,5 @@
 ---
-title: "二、JobFair：大语言模型招聘性别偏差的评估框架"
+title: "JobFair：大语言模型招聘性别偏差的评估框架"
 date: 2026-10-21 09:00:00
 updated: 2026-10-21 09:00:00
 slug: jobfair-gender-hiring-bias

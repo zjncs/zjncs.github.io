@@ -1,5 +1,5 @@
 ---
-title: "三、PopResume：基于人口代表性数据的简历筛选因果公平性评估"
+title: "PopResume：基于人口代表性数据的简历筛选因果公平性评估"
 date: 2026-10-21 09:01:00
 updated: 2026-10-21 09:01:00
 slug: popresume-causal-fairness

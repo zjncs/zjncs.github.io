@@ -1,5 +1,5 @@
 ---
-title: "四、Walk the Talk?：大语言模型解释的忠实性评估"
+title: "Walk the Talk?：大语言模型解释的忠实性评估"
 date: 2026-10-21 09:02:00
 updated: 2026-10-21 09:02:00
 slug: walk-the-talk-explanation-faithfulness
