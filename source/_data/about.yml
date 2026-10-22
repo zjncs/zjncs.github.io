@@ -1,0 +1,56 @@
+# Dates are publication or event dates. Keep workshop and poster tracks explicit.
+# Add new entries at the top; quote dates to preserve month-only precision.
+news:
+  - date: '2026-10'
+    label: '2026.10'
+    kind: 'Poster'
+    text: 'Beyond Retrieval 以扩展摘要海报形式入选 ICAIS 2026（Track 5）。大会于 10 月 17–19 日在北京中关村学院举办。'
+    url: 'https://openreview.net/forum?id=OKvHLnSzwy'
+    link_text: '会议条目'
+  - date: '2026-07'
+    label: '2026.07'
+    kind: 'Publication'
+    text: '第一作者论文 Beyond Retrieval 发表于 KnowFM 2026 workshop（ACL 2026），现已收录于 ACL Anthology。'
+    url: 'https://aclanthology.org/2026.knowfm-1.10/'
+    link_text: '论文'
+  - date: '2024-06-20'
+    label: '2024.06.20'
+    kind: 'Publication'
+    text: '参与的车联网产业战略互动研究论文在线发表于 Managerial and Decision Economics。'
+    url: 'https://doi.org/10.1002/mde.4290'
+    link_text: '论文'
+
+publications:
+  - title: 'Beyond Retrieval: Bi-Temporal State Arbitration for Longitudinal Healthcare Agents'
+    authors:
+      - name: 'Jianing Zhao'
+        self: true
+      - name: 'Xiaoquan Zhi'
+      - name: 'Xinqiang Yu'
+    venue: 'KnowFM 2026 · ACL 2026 Workshop'
+    date: '2026-07'
+    date_label: '2026.07'
+    description: '面向长期医疗交互的状态记忆方法：通过双时态表示、增量状态裁决与分层证据访问，处理状态更新、信息冲突和历史回溯。'
+    links:
+      - label: 'Paper'
+        url: 'https://aclanthology.org/2026.knowfm-1.10/'
+      - label: 'PDF'
+        url: 'https://aclanthology.org/2026.knowfm-1.10.pdf'
+      - label: 'DOI'
+        url: 'https://doi.org/10.18653/v1/2026.knowfm-1.10'
+      - label: 'ICAIS 2026 · Extended Abstract Poster'
+        url: 'https://openreview.net/forum?id=OKvHLnSzwy'
+  - title: 'Strategic interactions and market dynamics in the intelligent connected vehicle industry: An analysis of technology sharing, value co-creation, and market competition'
+    authors:
+      - name: 'Mingpu Ma'
+      - name: 'Wenjie Sun'
+      - name: 'Jianing Zhao'
+        self: true
+      - name: 'Xiufeng Li'
+    venue: 'Managerial and Decision Economics'
+    date: '2024-06-20'
+    date_label: '2024.06.20 · Online publication'
+    description: '研究技术共享与价值共创背景下的车联网产业战略互动及市场竞争；负责理论模型建立、公式推导与验证。'
+    links:
+      - label: 'Paper / DOI'
+        url: 'https://doi.org/10.1002/mde.4290'

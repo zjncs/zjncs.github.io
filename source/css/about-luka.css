@@ -563,3 +563,146 @@ html[data-theme="dark"] #body-wrap.type-about .luka-timeline-item::before {
     grid-template-columns: 1fr;
   }
 }
+
+/* Research profile and data-driven updates. */
+#body-wrap.type-about .luka-intro {
+  margin: 0 0 14px;
+  color: var(--luka-text);
+  font-size: 15px;
+  line-height: 1.95;
+}
+
+#body-wrap.type-about .luka-updated {
+  margin-top: 20px;
+  color: var(--luka-secondary);
+  font-size: 12px;
+}
+
+#body-wrap.type-about .luka-education-next {
+  margin-top: 26px;
+}
+
+#body-wrap.type-about .luka-news-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#body-wrap.type-about .luka-news-item {
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1fr);
+  gap: 18px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--luka-border);
+}
+
+#body-wrap.type-about .luka-news-item:first-child {
+  padding-top: 0;
+}
+
+#body-wrap.type-about .luka-news-item > time {
+  padding-top: 3px;
+  color: var(--luka-secondary);
+  font: 12px/1.8 "JetBrains Mono", "SFMono-Regular", monospace;
+}
+
+#body-wrap.type-about .luka-news-kind {
+  color: var(--luka-accent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+#body-wrap.type-about .luka-news-item p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+#body-wrap.type-about .luka-news-item a,
+#body-wrap.type-about .luka-publication a {
+  color: var(--luka-accent);
+  text-decoration: none;
+}
+
+#body-wrap.type-about .luka-news-item a:hover,
+#body-wrap.type-about .luka-publication a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+#body-wrap.type-about .luka-publication {
+  padding: 22px 0;
+  border-bottom: 1px solid var(--luka-border);
+}
+
+#body-wrap.type-about .luka-publication:first-child {
+  padding-top: 0;
+}
+
+#body-wrap.type-about .luka-publication h3 {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+#body-wrap.type-about .luka-publication h3 a {
+  color: var(--luka-text);
+}
+
+#body-wrap.type-about .luka-paper-authors {
+  margin: 9px 0 0;
+  color: var(--luka-secondary);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+#body-wrap.type-about .luka-paper-authors strong {
+  color: var(--luka-text);
+}
+
+#body-wrap.type-about .luka-paper-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+#body-wrap.type-about .luka-paper-links a {
+  padding: 4px 10px;
+  border: 1px solid var(--luka-border);
+  border-radius: 6px;
+  background: var(--luka-badge-bg);
+  font-size: 12px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 680px) {
+  #body-wrap.type-about .luka-news-item {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  #body-wrap.type-about .luka-intro,
+  #body-wrap.type-about .luka-news-item p {
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #body-wrap.type-about .luka-section {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+/* Keep the academic profile name legible over the blog's global heading effects. */
+#body-wrap.type-about #article-container .luka-name {
+  color: var(--luka-text) !important;
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  text-shadow: none;
+}

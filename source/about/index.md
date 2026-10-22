@@ -1,6 +1,7 @@
 ---
 title: About
 date: 2025-11-22 10:00:00
+updated: 2026-10-22 16:00:00
 type: "about"
 top_img: false
 aside: false
@@ -25,7 +26,7 @@ comments: false
         </div>
 
         <h1 class="luka-name">赵嘉宁</h1>
-        <p class="luka-subtitle">Tianjin University Undergraduate</p>
+        <p class="luka-subtitle">Tianjin University · Undergraduate</p>
         <p class="luka-email">
           <a href="mailto:zhaojianing@tju.edu.cn">zhaojianing@tju.edu.cn</a>
         </p>
@@ -80,23 +81,42 @@ comments: false
         </div>
 
         <div class="luka-quick-facts">
-          <p>Information Management and Information System · GPA 90.07 / 100</p>
-          <p>GUI Agent · vLLM · RAG / Memory · Product &amp; Open Source</p>
-          <p>Python · SQL · Java · Vue · TypeScript · Mathematica</p>
+          <p>信息管理与信息系统 · 人工智能微专业<br>加权成绩 91.5 / 100</p>
+          <p>Agent Reasoning &amp; Planning · Agent Safety<br>GUI Agent · Memory · AI4SE</p>
+          <p>已获中国科学院软件研究所<br>软件工程专业推免预录取</p>
         </div>
       </div>
     </aside>
 
     <main class="luka-content">
+      <section class="luka-section" aria-labelledby="about-intro">
+        <h2 class="luka-section-title" id="about-intro">About Me</h2>
+        <p class="luka-intro">我是赵嘉宁，天津大学信息管理与信息系统专业大四学生，辅修人工智能微专业，已获得<strong>中国科学院软件研究所软件工程专业推免预录取</strong>，预计 2027 年入学。</p>
+        <p class="luka-intro">研究兴趣包括大模型与 Agent 的推理、规划、记忆和安全，以及智能软件工程与人机协同。此前参与 GUI Agent、系统级运行环境、长期状态记忆与 Skill 验证相关研究和开发，希望围绕真实任务中的智能体决策与能力提升开展算法研究。</p>
+        <p class="luka-updated">Last updated · <time datetime="2026-10-22">2026.10.22</time></p>
+      </section>
+
+{% endraw %}
+{% about_updates %}
+{% raw %}
       <section class="luka-section">
         <h2 class="luka-section-title">Education</h2>
         <article class="luka-plain-entry">
           <div class="luka-entry-badge">TJU</div>
           <div class="luka-entry-main">
             <h3>天津大学</h3>
-            <p class="luka-entry-role">信息管理与信息系统 · 本科在读</p>
-            <p class="luka-entry-desc">主线兴趣是 Agent、推理系统与数据驱动 AI 应用工程，核心课程包括数据结构、计算机网络、机器学习、数据库、人工智能模型与算法、数据挖掘。</p>
-            <p class="luka-entry-date">2023.08 - 2027.06 · GPA 90.07 / 100</p>
+            <p class="luka-entry-role">信息管理与信息系统 · 本科在读 · 人工智能微专业</p>
+            <p class="luka-entry-desc">研究兴趣为 Agent、智能软件工程与人机协同，核心课程包括数据结构、计算机网络、机器学习、数据库、人工智能模型与算法、数据挖掘。</p>
+            <p class="luka-entry-date">2023.08 - 2027.06（预计）· 加权成绩 91.5 / 100</p>
+          </div>
+        </article>
+        <article class="luka-plain-entry luka-education-next">
+          <div class="luka-entry-badge">ISCAS</div>
+          <div class="luka-entry-main">
+            <h3>中国科学院软件研究所 / 中国科学院大学</h3>
+            <p class="luka-entry-role">软件工程 · 硕士推免预录取</p>
+            <p class="luka-entry-desc">拟围绕智能软件工程开展研究。</p>
+            <p class="luka-entry-date">2027.09 入学（预计）</p>
           </div>
         </article>
       </section>
@@ -108,9 +128,20 @@ comments: false
             <div class="luka-entry-badge">AIR</div>
             <div class="luka-entry-main">
               <h3>清华大学智能产业研究院 AIoT 组</h3>
-              <p class="luka-entry-role">科研经历 · 长期实习</p>
+              <p class="luka-entry-role">科研经历 · 2026.01 - 至今</p>
             <p class="luka-entry-desc">参与 <a href="https://openruyi.github.io/" target="_blank" rel="noopener">RuyiX</a> 跨端 GUI Agent 系统研发，负责移动端执行链路建设；开发基于 Droidbot 的自动化输入工具实现 Android 无线接入，并通过 WDA Bridge 适配 iOS 任务执行，持续打通跨平台 Agent 操控链路。</p>
-            <p class="luka-entry-note">RuyiX · Droidbot · WDA Bridge · AOHP</p>
+            <p class="luka-entry-desc">参与 AOHP（An Open Fork of Android for Agent-Oriented Harness Engineering），探索面向 Agent 的 Android 系统级改造，为智能体执行与实验提供底层运行环境。</p>
+            <p class="luka-entry-note">RuyiX · Android / iOS · AOHP</p>
+            </div>
+          </article>
+
+          <article class="luka-timeline-item">
+            <div class="luka-entry-badge">SHLAB</div>
+            <div class="luka-entry-main">
+              <h3>上海人工智能实验室 &amp; WebAgentLab</h3>
+              <p class="luka-entry-role">科研经历 · 2025.11 - 2026.09</p>
+              <p class="luka-entry-desc">参与组织级 Agent 任务环境与评测框架建设，围绕企业协作、工具调用和跨系统业务流程开展实验，构建可复现的运行环境与自动判分机制。</p>
+              <p class="luka-entry-note">相关工作已投稿 ICLR 2027</p>
             </div>
           </article>
 
@@ -118,9 +149,9 @@ comments: false
             <div class="luka-entry-badge">PI</div>
             <div class="luka-entry-main">
               <h3>清华大学人机交互与普适计算实验室（PI lab）</h3>
-              <p class="luka-entry-role">科研经历 · 长期实习</p>
+              <p class="luka-entry-role">科研经历 · 2025.10 - 2026.01</p>
             <p class="luka-entry-desc">面向游戏开发者探索 Agent + PCG + 交互叙事设计的共创式创作工具链，实现叙事生成 Agent，整合知识检索、任务规划与工具调用，基于叙事拓扑和因果矩阵协同生成剧情节点、任务结构与关卡布局。</p>
-            <p class="luka-entry-note">Narrative Agent · PCG · ACM CHI 2027 (planned)</p>
+            <p class="luka-entry-note">Narrative Agent · PCG · Human–Agent Collaboration</p>
             </div>
           </article>
         </div>
@@ -175,6 +206,12 @@ comments: false
         <h2 class="luka-section-title">Projects</h2>
         <div class="luka-compact-list">
           <article class="luka-compact-item">
+            <h3>面向 SkillHub 的 Agent Skill 创建与验证平台</h3>
+            <p class="luka-entry-role">讯飞开源 · 开源之夏 · 2026.06 - 2026.09</p>
+            <p class="luka-entry-desc">构建从 Skill 草稿编辑、资源管理到受控验证与问题修复的工作流。基于 Java 21 / Spring Boot 实现运行时绑定、验证任务与 Finding 管理，基于 React / TypeScript 开发文件编辑、运行轨迹和差异修复工作台。</p>
+            <p class="luka-entry-note">Agent Skills · Controlled Verification · Trace Analysis</p>
+          </article>
+          <article class="luka-compact-item">
             <h3>车联网系统数据隐私保护与安全治理研究</h3>
             <p class="luka-entry-role">科研项目 · 2023.09 - 2024.06</p>
             <p class="luka-entry-desc">聚焦智能网联汽车产业的信息安全挑战与大型车企间战略互动，独立使用 Mathematica 完成数学模型建立、关键公式推导与验证，并完成论文建模部分撰写。</p>
@@ -183,7 +220,7 @@ comments: false
 
           <article class="luka-compact-item">
             <h3>数智化餐饮服务系统下消费者行为与运营管理策略研究</h3>
-            <p class="luka-entry-role">国家级大创 · 2024.04 - 2026.03</p>
+            <p class="luka-entry-role">国家级大创 · 优秀结项 · 2024.04 - 2026.03</p>
             <p class="luka-entry-desc">结合运筹学与数据科学，主导消费者行为数据分析，利用 Python、SQL 与 Tableau 处理 9073 条餐饮交易记录与外卖平台数据，提炼 5 类关键消费行为模式与画像特征，为餐饮企业精细化运营与个性化服务提供支撑。</p>
           </article>
 
@@ -202,7 +239,9 @@ comments: false
           <li>APMCM 亚太地区数学建模大赛国家级一等奖</li>
           <li>美国大学生数学建模竞赛 H 奖</li>
           <li>Kaggle-NeurIPS 2024 Lux AI Season 3 铜奖</li>
-          <li>华为软件精英挑战赛二等奖</li>
+          <li>中国高校计算机大赛大数据挑战赛二等奖</li>
+          <li>中国大学生计算机设计大赛国家级三等奖</li>
+          <li>华为软件精英挑战赛总决赛十六强</li>
           <li>能源经济学术创意大赛国家级特等奖</li>
           <li>量子信息技术与应用创新大赛一等奖</li>
           <li>外研社“国才杯”英语综合能力大赛二等奖</li>
