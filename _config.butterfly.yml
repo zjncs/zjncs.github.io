@@ -25,9 +25,10 @@ nav:
 
 menu:
   Home: / || fas fa-home
-  Wiki: /wiki/ || fas fa-compass
-  Life: /life/ || fas fa-coffee
-  Link: /link/ || fas fa-link
+  Explore || fas fa-compass:
+    Wiki: /wiki/ || fas fa-compass
+    Life: /life/ || fas fa-coffee
+    Link: /link/ || fas fa-link
   About: /about/ || fas fa-user-astronaut
 
 # ----------------------------------------------------------
