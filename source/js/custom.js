@@ -51,6 +51,43 @@ const hackerUI = (() => {
     window.addEventListener('scroll', toggle, { passive: true });
   };
 
+  const setupNavDropdowns = () => {
+    const groups = [...document.querySelectorAll('#nav .site-page.group')];
+    const closeAll = () => groups.forEach(group => group.setAttribute('aria-expanded', 'false'));
+    groups.forEach((group, index) => {
+      const menu = group.nextElementSibling;
+      if (!menu || !menu.classList.contains('menus_item_child')) return;
+      menu.id = `nav-dropdown-${index}`;
+      group.setAttribute('role', 'button');
+      group.setAttribute('tabindex', '0');
+      group.setAttribute('aria-controls', menu.id);
+      group.setAttribute('aria-expanded', 'false');
+      group.addEventListener('click', () => {
+        const open = group.getAttribute('aria-expanded') !== 'true';
+        closeAll();
+        group.setAttribute('aria-expanded', String(open));
+      });
+      group.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          group.click();
+        }
+      });
+      group.parentElement.addEventListener('focusout', event => {
+        if (!group.parentElement.contains(event.relatedTarget)) closeAll();
+      });
+    });
+    document.addEventListener('click', event => {
+      if (!groups.some(group => group.parentElement.contains(event.target))) closeAll();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key !== 'Escape') return;
+      const open = groups.find(group => group.getAttribute('aria-expanded') === 'true');
+      closeAll();
+      if (open) open.focus();
+    });
+  };
+
   const setupScrollIndicator = () => {
     const bar = document.querySelector('#scroll-indicator');
     if (bar) bar.remove();
@@ -300,6 +337,7 @@ const hackerUI = (() => {
 
   const init = () => {
     setupNavScroll();
+    setupNavDropdowns();
     setupScrollIndicator();
     setupRecentPostLinks();
     setupCardTilt();

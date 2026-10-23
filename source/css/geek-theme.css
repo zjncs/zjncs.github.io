@@ -851,7 +851,7 @@ a:hover {
    -------------------------------------------------------------------------- */
 #nav {
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     backdrop-filter: blur(10px) saturate(125%);
     -webkit-backdrop-filter: blur(10px) saturate(125%);
     background: rgba(9, 12, 20, 0.70);
@@ -1730,4 +1730,40 @@ html::-webkit-scrollbar-thumb:hover {
 
 .card-glow.is-active {
     opacity: 0.75;
+}
+
+/* Keep dropdowns outside the header visible and support explicit toggling. */
+#nav .site-page.group[role="button"] {
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+#nav .site-page.group[aria-expanded="false"] + .menus_item_child {
+    display: none;
+}
+#nav .site-page.group[aria-expanded="true"] + .menus_item_child {
+    display: block;
+    z-index: 10;
+}
+#nav .site-page.group[aria-expanded="false"] > i:last-child {
+    transform: none;
+}
+#nav .site-page.group[aria-expanded="true"] > i:last-child {
+    transform: rotate(180deg);
+}
+#nav .site-page.group:focus-visible {
+    outline: 2px solid var(--link-hover-color);
+    outline-offset: 2px;
+}
+
+#nav .menus_items .menus_item .menus_item_child {
+    background: #141c2c;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 12px 28px rgba(3, 8, 18, 0.3);
+}
+#nav .menus_items .menus_item .menus_item_child li:hover {
+    background: rgba(255, 255, 255, 0.08);
 }
