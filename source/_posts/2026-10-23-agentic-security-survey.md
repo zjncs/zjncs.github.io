@@ -1,5 +1,5 @@
 ---
-title: "一、Agent安全综述：攻击、防御与那些被忽视的漏洞"
+title: "Agent安全综述：攻击、防御与那些被忽视的漏洞"
 date: 2026-10-23 16:20:00
 updated: 2026-10-23 16:20:00
 slug: agentic-security-survey
