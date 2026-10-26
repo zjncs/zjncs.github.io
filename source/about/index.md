@@ -202,12 +202,6 @@ comments: false
             <p class="luka-entry-desc">构建从 Skill 草稿编辑、资源管理到受控验证与问题修复的工作流。基于 Java 21 / Spring Boot 实现运行时绑定、验证任务与 Finding 管理，基于 React / TypeScript 开发文件编辑、运行轨迹和差异修复工作台。</p>
             <p class="luka-entry-note">Agent Skills · Controlled Verification · Trace Analysis</p>
           </article>
-          <article class="luka-compact-item">
-            <h3>车联网系统数据隐私保护与安全治理研究</h3>
-            <p class="luka-entry-role">科研项目 · 2023.09 - 2024.06</p>
-            <p class="luka-entry-desc">聚焦智能网联汽车产业的信息安全挑战与大型车企间战略互动，独立使用 Mathematica 完成数学模型建立、关键公式推导与验证，并完成论文建模部分撰写。</p>
-            <p class="luka-entry-note"><a href="https://doi.org/10.1002/mde.4290" target="_blank" rel="noopener">DOI: 10.1002/mde.4290</a> · 第十四届全国高校本科生经济年会三等奖</p>
-          </article>
 
           <article class="luka-compact-item">
             <h3>数智化餐饮服务系统下消费者行为与运营管理策略研究</h3>
@@ -215,12 +209,6 @@ comments: false
             <p class="luka-entry-desc">结合运筹学与数据科学，主导消费者行为数据分析，利用 Python、SQL 与 Tableau 处理 9073 条餐饮交易记录与外卖平台数据，提炼 5 类关键消费行为模式与画像特征，为餐饮企业精细化运营与个性化服务提供支撑。</p>
           </article>
 
-          <article class="luka-compact-item">
-            <h3>灵犀健康 / OpenLinkage</h3>
-            <p class="luka-entry-role">个人项目 · Open Source</p>
-            <p class="luka-entry-desc">面向智能健康管理场景的开源多 Agent 框架，围绕个性化健康咨询、长期状态理解与可扩展工具链设计，探索从 AI 助手到健康管理 workflow 的完整产品形态；开源后 GitHub 已获 100+ stars，并尝试商业化落地。</p>
-            <p class="luka-entry-note"><a href="https://github.com/zjncs/OpenLinkage" target="_blank" rel="noopener">github.com/zjncs/OpenLinkage</a></p>
-          </article>
         </div>
       </section>
 
