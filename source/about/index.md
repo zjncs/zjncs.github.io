@@ -170,15 +170,6 @@ comments: false
             </div>
           </article>
 
-          <article class="luka-timeline-item">
-            <div class="luka-entry-badge">MS</div>
-            <div class="luka-entry-main">
-              <h3>华为 MindSpore &amp; 上海人工智能实验室</h3>
-              <p class="luka-entry-role">开源实习</p>
-              <p class="luka-entry-desc">基于 Ascend 910B + CANN 8.3 参与 vLLM-MindSpore 推理插件研发，完成 LLaVA-Next 的多模态工程适配与推理接口对齐，并接入 VLMEvalKit 构建国产推理链路评测流程。</p>
-              <p class="luka-entry-date">2025.11 - 2026.06</p>
-            </div>
-          </article>
 
           <article class="luka-timeline-item">
             <div class="luka-entry-badge">YY</div>
