@@ -40,6 +40,20 @@ publications:
         url: 'https://doi.org/10.18653/v1/2026.knowfm-1.10'
       - label: 'ICAIS 2026 · Extended Abstract Poster'
         url: 'https://openreview.net/forum?id=OKvHLnSzwy'
+  - title: 'Research on the application of graph data structure and graph neural network in node classification/clustering tasks'
+    authors:
+      - name: 'Yihan Wang'
+      - name: 'Jianing Zhao'
+        self: true
+    venue: 'arXiv preprint · arXiv:2507.19527'
+    date: '2025-07-20'
+    date_label: '2025.07.20'
+    description: '通过对比实验评估传统图算法与图神经网络在节点分类和聚类任务中的表现。'
+    links:
+      - label: 'arXiv'
+        url: 'https://arxiv.org/abs/2507.19527'
+      - label: 'PDF'
+        url: 'https://arxiv.org/pdf/2507.19527'
   - title: 'Strategic interactions and market dynamics in the intelligent connected vehicle industry: An analysis of technology sharing, value co-creation, and market competition'
     authors:
       - name: 'Mingpu Ma'
